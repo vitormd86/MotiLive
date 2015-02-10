@@ -16,6 +16,8 @@ import android.widget.Toast;
 public class MainActivity extends ActionBarActivity {
 
     @Override
+    //OnCreate, é o q a Activity faz logo que inicia, neste caso, inicia os vetores, variáveis e adaptadores
+    //Inicia tb a Listener das views( botoes)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

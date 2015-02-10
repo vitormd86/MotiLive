@@ -7,7 +7,7 @@ import android.support.v7.app.ActionBarActivity;
 /**
  * Created by Henrique on 09/02/2015.
  */
-
+//inicia a terceira view, que está vazia no momento.
 public class thirdScreen extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

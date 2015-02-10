@@ -12,6 +12,7 @@ import android.widget.TextView;
 /**
  * Created by Henrique on 06/02/2015.
  */
+//Adaptador ele joga as  a imagem e um EditText dentro de uma lista
 public class myAdapter extends ArrayAdapter<String> {
     public myAdapter(Context context, String[] values) {
         super(context,R.layout.row_layout2, values);
@@ -30,7 +31,6 @@ public class myAdapter extends ArrayAdapter<String> {
         theImageView.setImageResource(R.drawable.hide);
 
         return theView;
-
 
         }
 }

@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 public class SecondScreen extends Activity {
     @Override
-
+// inicia a atividadde da segunda tela
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.second_layout);

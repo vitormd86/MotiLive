@@ -12,6 +12,7 @@ import android.widget.TextView;
 /**
  * Created by Henrique on 06/02/2015.
  */
+// mesma coisa que o myAdapter só que eu tirei o ImageView, pra fazer uma lista de serviços
 public class myAdapterServicos extends ArrayAdapter<String> {
     public myAdapterServicos(Context context, String[] values) {
         super(context,R.layout.row_layout3, values);
