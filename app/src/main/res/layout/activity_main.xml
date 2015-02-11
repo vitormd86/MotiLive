@@ -12,14 +12,15 @@
     <!-- todo layout linear precisa ter definida a orientação -->
     <CalendarView
         android:id="@+id/calendarView"
-        android:layout_width="351dp"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
         android:layout_weight="1" />
 
     <ListView
         android:id="@+id/ListView"
-        android:layout_width="wrap_content"
-        android:layout_height="238dp">
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
     </ListView>
 
