@@ -32,9 +32,10 @@ public class MainActivity extends ActionBarActivity {
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent getNameScreenIntent = new Intent(MainActivity.this,SecondScreen.class);
+                String escolha;
+                escolha = String.valueOf(parent.getItemAtPosition(position));
 
-                getNameScreenIntent.putExtra("callingActivity", "MainActivity");
-
+                getNameScreenIntent.putExtra("Escolha",escolha ); // joga os dados para a proxima activity
                 startActivity(getNameScreenIntent);
             }
         });
