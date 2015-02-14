@@ -5,11 +5,18 @@
     android:gravity="bottom"
     android:paddingLeft="16dp">
 
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="20dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"/>
+
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="20dp"
         android:layout_marginBottom="15dp"
         android:layout_alignParentRight="true"/>
     <TextView
@@ -37,8 +44,18 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="15dp"
-        android:paddingTop="10dp"
+        android:paddingTop="20dp"
         android:text="Horario"
         android:textSize="15sp"
         android:textStyle="italic"/>
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="15dp"
+        android:text="Servico"
+        android:textSize="15sp"
+        android:textStyle="italic"/>
+
 </RelativeLayout>

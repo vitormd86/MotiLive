@@ -23,6 +23,7 @@ public class ProfessionalHours extends ActionBarActivity {
         TextView myTextView1 = (TextView) findViewById(R.id.textView1);
         TextView myTextView2 = (TextView) findViewById(R.id.textView2);
         ListView myListView1 = (ListView) findViewById(R.id.ListView);
+
         ListAdapter myAdapter = new myAdapterClients(this, clientesAgendados);
 
         //Configurando as variaveis do cabecalho
