@@ -1,46 +1,46 @@
 package com.example.henrique.list;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.res.Configuration;
+import android.content.Intent;
+import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
-import static com.example.henrique.list.R.id.action_settings;
 
-
-public class MainActivity extends android.app.Activity {
+public class MainActivity extends ActionBarActivity {
 
     @Override
     //OnCreate, é o q a Activity faz logo que inicia, neste caso, inicia os vetores, variáveis e adaptadores
     //Inicia tb a Listener das views( botoes)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        //cria um fragment manager
-        FragmentManager fragmentManager = getFragmentManager();
-        //cria um fragment transaction
-        FragmentTransaction fragmentTransaction;
-        // Inicia  a escolha de qual fragmento  usar
-        fragmentTransaction = fragmentManager.beginTransaction();
-        //Inicia  uma variável q diz qual a orientação
-        Configuration configInfo = getResources().getConfiguration();
+        String[] favoriteProfessionals = {"Leandro Massaru Kubota", "Ivo Issao Tobioka", "Michel SantaGuida", "Henrique Ta/mashiro"};// aqui eu inicializa o array de opcoes
+        ListAdapter theAdapter = new myAdapter(this, favoriteProfessionals); //inicializa o adaptador de array, pra encaixar o array na lsita
+        ListView theListView = (ListView) findViewById(R.id.ListView); // inicializa a view
+        theListView.setAdapter(theAdapter);// seleciona o adaptador... no caso  "my adapter"
 
-        if (configInfo.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            FragmentLandscape fragmentLandscape = new FragmentLandscape();
-            fragmentTransaction.replace(android.R.id.content, fragmentLandscape);
+        theListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
 
-        } else if(configInfo.orientation == Configuration.ORIENTATION_PORTRAIT)
-        {
-            FragmentPortrait fragmentPortrait = new FragmentPortrait();
-            fragmentTransaction.replace(android.R.id.content, fragmentPortrait);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent getNameScreenIntent = new Intent(MainActivity.this,SecondScreen.class);
+                String escolha;
+                escolha = String.valueOf(parent.getItemAtPosition(position));
 
-        }
-        fragmentTransaction.commit();
-
-
+                getNameScreenIntent.putExtra("Escolha",escolha ); // joga os dados para a proxima activity
+                startActivity(getNameScreenIntent);
+            }
+        });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -57,7 +57,7 @@ public class MainActivity extends android.app.Activity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == action_settings) {
+        if (id == R.id.action_settings) {
             return true;
         }
 
