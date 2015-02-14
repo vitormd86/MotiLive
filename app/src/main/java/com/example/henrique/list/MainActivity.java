@@ -1,23 +1,13 @@
 package com.example.henrique.list;
 
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.content.res.Configuration;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.support.v4.app.Fragment;
 
-import static com.example.henrique.list.R.*;
-import static com.example.henrique.list.R.id.*;
+import static com.example.henrique.list.R.id.action_settings;
 
 
 public class MainActivity extends android.app.Activity {
