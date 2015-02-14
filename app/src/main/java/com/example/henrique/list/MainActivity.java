@@ -22,7 +22,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String[] favoriteProfessionals = {"Leandro Massaru Kubota", "Ivo Issao Tobioka", "Michel SantaGuida", "Henrique Ta/mashiro"};// aqui eu inicializa o array de opcoes
+        String[] favoriteProfessionals = {"Leandro Massaru Kubota", "Ivo Issao Tobioka", "Michel SantaGuida", "Henrique Tamashiro"};// aqui eu inicializa o array de opcoes
         ListAdapter theAdapter = new myAdapter(this, favoriteProfessionals); //inicializa o adaptador de array, pra encaixar o array na lsita
         ListView theListView = (ListView) findViewById(R.id.ListView); // inicializa a view
         theListView.setAdapter(theAdapter);// seleciona o adaptador... no caso  "my adapter"

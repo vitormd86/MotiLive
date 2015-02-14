@@ -2,8 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.henrique.list" >
 
-    <uses-sdk android:minSdkVersion="11"
-        android:targetSdkVersion="21"> </uses-sdk>
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="21" > </uses-sdk>
 
     <application
         android:allowBackup="true"
@@ -19,13 +20,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SecondScreen"
+        <activity
+            android:name=".SecondScreen"
             android:label="Get Name"
-            android:theme="@style/AppTheme"/>
-        <activity android:name=".thirdScreen"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".thirdScreen"
             android:label="Data, Hora e Serviço escolhido"
-            android:theme="@style/AppTheme"/>
-
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ProfessionalDays"
+            android:label="Datas de agendamentos" >
+        </activity>
+        <activity
+            android:name=".ProfessionalHours"
+            android:label="Horários de agendamentos" >
+        </activity>
     </application>
 
 </manifest>

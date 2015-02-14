@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- layout de visualizacao da agenda do profissional -->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,8 +13,11 @@
     android:paddingTop="@dimen/activity_vertical_margin">
 
     <RelativeLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <!-- este trecho (RelativeLayout) organiza a visualizacao do titulo,
+        ou seja, os dados do profissional-->
         <ImageView
             android:id="@+id/imageView1"
             android:layout_width="40dp"
@@ -25,7 +31,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
             android:padding="15dp"
-            android:text="Nome do Profissional"
             android:textSize="15sp"
             android:textStyle="bold"/>
         <TextView
@@ -35,17 +40,13 @@
             android:layout_marginLeft="50dp"
             android:layout_marginTop="15dp"
             android:padding="15dp"
-            android:text="Agendamentos de XX/XX/XXXX"
             android:textSize="15sp"
             android:textStyle="bold"/>
     </RelativeLayout>
-
-    <ListView
-        android:id="@+id/ListView"
+    <CalendarView
+        android:id="@+id/calendarView"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
-    <!-- esta lista vai mostrar agendamentos para o dia selecionado-->
-    </ListView>
+        android:layout_weight="1" />
 
 </LinearLayout>
