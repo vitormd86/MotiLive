@@ -1,6 +1,10 @@
 package com.example.henrique.list;
 
+import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,32 +17,30 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
     @Override
     //OnCreate, é o q a Activity faz logo que inicia, neste caso, inicia os vetores, variáveis e adaptadores
     //Inicia tb a Listener das views( botoes)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        FragmentManager fragmentManager = getFragmentManager();
 
-        String[] favoriteProfessionals = {"Leandro Massaru Kubota", "Ivo Issao Tobioka", "Michel SantaGuida", "Henrique Tamashiro"};// aqui eu inicializa o array de opcoes
-        ListAdapter theAdapter = new myAdapter(this, favoriteProfessionals); //inicializa o adaptador de array, pra encaixar o array na lsita
-        ListView theListView = (ListView) findViewById(R.id.ListView); // inicializa a view
-        theListView.setAdapter(theAdapter);// seleciona o adaptador... no caso  "my adapter"
+        FragmentTransaction fragmentTransaction =  fragmentManager.beginTransaction();
 
-        theListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
+        Configuration configInfo = getResources().getConfiguration();
+        if (configInfo.orientation == Configuration.ORIENTATION_LANDSCAPE){
 
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent getNameScreenIntent = new Intent(MainActivity.this,SecondScreen.class);
-                String escolha;
-                escolha = String.valueOf(parent.getItemAtPosition(position));
+            FragmentLandscape fragmentLandscape = new FragmentLandscape();
+            fragmentTransaction.replace(android.R.id.content,fragmentLandscape);
 
-                getNameScreenIntent.putExtra("Escolha",escolha ); // joga os dados para a proxima activity
-                startActivity(getNameScreenIntent);
-            }
-        });
+        }else{
+
+            FragmentPortrait fragmentPortrait = new FragmentPortrait();
+            fragmentTransaction.replace(android.R.id.content,fragmentPortrait);
+
+        }
+        fragmentTransaction.commit();
     }
 
 

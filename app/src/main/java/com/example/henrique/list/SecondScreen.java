@@ -19,10 +19,11 @@ public class SecondScreen extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.second_layout);
+        Intent activityThatCalled = getIntent();
 
-        Intent intent = getIntent();
-        final String Profissional;
-        Profissional = intent.getStringExtra("Escolha");
+        	        // String previousActivity = activityThatCalled.getExtras().getString("callingActivity");
+
+        final opcoesSelecionadas opcoes = (opcoesSelecionadas) activityThatCalled.getSerializableExtra("Escolhas"); // pega o objeto q foi serializado na activity anterior
 
         String[] Servicos = {"Massagem", "Acumputura", "Shiatsu"};// aqui eu inicializa o array de opcoes
         ListAdapter theAdapter = new myAdapterServicos(this, Servicos); //inicializa o adaptador de array, pra encaixar o array na lsita
@@ -35,12 +36,9 @@ public class SecondScreen extends Activity {
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent getNameScreenIntent = new Intent(SecondScreen.this, thirdScreen.class);
-                String servico;
-                servico = String.valueOf(parent.getItemAtPosition(position));
+                opcoes.setServicoEscolhido(String.valueOf(parent.getItemAtPosition(position)));
         // prepara os dados pra proxima activity
-                getNameScreenIntent.putExtra("Servico",servico );
-                getNameScreenIntent.putExtra("Profissional",Profissional );
-
+                getNameScreenIntent.putExtra("Escolhas",opcoes );
 
                 startActivity(getNameScreenIntent);
             }
