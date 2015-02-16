@@ -9,6 +9,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 
 
 public class FragmentLandscape extends Fragment {
@@ -29,7 +33,21 @@ public class FragmentLandscape extends Fragment {
         theAdapter = new myAdapter(v.getContext(), favoriteProfessionals);
 
         theListView.setAdapter(theAdapter);// seleciona o adaptador... no caso  "theAdapter" q eh do tipo myAdapter
-
+       //teste de conexao
+        Connection con = null;
+        try {
+            con = ConnectionFactory.getConnection();
+            Toast.makeText(v.getContext(), "conectou com sucesso", Toast.LENGTH_SHORT).show();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        assert con != null;
+        try {
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        //teste conexao
 
 
         theListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
