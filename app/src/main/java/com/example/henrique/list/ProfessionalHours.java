@@ -5,6 +5,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class ProfessionalHours extends ActionBarActivity {
@@ -15,9 +17,14 @@ public class ProfessionalHours extends ActionBarActivity {
         setContentView(R.layout.activity_professional_hours);
         Intent intent = getIntent();
 
-        String professionalName = "Leandro Massaro Kubota";
+        String professionalName = "Leandro Massaro Kubota"; // buscar do banco
+        String[] clientesAgendados = {"Cliente 1", "Cliente 2", "Cliente 3"};
+
         TextView myTextView1 = (TextView) findViewById(R.id.textView1);
         TextView myTextView2 = (TextView) findViewById(R.id.textView2);
+        ListView myListView1 = (ListView) findViewById(R.id.ListView);
+
+        ListAdapter myAdapter = new myAdapterClients(this, clientesAgendados);
 
         //Configurando as variaveis do cabecalho
         myTextView1.setText(professionalName);
@@ -27,6 +34,10 @@ public class ProfessionalHours extends ActionBarActivity {
                intent.getStringExtra("month") + "/" +
                intent.getStringExtra("year")
         );
+        //Configurando lista dos clientes
+        myListView1.setAdapter(myAdapter);
+
+
     }
 
 
