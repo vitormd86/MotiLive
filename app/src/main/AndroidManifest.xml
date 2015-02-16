@@ -4,7 +4,16 @@
 
     <uses-sdk
         android:minSdkVersion="11"
-        android:targetSdkVersion="21" > </uses-sdk>
+        android:targetSdkVersion="21" >
+    </uses-sdk>
+
+    <android:uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <android:uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
 
     <application
         android:allowBackup="true"
@@ -35,6 +44,15 @@
         <activity
             android:name=".ProfessionalHours"
             android:label="Horários de agendamentos" >
+        </activity>
+        <activity
+            android:name="._DrawerTestActivity"
+            android:label="@string/title_activity_drawer_text" >
+        </activity>
+
+        <activity
+            android:name=".ClientView"
+            android:label="Perfil do Cliente" >
         </activity>
     </application>
 

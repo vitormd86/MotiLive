@@ -5,39 +5,43 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class ProfessionalHours extends ActionBarActivity {
+
+public class ClientView extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_professional_hours);
+        setContentView(R.layout.activity_client_view);
         Intent intent = getIntent();
 
-        String professionalName = "Leandro Massaro Kubota"; // buscar do banco
-        String[] clientesAgendados = {"Cliente 1 ID", "Cliente 2 ID", "Cliente 3 ID"};  // buscar do banco
+        //recebe usuario da Intent
+        String clientName = intent.getStringExtra("nameClient");
+
+        String clientEmail = "massaro@karabacana.com.br"; // buscar do banco
+        String clientPhoneNumber = "69696969"; // buscar do banco
+        String [] schedules = {"Agend 1", "Agend 2", "Agend 3"}; // agendamentos do usuario atual
 
         TextView myTextView1 = (TextView) findViewById(R.id.textView1);
         TextView myTextView2 = (TextView) findViewById(R.id.textView2);
         ListView myListView1 = (ListView) findViewById(R.id.ListView);
+        ImageView phoneImage = (ImageView) findViewById(R.id.imageView2);
 
-        ListAdapter myAdapter = new MyAdapterClients(this, clientesAgendados);
+        ListAdapter myAdapter = new MyAdapterClientSmall(this, schedules);
 
         //Configurando as variaveis do cabecalho
-        myTextView1.setText(professionalName);
-        //Configurando data a partir dos dados da Intent
-        myTextView2.setText(
-               intent.getStringExtra("dayOfMonth") + "/" +
-               intent.getStringExtra("month") + "/" +
-               intent.getStringExtra("year")
-        );
+        myTextView1.setText(clientName);
+        myTextView2.setText(clientEmail);
+        //configurando listener para telefonar.
+
+
+
         //Configurando lista dos clientes
         myListView1.setAdapter(myAdapter);
-
-
     }
 
 
