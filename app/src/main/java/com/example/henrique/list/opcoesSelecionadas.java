@@ -2,12 +2,31 @@ package com.example.henrique.list;
 
 import java.io.Serializable;
 
-/**
- * Created by Henrique on 11/02/2015.
- */
+
 public class opcoesSelecionadas implements Serializable {
 
-    private String profissionalEscolhido, servicoEscolhido, dataEscolhida;
+    private String profissionalEscolhido;
+    private String servicoEscolhido;
+    private String dataEscolhida;
+
+    public String getDiaEscolhido() {
+        return diaEscolhido;
+    }
+
+    public void setDiaEscolhido(String diaEscolhido) {
+        this.diaEscolhido = diaEscolhido;
+    }
+
+    public String getHoraEscolhida() {
+        return HoraEscolhida;
+    }
+
+    public void setHoraEscolhida(String horaEscolhida) {
+        HoraEscolhida = horaEscolhida;
+    }
+
+    private String diaEscolhido;
+    private String HoraEscolhida;
 
     public String getProfissionalEscolhido() {
         return profissionalEscolhido;

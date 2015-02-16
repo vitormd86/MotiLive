@@ -10,9 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-/**
- * Created by Henrique on 12/02/2015.
- */
+
 public class FragmentLandscape extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
@@ -32,6 +30,8 @@ public class FragmentLandscape extends Fragment {
 
         theListView.setAdapter(theAdapter);// seleciona o adaptador... no caso  "theAdapter" q eh do tipo myAdapter
 
+
+
         theListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -44,7 +44,19 @@ public class FragmentLandscape extends Fragment {
                 startActivity(opcoesEscolhidas);
             }
         });
+     /* CalendarView myCalendarView = (CalendarView) v.findViewById(R.id.calendarView);
+        myCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+         /  public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
 
+
+            //    Envia dados para proxima Activity (ProfessionalHours)
+                nextCalendarActivity.putExtra("dayOfMonth", Integer.toString(dayOfMonth));
+                nextCalendarActivity.putExtra("month", Integer.toString(month));
+               // nextCalendarActivity.putExtra("year", Integer.toString(year));
+          //  }
+        //});
+*/
         return v;
             }
 }
