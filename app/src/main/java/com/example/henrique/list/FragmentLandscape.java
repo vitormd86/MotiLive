@@ -15,7 +15,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 
-public class FragmentLandscape extends Fragment {
+public class FragmentLandscape extends Fragment  {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
 
@@ -34,19 +34,10 @@ public class FragmentLandscape extends Fragment {
 
         theListView.setAdapter(theAdapter);// seleciona o adaptador... no caso  "theAdapter" q eh do tipo myAdapter
        //teste de conexao
-        Connection con = null;
-        try {
-            con = ConnectionFactory.getConnection();
-            Toast.makeText(v.getContext(), "conectou com sucesso", Toast.LENGTH_SHORT).show();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        assert con != null;
-        try {
-            con.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
+
+
+
         //teste conexao
 
 

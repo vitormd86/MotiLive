@@ -5,12 +5,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
-public class ConnectionFactory {
+public  class ConnectionFactory {
 
     public static Connection getConnection() throws SQLException {
         try {
-            Class.forName("jdbc:mysql:192.169.198.138");
-            return DriverManager.getConnection("com.mysql.jdbc.Driver","root","4MotiLive");
+            Class.forName("com.mysql.jdbc.Driver");
+            return DriverManager.getConnection("jdbc:Mysql://192.169.198.138:3306/motilive","root","4MotiLive");
 
         }catch (ClassNotFoundException e) {
             throw new SQLException(e.getMessage());

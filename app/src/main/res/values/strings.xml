@@ -9,5 +9,8 @@
     <string name="enter_name_button_text">Enter</string>
     <string name="calling_activity_message">The calling activity was</string>
     <string name="login_BTN">Login</string>
+    <string name="title_activity_drawer_text">teste</string>
+    <string name="drawer_open" />
+    <string name="drawer_close" />
 
 </resources>

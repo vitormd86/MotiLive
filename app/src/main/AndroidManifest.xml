@@ -54,6 +54,8 @@
             android:name=".ClientView"
             android:label="Perfil do Cliente" >
         </activity>
+        <uses-permission android:name="android.permission.INTERNET" />
+
     </application>
 
 </manifest>

@@ -19,8 +19,8 @@ import android.widget.Toast;
  * Created by Vitor on 14/02/2015.
 **/
 //PRECISO PASSAR MAIS DE UMA ARRAY COMO ARGUMENTO NO CONSTRUTOR... (HORARIO E STATUS)
-public class MyAdapterClients extends ArrayAdapter<String> {
-    public MyAdapterClients(Context context, String[] clients) {
+public class myAdapterClients extends ArrayAdapter<String> {
+    public myAdapterClients(Context context, String[] clients) {
         super(context,R.layout.schedule_client, clients);
 
     }
