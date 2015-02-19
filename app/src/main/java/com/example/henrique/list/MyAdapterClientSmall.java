@@ -5,8 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -15,7 +13,7 @@ import android.widget.TextView;
 //PRECISO PASSAR MAIS DE UMA ARRAY COMO ARGUMENTO NO CONSTRUTOR... (HORARIO E STATUS)
 public class MyAdapterClientSmall  extends ArrayAdapter<String> {
     public MyAdapterClientSmall(Context context, String[] clients) {
-        super(context, R.layout.schedule_client_small, clients);
+        super(context, R.layout.view_schedule_client_small, clients);
 
     }
 
@@ -23,7 +21,7 @@ public class MyAdapterClientSmall  extends ArrayAdapter<String> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater theInflator = LayoutInflater.from(getContext());
-        View theView = theInflator.inflate(R.layout.schedule_client_small, parent, false);
+        View theView = theInflator.inflate(R.layout.view_schedule_client_small, parent, false);
 
         final String schedules = getItem(position);
         TextView status = (TextView) theView.findViewById(R.id.textView1);

@@ -3,6 +3,9 @@
 <!-- layout de visualizacao da agenda do profissional -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    tools:context="com.example.henrique.list._DrawerTestActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="bottom"

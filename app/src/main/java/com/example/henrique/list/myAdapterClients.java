@@ -21,7 +21,7 @@ import android.widget.Toast;
 //PRECISO PASSAR MAIS DE UMA ARRAY COMO ARGUMENTO NO CONSTRUTOR... (HORARIO E STATUS)
 public class myAdapterClients extends ArrayAdapter<String> {
     public myAdapterClients(Context context, String[] clients) {
-        super(context,R.layout.schedule_client, clients);
+        super(context,R.layout.view_schedule_client, clients);
 
     }
 
@@ -29,7 +29,7 @@ public class myAdapterClients extends ArrayAdapter<String> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater theInflator = LayoutInflater.from(getContext());
-        View theView = theInflator.inflate(R.layout.schedule_client, parent, false);
+        View theView = theInflator.inflate(R.layout.view_schedule_client, parent, false);
 
         final String clients = getItem(position);
         TextView name = (TextView) theView.findViewById(R.id.textView1);
@@ -39,7 +39,7 @@ public class myAdapterClients extends ArrayAdapter<String> {
         ImageView clientPhoto =  (ImageView) theView.findViewById(R.id.imageView1);
 
 
-        //Alimentando os dados de schedule_client
+        //Alimentando os dados de view_schedule_client
         name.setText(clients);
         status.setText("STATUS");
         hour.setText("HORARIO");
