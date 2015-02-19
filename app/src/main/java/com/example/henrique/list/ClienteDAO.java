@@ -1,19 +1,41 @@
 package com.example.henrique.list;
 
+import android.app.Activity;
+import android.content.Context;
 import android.database.SQLException;
+import android.widget.Toast;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.concurrent.ExecutionException;
 
 
-public class ClienteDAO {
+public class ClienteDAO extends Activity {
     private static Connection connection;
-    public ClienteDAO() throws SQLException {
-        try {
-            this.connection = ConnectionFactory.getConnection();
+    private Context context;
 
-        } catch (java.sql.SQLException e) {
+
+    public ClienteDAO(Context context) throws SQLException {
+
+        ConnectionFactory con;
+        this.context = context;
+
+        con = new ConnectionFactory(context);
+
+
+        try {
+            if (con.execute().get()) if (con.isConected()) {
+                this.connection = con.connect(context);
+
+            } else {
+
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
             e.printStackTrace();
         }
+
     }
     public void adiciona(Cliente cliente ) throws SQLException, java.sql.SQLException {
 // prepared statement para inserção
@@ -27,6 +49,8 @@ public class ClienteDAO {
         }catch (java.sql.SQLException e) {
             e.printStackTrace();
         }
+
+
 // seta os valores
 
      //   stmt.setString(1,cliente.getId());

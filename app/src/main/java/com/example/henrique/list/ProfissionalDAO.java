@@ -1,5 +1,6 @@
 package com.example.henrique.list;
 
+import android.content.Context;
 import android.database.SQLException;
 
 import java.sql.Connection;
@@ -8,12 +9,8 @@ import java.sql.PreparedStatement;
 
 public class ProfissionalDAO {
     private Connection connection;
-    public ProfissionalDAO() throws SQLException {
-        try {
-            this.connection = ConnectionFactory.getConnection();
-        } catch (java.sql.SQLException e) {
-            e.printStackTrace();
-        }
+    public ProfissionalDAO(Context context) throws SQLException {
+        this.connection = ConnectionFactory.connect(context);
     }
     public void adiciona(Profissional profissional) throws SQLException, java.sql.SQLException {
 // prepared statement para inserção

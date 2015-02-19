@@ -1,5 +1,6 @@
 package com.example.henrique.list;
 
+import android.content.Context;
 import android.database.SQLException;
 
 import java.sql.Connection;
@@ -9,12 +10,8 @@ import java.sql.PreparedStatement;
 public class agenda_diariaDAO {
     private Connection connection;
 
-    public agenda_diariaDAO() throws SQLException {
-        try {
-            this.connection = ConnectionFactory.getConnection();
-        } catch (java.sql.SQLException e) {
-            e.printStackTrace();
-        }
+    public agenda_diariaDAO(Context context) throws SQLException {
+        this.connection = ConnectionFactory.connect(context);
     }
 
     public void adiciona(agenda_diariaDAO agenda_diaria) throws SQLException, java.sql.SQLException {

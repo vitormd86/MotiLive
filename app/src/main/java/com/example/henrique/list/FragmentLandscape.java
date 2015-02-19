@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.concurrent.ExecutionException;
 
 
 public class FragmentLandscape extends Fragment  {
@@ -35,22 +36,22 @@ public class FragmentLandscape extends Fragment  {
         theListView.setAdapter(theAdapter);// seleciona o adaptador... no caso  "theAdapter" q eh do tipo myAdapter
        //teste de conexao
 
-      /* try {
-// conectando
+     try {
            Cliente cliente = new Cliente();
            cliente.setId(24);
 
-           ClienteDAO clienteDAO = new ClienteDAO();
+           ClienteDAO clienteDAO = new ClienteDAO(getActivity());
 
             clienteDAO.adiciona(cliente);
 
-         //   Toast.makeText(getActivity(),"conectado",Toast.LENGTH_SHORT);
+           Toast.makeText(getActivity(),"conectado",Toast.LENGTH_SHORT);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-*/
+
         //teste conexao
+
 
 
         theListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
