@@ -10,8 +10,6 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import java.sql.SQLException;
-
 /**
  * Created by Henrique on 12/02/2015.
  */
@@ -33,17 +31,7 @@ public class FragmentPortrait extends Fragment {
 
         theListView.setAdapter(theAdapter);// seleciona o adaptador... no caso  "theAdapter" q eh do tipo myAdapter
 
-        try {
-// conectando
-            ClienteDAO clienteDAO = new ClienteDAO();
-            Cliente cliente = new Cliente();
-            cliente.setId(24);
-            clienteDAO.adiciona(cliente);
 
-            //   Toast.makeText(getActivity(),"conectado",Toast.LENGTH_SHORT);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
         theListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

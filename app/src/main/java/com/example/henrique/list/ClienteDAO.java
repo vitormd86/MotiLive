@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 
 
 public class ClienteDAO {
-    private Connection connection;
+    private static Connection connection;
     public ClienteDAO() throws SQLException {
         try {
             this.connection = ConnectionFactory.getConnection();

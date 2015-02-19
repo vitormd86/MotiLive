@@ -35,9 +35,21 @@ public class FragmentLandscape extends Fragment  {
         theListView.setAdapter(theAdapter);// seleciona o adaptador... no caso  "theAdapter" q eh do tipo myAdapter
        //teste de conexao
 
+      /* try {
+// conectando
+           Cliente cliente = new Cliente();
+           cliente.setId(24);
 
+           ClienteDAO clienteDAO = new ClienteDAO();
 
+            clienteDAO.adiciona(cliente);
 
+         //   Toast.makeText(getActivity(),"conectado",Toast.LENGTH_SHORT);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+*/
         //teste conexao
 
 
