@@ -1,71 +1,48 @@
 package com.example.henrique.list;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.database.SQLException;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.util.concurrent.ExecutionException;
 
 
 public class ClienteDAO extends AsyncTask<Void, Void, Boolean> {
-    private static Connection connection;
     private Context context;
     private static final String url = "jdbc:mysql://192.169.198.138:3306/motilive";
     private static final String user = "root";
     private static final String pass = "4linux";
-    private static Connection  con; 		// armazena a conexão atual
-    private Log log; 				// gera log
-    private ProgressDialog dialog; 	// dialog para mostrar o progresso da conexão
+    private static Connection con;        // armazena a conexão atual
+    private Log log;                // gera log
+    private ProgressDialog dialog;    // dialog para mostrar o progresso da conexão
 
 
     public ClienteDAO(Context context) throws SQLException {
 
         this.context = context;
 
-        con = connect(context);
-
-
-        try {
-            if (execute().get()) if (isConected()) {
-                this.connection = connect(context);
-
-            } else {
-
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
     }
-    public void adiciona(Cliente cliente ) throws SQLException, java.sql.SQLException {
+
+    public void adiciona(Cliente cliente) throws SQLException, java.sql.SQLException {
 // prepared statement para inserção
         int id = cliente.getId();
         int id_pessoa = cliente.getId_pessoa();
         try {
+
             PreparedStatement stmt;
-            stmt = connection.prepareStatement("insert into cliente ('íd_pessoa','id',) values (" + id_pessoa + "," + id + ")");
+            stmt = con.prepareStatement("INSERT INTO CLIENTE(ID_PESSOA,ID) VALUES("+id_pessoa+","+id+")");
             stmt.execute();
             stmt.close();
-        }catch (java.sql.SQLException e) {
+        } catch (java.sql.SQLException e) {
             e.printStackTrace();
         }
 
-
-// seta os valores
-
-     //   stmt.setString(1,cliente.getId());
-// executa
-
     }
+
     public Boolean isConected()
     {
         try
@@ -80,20 +57,36 @@ public class ClienteDAO extends AsyncTask<Void, Void, Boolean> {
             return false;
         }
     }
-    public static Connection connect(Context context)
+
+    /***
+     * Log
+     * @return texto armazenado no log.
+     */
+    public String getLog()
+    {
+        return log.toString();
+    }
+
+    /***
+     * Conecta ao servidor através do mysql connector.
+     * @return estado da conexão.
+     */
+    public boolean connect()
     {
         try
         {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(url, user, pass);
-            Toast.makeText( context, "conectado", Toast.LENGTH_SHORT);
-
             //   log.add("Conectado com sucesso!");
         } catch(Exception e) {
             e.printStackTrace();
         }
-        return con;
+        return isConected();
     }
+
+    /***
+     * Disconecta do servidor
+     */
     public void disconnect()
     {
         try {
@@ -104,6 +97,12 @@ public class ClienteDAO extends AsyncTask<Void, Void, Boolean> {
             e.printStackTrace();
         }
     }
+
+    /***
+     * O método onPreExecute é chamado antes do método execute() de AsyncTask
+     * Neste caso utilizamos para abrir um dialogo avisando o usuário
+     * de que está sendo realizada uma conexão com o database
+     */
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -119,7 +118,7 @@ public class ClienteDAO extends AsyncTask<Void, Void, Boolean> {
      */
     @Override
     protected Boolean doInBackground(Void... params) {
-        connect(context);
+        connect();
         return isConected();
     }
 
@@ -133,3 +132,4 @@ public class ClienteDAO extends AsyncTask<Void, Void, Boolean> {
         dialog.dismiss();
     }
 }
+

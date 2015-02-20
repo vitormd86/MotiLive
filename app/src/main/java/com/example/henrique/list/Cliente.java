@@ -1,12 +1,21 @@
 package com.example.henrique.list;
 
 
+import android.content.Context;
+
 public class Cliente {
 
 
     private int id;
     private int id_pessoa;
+    private Context context;
 
+
+
+    public Cliente(Context context)
+    {
+        this.context = context;
+    }
 
 
     public int getId_pessoa() {
@@ -24,6 +33,7 @@ public class Cliente {
     public void setId(int id) {
         this.id = id;
     }
+
 
 
 
