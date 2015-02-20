@@ -9,6 +9,9 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Massaru on 17/02/2015.
  */
@@ -16,7 +19,7 @@ public class MyAdapterFreeHours extends ArrayAdapter<String> {
     int numberOfFreeHours;
     ListView thisListView;
 
-    public MyAdapterFreeHours(Context context, String[] clients, ListView listView) {
+    public MyAdapterFreeHours(Context context, ArrayList clients, ListView listView) {
         super(context, R.layout.view_free_hour, clients);
         thisListView =  listView;
 

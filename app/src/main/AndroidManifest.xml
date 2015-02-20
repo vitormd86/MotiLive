@@ -48,6 +48,10 @@
             android:name=".ClientView"
             android:label="Perfil do Cliente" >
         </activity>
+        <activity
+            android:name=".HourConsult"
+            android:label="Consulta de Horário" >
+        </activity>
 
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
