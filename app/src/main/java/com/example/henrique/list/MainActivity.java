@@ -3,6 +3,7 @@ package com.example.henrique.list;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 
 import com.example.henrique.list.Fragments.FragmentLandscape;
 import com.example.henrique.list.Fragments.FragmentPortrait;
+import com.facebook.Session;
 
 
 public class MainActivity extends Activity {
@@ -56,6 +58,14 @@ public class MainActivity extends Activity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if (id == R.id.exit_the_app) {
+            // EFETUA LOGOUT E RETORNA PARA A TELA DE LOGIN
+            if (Session.getActiveSession() != null) {
+                Session.getActiveSession().closeAndClearTokenInformation();
+            }
+            Session.setActiveSession(null);
+            Intent retornarTelaLogin = new Intent(this , LoginScreen.class);
+            startActivity(retornarTelaLogin);
         }
 
         return super.onOptionsItemSelected(item);
