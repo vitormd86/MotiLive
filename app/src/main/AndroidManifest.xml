@@ -52,6 +52,10 @@
             android:name=".atividadeTeste"
             android:label="testando banco" >
         </activity>
+        <activity
+            android:name=".HourConsult"
+            android:label="Agendar Serviços" >
+        </activity>
 
     </application>
     <uses-permission android:name="android.permission.INTERNET" />

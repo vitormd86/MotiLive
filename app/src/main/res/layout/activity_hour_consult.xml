@@ -34,13 +34,24 @@
 
 
     <ListView
-        android:id="@+id/listHours"
-        android:layout_width="60dp"
+        android:id="@+id/listMinutes"
+        android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_below="@id/photo"
         android:layout_alignParentRight="true"
-        android:layout_toRightOf="@id/listHours"
-        android:background="#0088dd"/>
+        android:background="#0088dd"
+        android:choiceMode="singleChoice"
+      />
+    <!-- esta lista vai mostrar as minutos livres do profissional-->
+    <ListView
+        android:id="@+id/listHours"
+        android:layout_height="fill_parent"
+        android:layout_width="0dp"
+        android:layout_below="@id/photo"
+        android:background="#440011"
+        android:choiceMode="singleChoice"
+        android:layout_toLeftOf="@id/listMinutes"
+        />
         <!-- esta lista vai mostrar as horas livres do profissional-->
     <ListView
         android:id="@+id/listServices"
@@ -49,7 +60,6 @@
         android:layout_below="@id/photo"
         android:layout_toLeftOf="@id/listHours"
         android:background="#444444"
-        android:choiceMode="singleChoice"
         />
     <!-- esta lista vai mostrar os servicos prestados pelo profissional-->
 
