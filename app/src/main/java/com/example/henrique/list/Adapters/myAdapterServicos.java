@@ -1,4 +1,4 @@
-package com.example.henrique.list;
+package com.example.henrique.list.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,13 +7,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.henrique.list.R;
+
 /**
  * Created by Henrique on 06/02/2015.
  */
 // mesma coisa que o myAdapter só que eu tirei o ImageView, pra fazer uma lista de serviços
 public class myAdapterServicos extends ArrayAdapter<String> {
     public myAdapterServicos(Context context, String[] values) {
-        super(context,R.layout.row_layout3, values);
+        super(context, R.layout.row_layout3, values);
     }
 
     @Override

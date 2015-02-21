@@ -1,4 +1,4 @@
-package com.example.henrique.list;
+package com.example.henrique.list.Bean;
 
 
 import android.content.Context;

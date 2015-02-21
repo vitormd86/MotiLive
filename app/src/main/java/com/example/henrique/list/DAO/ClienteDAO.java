@@ -1,10 +1,12 @@
-package com.example.henrique.list;
+package com.example.henrique.list.DAO;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.database.SQLException;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.example.henrique.list.Bean.Cliente;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

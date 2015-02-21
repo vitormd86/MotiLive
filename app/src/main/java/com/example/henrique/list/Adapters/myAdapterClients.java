@@ -1,4 +1,4 @@
-package com.example.henrique.list;
+package com.example.henrique.list.Adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -15,13 +15,16 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.henrique.list.ClientView;
+import com.example.henrique.list.R;
+
 /**
  * Created by Vitor on 14/02/2015.
 **/
 //PRECISO PASSAR MAIS DE UMA ARRAY COMO ARGUMENTO NO CONSTRUTOR... (HORARIO E STATUS)
 public class myAdapterClients extends ArrayAdapter<String> {
     public myAdapterClients(Context context, String[] clients) {
-        super(context,R.layout.view_schedule_client, clients);
+        super(context, R.layout.view_schedule_client, clients);
 
     }
 

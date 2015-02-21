@@ -9,6 +9,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.henrique.list.Adapters.myAdapterClients;
+
 public class ProfessionalHours extends ActionBarActivity {
 
     @Override

@@ -10,6 +10,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.henrique.list.Adapters.MyAdapterClientSmall;
+
 
 public class ClientView extends ActionBarActivity {
 

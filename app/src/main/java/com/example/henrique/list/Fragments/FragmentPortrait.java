@@ -1,4 +1,4 @@
-package com.example.henrique.list;
+package com.example.henrique.list.Fragments;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -9,6 +9,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+
+import com.example.henrique.list.Adapters.myAdapter;
+import com.example.henrique.list.R;
+import com.example.henrique.list.SecondScreen;
+import com.example.henrique.list.opcoesSelecionadas;
 
 /**
  * Created by Henrique on 12/02/2015.

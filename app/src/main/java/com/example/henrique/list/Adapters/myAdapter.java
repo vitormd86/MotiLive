@@ -1,4 +1,4 @@
-package com.example.henrique.list;
+package com.example.henrique.list.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,13 +8,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.henrique.list.R;
+
 /**
  * Created by Henrique on 06/02/2015.
  */
 //Adaptador ele joga as  a imagem e um EditText dentro de uma lista
 public class myAdapter extends ArrayAdapter<String> {
     public myAdapter(Context context, String[] values) {
-        super(context,R.layout.row_layout2, values);
+        super(context, R.layout.row_layout2, values);
     }
 
     @Override

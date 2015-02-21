@@ -1,4 +1,4 @@
-package com.example.henrique.list;
+package com.example.henrique.list.Fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

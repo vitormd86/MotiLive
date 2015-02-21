@@ -1,4 +1,4 @@
-package com.example.henrique.list;
+package com.example.henrique.list.Fragments;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.concurrent.ExecutionException;
+import com.example.henrique.list.Adapters.myAdapter;
+import com.example.henrique.list.R;
+import com.example.henrique.list.SecondScreen;
+import com.example.henrique.list.opcoesSelecionadas;
 
 
 public class FragmentLandscape extends Fragment  {

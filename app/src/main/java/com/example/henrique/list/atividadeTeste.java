@@ -2,7 +2,9 @@ package com.example.henrique.list;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.widget.Toast;
+
+import com.example.henrique.list.Bean.Cliente;
+import com.example.henrique.list.DAO.ClienteDAO;
 
 import java.sql.SQLException;
 import java.util.concurrent.ExecutionException;
