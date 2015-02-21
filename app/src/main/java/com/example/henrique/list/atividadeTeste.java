@@ -17,8 +17,8 @@ public class atividadeTeste extends Activity {
 
         Cliente cliente;
         cliente = new Cliente(this);
-        cliente.setId(100);
-        cliente.setId_pessoa(120);
+        cliente.setId(40);
+        cliente.setId_pessoa(69);
 
 
         ClienteDAO clienteDAO;
@@ -32,9 +32,21 @@ public class atividadeTeste extends Activity {
             e.printStackTrace();
         }
 
-
-        try {
+        // teste adicionar
+        /*try {
             clienteDAO.adiciona(cliente);
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }*/
+        //teste remover
+        /*try {
+            clienteDAO.remove(cliente);
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }*/
+        //teste update
+        try {
+            clienteDAO.update(cliente);
         } catch (SQLException e1) {
             e1.printStackTrace();
         }

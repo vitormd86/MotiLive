@@ -42,6 +42,37 @@ public class ClienteDAO extends AsyncTask<Void, Void, Boolean> {
         }
 
     }
+    public void remove(Cliente cliente) throws SQLException, java.sql.SQLException {
+// prepared statement para inserção
+        int id = cliente.getId();
+        int id_pessoa = cliente.getId_pessoa();
+        try {
+
+            PreparedStatement stmt;
+            stmt = con.prepareStatement("DELETE FROM CLIENTE WHERE ID="+id+" AND ID_PESSOA="+id_pessoa );
+
+            stmt.execute();
+            stmt.close();
+        } catch (java.sql.SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void update(Cliente cliente) throws SQLException, java.sql.SQLException {
+// prepared statement para inserção
+        int id = cliente.getId();
+        int id_pessoa = cliente.getId_pessoa();
+        try {
+
+            PreparedStatement stmt;
+            stmt = con.prepareStatement("UPDATE CLIENTE SET ID_PESSOA="+id_pessoa+" WHERE id="+id );
+
+            stmt.execute();
+            stmt.close();
+        } catch (java.sql.SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public Boolean isConected()
     {
