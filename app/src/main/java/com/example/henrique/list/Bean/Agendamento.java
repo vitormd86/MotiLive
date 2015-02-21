@@ -1,11 +1,16 @@
 package com.example.henrique.list.Bean;
 
-/**
- * Created by htamashiro on 2/21/15.
- */
+
+import java.sql.Time;
+
 public class Agendamento {
 
-    private int agenda_diaria;
+    private int id_agenda_diaria;
+    private int id_servico;
+    private Time hora_entrada;
+    private Time hora_saida;
+    private int id;
+    private int id_cliente;
 
     public int getId_cliente() {
         return id_cliente;
@@ -15,12 +20,12 @@ public class Agendamento {
         this.id_cliente = id_cliente;
     }
 
-    public int getAgenda_diaria() {
-        return agenda_diaria;
+    public int getId_agenda_diaria() {
+        return id_agenda_diaria;
     }
 
-    public void setAgenda_diaria(int agenda_diaria) {
-        this.agenda_diaria = agenda_diaria;
+    public void setId_agenda_diaria(int id_agenda_diaria) {
+        this.id_agenda_diaria = id_agenda_diaria;
     }
 
     public int getId_servico() {
@@ -31,19 +36,19 @@ public class Agendamento {
         this.id_servico = id_servico;
     }
 
-    public String getHora_entrada() {
+    public Time getHora_entrada() {
         return hora_entrada;
     }
 
-    public void setHora_entrada(String hora_entrada) {
+    public void setHora_entrada(Time hora_entrada) {
         this.hora_entrada = hora_entrada;
     }
 
-    public String getHora_saida() {
+    public Time getHora_saida() {
         return hora_saida;
     }
 
-    public void setHora_saida(String hora_saida) {
+    public void setHora_saida(Time hora_saida) {
         this.hora_saida = hora_saida;
     }
 
@@ -55,9 +60,7 @@ public class Agendamento {
         this.id = id;
     }
 
-    private int id_servico;
-    private String hora_entrada;
-    private String hora_saida;
-    private int id;
-    private int id_cliente;
+
+
+
 }

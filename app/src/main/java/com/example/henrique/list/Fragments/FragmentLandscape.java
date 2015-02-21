@@ -34,12 +34,6 @@ public class FragmentLandscape extends Fragment  {
         theAdapter = new myAdapter(v.getContext(), favoriteProfessionals);
 
         theListView.setAdapter(theAdapter);// seleciona o adaptador... no caso  "theAdapter" q eh do tipo myAdapter
-       //teste de conexao
-
-
-
-
-        //teste conexao
 
 
 
