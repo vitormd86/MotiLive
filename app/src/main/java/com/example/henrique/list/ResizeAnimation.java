@@ -8,9 +8,9 @@ import android.view.animation.Transformation;
  * Created by Vitor on 21/02/2015.
  */
 public class ResizeAnimation extends Animation {
-    int startWidth;
-    int targetWidth;
-    View view;
+    private int startWidth;
+    private int targetWidth;
+    private View view;
 
     public ResizeAnimation (View v, int targetWidth){
         this.view = v;
@@ -33,5 +33,21 @@ public class ResizeAnimation extends Animation {
     @Override
     public boolean willChangeBounds() {
         return true;
+    }
+
+    public int getTargetWidth() {
+        return targetWidth;
+    }
+
+    public void setTargetWidth(int targetWidth) {
+        this.targetWidth = targetWidth;
+    }
+
+    public View getView() {
+        return view;
+    }
+
+    public void setView(View view) {
+        this.view = view;
     }
 }

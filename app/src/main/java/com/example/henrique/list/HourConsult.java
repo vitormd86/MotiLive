@@ -1,7 +1,11 @@
 package com.example.henrique.list;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -9,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.henrique.list.Adapters.MyAdapterFreeTime;
 import com.example.henrique.list.Adapters.MyAdapterServiceTypes;
@@ -22,17 +27,22 @@ public class HourConsult extends ActionBarActivity {
     ResizeAnimation resizeAnimation;
     boolean isHoursOpened;
     boolean isMinutesOpened;
+    int freeHourMinutesWidth = 180;
+    String selectedHourList;
+    String date;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hour_consult);
+        Intent activityThatCalled = getIntent();
 
         //Deve buscar do banco ou da intent
-        String professionalName = "Leandro Massaro Kubota";
+        final String professionalName = activityThatCalled.getStringExtra("Escolhas");
         String occupation = "Massagista";
         String [] services = {"Serviço 1" , "Serviço2" , "Serviço3" , "Serviço4" , "Serviço5" , "Serviço6","Servico7", "Servico8", "servico8"};
+        date = "22/22/2222";
 
 
         //adicionando horas.... deve receber do banco de dados e tratar em seguida
@@ -82,7 +92,7 @@ public class HourConsult extends ActionBarActivity {
                 if(!isHoursOpened) {
                     //redimensiona listView de horas
                     isHoursOpened = true;
-                    resizeAnimation = new ResizeAnimation(listHours, 180);
+                    resizeAnimation = new ResizeAnimation(listHours, freeHourMinutesWidth);
                     resizeAnimation.setDuration(600);
                     listHours.startAnimation(resizeAnimation);
                 }
@@ -94,6 +104,9 @@ public class HourConsult extends ActionBarActivity {
             @Override
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                //Armazena hora selecionada
+                selectedHourList = "" + myAdapterFreeHours.getItem(position);
 
                 //caso clique na hora a lista de minutos mudara de acordo com o horario dispnivel pra aquele servico
                 freeMinutes.clear();
@@ -107,10 +120,78 @@ public class HourConsult extends ActionBarActivity {
                 if(!isMinutesOpened) {
                     //redimensiona listView de horas]
                     isMinutesOpened = true;
-                    resizeAnimation = new ResizeAnimation(listMinutes, 180);
+                    resizeAnimation = new ResizeAnimation(listMinutes, freeHourMinutesWidth);
                     resizeAnimation.setDuration(600);
                     listMinutes.startAnimation(resizeAnimation);
                 }
+            }
+        });
+
+
+        //criando listeners do listMinutes
+        listMinutes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                //Gera um alerta, para confirmar o agendamento
+                AlertDialog.Builder builder = new AlertDialog.Builder(HourConsult.this);
+                AlertDialog confirmAlert;
+
+                //Determinando campo de servicos selecionados
+                SparseBooleanArray checked = listServices.getCheckedItemPositions();
+                String selectedServices = "";
+                for (int i = 0; i < listServices.getAdapter().getCount(); i++) {
+                    if (checked.get(i)) {
+
+                        selectedServices = selectedServices + " " + myAdapterServiceTypes.getItem(i);
+                    }
+                }
+                //Determinando campo de hora inicial
+
+
+                //Alimenta o Alert Dialog com informacoes do agendameto a ser confirmado
+                builder.setTitle("Confirmar agendamento?");
+                builder.setMessage("Profissional: " + professionalName +
+                        "\nServico(s): " + selectedServices +
+                        "\nDia: " + date +
+                        "\nInicio: " + selectedHourList +
+                        "\nPeríodo: " + "120min" +
+                        "\nFim: " + "02:00h" +
+                        "\nValor: " + "R$99,99");
+                builder.setPositiveButton("Sim", new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface arg0, int arg1){
+                        //OPCAO SIM = confirma agendamento
+                        //DEVE ACRESCENTAR OS DADOS NO BD
+                        //DEVE VERIFICAR SE TODAS AS LISTAS ESTAO SELECIONADAS
+
+                        //Redireciona usuario para a tela inicial de agendamento
+                        Intent endOfScheduleActivity = new Intent(HourConsult.this,MainActivity.class);
+                        startActivity(endOfScheduleActivity);
+
+                    }
+                });
+                builder.setNegativeButton("Não", new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface arg0, int arg1){
+
+                        //REINICIA ListMinutes/ListHours Menu
+                        resizeAnimation = new ResizeAnimation(listHours, 0);
+                        listHours.startAnimation(resizeAnimation);
+                        resizeAnimation = new ResizeAnimation(listMinutes, 0);
+                        listMinutes.startAnimation(resizeAnimation);
+
+                        isHoursOpened = false;
+                        isMinutesOpened = false;
+
+                        listMinutes.clearChoices();
+                        listHours.clearChoices();
+                        listServices.clearChoices();
+                        Toast.makeText(getBaseContext(), "Nao", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                confirmAlert = builder.create();
+                confirmAlert.show();
+
             }
         });
     }
@@ -136,5 +217,9 @@ public class HourConsult extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setServicesListener(){
+
     }
 }

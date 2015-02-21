@@ -17,7 +17,7 @@ public class ProfessionalHours extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_professional_hours);
-        Intent intent = getIntent();
+        Intent activityThatCalled = getIntent();
 
         String professionalName = "Leandro Massaro Kubota"; // buscar do banco
         String[] clientesAgendados = {"Cliente 1 ID", "Cliente 2 ID", "Cliente 3 ID"};  // buscar do banco
@@ -32,9 +32,9 @@ public class ProfessionalHours extends ActionBarActivity {
         myTextView1.setText(professionalName);
         //Configurando data a partir dos dados da Intent
         myTextView2.setText(
-               intent.getStringExtra("dayOfMonth") + "/" +
-               intent.getStringExtra("month") + "/" +
-               intent.getStringExtra("year")
+              activityThatCalled.getStringExtra("dayOfMonth") + "/" +
+              activityThatCalled.getStringExtra("month") + "/" +
+              activityThatCalled.getStringExtra("year")
         );
         //Configurando lista dos clientes
         myListView1.setAdapter(myAdapter);

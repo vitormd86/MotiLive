@@ -70,7 +70,7 @@ public class myAdapterClients extends ArrayAdapter<String> {
                                 //define o listener dos botoes SIM / NAO do Alert Dialog
                                 builder.setPositiveButton("Sim", new DialogInterface.OnClickListener(){
                                     public void onClick(DialogInterface arg0, int arg1){
-                                        //EXCLUIR AGENDAMENTO DO BD
+                                        //REMARCAR AGENDAMENTO DO BD
                                         Toast.makeText(getContext(), "Sim: " + arg1 ,Toast.LENGTH_SHORT).show();
                                     }
                                 });
