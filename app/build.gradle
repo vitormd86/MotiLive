@@ -19,8 +19,13 @@ android {
     }
 }
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile files('/home/htamashiro/AndroidStudioProjects/MotiLive/mysql-connector-java-3.0.17-ga/mysql-connector-java-3.0.17-ga-bin.jar')
+    compile 'com.facebook.android:facebook-android-sdk:3.21.1'
 }
