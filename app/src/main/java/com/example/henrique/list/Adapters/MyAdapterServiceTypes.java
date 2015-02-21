@@ -21,7 +21,7 @@ public class MyAdapterServiceTypes extends ArrayAdapter<String> {
         LayoutInflater theInflator = LayoutInflater.from(getContext());
         View theView = theInflator.inflate(R.layout.view_service_type, parent, false);
 
-        final String service = getItem(position);
+        String service = getItem(position);
         TextView textService = (TextView) theView.findViewById(R.id.service);
         TextView textServiceLenght = (TextView) theView.findViewById(R.id.serviceLength);
         TextView textPrice = (TextView) theView.findViewById(R.id.price);

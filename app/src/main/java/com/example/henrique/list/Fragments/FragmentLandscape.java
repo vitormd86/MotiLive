@@ -11,6 +11,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.example.henrique.list.Adapters.myAdapter;
+import com.example.henrique.list.HourConsult;
 import com.example.henrique.list.R;
 import com.example.henrique.list.SecondScreen;
 import com.example.henrique.list.opcoesSelecionadas;
@@ -40,13 +41,14 @@ public class FragmentLandscape extends Fragment  {
         theListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // HIDE, mudanca provisoria...
+                //opcoesSelecionadas opcoes = new opcoesSelecionadas(String.valueOf(parent.getItemAtPosition(position)), null, null);
+                String opcoes = String.valueOf(parent.getItemAtPosition(position));
+                Intent intentHourConsult;
+                intentHourConsult = new Intent(getActivity() , HourConsult.class);
 
-                opcoesSelecionadas opcoes = new opcoesSelecionadas(String.valueOf(parent.getItemAtPosition(position)), null, null);
-                Intent opcoesEscolhidas;
-                opcoesEscolhidas = new Intent(getActivity() , SecondScreen.class);
-
-                opcoesEscolhidas.putExtra("Escolhas", opcoes); // joga o objeto para a proxima activity
-                startActivity(opcoesEscolhidas);
+                intentHourConsult.putExtra("Escolhas", opcoes); // joga o objeto para a proxima activity
+                startActivity(intentHourConsult);
             }
         });
      /* CalendarView myCalendarView = (CalendarView) v.findViewById(R.id.calendarView);

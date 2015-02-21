@@ -32,7 +32,7 @@ public class MyAdapterFreeTime extends ArrayAdapter<String> {
         View theView = theInflator.inflate(R.layout.view_free_hour, parent, false);
         int listViewHeight = thisListView.getHeight();
         numberOfFreeHours = this.getCount();
-        final String hours = getItem(position);
+        String hours = getItem(position);
 
         TextView textHour = (TextView) theView.findViewById(R.id.hour);
         int textHourHeight = listViewHeight / numberOfFreeHours;
