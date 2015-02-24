@@ -5,6 +5,8 @@ package com.example.henrique.list.Bean;
  */
 public class Especializacao {
     private int id_profissao;
+    private int id;
+    private String nome;
 
     public String getNome() {
         return nome;
@@ -30,6 +32,5 @@ public class Especializacao {
         this.id = id;
     }
 
-    private int id;
-    private String nome;
+
 }

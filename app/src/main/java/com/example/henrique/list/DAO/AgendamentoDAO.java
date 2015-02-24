@@ -51,7 +51,7 @@ public class AgendamentoDAO extends AsyncTask<Void, Void, Boolean> {
             stmt.setInt(1, id_agenda_diaria);
             stmt.setInt(2, id_servico);
             stmt.setInt(3, id_cliente);
-            stmt.setInt(4, id);
+             stmt.setInt(4, id);
             stmt.setTime(5, hora_entrada);
             stmt.setTime(6, hora_saida);
 
