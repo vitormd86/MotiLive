@@ -1,8 +1,10 @@
 package com.example.henrique.list;
 
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
+import android.content.Context;
 
 /**
  * Created by Vitor on 21/02/2015.
@@ -20,8 +22,11 @@ public class ResizeAnimation extends Animation {
 
     @Override
     protected void applyTransformation(float interpolatedTime, Transformation t) {
-        int newWidth = (int) (targetWidth * interpolatedTime);
-        view.getLayoutParams().width = newWidth;
+        DisplayMetrics displayMetrics = view.getContext().getResources().getDisplayMetrics();
+
+        int newWidth = (int) ((targetWidth - startWidth) * interpolatedTime + startWidth);
+        int newWidthSp = (int) ((newWidth/displayMetrics.density)+0.5);
+        view.getLayoutParams().width = newWidthSp;
         view.requestLayout();
     }
 
