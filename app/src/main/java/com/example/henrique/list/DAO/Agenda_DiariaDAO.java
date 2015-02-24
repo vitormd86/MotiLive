@@ -13,7 +13,6 @@ import com.example.henrique.list.atividadeTeste;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.util.Date;
 import java.sql.Time;
 
 

@@ -4,23 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.example.henrique.list.Bean.Agenda_Diaria;
-import com.example.henrique.list.Bean.Agendamento;
-import com.example.henrique.list.Bean.Cliente;
-import com.example.henrique.list.Bean.Especializacao;
-import com.example.henrique.list.Bean.Intervalo;
-import com.example.henrique.list.DAO.Agenda_DiariaDAO;
-import com.example.henrique.list.DAO.AgendamentoDAO;
-import com.example.henrique.list.DAO.ClienteDAO;
-import com.example.henrique.list.DAO.EspecializacaoDAO;
-import com.example.henrique.list.DAO.IntervaloDAO;
+import com.example.henrique.list.Bean.Plano;
+import com.example.henrique.list.DAO.PlanoDAO;
 
-import java.sql.Date;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.concurrent.ExecutionException;
 
 
@@ -117,6 +104,7 @@ public class atividadeTeste extends Activity {
             e1.printStackTrace();
         }
         */
+        /*
         Time teste = new Time(23,12,12);
         Time teste2 = new Time(21,12,12);
 
@@ -150,8 +138,101 @@ public class atividadeTeste extends Activity {
             e1.printStackTrace();
         }
 
+    */
+     /*   Date date = new Date(1985/05/01);
+        Date date2 = new Date(2015/02/24);
 
 
+        Pessoa pessoa = new Pessoa();
+        pessoa.setId(34);
+        pessoa.setBairro("Jacana");
+        pessoa.setCEP("02263090");
+        pessoa.setCidade("Sao Paulo");
+        pessoa.setCPF_CNPJ("34451917889");
+        pessoa.setData_nascimento(date);
+        pessoa.setDDD("11");
+        pessoa.setEndereco("Rua Baia dos Passaros");
+        pessoa.setDt_atualizacao(date2);
+        pessoa.setEmail("henriquexx@gmail.com");
+        pessoa.setTelefone("22411174");
+        pessoa.setEstado("SP");
+        pessoa.setFacebook_login("jaocanabrava");
+        pessoa.setSexo("M");
+        pessoa.setGoogle_login("blablabla");
+        pessoa.setStatus("wtf");
+        pessoa.setSenha("porraloka");
+        pessoa.setNumero("194");
+        pessoa.setLogin("testnado");
+
+
+        PessoaDAO pessoaDAO = new PessoaDAO(this);
+
+        try {
+            pessoaDAO.execute().get();
+            Toast.makeText(atividadeTeste.this, "Fez execute", Toast.LENGTH_LONG).show();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        if(pessoaDAO.isConected())
+        {
+            Toast.makeText(atividadeTeste.this, "Fez as conexoes", Toast.LENGTH_LONG).show();
+
+        }
+
+        // teste adicionar
+        try {
+            Toast.makeText(atividadeTeste.this, "Entrou no try do adiciona", Toast.LENGTH_LONG).show();
+
+            pessoaDAO.adiciona(pessoa);
+
+
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }*/
+
+
+        Plano plano = new Plano();
+        plano.setId(50);
+        plano.setQtde_creditos(23.4);
+        plano.setValor(43.5);
+        plano.setQtde_dias(10);
+        plano.setStatus(true);
+
+        plano.setTipo(false);
+
+        PlanoDAO planoDAO= new PlanoDAO(this) ;
+
+
+        try {
+            planoDAO.execute().get();
+            Toast.makeText(atividadeTeste.this, "Fez execute", Toast.LENGTH_LONG).show();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        if(planoDAO.isConected())
+        {
+            Toast.makeText(atividadeTeste.this, "Fez as conexoes", Toast.LENGTH_LONG).show();
+
+        }
+
+        // teste adicionar
+        try {
+            Toast.makeText(atividadeTeste.this, "Entrou no try do adiciona", Toast.LENGTH_LONG).show();
+
+            planoDAO.adiciona(plano);
+
+
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
 
     }
 

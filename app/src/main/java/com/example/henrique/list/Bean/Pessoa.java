@@ -1,13 +1,49 @@
 package com.example.henrique.list.Bean;
 
+import java.sql.Date;
+
 /**
  * Created by htamashiro on 2/21/15.
  */
 public class Pessoa {
     private int id;
     private String nome;
-    private String CPF_CNPJ;
+    private String cpf_cnpj;
     private String endereco;
+    private String numero;
+    private String complemento;
+    private String Bairro;
+    private String cidade;
+    private String estado;
+    private String cep;
+    private Date data_nascimento;
+    private String email;
+    private String ddd;
+    private String telefone;
+    private String sexo;
+
+    public Date getDt_atualizacao() {
+        return dt_atualizacao;
+    }
+
+    public void setDt_atualizacao(Date dt_atualizacao) {
+        this.dt_atualizacao = dt_atualizacao;
+    }
+
+    public Date getData_nascimento() {
+        return data_nascimento;
+    }
+
+    public void setData_nascimento(Date data_nascimento) {
+        this.data_nascimento = data_nascimento;
+    }
+
+    private Date dt_atualizacao;
+    private String status;
+    private String login;
+    private String senha;
+    private String facebook_login;
+    private String google_login;
 
     public String getGoogle_login() {
         return google_login;
@@ -34,11 +70,11 @@ public class Pessoa {
     }
 
     public String getCPF_CNPJ() {
-        return CPF_CNPJ;
+        return cpf_cnpj;
     }
 
-    public void setCPF_CNPJ(String CPF_CNPJ) {
-        this.CPF_CNPJ = CPF_CNPJ;
+    public void setCPF_CNPJ(String cpf_cnpj) {
+        this.cpf_cnpj = cpf_cnpj;
     }
 
     public String getEndereco() {
@@ -49,20 +85,20 @@ public class Pessoa {
         this.endereco = endereco;
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
-    public String getComkplemento() {
-        return comkplemento;
+    public String getComplemento() {
+        return complemento;
     }
 
-    public void setComkplemento(String comkplemento) {
-        this.comkplemento = comkplemento;
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
     }
 
     public String getBairro() {
@@ -90,20 +126,14 @@ public class Pessoa {
     }
 
     public String getCEP() {
-        return CEP;
+        return cep;
     }
 
     public void setCEP(String CEP) {
-        this.CEP = CEP;
+        this.cep = cep;
     }
 
-    public String getData_nascimento() {
-        return data_nascimento;
-    }
 
-    public void setData_nascimento(String data_nascimento) {
-        this.data_nascimento = data_nascimento;
-    }
 
     public String getEmail() {
         return email;
@@ -113,12 +143,12 @@ public class Pessoa {
         this.email = email;
     }
 
-    public int getDDD() {
-        return DDD;
+    public String getDDD() {
+        return ddd;
     }
 
-    public void setDDD(int DDD) {
-        this.DDD = DDD;
+    public void setDDD(String DDD) {
+        this.ddd = DDD;
     }
 
     public String getTelefone() {
@@ -137,13 +167,7 @@ public class Pessoa {
         this.sexo = sexo;
     }
 
-    public String getDt_atualizacao() {
-        return dt_atualizacao;
-    }
 
-    public void setDt_atualizacao(String dt_atualizacao) {
-        this.dt_atualizacao = dt_atualizacao;
-    }
 
     public String getStatus() {
         return status;
@@ -177,21 +201,5 @@ public class Pessoa {
         this.facebook_login = facebook_login;
     }
 
-    private int numero;
-    private String comkplemento;
-    private String Bairro;
-    private String cidade;
-    private String estado;
-    private String CEP;
-    private String data_nascimento;
-    private String email;
-    private int DDD;
-    private String telefone;
-    private String sexo;
-    private String dt_atualizacao;
-    private String status;
-    private String login;
-    private String senha;
-    private String facebook_login;
-    private String google_login;
+
 }
