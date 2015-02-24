@@ -195,7 +195,7 @@ public class atividadeTeste extends Activity {
         }*/
 
 
-        Plano plano = new Plano();
+     /*   Plano plano = new Plano();
         plano.setId(50);
         plano.setQtde_creditos(23.4);
         plano.setValor(43.5);
@@ -232,7 +232,7 @@ public class atividadeTeste extends Activity {
 
         } catch (SQLException e1) {
             e1.printStackTrace();
-        }
+        }*/
 
     }
 
