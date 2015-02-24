@@ -1,6 +1,7 @@
 package com.example.henrique.list;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -9,6 +10,7 @@ import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -22,14 +24,16 @@ import java.util.ArrayList;
 
 public class HourConsult extends ActionBarActivity {
 
+
     ArrayList<String> freeHours = new ArrayList<>();
     ArrayList<String> freeMinutes = new ArrayList<>();
     ResizeAnimation resizeAnimation;
     boolean isHoursOpened;
     boolean isMinutesOpened;
-    int freeHourMinutesWidth = 180;
-    String selectedHourList;
+    int freeHourMinutesWidth = 90;
+    String selectedHour;
     String date;
+    String professionalName;
 
 
     @Override
@@ -39,10 +43,11 @@ public class HourConsult extends ActionBarActivity {
         Intent activityThatCalled = getIntent();
 
         //Deve buscar do banco ou da intent
-        final String professionalName = activityThatCalled.getStringExtra("Escolhas");
+        professionalName = activityThatCalled.getStringExtra("Escolhas");
+        date = activityThatCalled.getStringExtra("Date");
         String occupation = "Massagista";
         String [] services = {"Serviço 1" , "Serviço2" , "Serviço3" , "Serviço4" , "Serviço5" , "Serviço6","Servico7", "Servico8", "servico8"};
-        date = "22/22/2222";
+
 
 
         //adicionando horas.... deve receber do banco de dados e tratar em seguida
@@ -106,7 +111,7 @@ public class HourConsult extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 //Armazena hora selecionada
-                selectedHourList = "" + myAdapterFreeHours.getItem(position);
+                selectedHour = "" + myAdapterFreeHours.getItem(position);
 
                 //caso clique na hora a lista de minutos mudara de acordo com o horario dispnivel pra aquele servico
                 freeMinutes.clear();
@@ -141,10 +146,13 @@ public class HourConsult extends ActionBarActivity {
                 //Determinando campo de servicos selecionados
                 SparseBooleanArray checked = listServices.getCheckedItemPositions();
                 String selectedServices = "";
+                String totalTime = "";
                 for (int i = 0; i < listServices.getAdapter().getCount(); i++) {
                     if (checked.get(i)) {
 
                         selectedServices = selectedServices + " " + myAdapterServiceTypes.getItem(i);
+                        //TextView tv = (TextView) myAdapterServiceTypes.getView(i, findViewById(R.id.serviceLength), (ViewGroup) listServices);
+                        //totalTime = totalTime + tv.getText();
                     }
                 }
                 //Determinando campo de hora inicial
@@ -155,8 +163,8 @@ public class HourConsult extends ActionBarActivity {
                 builder.setMessage("Profissional: " + professionalName +
                         "\nServico(s): " + selectedServices +
                         "\nDia: " + date +
-                        "\nInicio: " + selectedHourList +
-                        "\nPeríodo: " + "120min" +
+                        "\nInicio: " + selectedHour +
+                        "\nPeríodo: " + totalTime +
                         "\nFim: " + "02:00h" +
                         "\nValor: " + "R$99,99");
                 builder.setPositiveButton("Sim", new DialogInterface.OnClickListener(){
