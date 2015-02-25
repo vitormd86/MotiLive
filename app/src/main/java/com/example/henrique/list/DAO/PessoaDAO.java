@@ -35,6 +35,7 @@ public class PessoaDAO extends AsyncTask<Void, Void, Boolean> {
 // prepared statement para inserção
 
         int id = pessoa.getId();
+
         String nome = pessoa.getNome();
         String cpf_cnpj = pessoa.getCPF_CNPJ();
         String endereco = pessoa.getEndereco();
@@ -44,24 +45,25 @@ public class PessoaDAO extends AsyncTask<Void, Void, Boolean> {
         String cidade = pessoa.getCidade();
         String estado = pessoa.getEstado();
         String CEP = pessoa.getCEP();
-        Date data_nascimento = pessoa.getData_nascimento();
         String email = pessoa.getEmail();
         String ddd = pessoa.getDDD();
         String telefone = pessoa.getTelefone();
         String sexo = pessoa.getSexo();
-        Date dt_atualizacao = pessoa.getDt_atualizacao();
-        String status = pessoa.getStatus();
+        boolean status = pessoa.getStatus();
         String login = pessoa.getLogin();
         String senha = pessoa.getSenha();
         String facebook_login = pessoa.getFacebook_login();
         String google_login = pessoa.getGoogle_login();
 
+        Date data_nascimento = pessoa.getData_nascimento();
+        Date dt_atualizacao = pessoa.getDt_atualizacao();
+
+
 
         try {
 
             PreparedStatement stmt;
-            stmt = con.prepareStatement("INSERT INTO PESSOA" + "(ID,NOME,CPF_CNPJ, ENDERECO,NUMERO,COMPLEMENTO,BAIRRO,CIDADE,ESTADO,CEP,DATA_NASCIMENTO,EMAIL," +
-                    "DDD,TELEFONE,SEXO,DT_ATUALIZACAO,STATUS,LOGIN,SENHA,FACEBOOK_LOGIN,GOOGLE_LOGIN)" + " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            stmt = con.prepareStatement("INSERT INTO PESSOA" + "(ID,NOME,CPF_CNPJ, ENDERECO,NUMERO,COMPLEMENTO,BAIRRO,CIDADE,ESTADO,CEP,DATA_NASCIMENTO,EMAIL,DDD,TELEFONE,SEXO,DT_ATUALIZACAO,STATUS,LOGIN,SENHA,FACEBOOK_LOGIN,GOOGLE_LOGIN) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
             stmt.setInt(1, id);
             stmt.setString(2, nome);
@@ -79,20 +81,21 @@ public class PessoaDAO extends AsyncTask<Void, Void, Boolean> {
             stmt.setString(14, telefone);
             stmt.setString(15, sexo);
             stmt.setDate(16, dt_atualizacao);
-            stmt.setString(17, status);
+            stmt.setBoolean(17, status);
             stmt.setString(18, login);
             stmt.setString(19, senha);
             stmt.setString(20, facebook_login);
-            stmt.setString(20, google_login);
+            stmt.setString(21, google_login);
 
 
             stmt.execute();
             stmt.close();
         } catch (java.sql.SQLException e) {
             e.printStackTrace();
+            Toast.makeText(context, "nao conseguiu fazer insert", Toast.LENGTH_LONG).show();
+
 
         }
-        Toast.makeText(context, "nao conseguiu fazer insert", Toast.LENGTH_LONG).show();
 
 
     }

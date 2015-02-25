@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.henrique.list.Bean.Pessoa;
 import com.example.henrique.list.Bean.Plano;
 import com.example.henrique.list.Bean.Plano_Profissional;
+import com.example.henrique.list.DAO.PessoaDAO;
 import com.example.henrique.list.DAO.PlanoDAO;
 import com.example.henrique.list.DAO.Plano_ProfissionalDAO;
 
@@ -144,30 +146,33 @@ public class atividadeTeste extends Activity {
         }
 
     */
-     /*   Date date = new Date(1985/05/01);
-        Date date2 = new Date(2015/02/24);
+        Date date = new Date(1900/05/01);
+        Date date2 = new Date(2000/02/24);
 
 
         Pessoa pessoa = new Pessoa();
-        pessoa.setId(34);
+
+        pessoa.setId(13);
+        pessoa.setNome("frasilva");
         pessoa.setBairro("Jacana");
         pessoa.setCEP("02263090");
         pessoa.setCidade("Sao Paulo");
-        pessoa.setCPF_CNPJ("34451917889");
+        pessoa.setCPF_CNPJ("12333333");
         pessoa.setData_nascimento(date);
         pessoa.setDDD("11");
-        pessoa.setEndereco("Rua Baia dos Passaros");
+        pessoa.setEndereco("Rua Baia sdf Passaros");
         pessoa.setDt_atualizacao(date2);
-        pessoa.setEmail("henriquexx@gmail.com");
-        pessoa.setTelefone("22411174");
+        pessoa.setEmail("jao@gmail.com");
+        pessoa.setTelefone("1111111");
         pessoa.setEstado("SP");
-        pessoa.setFacebook_login("jaocanabrava");
-        pessoa.setSexo("M");
-        pessoa.setGoogle_login("blablabla");
-        pessoa.setStatus("wtf");
-        pessoa.setSenha("porraloka");
+        pessoa.setFacebook_login("testa");
+        pessoa.setSexo("h");
+        pessoa.setGoogle_login("tetetetetete");
+        pessoa.setStatus(true);
+        pessoa.setSenha("tetetete");
         pessoa.setNumero("194");
         pessoa.setLogin("testnado");
+        pessoa.setComplemento("qualquer merda");
 
 
         PessoaDAO pessoaDAO = new PessoaDAO(this);
@@ -197,7 +202,7 @@ public class atividadeTeste extends Activity {
 
         } catch (SQLException e1) {
             e1.printStackTrace();
-        }*/
+        }
 
 
      /*   Plano plano = new Plano();
@@ -240,7 +245,7 @@ public class atividadeTeste extends Activity {
         }*/
 
 
-        Date date = new Date(2014-05-12);
+     /*   Date date = new Date(2014-05-12);
 
         Date date2 = new Date(2004-05-12);
 
@@ -285,7 +290,7 @@ public class atividadeTeste extends Activity {
 
         } catch (SQLException e1) {
             e1.printStackTrace();
-        }
+        }*/
 
 
 

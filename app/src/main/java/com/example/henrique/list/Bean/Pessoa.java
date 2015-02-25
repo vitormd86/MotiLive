@@ -16,34 +16,22 @@ public class Pessoa {
     private String cidade;
     private String estado;
     private String cep;
-    private Date data_nascimento;
     private String email;
     private String ddd;
     private String telefone;
     private String sexo;
-
-    public Date getDt_atualizacao() {
-        return dt_atualizacao;
-    }
-
-    public void setDt_atualizacao(Date dt_atualizacao) {
-        this.dt_atualizacao = dt_atualizacao;
-    }
-
-    public Date getData_nascimento() {
-        return data_nascimento;
-    }
-
-    public void setData_nascimento(Date data_nascimento) {
-        this.data_nascimento = data_nascimento;
-    }
-
-    private Date dt_atualizacao;
-    private String status;
+    private boolean status;
     private String login;
     private String senha;
     private String facebook_login;
     private String google_login;
+    private Date dt_atualizacao;
+    private Date data_nascimento;
+
+
+
+
+
 
     public String getGoogle_login() {
         return google_login;
@@ -129,7 +117,7 @@ public class Pessoa {
         return cep;
     }
 
-    public void setCEP(String CEP) {
+    public void setCEP(String cep) {
         this.cep = cep;
     }
 
@@ -169,11 +157,11 @@ public class Pessoa {
 
 
 
-    public String getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
@@ -199,6 +187,22 @@ public class Pessoa {
 
     public void setFacebook_login(String facebook_login) {
         this.facebook_login = facebook_login;
+    }
+
+    public Date getDt_atualizacao() {
+        return dt_atualizacao;
+    }
+
+    public void setDt_atualizacao(Date dt_atualizacao) {
+        this.dt_atualizacao = dt_atualizacao;
+    }
+
+    public Date getData_nascimento() {
+        return data_nascimento;
+    }
+
+    public void setData_nascimento(Date data_nascimento) {
+        this.data_nascimento = data_nascimento;
     }
 
 
