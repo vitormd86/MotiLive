@@ -5,9 +5,14 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.henrique.list.Bean.Plano;
+import com.example.henrique.list.Bean.Plano_Profissional;
 import com.example.henrique.list.DAO.PlanoDAO;
+import com.example.henrique.list.DAO.Plano_ProfissionalDAO;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.concurrent.ExecutionException;
 
 
@@ -233,6 +238,56 @@ public class atividadeTeste extends Activity {
         } catch (SQLException e1) {
             e1.printStackTrace();
         }*/
+
+
+        Date date = new Date(2014-05-12);
+
+        Date date2 = new Date(2004-05-12);
+
+        Date date3 = new Date(2015-05-12);
+
+
+
+        Plano_Profissional plano_profissional = new Plano_Profissional();
+        plano_profissional.setId(20);
+        plano_profissional.setId_plano(34);
+        plano_profissional.setId_profissional(53);
+        plano_profissional.setStatus(true);
+        plano_profissional.setData_ativacao_plano(date);
+        plano_profissional.setData_final(date2);
+        plano_profissional.setData_inicial(date3);
+        plano_profissional.setQtde_creditos_restantes(35);
+
+        Plano_ProfissionalDAO plano_profissionalDAO = new Plano_ProfissionalDAO(this);
+
+        try {
+            plano_profissionalDAO.execute().get();
+            Toast.makeText(atividadeTeste.this, "Fez execute", Toast.LENGTH_LONG).show();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        if(plano_profissionalDAO.isConected())
+        {
+            Toast.makeText(atividadeTeste.this, "Fez as conexoes", Toast.LENGTH_LONG).show();
+
+        }
+
+        // teste adicionar
+        try {
+            Toast.makeText(atividadeTeste.this, "Entrou no try do adiciona", Toast.LENGTH_LONG).show();
+
+            plano_profissionalDAO.adiciona(plano_profissional);
+
+
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+
+
 
     }
 

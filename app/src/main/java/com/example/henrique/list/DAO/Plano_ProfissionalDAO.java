@@ -34,14 +34,7 @@ public class Plano_ProfissionalDAO extends AsyncTask<Void, Void, Boolean> {
         this.context = context;
 
     }
-    private int id_plano;
-    private int id;
-    private int id_profissional;
-    private java.util.Date data_ativacao_plano;
-    private double qtde_creditos_restantes;
-    private String data_inicial;
-    private String data_final;
-    private String status;
+
 
     public void adiciona(Plano_Profissional plano_profissional) throws SQLException, java.sql.SQLException {
 // prepared statement para inserção
@@ -61,16 +54,16 @@ public class Plano_ProfissionalDAO extends AsyncTask<Void, Void, Boolean> {
         try {
 
             PreparedStatement stmt;
-            stmt = con.prepareStatement("INSERT INTO PLANO_PROFISSIONAL (ID,ID_PROFISSIONAL,ID_PLANO,QTDE_CREDITOS_RESTANTES,DATA_ATIVACAO_PLANO,DATA_INICIAL,DATA_FINAL,STATUS) " + " VALUES(?,?,?,?,?,?,?)");
+            stmt = con.prepareStatement("INSERT INTO PLANO_PROFISSIONAL (ID,ID_PROFISSIONAL,ID_PLANO,QTDE_CREDITOS_RESTANTES,DATA_ATIVACAO_PLANO,DATA_INICIAL,DATA_FINAL,STATUS) " + " VALUES(?,?,?,?,?,?,?,?   )");
 
             stmt.setInt     (1, id);
             stmt.setInt     (2, id_profissional);
-            stmt.setInt    (3, id_plano);
+            stmt.setInt     (3, id_plano);
             stmt.setInt     (4, qtde_creditos_restantes);
             stmt.setDate    (5, data_ativacao_plano);
             stmt.setDate    (6, data_inicial);
-            stmt.setDate    (6, data_final);
-            stmt.setBoolean    (6, status);
+            stmt.setDate    (7, data_final);
+            stmt.setBoolean    (8, status);
 
 
             stmt.execute();
