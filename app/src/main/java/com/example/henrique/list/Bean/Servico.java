@@ -1,11 +1,36 @@
 package com.example.henrique.list.Bean;
 
+import java.sql.Time;
+
 /**
  * Created by htamashiro on 2/21/15.
  */
 public class Servico {
     private  int id_profissional;
     private int id;
+    private String nome;
+    private String descricao;
+    private Time tempo;
+    private Time tolerancia_atraso;
+    private double valor;
+
+    public Time getTempo() {
+        return tempo;
+    }
+
+    public void setTempo(Time tempo) {
+        this.tempo = tempo;
+    }
+
+    public Time getTolerancia_atraso() {
+        return tolerancia_atraso;
+    }
+
+    public void setTolerancia_atraso(Time tolerancia_atraso) {
+        this.tolerancia_atraso = tolerancia_atraso;
+    }
+
+
 
     public double getValor() {
         return valor;
@@ -47,25 +72,6 @@ public class Servico {
         this.descricao = descricao;
     }
 
-    public String getTempo() {
-        return tempo;
-    }
 
-    public void setTempo(String tempo) {
-        this.tempo = tempo;
-    }
 
-    public String getTolerancia_atraso() {
-        return tolerancia_atraso;
-    }
-
-    public void setTolerancia_atraso(String tolerancia_atraso) {
-        this.tolerancia_atraso = tolerancia_atraso;
-    }
-
-    private String nome;
-    private String descricao;
-    private String tempo;
-    private String tolerancia_atraso;
-    private double valor;
 }

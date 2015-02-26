@@ -9,14 +9,17 @@ import com.example.henrique.list.Bean.Plano;
 import com.example.henrique.list.Bean.Plano_Profissional;
 import com.example.henrique.list.Bean.Profissao;
 import com.example.henrique.list.Bean.Profissional;
+import com.example.henrique.list.Bean.Servico;
 import com.example.henrique.list.DAO.PessoaDAO;
 import com.example.henrique.list.DAO.PlanoDAO;
 import com.example.henrique.list.DAO.Plano_ProfissionalDAO;
 import com.example.henrique.list.DAO.ProfissaoDAO;
 import com.example.henrique.list.DAO.ProfissionalDAO;
+import com.example.henrique.list.DAO.ServicoDAO;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.concurrent.ExecutionException;
@@ -358,7 +361,7 @@ public class atividadeTeste extends Activity {
             e1.printStackTrace();
         }*/
 
-        Profissional profissional = new Profissional();
+  /*      Profissional profissional = new Profissional();
         profissional.setId(32);
         profissional.setId_profissao(42);
         profissional.setId_especializacao(41);
@@ -393,8 +396,49 @@ public class atividadeTeste extends Activity {
 
         } catch (SQLException e1) {
             e1.printStackTrace();
+        }*/
+
+
+        Time teste = new Time(23,12,12);
+        Time teste2 = new Time(21,12,12);
+
+        Servico servico = new Servico();
+        servico.setNome("jao");
+        servico.setId(41);
+        servico.setDescricao("fafa");
+        servico.setId_profissional(40);
+        servico.setTolerancia_atraso(teste);
+        servico.setTempo(teste2);
+        servico.setValor(32.12);
+
+        ServicoDAO servicoDAO = new ServicoDAO(this);
+
+        try {
+            servicoDAO.execute().get();
+            Toast.makeText(atividadeTeste.this, "Fez execute", Toast.LENGTH_LONG).show();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
 
+        if(servicoDAO.isConected())
+        {
+            Toast.makeText(atividadeTeste.this, "Fez as conexoes", Toast.LENGTH_LONG).show();
+
+        }
+
+        // teste adicionar
+        try {
+            Toast.makeText(atividadeTeste.this, "Entrou no try do adiciona", Toast.LENGTH_LONG).show();
+
+            servicoDAO.adiciona(servico);
+
+
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
 
 
 
