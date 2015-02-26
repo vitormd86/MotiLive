@@ -8,14 +8,18 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.henrique.list.Bean.Pessoa;
+import com.example.henrique.list.atividadeTeste;
+import com.mysql.jdbc.ResultSet;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Date;
+import java.sql.ResultSetMetaData;
+import java.sql.Statement;
 
 
-public class PessoaDAO extends AsyncTask<Void, Void, Boolean> {
+public class PessoaDAO extends AsyncTask<Void, Pessoa, Boolean> {
     private Context context;
     private static final String url = "jdbc:mysql://192.169.198.138:3306/motilive";
     private static final String user = "root";
@@ -113,6 +117,48 @@ public class PessoaDAO extends AsyncTask<Void, Void, Boolean> {
         } catch (java.sql.SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public Pessoa getPessoa(int id)throws SQLException, java.sql.SQLException{
+
+
+        Pessoa pessoa = new Pessoa();
+
+        int idlocal = id;
+
+        try {
+            Toast.makeText(context, "entrou no try do prepare", Toast.LENGTH_LONG).show();
+
+
+            Statement stmt ;
+            stmt = con.createStatement();
+
+
+
+
+            java.sql.ResultSet rs;
+            rs = stmt.executeQuery("SELECT NOME FROM PESSOA WHERE ID=2");
+
+
+
+            while(rs.next()) {
+                String nome = rs.getString("NOME");
+                String cpf_cnpj =rs.getString("CPF_CNPJ");
+            }
+            Toast.makeText(context, "realiza query", Toast.LENGTH_LONG).show();
+
+
+            stmt.close();
+
+
+        } catch (SQLException e) {
+
+            System.out.println(e.getMessage());
+
+        }
+
+        return pessoa;
+
     }
 
     public void update(Pessoa pessoa) throws SQLException, java.sql.SQLException {

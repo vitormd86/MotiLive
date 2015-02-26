@@ -7,9 +7,11 @@ import android.widget.Toast;
 import com.example.henrique.list.Bean.Pessoa;
 import com.example.henrique.list.Bean.Plano;
 import com.example.henrique.list.Bean.Plano_Profissional;
+import com.example.henrique.list.Bean.Profissao;
 import com.example.henrique.list.DAO.PessoaDAO;
 import com.example.henrique.list.DAO.PlanoDAO;
 import com.example.henrique.list.DAO.Plano_ProfissionalDAO;
+import com.example.henrique.list.DAO.ProfissaoDAO;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -146,7 +148,7 @@ public class atividadeTeste extends Activity {
         }
 
     */
-        Date date = new Date(1900/05/01);
+ /*       Date date = new Date(1900/05/01);
         Date date2 = new Date(2000/02/24);
 
 
@@ -203,7 +205,36 @@ public class atividadeTeste extends Activity {
         } catch (SQLException e1) {
             e1.printStackTrace();
         }
+*/
+/*
 
+        Pessoa pessoinha =  new Pessoa();
+        PessoaDAO pessoaDAO = new PessoaDAO(this);
+
+        try {
+            pessoaDAO.execute().get();
+            Toast.makeText(atividadeTeste.this, "Fez execute", Toast.LENGTH_LONG).show();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+
+
+        // teste Select
+        try {
+            Toast.makeText(atividadeTeste.this, "Entrou no try do getPessoa", Toast.LENGTH_LONG).show();
+
+            pessoinha = pessoaDAO.getPessoa(2);
+
+
+
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+*/
 
      /*   Plano plano = new Plano();
         plano.setId(50);
@@ -292,6 +323,38 @@ public class atividadeTeste extends Activity {
             e1.printStackTrace();
         }*/
 
+        Profissao profissao = new Profissao();
+        profissao.setNome("jao");
+        profissao.setId(42);
+
+        ProfissaoDAO profissaoDAO = new ProfissaoDAO(this);
+
+        try {
+            profissaoDAO.execute().get();
+            Toast.makeText(atividadeTeste.this, "Fez execute", Toast.LENGTH_LONG).show();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        if(profissaoDAO.isConected())
+        {
+            Toast.makeText(atividadeTeste.this, "Fez as conexoes", Toast.LENGTH_LONG).show();
+
+        }
+
+        // teste adicionar
+        try {
+            Toast.makeText(atividadeTeste.this, "Entrou no try do adiciona", Toast.LENGTH_LONG).show();
+
+            profissaoDAO.adiciona(profissao);
+
+
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
 
 
     }
