@@ -7,6 +7,9 @@ public class Profissional {
     private int id_pessoa;
     private int id_profissao;
     private int id;
+    private String registro;
+    private int id_especializacao;
+    private String url_linkedin;
 
     public String getUrl_linkedin() {
         return url_linkedin;
@@ -56,7 +59,5 @@ public class Profissional {
         this.id_especializacao = id_especializacao;
     }
 
-    private String registro;
-    private int id_especializacao;
-    private String url_linkedin;
+
 }

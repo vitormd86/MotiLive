@@ -8,10 +8,12 @@ import com.example.henrique.list.Bean.Pessoa;
 import com.example.henrique.list.Bean.Plano;
 import com.example.henrique.list.Bean.Plano_Profissional;
 import com.example.henrique.list.Bean.Profissao;
+import com.example.henrique.list.Bean.Profissional;
 import com.example.henrique.list.DAO.PessoaDAO;
 import com.example.henrique.list.DAO.PlanoDAO;
 import com.example.henrique.list.DAO.Plano_ProfissionalDAO;
 import com.example.henrique.list.DAO.ProfissaoDAO;
+import com.example.henrique.list.DAO.ProfissionalDAO;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -323,7 +325,7 @@ public class atividadeTeste extends Activity {
             e1.printStackTrace();
         }*/
 
-        Profissao profissao = new Profissao();
+/*        Profissao profissao = new Profissao();
         profissao.setNome("jao");
         profissao.setId(42);
 
@@ -354,7 +356,46 @@ public class atividadeTeste extends Activity {
 
         } catch (SQLException e1) {
             e1.printStackTrace();
+        }*/
+
+        Profissional profissional = new Profissional();
+        profissional.setId(32);
+        profissional.setId_profissao(42);
+        profissional.setId_especializacao(41);
+        profissional.setId_pessoa(43);
+        profissional.setRegistro("blabla");
+        profissional.setUrl_linkedin("testando");
+
+        ProfissionalDAO profissionalDAO = new ProfissionalDAO(this);
+
+        try {
+            profissionalDAO.execute().get();
+            Toast.makeText(atividadeTeste.this, "Fez execute", Toast.LENGTH_LONG).show();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
+
+        if(profissionalDAO.isConected())
+        {
+            Toast.makeText(atividadeTeste.this, "Fez as conexoes", Toast.LENGTH_LONG).show();
+
+        }
+
+        // teste adicionar
+        try {
+            Toast.makeText(atividadeTeste.this, "Entrou no try do adiciona", Toast.LENGTH_LONG).show();
+
+            profissionalDAO.adiciona(profissional);
+
+
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+
+
 
 
     }
