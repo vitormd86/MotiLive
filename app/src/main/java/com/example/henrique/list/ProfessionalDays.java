@@ -1,12 +1,10 @@
 package com.example.henrique.list;
 
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CalendarView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.content.Intent;
 
@@ -16,7 +14,7 @@ public class ProfessionalDays extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_professional_days);
+        setContentView(R.layout.fragment_professional_days);
 
         String professionalName = "Leandro Massaro Kubota";
         String occupation = "Massagista";

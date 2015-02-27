@@ -1,8 +1,9 @@
 package com.example.henrique.list.Fragments;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,19 +51,34 @@ public class FragmentPortrait extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 //recebe a data selecionada para passar para a proxima tela
-                String selectedDate= getCalendarDate(myCalendarView);
+                String selectedDate = getCalendarDate(myCalendarView);
 
-                // HIDE, mudanca provisoria...
                 //opcoesSelecionadas opcoes = new opcoesSelecionadas(String.valueOf(parent.getItemAtPosition(position)), null, null);
-                String opcoes = String.valueOf(parent.getItemAtPosition(position));
+                String selectedProfessional = String.valueOf(parent.getItemAtPosition(position));
 
-                Intent intentHourConsult;
+                //instancia proximo fragment a ser iniciado
+                HourConsultFragment nextFragment = new HourConsultFragment();
 
-                intentHourConsult = new Intent(getActivity() , HourConsult.class);
-                intentHourConsult.putExtra("Escolhas", opcoes); // joga o objeto para a proxima activity
-                intentHourConsult.putExtra("Date", selectedDate); // joga o objeto para a proxima activity
+                //inicia valores que serao enviados para a proxima Fragment
+                Bundle args = new Bundle();
+                args.putString("selectedProfessional", selectedProfessional);
+                args.putString("selectedDate", selectedDate);
+                nextFragment.setArguments(args);
 
-                startActivity(intentHourConsult);
+                //inicia a transacao de Fragments
+                FragmentTransaction ft  = getFragmentManager().beginTransaction();
+                ft.replace(R.id.content_frame, nextFragment);
+
+                //este metodo permite q o usuario navegue de volta
+                ft.addToBackStack(null);
+
+                ft.commit();
+
+                //Intent intentHourConsult;
+                //intentHourConsult = new Intent(getActivity() , HourConsult.class);
+                //intentHourConsult.putExtra("Escolhas", opcoes); // joga o objeto para a proxima activity
+                //intentHourConsult.putExtra("Date", selectedDate); // joga o objeto para a proxima activity
+                //startActivity(intentHourConsult);
             }
         });
 

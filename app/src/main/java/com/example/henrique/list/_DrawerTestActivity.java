@@ -1,15 +1,26 @@
 package com.example.henrique.list;
 
+
 import android.content.res.Configuration;
+import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.henrique.list.Adapters.MyAdapterDrawerOptions;
+import com.example.henrique.list.Fragments.FragmentPortrait;
+import com.example.henrique.list.Fragments.ProfessionalDaysFragment;
+import com.example.henrique.list.Fragments.HourConsultFragment;
 
 
 public class _DrawerTestActivity extends ActionBarActivity {
@@ -17,58 +28,96 @@ public class _DrawerTestActivity extends ActionBarActivity {
     CharSequence mTitle;
     ActionBarDrawerToggle mDrawerToggle;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer_layout);
 
+        //inicia o fragment inicial dentro do frame de conteudo
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_frame, new FragmentPortrait());
+        ft.commit();
+
+
+        //Criacao e configuracao do menu lateral
         mTitle = "test";
-
-       // mPlanetTitles = new String[]{"one", "two", "three"};
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-       // mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-        // Set the adapter for the list view
-       // mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-        //        R.layout.drawer_list_item, mPlanetTitles));
-        // Set the list's click listener
-        //mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-
-
-            mDrawerToggle = new ActionBarDrawerToggle(
-                    this,                  /* host Activity */
-                    mDrawerLayout,         /* DrawerLayout object */
+        mDrawerToggle = new ActionBarDrawerToggle(
+                this,                  /* host Activity */
+                mDrawerLayout,         /* DrawerLayout object */
                       /* nav drawer icon to replace 'Up' caret */
-                    R.string.drawer_open,  /* "open drawer" description */
-                    R.string.drawer_close  /* "close drawer" description */
-            ) {
+                R.string.drawer_open,  /* "open drawer" description */
+                R.string.drawer_close  /* "close drawer" description */
+        ) {
 
-                /**
-                 * Called when a drawer has settled in a completely closed state.
-                 */
-                public void onDrawerClosed(View view) {
-                }
 
-                /**
-                 * Called when a drawer has settled in a completely open state.
-                 */
-                public void onDrawerOpened(View drawerView) {
-                }
-            };
+            /**
+             * Called when a drawer has settled in a completely closed state.
+             */
+            public void onDrawerClosed(View view) {
+            }
+
+            /**
+             * Called when a drawer has settled in a completely open state.
+             */
+            public void onDrawerOpened(View drawerView) {
+            }
+        };
 
 
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+        //configurando itens dentro do menu lateral
+        setLayoutItems();
 
 
 
     }
 
+    //Esta classe alimenta e configura o conteudo do drawer
+    public void setLayoutItems (){
+
+        //Configurando cabecalho
+        String userName = "Leandro";
+        String occupation = "Massagista";
+
+        ImageView imagePhoto = (ImageView) findViewById(R.id.photo);
+        TextView textName = (TextView) findViewById(R.id.name);
+        TextView textOccupation = (TextView) findViewById(R.id.occupation);
+
+        textName.setText(userName);
+        textOccupation.setText(occupation);
+
+        //configurando listview (menu de opcoes)
+        String[] menuOptions = {"Opcao 1", "Opcao 2", "Opcao 3"};
+        ListView listOptions = (ListView) findViewById(R.id.ListView);
+        ListAdapter myAdapterDrawerOptions= new MyAdapterDrawerOptions(this, menuOptions);
+        listOptions.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        listOptions.setAdapter(myAdapterDrawerOptions);
+
+        //configurando listeners da listview
+        listOptions.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.content_frame, new ProfessionalDaysFragment());
+                ft.commit();
+                mDrawerLayout.closeDrawers();
+            }
+        });
+        //textView.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //   public void onClick(View v) {
+//
+        //     }
+        // });
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -84,9 +133,9 @@ public class _DrawerTestActivity extends ActionBarActivity {
         mDrawerToggle.syncState();
     }
 
-   @Override
+    @Override
     public void onConfigurationChanged(Configuration newConfig) {
-       super.onConfigurationChanged(newConfig);
+        super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
@@ -98,9 +147,9 @@ public class _DrawerTestActivity extends ActionBarActivity {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-       else
-       if (id == R.id.action_settings) {
-           return true;
+        else
+        if (id == R.id.action_settings) {
+            return true;
         }
         // Handle your other action bar items...
 
@@ -111,12 +160,12 @@ public class _DrawerTestActivity extends ActionBarActivity {
      * Swaps fragments in the main content view
      */
 //    private void selectItem(int position) {
-        //Toast.makeText(this, R.string.app_name, Toast.LENGTH_SHORT).show();
+    //Toast.makeText(this, R.string.app_name, Toast.LENGTH_SHORT).show();
 
-        // Highlight the selected item, update the title, and close the drawer
-        // mDrawerList.setItemChecked(position, true);
-        //setTitle(mPlanetTitles[position]);
-        //mDrawerLayout.closeDrawer(mDrawerList);
+    // Highlight the selected item, update the title, and close the drawer
+    // mDrawerList.setItemChecked(position, true);
+    //setTitle(mPlanetTitles[position]);
+    //mDrawerLayout.closeDrawer(mDrawerList);
 //    }
 
     @Override

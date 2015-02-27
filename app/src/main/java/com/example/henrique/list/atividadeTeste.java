@@ -243,7 +243,7 @@ public class atividadeTeste extends Activity {
 
      /*   Plano plano = new Plano();
         plano.setId(50);
-        plano.setQtde_creditos(23.4);
+        plano.setQtde_creditos(23);
         plano.setValor(43.5);
         plano.setQtde_dias(10);
         plano.setStatus(true);

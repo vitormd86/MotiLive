@@ -16,7 +16,7 @@ public class ProfessionalHours extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_professional_hours);
+        setContentView(R.layout.fragment_professional_hours);
         Intent activityThatCalled = getIntent();
 
         String professionalName = "Leandro Massaro Kubota"; // buscar do banco

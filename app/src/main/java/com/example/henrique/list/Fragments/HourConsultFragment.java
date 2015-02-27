@@ -1,12 +1,13 @@
-package com.example.henrique.list;
+package com.example.henrique.list.Fragments;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.SparseBooleanArray;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,17 +20,20 @@ import android.widget.Toast;
 
 import com.example.henrique.list.Adapters.MyAdapterFreeTime;
 import com.example.henrique.list.Adapters.MyAdapterServiceTypes;
-import com.example.henrique.list.DAO.PessoaDAO;
-
-import java.sql.SQLException;
-import java.util.concurrent.ExecutionException;
+import com.example.henrique.list._DrawerTestActivity;
+import com.example.henrique.list.R;
+import com.example.henrique.list.ResizeAnimation;
 
 import java.util.ArrayList;
 
-public class HourConsult extends ActionBarActivity {
+/**
+ * Created by Cristor on 26/02/2015.
+ */
+public class HourConsultFragment extends Fragment {
 
+    private View v;
+    private FragmentActivity fa;
 
-    PessoaDAO pessoaDAO = new PessoaDAO(this);
     ArrayList<String> freeHours = new ArrayList<>();
     ArrayList<String> freeMinutes = new ArrayList<>();
     ResizeAnimation resizeAnimation;
@@ -44,31 +48,25 @@ public class HourConsult extends ActionBarActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hour_consult);
-        Intent activityThatCalled = getIntent();
 
+        fa = super.getActivity();
+        v = inflater.inflate(R.layout.activity_hour_consult, container, false);
+
+
+        //recebe valores da fragment anterior
+        Bundle args = getArguments();
+        professionalName = args.getString("selectedProfessional");
+        date = args.getString("selectedDate");
+
+        //Intent activityThatCalled = getIntent();
         //Deve buscar do banco ou da intent
-        professionalName = activityThatCalled.getStringExtra("Escolhas");
-        //try {
-        //    pessoaDAO.execute().get();
-        //} catch (InterruptedException e) {
-        //    e.printStackTrace();
-        //} catch (ExecutionException e) {
-        //    e.printStackTrace();
-        //}
+        //professionalName = activityThatCalled.getStringExtra("Escolhas");
+        //date = activityThatCalled.getStringExtra("Date");
 
-        //try {
-        //   professionalName = pessoaDAO.getPessoa(2);
-        //}  catch (SQLException e1) {
-        //e1.printStackTrace();
-        //}
-
-        date = activityThatCalled.getStringExtra("Date");
         String occupation = "Massagista";
-        String [] services = {"Serviço 1" , "Serviço2" , "Serviço3" , "Serviço4" , "Serviço5" , "Serviço6","Servico7", "Servico8", "servico8"};
-
+        String[] services = {"Serviço 1", "Serviço2", "Serviço3", "Serviço4", "Serviço5", "Serviço6", "Servico7", "Servico8", "servico8"};
 
 
         //adicionando horas.... deve receber do banco de dados e tratar em seguida
@@ -80,14 +78,14 @@ public class HourConsult extends ActionBarActivity {
         freeMinutes.add("30");
 
         //apontando items do layout
-        TextView textProfessionalName = (TextView) findViewById(R.id.professionalName);
-        TextView textProfession = (TextView) findViewById(R.id.profession);
-        final ListView listHours = (ListView) findViewById(R.id.listHours);
-        final ListView listMinutes = (ListView) findViewById(R.id.listMinutes);
-        final ListView listServices = (ListView) findViewById(R.id.listServices);
-        final ArrayAdapter myAdapterServiceTypes = new MyAdapterServiceTypes(this, services);
-        final ArrayAdapter myAdapterFreeHours = new MyAdapterFreeTime(getBaseContext(), freeHours, listHours);
-        final ArrayAdapter myAdapterFreeMinutes = new MyAdapterFreeTime(getBaseContext(), freeMinutes, listHours);
+        TextView textProfessionalName = (TextView) v.findViewById(R.id.professionalName);
+        TextView textProfession = (TextView) v.findViewById(R.id.profession);
+        final ListView listHours = (ListView) v.findViewById(R.id.listHours);
+        final ListView listMinutes = (ListView) v.findViewById(R.id.listMinutes);
+        final ListView listServices = (ListView) v.findViewById(R.id.listServices);
+        final ArrayAdapter myAdapterServiceTypes = new MyAdapterServiceTypes(getActivity(), services);
+        final ArrayAdapter myAdapterFreeHours = new MyAdapterFreeTime(getActivity(), freeHours, listHours);
+        final ArrayAdapter myAdapterFreeMinutes = new MyAdapterFreeTime(getActivity(), freeMinutes, listHours);
 
         //Configura as variaveis do cabecalho
         textProfessionalName.setText(professionalName);
@@ -115,7 +113,7 @@ public class HourConsult extends ActionBarActivity {
                 myAdapterFreeHours.notifyDataSetChanged();
 
                 //verifica se a listview de horas ja esta aberta
-                if(!isHoursOpened) {
+                if (!isHoursOpened) {
                     //redimensiona listView de horas
                     isHoursOpened = true;
                     resizeAnimation = new ResizeAnimation(listHours, freeHourMinutesWidth);
@@ -155,7 +153,7 @@ public class HourConsult extends ActionBarActivity {
                 freeMinutes.add("50");
                 myAdapterFreeMinutes.notifyDataSetChanged();
 
-                if(!isMinutesOpened) {
+                if (!isMinutesOpened) {
                     //redimensiona listView de horas]
                     isMinutesOpened = true;
                     resizeAnimation = new ResizeAnimation(listMinutes, freeHourMinutesWidth);
@@ -174,7 +172,7 @@ public class HourConsult extends ActionBarActivity {
 
                 selectedMinutes = "" + myAdapterFreeMinutes.getItem(position);
                 //Gera um alerta, para confirmar o agendamento
-                AlertDialog.Builder builder = new AlertDialog.Builder(HourConsult.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 AlertDialog confirmAlert;
 
                 //Determinando campo de servicos selecionados
@@ -201,20 +199,20 @@ public class HourConsult extends ActionBarActivity {
                         "\nPeríodo: " + totalTime +
                         "\nFim: " + "02:00h" +
                         "\nValor: " + "R$99,99");
-                builder.setPositiveButton("Sim", new DialogInterface.OnClickListener(){
-                    public void onClick(DialogInterface arg0, int arg1){
+                builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
                         //OPCAO SIM = confirma agendamento
                         //DEVE ACRESCENTAR OS DADOS NO BD
                         //DEVE VERIFICAR SE TODAS AS LISTAS ESTAO SELECIONADAS
 
                         //Redireciona usuario para a tela inicial de agendamento
-                        Intent endOfScheduleActivity = new Intent(HourConsult.this,MainActivity.class);
+                        Intent endOfScheduleActivity = new Intent(getActivity(), _DrawerTestActivity.class);
                         startActivity(endOfScheduleActivity);
 
                     }
                 });
-                builder.setNegativeButton("Não", new DialogInterface.OnClickListener(){
-                    public void onClick(DialogInterface arg0, int arg1){
+                builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
 
                         //REINICIA ListMinutes/ListHours Menu
                         resizeAnimation = new ResizeAnimation(listHours, 0);
@@ -228,7 +226,7 @@ public class HourConsult extends ActionBarActivity {
                         listMinutes.clearChoices();
                         listHours.clearChoices();
                         listServices.clearChoices();
-                        Toast.makeText(getBaseContext(), "Nao", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Nao", Toast.LENGTH_SHORT).show();
                     }
                 });
                 confirmAlert = builder.create();
@@ -236,33 +234,9 @@ public class HourConsult extends ActionBarActivity {
 
             }
         });
+
+        return v;
     }
 
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void setServicesListener(){
-
-    }
 }
