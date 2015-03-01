@@ -7,13 +7,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.henrique.list.DrawerMenuItem;
 import com.example.henrique.list.R;
 
 /**
  * Created by Cristor on 26/02/2015.
  */
-public class MyAdapterDrawerOptions extends ArrayAdapter<String> {
-    public MyAdapterDrawerOptions(Context context, String[] clients) {
+public class MyAdapterDrawerOptions extends ArrayAdapter<DrawerMenuItem> {
+    public MyAdapterDrawerOptions(Context context, DrawerMenuItem[] clients) {
         super(context, R.layout.view_drawer_options, clients);
     }
 
@@ -21,7 +22,7 @@ public class MyAdapterDrawerOptions extends ArrayAdapter<String> {
         LayoutInflater theInflator = LayoutInflater.from(getContext());
         View theView = theInflator.inflate(R.layout.view_drawer_options, parent, false);
 
-        String option = getItem(position);
+        String option = getItem(position).getLinkTitle();
         TextView textOption = (TextView) theView.findViewById(R.id.option);
 
         textOption.setText(option);

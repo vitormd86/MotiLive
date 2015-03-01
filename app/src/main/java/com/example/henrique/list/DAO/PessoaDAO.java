@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import com.example.henrique.list.Bean.Pessoa;
 import com.example.henrique.list.atividadeTeste;
-import com.mysql.jdbc.ResultSet;
+//import com.mysql.jdbc.ResultSet;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

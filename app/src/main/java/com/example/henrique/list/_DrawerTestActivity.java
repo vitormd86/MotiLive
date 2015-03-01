@@ -15,12 +15,10 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.henrique.list.Adapters.MyAdapterDrawerOptions;
 import com.example.henrique.list.Fragments.FragmentPortrait;
 import com.example.henrique.list.Fragments.ProfessionalDaysFragment;
-import com.example.henrique.list.Fragments.HourConsultFragment;
 
 
 public class _DrawerTestActivity extends ActionBarActivity {
@@ -72,12 +70,8 @@ public class _DrawerTestActivity extends ActionBarActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-
         //configurando itens dentro do menu lateral
         setLayoutItems();
-
-
-
     }
 
     //Esta classe alimenta e configura o conteudo do drawer
@@ -95,8 +89,14 @@ public class _DrawerTestActivity extends ActionBarActivity {
         textOccupation.setText(occupation);
 
         //configurando listview (menu de opcoes)
-        String[] menuOptions = {"Opcao 1", "Opcao 2", "Opcao 3"};
+        ProfessionalDaysFragment professionalDays = new ProfessionalDaysFragment();
+        FragmentPortrait fragmentPortrait = new FragmentPortrait();
+        DrawerMenuItem item1 = new DrawerMenuItem(fragmentPortrait, "Agendar Novo");
+        DrawerMenuItem item2 = new DrawerMenuItem(professionalDays, "Consultar Agenda");
+        final DrawerMenuItem [] menuOptions = {item1, item2};
+
         ListView listOptions = (ListView) findViewById(R.id.ListView);
+        //configurando adapter da listView
         ListAdapter myAdapterDrawerOptions= new MyAdapterDrawerOptions(this, menuOptions);
         listOptions.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         listOptions.setAdapter(myAdapterDrawerOptions);
@@ -105,18 +105,19 @@ public class _DrawerTestActivity extends ActionBarActivity {
         listOptions.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.content_frame, new ProfessionalDaysFragment());
-                ft.commit();
-                mDrawerLayout.closeDrawers();
+                selectMenuItem(position, menuOptions);
             }
         });
-        //textView.setOnClickListener(new View.OnClickListener() {
-        //    @Override
-        //   public void onClick(View v) {
-//
-        //     }
-        // });
+    }
+
+    //esta classe recebe a posicao do item clicado no menu e determina qual fragment vai ser chamado no content_frame
+    private void selectMenuItem(int pos, DrawerMenuItem [] menuOptions){
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_frame, menuOptions[pos].getLinkFragment()); //aponta para o fragment correspondente ao clique no vetor de fragments
+
+        ft.commit();
+        mDrawerLayout.closeDrawers();
     }
 
     @Override

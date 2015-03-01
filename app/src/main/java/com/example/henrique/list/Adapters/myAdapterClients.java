@@ -3,7 +3,9 @@ package com.example.henrique.list.Adapters;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,7 +17,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.henrique.list.ClientView;
+import com.example.henrique.list.Fragments.ClientViewFragment;
 import com.example.henrique.list.R;
 
 /**
@@ -23,14 +25,15 @@ import com.example.henrique.list.R;
 **/
 //PRECISO PASSAR MAIS DE UMA ARRAY COMO ARGUMENTO NO CONSTRUTOR... (HORARIO E STATUS)
 public class myAdapterClients extends ArrayAdapter<String> {
-    public myAdapterClients(Context context, String[] clients) {
+    Fragment fragment;
+    public myAdapterClients(Context context, String[] clients, Fragment f) {
         super(context, R.layout.view_schedule_client, clients);
-
+        fragment = f;
     }
 
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, final View convertView, ViewGroup parent) {
         LayoutInflater theInflator = LayoutInflater.from(getContext());
         View theView = theInflator.inflate(R.layout.view_schedule_client, parent, false);
 
@@ -112,12 +115,27 @@ public class myAdapterClients extends ArrayAdapter<String> {
         clientPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent nextCalendarActivity = new Intent(getContext(),ClientView.class);
+                //Intent nextCalendarActivity = new Intent(getContext(),ClientView.class);
 
                 //Envia dados para proxima Activity (ProfessionalHours)
-                nextCalendarActivity.putExtra("nameClient", clients);
+                //nextCalendarActivity.putExtra("nameClient", clients);
 
-                getContext().startActivity(nextCalendarActivity);
+                //getContext().startActivity(nextCalendarActivity);
+                ClientViewFragment nextFragment = new ClientViewFragment();
+
+                //inicia valores que serao enviados para a proxima Fragment
+                Bundle args = new Bundle();
+                args.putString("client", clients);
+                nextFragment.setArguments(args);
+
+                //inicia a transacao de Fragments
+                FragmentTransaction ft =  fragment.getFragmentManager().beginTransaction();
+                ft.replace(R.id.content_frame, nextFragment);
+
+                //este metodo permite q o usuario navegue de volta
+                ft.addToBackStack(null);
+
+                ft.commit();
             }
         });
 

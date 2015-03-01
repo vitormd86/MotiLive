@@ -9,7 +9,7 @@
         android:id="@+id/photo"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:layout_marginLeft="10dp"
         android:src="@drawable/hide" />
     <TextView
@@ -17,7 +17,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
-        android:padding="15dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="7dp"
         android:textSize="15sp"
         android:text="Nome do Profissional"
         android:textStyle="bold"/>
@@ -26,10 +27,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="15dp"
-        android:padding="15dp"
+        android:paddingTop="19dp"
+        android:paddingLeft="15dp"
         android:textSize="15sp"
         android:text="Profissão"
+        android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:paddingTop="31dp"
+        android:paddingLeft="15dp"
+        android:textSize="15sp"
+        android:text="Data"
         android:textStyle="bold"/>
 
 
@@ -37,8 +48,10 @@
         android:id="@+id/listMinutes"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
+        android:layout_marginTop="5sp"
         android:layout_below="@id/photo"
         android:layout_alignParentRight="true"
+        android:paddingTop="31dp"
         android:background="#0088dd"
         android:choiceMode="singleChoice"
       />
@@ -46,6 +59,7 @@
     <ListView
         android:id="@+id/listHours"
         android:layout_height="fill_parent"
+        android:layout_marginTop="5sp"
         android:layout_width="0dp"
         android:layout_below="@id/photo"
         android:background="#440011"
@@ -57,6 +71,7 @@
         android:id="@+id/listServices"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:layout_marginTop="5sp"
         android:layout_below="@id/photo"
         android:layout_toLeftOf="@id/listHours"
         android:background="#444444"

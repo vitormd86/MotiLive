@@ -22,11 +22,12 @@ public class ResizeAnimation extends Animation {
 
     @Override
     protected void applyTransformation(float interpolatedTime, Transformation t) {
-        DisplayMetrics displayMetrics = view.getContext().getResources().getDisplayMetrics();
+ //       DisplayMetrics displayMetrics = view.getContext().getResources().getDisplayMetrics();
 
-        int newWidth = (int) ((targetWidth - startWidth) * interpolatedTime + startWidth);
-        int newWidthSp = (int) ((newWidth/displayMetrics.density)+0.5);
-        view.getLayoutParams().width = newWidthSp;
+        int newWidth = (int) (targetWidth * interpolatedTime);
+//        int newWidth = (int) ((targetWidth - startWidth) * interpolatedTime + startWidth);
+//        int newWidthSp = (int) ((newWidth/displayMetrics.density)+0.5);
+        view.getLayoutParams().width = newWidth;
         view.requestLayout();
     }
 

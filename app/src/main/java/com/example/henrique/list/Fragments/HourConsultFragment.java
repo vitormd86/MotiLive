@@ -42,7 +42,7 @@ public class HourConsultFragment extends Fragment {
     int freeHourMinutesWidth = 90;
     String selectedHour;
     String selectedMinutes;
-    String date;
+    String sDate;
     String professionalName;
     String totalTime;
 
@@ -54,32 +54,18 @@ public class HourConsultFragment extends Fragment {
         fa = super.getActivity();
         v = inflater.inflate(R.layout.activity_hour_consult, container, false);
 
-
         //recebe valores da fragment anterior
         Bundle args = getArguments();
         professionalName = args.getString("selectedProfessional");
-        date = args.getString("selectedDate");
-
-        //Intent activityThatCalled = getIntent();
-        //Deve buscar do banco ou da intent
-        //professionalName = activityThatCalled.getStringExtra("Escolhas");
-        //date = activityThatCalled.getStringExtra("Date");
-
+        sDate = args.getString("selectedDate");
+        //deve configurar dados do profissional a partir do bd
         String occupation = "Massagista";
         String[] services = {"Serviço 1", "Serviço2", "Serviço3", "Serviço4", "Serviço5", "Serviço6", "Servico7", "Servico8", "servico8"};
-
-
-        //adicionando horas.... deve receber do banco de dados e tratar em seguida
-        freeHours.add("1");
-        freeHours.add("2");
-        freeHours.add("3");
-        freeMinutes.add("10");
-        freeMinutes.add("20");
-        freeMinutes.add("30");
 
         //apontando items do layout
         TextView textProfessionalName = (TextView) v.findViewById(R.id.professionalName);
         TextView textProfession = (TextView) v.findViewById(R.id.profession);
+        TextView textDate = (TextView) v.findViewById(R.id.date);
         final ListView listHours = (ListView) v.findViewById(R.id.listHours);
         final ListView listMinutes = (ListView) v.findViewById(R.id.listMinutes);
         final ListView listServices = (ListView) v.findViewById(R.id.listServices);
@@ -90,6 +76,7 @@ public class HourConsultFragment extends Fragment {
         //Configura as variaveis do cabecalho
         textProfessionalName.setText(professionalName);
         textProfession.setText(occupation);
+        textDate.setText(sDate);
 
         //Configurando lista de horas livre
         listHours.setAdapter(myAdapterFreeHours);
@@ -106,8 +93,11 @@ public class HourConsultFragment extends Fragment {
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                //caso clique no servico o horario mudara de acordo com o horario dispnivel pra aquele servico
+                //adicionando horas.... deve receber do banco de dados e tratar em seguida
                 freeHours.clear();
+                freeHours.add("1");
+                freeHours.add("2");
+                freeHours.add("3");
                 freeHours.add("4");
                 freeHours.add("5");
                 myAdapterFreeHours.notifyDataSetChanged();
@@ -148,7 +138,10 @@ public class HourConsultFragment extends Fragment {
                 freeMinutes.clear();
                 freeMinutes.add("00");
                 freeMinutes.add("05");
+                freeMinutes.add("10");
                 freeMinutes.add("15");
+                freeMinutes.add("20");
+                freeMinutes.add("30");
                 freeMinutes.add("40");
                 freeMinutes.add("50");
                 myAdapterFreeMinutes.notifyDataSetChanged();
@@ -194,7 +187,7 @@ public class HourConsultFragment extends Fragment {
                 builder.setTitle("Confirmar agendamento?");
                 builder.setMessage("Profissional: " + professionalName +
                         "\nServico(s): " + selectedServices +
-                        "\nDia: " + date +
+                        "\nDia: " + sDate +
                         "\nInicio: " + selectedHour + ":" + selectedMinutes + "h" +
                         "\nPeríodo: " + totalTime +
                         "\nFim: " + "02:00h" +
