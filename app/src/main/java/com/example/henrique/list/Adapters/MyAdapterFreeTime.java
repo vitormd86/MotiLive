@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by Massaru on 17/02/2015.
  */
-public class MyAdapterFreeTime extends ArrayAdapter<String> {
+public class MyAdapterFreeTime extends ArrayAdapter<Integer> {
     int numberOfFreeHours;
     ListView thisListView;
 
@@ -32,12 +32,12 @@ public class MyAdapterFreeTime extends ArrayAdapter<String> {
         View theView = theInflator.inflate(R.layout.view_free_hour, parent, false);
         int listViewHeight = thisListView.getHeight();
         numberOfFreeHours = this.getCount();
-        String hours = getItem(position);
+        int hours = getItem(position);
 
         TextView textHour = (TextView) theView.findViewById(R.id.hour);
         int textHourHeight = listViewHeight / numberOfFreeHours;
 
-        textHour.setText(hours);
+        textHour.setText(Integer.toString(hours));
         textHour.setHeight(textHourHeight);
 
         return theView;

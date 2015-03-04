@@ -3,7 +3,6 @@ package com.example.henrique.list;
 import android.support.v4.app.Fragment;
 
 import com.example.henrique.list.Fragments.FragmentPortrait;
-import com.example.henrique.list.Fragments.ProfessionalDaysFragment;
 
 /**
  * Created by Massaru on 28/02/2015.

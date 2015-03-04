@@ -18,13 +18,14 @@ import android.widget.TextView;
 
 import com.example.henrique.list.Adapters.MyAdapterDrawerOptions;
 import com.example.henrique.list.Fragments.FragmentPortrait;
-import com.example.henrique.list.Fragments.ProfessionalDaysFragment;
+import com.example.henrique.list.Fragments.ProfessionalCalendarFragment;
 
 
 public class _DrawerTestActivity extends ActionBarActivity {
     DrawerLayout mDrawerLayout;
     CharSequence mTitle;
     ActionBarDrawerToggle mDrawerToggle;
+    ListView listOptions;
 
 
     @Override
@@ -35,11 +36,11 @@ public class _DrawerTestActivity extends ActionBarActivity {
         //inicia o fragment inicial dentro do frame de conteudo
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.content_frame, new FragmentPortrait());
+        setTitle("Novo Agendamento");
         ft.commit();
 
 
         //Criacao e configuracao do menu lateral
-        mTitle = "test";
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         mDrawerToggle = new ActionBarDrawerToggle(
@@ -89,13 +90,13 @@ public class _DrawerTestActivity extends ActionBarActivity {
         textOccupation.setText(occupation);
 
         //configurando listview (menu de opcoes)
-        ProfessionalDaysFragment professionalDays = new ProfessionalDaysFragment();
+        ProfessionalCalendarFragment professionalCalendar = new ProfessionalCalendarFragment();
         FragmentPortrait fragmentPortrait = new FragmentPortrait();
-        DrawerMenuItem item1 = new DrawerMenuItem(fragmentPortrait, "Agendar Novo");
-        DrawerMenuItem item2 = new DrawerMenuItem(professionalDays, "Consultar Agenda");
+        DrawerMenuItem item1 = new DrawerMenuItem(fragmentPortrait, "Novo Agendamento");
+        DrawerMenuItem item2 = new DrawerMenuItem(professionalCalendar, "Consultar Agenda");
         final DrawerMenuItem [] menuOptions = {item1, item2};
 
-        ListView listOptions = (ListView) findViewById(R.id.ListView);
+        listOptions = (ListView) findViewById(R.id.ListView);
         //configurando adapter da listView
         ListAdapter myAdapterDrawerOptions= new MyAdapterDrawerOptions(this, menuOptions);
         listOptions.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -115,8 +116,11 @@ public class _DrawerTestActivity extends ActionBarActivity {
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.content_frame, menuOptions[pos].getLinkFragment()); //aponta para o fragment correspondente ao clique no vetor de fragments
-
         ft.commit();
+
+        //Brilha opcao do vetor selecionada, atualiza titulo, e fecha o drawer
+        listOptions.setItemChecked(pos, true);
+        setTitle(menuOptions[pos].getLinkTitle());
         mDrawerLayout.closeDrawers();
     }
 
