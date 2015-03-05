@@ -16,18 +16,22 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.henrique.list.ActivityDrawer;
 import com.example.henrique.list.Adapters.MyAdapterFreeTime;
 import com.example.henrique.list.Adapters.MyAdapterServiceTypes;
-import com.example.henrique.list._DrawerTestActivity;
+import com.example.henrique.list.Bean.Servico;
 import com.example.henrique.list.R;
 import com.example.henrique.list.ResizeAnimation;
 
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Cristor on 26/02/2015.
  */
-public class HourConsultFragment extends Fragment {
+public class ScheduleHourFragment extends Fragment {
 
     private View v;
     private FragmentActivity fa;
@@ -35,33 +39,27 @@ public class HourConsultFragment extends Fragment {
     ArrayList<Integer> freeHours = new ArrayList<>();
     ArrayList<Integer> freeMinutes = new ArrayList<>();
     ResizeAnimation resizeAnimation;
-    boolean isHoursOpened;
-    boolean isMinutesOpened;
+    boolean isHoursOpened,  isMinutesOpened;
+    String selectedServicesTitle, sDate, professionalName;
     int freeHourMinutesWidth = 90;
-    String selectedServicesTitle;
-    String selectedHour;
-    String selectedMinutes;
-    String sDate;
-    String professionalName;
-    String totalTime;
-    String totalPrice;
+    int selectedHour, selectedMinutes;
+    double totalPrice;
+    long totalTime;
+    //iniciando variaveis que virao do banco
+    Servico [] testeS = getServicos();
     //iniciando items do layout
-    TextView textProfessionalName;
-    TextView textProfession;
-    TextView textDate;
-    ListView listHours;
-    ListView listMinutes;
-    ListView listServices;
-    ArrayAdapter myAdapterServiceTypes;
-    ArrayAdapter myAdapterFreeHours;
-    ArrayAdapter myAdapterFreeMinutes;
+    TextView textProfessionalName, textProfession, textDate;
+    ListView listHours, listMinutes, listServices;
+    ArrayAdapter myAdapterServiceTypes, myAdapterFreeHours, myAdapterFreeMinutes;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         fa = super.getActivity();
-        v = inflater.inflate(R.layout.activity_hour_consult, container, false);
+        v = inflater.inflate(R.layout.fragment_schedule_hour, container, false);
 
         //recebe valores da fragment anterior
         Bundle args = getArguments();
@@ -69,7 +67,7 @@ public class HourConsultFragment extends Fragment {
         sDate = args.getString("selectedDate");
         //deve configurar dados do profissional a partir do bd
         String occupation = "Massagista";
-        String[] services = {"Serviço 1", "Serviço2", "Serviço3", "Serviço4", "Serviço5", "Serviço6", "Servico7", "Servico8", "servico8"};
+        //String [] serviceTitles = {testeS[0].getNome()};
 
         //alimentando items do layout
         textProfessionalName = (TextView) v.findViewById(R.id.professionalName);
@@ -78,7 +76,7 @@ public class HourConsultFragment extends Fragment {
         listHours = (ListView) v.findViewById(R.id.listHours);
         listMinutes = (ListView) v.findViewById(R.id.listMinutes);
         listServices = (ListView) v.findViewById(R.id.listServices);
-        myAdapterServiceTypes = new MyAdapterServiceTypes(getActivity(), services);
+        myAdapterServiceTypes = new MyAdapterServiceTypes(getActivity(), testeS);
         myAdapterFreeHours = new MyAdapterFreeTime(getActivity(), freeHours, listHours);
         myAdapterFreeMinutes = new MyAdapterFreeTime(getActivity(), freeMinutes, listMinutes);
 
@@ -101,6 +99,57 @@ public class HourConsultFragment extends Fragment {
         return v;
     }
 
+    //metdodo provisorio que retorna os servicos
+    public Servico [] getServicos(){
+        Servico s1 = new Servico();
+        s1.setId(1);
+        s1.setId_profissional(1);
+        s1.setNome("Servico 1");
+        s1.setDescricao("Servico de teste");
+        s1.setValor(20.00);
+        SimpleDateFormat formato = new SimpleDateFormat("HH:mm");
+        try {
+            Time tempo = new Time(formato.parse("00:20").getTime());
+            Time atraso = new Time(formato.parse("00:05").getTime());
+            s1.setTempo(tempo);
+            s1.setTolerancia_atraso(atraso);
+        } catch (Exception e) {
+        throw new RuntimeException(e.getMessage());
+        }
+
+        Servico s2 = new Servico();
+        s2.setId(2);
+        s2.setId_profissional(1);
+        s2.setNome("Servico 2");
+        s2.setDescricao("Outro servico de teste");
+        s2.setValor(30.00);
+        try {
+            Time tempo = new Time(formato.parse("00:35").getTime());
+            Time atraso = new Time(formato.parse("00:05").getTime());
+            s2.setTempo(tempo);
+            s2.setTolerancia_atraso(atraso);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+
+        Servico s3 = new Servico();
+        s3.setId(3);
+        s3.setId_profissional(1);
+        s3.setNome("Servico 3");
+        s3.setDescricao("Outro servico de teste 3");
+        s3.setValor(55.00);
+        try {
+            Time tempo = new Time(formato.parse("00:15").getTime());
+            Time atraso = new Time(formato.parse("00:05").getTime());
+            s3.setTempo(tempo);
+            s3.setTolerancia_atraso(atraso);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+
+        Servico [] s = {s1, s2, s3};
+        return s;
+    }
 
     //metodo q cria listener da lista de servicos
     public void setServicesListener(){
@@ -148,13 +197,17 @@ public class HourConsultFragment extends Fragment {
                 freeMinutes.add(50);
                 myAdapterFreeMinutes.notifyDataSetChanged();
 
+                //Armazena hora selecionada
+                selectedHour = (int) myAdapterFreeHours.getItem(position);
+
                 if (!isMinutesOpened) {
-                    //redimensiona listView de horas]
+                    //redimensiona listView de horas
                     isMinutesOpened = true;
                     resizeAnimation = new ResizeAnimation(listMinutes, freeHourMinutesWidth);
                     resizeAnimation.setDuration(600);
                     listMinutes.startAnimation(resizeAnimation);
                 }
+
             }
         });
     }
@@ -166,20 +219,20 @@ public class HourConsultFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 //Armazena servico/hora/servicos selecionados
-                selectedHour = "" + myAdapterFreeHours.getItem(position);
-                selectedMinutes = "" + myAdapterFreeMinutes.getItem(position);
+                selectedMinutes = (int) myAdapterFreeMinutes.getItem(position);
                 selectedServicesTitle = "";
-                totalTime = "";
-                totalPrice = "";
+                totalTime = 0;
+                totalPrice = 0;
                 //Alimentando variavel de titulo de servicos selecionados
                 SparseBooleanArray checkedServices = listServices.getCheckedItemPositions();
-                //para cada item selecionado alimenta seus respctivos valores;
+                //para cada item selecionado alimenta seus respectivos valores;
                 for (int i = 0; i < listServices.getAdapter().getCount(); i++) {
                     if (checkedServices.get(i)) {
-                        selectedServicesTitle = selectedServicesTitle + " " + myAdapterServiceTypes.getItem(i);
+                        Servico s = (Servico) myAdapterServiceTypes.getItem(i);
+                        selectedServicesTitle = selectedServicesTitle + " " + s.getNome();
                         //esse valores devem ser buscados da classe Servicos armazenados no adapterServiceTypes
-                        totalTime = totalTime + " " + i;
-                        totalPrice = totalPrice + " " + i;
+                        totalTime = totalTime + s.getTempo().getTime();
+                        totalPrice = totalPrice + s.getValor();
                     }
                 }
                 //Gera um alerta, para confirmar o agendamento
@@ -198,10 +251,12 @@ public class HourConsultFragment extends Fragment {
         builder.setMessage("Profissional: " + professionalName +
                 "\nServico(s): " + selectedServicesTitle +
                 "\nDia: " + sDate +
-                "\nInicio: " + selectedHour + ":" + selectedMinutes + "h" +
-                "\nPeríodo: " + totalTime +
-                "\nFim: " + "02:00h" +
-                "\nValor: " + "R$: " + totalPrice);
+                "\nInicio: " + String.format("%02d",selectedHour) + ":" + String.format("%02d",selectedMinutes) + "h" +
+                "\nPeríodo: " + String.format("%d horas e %d minutos",
+                    TimeUnit.MILLISECONDS.toHours(totalTime),
+                    TimeUnit.MILLISECONDS.toMinutes(totalTime) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(totalTime))) +
+                "\nPrevisão de término: " + testeS[0].getDescricao() +
+                "\nValor: " + "R$: " + String.format("%.2f", totalPrice));
         builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface arg0, int arg1) {
                 //OPCAO SIM = confirma agendamento
@@ -209,7 +264,7 @@ public class HourConsultFragment extends Fragment {
                 //DEVE VERIFICAR SE TODAS AS LISTAS ESTAO SELECIONADAS
 
                 //Redireciona usuario para a tela inicial de agendamento
-                Intent endOfScheduleActivity = new Intent(getActivity(), _DrawerTestActivity.class);
+                Intent endOfScheduleActivity = new Intent(getActivity(), ActivityDrawer.class);
                 startActivity(endOfScheduleActivity);
 
             }
@@ -226,9 +281,12 @@ public class HourConsultFragment extends Fragment {
                 isHoursOpened = false;
                 isMinutesOpened = false;
 
+                freeMinutes.clear();
+                freeHours.clear();
                 listMinutes.clearChoices();
                 listHours.clearChoices();
                 listServices.clearChoices();
+
                 Toast.makeText(getActivity(), "Nao", Toast.LENGTH_SHORT).show();
             }
         });

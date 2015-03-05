@@ -42,7 +42,7 @@
             android:label="Data, Hora e Serviço escolhido"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="._DrawerTestActivity"
+            android:name=".ActivityDrawer"
             android:label="@string/title_activity_drawer_text" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -56,10 +56,6 @@
         <activity
             android:name=".atividadeTeste"
             android:label="testando banco" >
-        </activity>
-        <activity
-            android:name=".HourConsult"
-            android:label="Agendar Serviços" >
         </activity>
 
     </application>

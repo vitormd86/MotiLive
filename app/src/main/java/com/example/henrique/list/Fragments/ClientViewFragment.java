@@ -1,17 +1,11 @@
 package com.example.henrique.list.Fragments;
 
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -29,7 +23,7 @@ public class ClientViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        v = inflater.inflate(R.layout.activity_client_view, container, false);
+        v = inflater.inflate(R.layout.fragment_client_view, container, false);
         fa = super.getActivity();
         //Intent intent = getIntent();
         Bundle args = getArguments();

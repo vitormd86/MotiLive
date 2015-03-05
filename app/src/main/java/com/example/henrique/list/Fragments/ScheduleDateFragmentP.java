@@ -1,6 +1,5 @@
 package com.example.henrique.list.Fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.Fragment;
@@ -13,10 +12,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.example.henrique.list.Adapters.myAdapter;
-import com.example.henrique.list.HourConsult;
 import com.example.henrique.list.R;
-import com.example.henrique.list.SecondScreen;
-import com.example.henrique.list.opcoesSelecionadas;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,12 +21,12 @@ import java.util.Date;
  * Created by Henrique on 12/02/2015.
  * Edited by Vitor on 23/02/2015.
  */
-public class FragmentPortrait extends Fragment {
+public class ScheduleDateFragmentP extends Fragment {
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.portrait_fragment, parent, false);
+        View v = inflater.inflate(R.layout.fragment_schedule_calendar_p, parent, false);
 
 
         String[] favoriteProfessionals = new String[]{"Leandro Massaru Kubota", "Ivo Issao Tobioka",
@@ -57,7 +53,7 @@ public class FragmentPortrait extends Fragment {
                 String selectedProfessional = String.valueOf(parent.getItemAtPosition(position));
 
                 //instancia proximo fragment a ser iniciado
-                HourConsultFragment nextFragment = new HourConsultFragment();
+                ScheduleHourFragment nextFragment = new ScheduleHourFragment();
 
                 //inicia valores que serao enviados para a proxima Fragment
                 Bundle args = new Bundle();

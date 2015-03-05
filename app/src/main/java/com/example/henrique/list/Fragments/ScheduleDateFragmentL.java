@@ -1,8 +1,8 @@
 package com.example.henrique.list.Fragments;
 
 import android.support.v4.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,22 +12,19 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.example.henrique.list.Adapters.myAdapter;
-import com.example.henrique.list.HourConsult;
 import com.example.henrique.list.R;
-import com.example.henrique.list.SecondScreen;
-import com.example.henrique.list.opcoesSelecionadas;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class FragmentLandscape extends Fragment  {
+public class ScheduleDateFragmentL extends Fragment  {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
 
 
 
-        View v = inflater.inflate(R.layout.landscape_fragment, parent, false);
+        View v = inflater.inflate(R.layout.fragment_schedule_calendar_l, parent, false);
 
         ListView theListView = (ListView) v.findViewById(R.id.ListView); // inicializa a List View do fragment inflado
         final CalendarView myCalendarView = (CalendarView) v.findViewById(R.id.calendarView); // inicializa a Calendar View do fragment inflado
@@ -46,37 +43,42 @@ public class FragmentLandscape extends Fragment  {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+
                 //recebe a data selecionada para passar para a proxima tela
-                String selectedDate= getCalendarDate(myCalendarView);
+                String selectedDate = getCalendarDate(myCalendarView);
 
-                // HIDE, mudanca provisoria...
                 //opcoesSelecionadas opcoes = new opcoesSelecionadas(String.valueOf(parent.getItemAtPosition(position)), null, null);
-                String opcoes = String.valueOf(parent.getItemAtPosition(position));
+                String selectedProfessional = String.valueOf(parent.getItemAtPosition(position));
 
-                Intent intentHourConsult;
+                //instancia proximo fragment a ser iniciado
+                ScheduleHourFragment nextFragment = new ScheduleHourFragment();
 
-                intentHourConsult = new Intent(getActivity() , HourConsult.class);
-                intentHourConsult.putExtra("Escolhas", opcoes); // joga o objeto para a proxima activity
-                intentHourConsult.putExtra("Date", selectedDate); // joga o objeto para a proxima activity
+                //inicia valores que serao enviados para a proxima Fragment
+                Bundle args = new Bundle();
+                args.putString("selectedProfessional", selectedProfessional);
+                args.putString("selectedDate", selectedDate);
+                nextFragment.setArguments(args);
 
-                startActivity(intentHourConsult);
+                //inicia a transacao de Fragments
+                FragmentTransaction ft  = getFragmentManager().beginTransaction();
+                ft.replace(R.id.content_frame, nextFragment);
+
+                //este metodo permite q o usuario navegue de volta
+                ft.addToBackStack(null);
+
+                ft.commit();
+
+                //Intent intentHourConsult;
+                //intentHourConsult = new Intent(getActivity() , HourConsult.class);
+                //intentHourConsult.putExtra("Escolhas", opcoes); // joga o objeto para a proxima activity
+                //intentHourConsult.putExtra("Date", selectedDate); // joga o objeto para a proxima activity
+                //startActivity(intentHourConsult);
             }
         });
-     /* CalendarView myCalendarView = (CalendarView) v.findViewById(R.id.calendarView);
-        myCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-         /  public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
 
-
-            //    Envia dados para proxima Activity (ProfessionalHours)
-                nextCalendarActivity.putExtra("dayOfMonth", Integer.toString(dayOfMonth));
-                nextCalendarActivity.putExtra("month", Integer.toString(month));
-               // nextCalendarActivity.putExtra("year", Integer.toString(year));
-          //  }
-        //});
-*/
         return v;
-        }
+    }
+
     //este metodo retorna a data selecionada no calendario
     private String getCalendarDate(CalendarView cv){
         String sDate;
@@ -84,4 +86,5 @@ public class FragmentLandscape extends Fragment  {
         sDate = sdf.format(new Date(cv.getDate()));
         return sDate;
     }
+
 }

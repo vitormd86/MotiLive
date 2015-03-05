@@ -9,8 +9,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.henrique.list.Fragments.FragmentLandscape;
-import com.example.henrique.list.Fragments.FragmentPortrait;
+import com.example.henrique.list.Fragments.ScheduleDateFragmentL;
+import com.example.henrique.list.Fragments.ScheduleDateFragmentP;
 import com.facebook.Session;
 
 
@@ -28,13 +28,13 @@ public class MainActivity extends FragmentActivity {
         Configuration configInfo = getResources().getConfiguration();
         if (configInfo.orientation == Configuration.ORIENTATION_LANDSCAPE){
 
-            FragmentLandscape fragmentLandscape = new FragmentLandscape();
-            fragmentTransaction.replace(android.R.id.content,fragmentLandscape);
+            ScheduleDateFragmentL scheduleDateFragmentL = new ScheduleDateFragmentL();
+            fragmentTransaction.replace(android.R.id.content, scheduleDateFragmentL);
 
         }else{
 
-            FragmentPortrait fragmentPortrait = new FragmentPortrait();
-            fragmentTransaction.replace(android.R.id.content,fragmentPortrait);
+            ScheduleDateFragmentP scheduleDateFragmentP = new ScheduleDateFragmentP();
+            fragmentTransaction.replace(android.R.id.content, scheduleDateFragmentP);
 
         }
         fragmentTransaction.commit();
