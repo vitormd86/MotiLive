@@ -53,10 +53,12 @@
             android:name=".LoginScreen"
             android:label="Get Name"
             android:theme="@style/AppTheme" />
+
         <activity
             android:name=".atividadeTeste"
             android:label="testando banco" >
         </activity>
+
 
     </application>
 

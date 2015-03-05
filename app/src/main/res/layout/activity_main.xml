@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
-    <!-- todo layout linear precisa ter definida a orientação -->
 
     <fragment
         android:layout_width="match_parent"

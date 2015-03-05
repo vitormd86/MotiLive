@@ -6,8 +6,6 @@ import android.database.SQLException;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.henrique.list.Bean.Cliente;
-import com.example.henrique.list.Bean.Plano;
 import com.example.henrique.list.Bean.Profissional;
 
 import java.sql.Connection;

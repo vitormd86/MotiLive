@@ -4,7 +4,6 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
-import android.content.Context;
 
 /**
  * Created by Vitor on 21/02/2015.

@@ -7,15 +7,12 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.henrique.list.Bean.Agenda_Diaria;
 import com.example.henrique.list.Bean.Plano_Profissional;
-import com.example.henrique.list.atividadeTeste;
 
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.Time;
 
 
 

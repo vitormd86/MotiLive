@@ -1,14 +1,11 @@
 package com.example.henrique.list.Bean;
 
-import java.sql.Time;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.sql.Date;
+import java.sql.Time;
 
-/**
- * Created by htamashiro on 2/21/15.
- */
+
 public class Agenda_Diaria {
+    // FIXME: Arrumar o Date, a forma como eh feita a marcação
 
 
 

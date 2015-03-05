@@ -8,7 +8,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.henrique.list.Bean.Agenda_Diaria;
-import com.example.henrique.list.Bean.Agendamento;
 import com.example.henrique.list.Bean.Intervalo;
 
 import java.sql.Connection;
