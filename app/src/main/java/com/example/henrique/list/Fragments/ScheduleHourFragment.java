@@ -26,6 +26,8 @@ import com.example.henrique.list.ResizeAnimation;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -107,10 +109,11 @@ public class ScheduleHourFragment extends Fragment {
         s1.setNome("Servico 1");
         s1.setDescricao("Servico de teste");
         s1.setValor(20.00);
-        SimpleDateFormat formato = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        sdf.setTimeZone(TimeZone.getDefault());
         try {
-            Time tempo = new Time(formato.parse("00:20").getTime());
-            Time atraso = new Time(formato.parse("00:05").getTime());
+            Time tempo = new Time(sdf.parse("00:20").getTime());
+            Time atraso = new Time(sdf.parse("00:05").getTime());
             s1.setTempo(tempo);
             s1.setTolerancia_atraso(atraso);
         } catch (Exception e) {
@@ -124,8 +127,8 @@ public class ScheduleHourFragment extends Fragment {
         s2.setDescricao("Outro servico de teste");
         s2.setValor(30.00);
         try {
-            Time tempo = new Time(formato.parse("00:35").getTime());
-            Time atraso = new Time(formato.parse("00:05").getTime());
+            Time tempo = new Time(sdf.parse("00:35").getTime());
+            Time atraso = new Time(sdf.parse("00:05").getTime());
             s2.setTempo(tempo);
             s2.setTolerancia_atraso(atraso);
         } catch (Exception e) {
@@ -139,8 +142,8 @@ public class ScheduleHourFragment extends Fragment {
         s3.setDescricao("Outro servico de teste 3");
         s3.setValor(55.00);
         try {
-            Time tempo = new Time(formato.parse("00:15").getTime());
-            Time atraso = new Time(formato.parse("00:05").getTime());
+            Time tempo = new Time(sdf.parse("00:15").getTime());
+            Time atraso = new Time(sdf.parse("00:05:00").getTime());
             s3.setTempo(tempo);
             s3.setTolerancia_atraso(atraso);
         } catch (Exception e) {
@@ -235,6 +238,7 @@ public class ScheduleHourFragment extends Fragment {
                         totalPrice = totalPrice + s.getValor();
                     }
                 }
+                totalTime = totalTime + (TimeZone.getDefault().getOffset(totalTime)* (checkedServices.size() - 1));
                 //Gera um alerta, para confirmar o agendamento
                 AlertDialog confirmAlert = getConfirmAlert();
                 confirmAlert.show();
@@ -245,17 +249,33 @@ public class ScheduleHourFragment extends Fragment {
     }
     //este metodo gera as informacoes do alerta de confirmacao de agendamento
     public AlertDialog getConfirmAlert(){
-    AlertDialog alert;
-    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        //inicializando e configurando horarios
+        SimpleDateFormat df = new SimpleDateFormat("HH' horas e 'mm' minutos'");
+        SimpleDateFormat df2 = new SimpleDateFormat("HH:mm");
+        df.setTimeZone(TimeZone.getDefault());
+        df2.setTimeZone(TimeZone.getDefault());
+
+        long inicialTime, finalTime;
+        try{
+            inicialTime = df2.parse(String.format("%02d",selectedHour) + ":" + String.format("%02d",selectedMinutes)).getTime();
+
+        } catch (Exception e){
+            inicialTime = 0;
+            e.printStackTrace();
+        }
+        finalTime = inicialTime + totalTime + TimeZone.getDefault().getOffset(inicialTime);
+
+
+        //alimentando o builder do alerta
+        AlertDialog alert;
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Confirmar agendamento?");
         builder.setMessage("Profissional: " + professionalName +
                 "\nServico(s): " + selectedServicesTitle +
                 "\nDia: " + sDate +
                 "\nInicio: " + String.format("%02d",selectedHour) + ":" + String.format("%02d",selectedMinutes) + "h" +
-                "\nPeríodo: " + String.format("%d horas e %d minutos",
-                    TimeUnit.MILLISECONDS.toHours(totalTime),
-                    TimeUnit.MILLISECONDS.toMinutes(totalTime) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(totalTime))) +
-                "\nPrevisão de término: " + testeS[0].getDescricao() +
+                "\nPeríodo: " + df.format(totalTime) +
+                "\nPrevisão de término: " + df2.format(finalTime) + "h" +
                 "\nValor: " + "R$: " + String.format("%.2f", totalPrice));
         builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface arg0, int arg1) {

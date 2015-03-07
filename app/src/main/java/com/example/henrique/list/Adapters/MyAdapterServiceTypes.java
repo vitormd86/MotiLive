@@ -12,6 +12,7 @@ import com.example.henrique.list.R;
 
 import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.util.TimeZone;
 
 /**
  * Created by Massaru on 17/02/2015.
@@ -33,6 +34,7 @@ public class MyAdapterServiceTypes extends ArrayAdapter<Servico> {
         textService.setText(service.getNome());
         Time timeServiceLenght = service.getTempo();
         SimpleDateFormat df = new SimpleDateFormat("HH:mm");
+        df.setTimeZone(TimeZone.getDefault());
 
         try {
         } catch (Exception e) {
