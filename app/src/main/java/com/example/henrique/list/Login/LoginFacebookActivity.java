@@ -1,4 +1,4 @@
-package com.example.henrique.list.Login_facebook;
+package com.example.henrique.list.Login;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.example.henrique.list;
+package com.example.henrique.list.Login;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.henrique.list.Login_facebook.LoginScreen;
+import com.example.henrique.list.R;
 
 public class FirstScreen extends Activity {
 

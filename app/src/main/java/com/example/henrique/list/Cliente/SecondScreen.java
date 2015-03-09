@@ -12,7 +12,7 @@ import android.widget.ListView;
 
 import com.example.henrique.list.Adapters.myAdapterServicos;
 import com.example.henrique.list.R;
-import com.example.henrique.list.opcoesSelecionadas;
+import com.example.henrique.list.Utilidade_Publica.opcoesSelecionadas;
 
 public class SecondScreen extends Activity {
     @Override

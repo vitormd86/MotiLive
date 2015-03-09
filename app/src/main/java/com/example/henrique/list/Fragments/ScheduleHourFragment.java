@@ -20,7 +20,7 @@ import com.example.henrique.list.ActivityDrawer;
 import com.example.henrique.list.Adapters.myAdapterFreeTime;
 import com.example.henrique.list.Bean.Servico;
 import com.example.henrique.list.R;
-import com.example.henrique.list.ResizeAnimation;
+import com.example.henrique.list.Utilidade_Publica.ResizeAnimation;
 
 import java.sql.Time;
 import java.text.SimpleDateFormat;

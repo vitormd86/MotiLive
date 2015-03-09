@@ -11,7 +11,7 @@ import android.view.MenuItem;
 
 import com.example.henrique.list.Fragments.ScheduleDateFragmentL;
 import com.example.henrique.list.Fragments.ScheduleDateFragmentP;
-import com.example.henrique.list.Login_facebook.LoginScreen;
+import com.example.henrique.list.Login.LoginScreen;
 import com.example.henrique.list.R;
 import com.facebook.Session;
 

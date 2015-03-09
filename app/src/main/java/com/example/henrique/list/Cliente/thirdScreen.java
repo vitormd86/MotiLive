@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.henrique.list.R;
-import com.example.henrique.list.opcoesSelecionadas;
+import com.example.henrique.list.Utilidade_Publica.opcoesSelecionadas;
 
 /**
  * Created by Henrique on 09/02/2015.
