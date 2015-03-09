@@ -1,9 +1,12 @@
-package com.example.henrique.list;
+package com.example.henrique.list.Cliente;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
+
+import com.example.henrique.list.R;
+import com.example.henrique.list.opcoesSelecionadas;
 
 /**
  * Created by Henrique on 09/02/2015.

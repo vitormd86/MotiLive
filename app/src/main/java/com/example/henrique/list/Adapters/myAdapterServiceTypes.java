@@ -17,8 +17,8 @@ import java.util.TimeZone;
 /**
  * Created by Massaru on 17/02/2015.
  */
-public class MyAdapterServiceTypes extends ArrayAdapter<Servico> {
-    public MyAdapterServiceTypes(Context context, Servico [] clients) {
+public class myAdapterServiceTypes extends ArrayAdapter<Servico> {
+    public myAdapterServiceTypes(Context context, Servico[] clients) {
         super(context, R.layout.view_service_type, clients);
     }
 

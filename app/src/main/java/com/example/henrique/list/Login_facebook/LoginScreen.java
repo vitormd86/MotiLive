@@ -1,10 +1,12 @@
-package com.example.henrique.list;
+package com.example.henrique.list.Login_facebook;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.henrique.list.R;
 
 public class LoginScreen extends FragmentActivity {
 

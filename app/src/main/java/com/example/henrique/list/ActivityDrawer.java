@@ -16,7 +16,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.henrique.list.Adapters.MyAdapterDrawerOptions;
 import com.example.henrique.list.Fragments.ScheduleDateFragmentP;
 import com.example.henrique.list.Fragments.ProfessionalCalendarFragment;
 
@@ -98,7 +97,7 @@ public class ActivityDrawer extends ActionBarActivity {
 
         listOptions = (ListView) findViewById(R.id.ListView);
         //configurando adapter da listView
-        ListAdapter myAdapterDrawerOptions= new MyAdapterDrawerOptions(this, menuOptions);
+        ListAdapter myAdapterDrawerOptions= new com.example.henrique.list.Adapters.myAdapterDrawerOptions(this, menuOptions);
         listOptions.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         listOptions.setAdapter(myAdapterDrawerOptions);
 

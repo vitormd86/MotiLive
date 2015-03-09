@@ -1,9 +1,10 @@
-package com.example.henrique.list;
+package com.example.henrique.list.JSON;
 
 import android.app.Activity;
 import android.os.Bundle;
 
 import com.example.henrique.list.Bean.Pessoa;
+import com.example.henrique.list.R;
 
 import java.sql.Date;
 
@@ -124,8 +125,8 @@ public class atividadeTeste extends Activity {
                 pessoa.setLogin("joselitofrango");
                 pessoa.setComplemento("qualquer merda");
 
-   /*     //Cria um objeto e transformo em JSON
-        JsonUtil jsonUtil = new JsonUtil();
+        //Cria um objeto e transformo em JSON
+    /*    JsonUtil jsonUtil = new JsonUtil();
         jsonUtil.toJSon(pessoa);
 
         JSONObject jObj = new JSONObject(jsonUtil);
@@ -133,8 +134,8 @@ public class atividadeTeste extends Activity {
         //escreve os objetos em jSON na tela pra ver se funcionou
 
         JSONObject subObj = jsonUtil.("pessoa");
-        String city = subObj.getString("city");*/
-
+        String city = subObj.getString("city");
+*/
 
     }
 

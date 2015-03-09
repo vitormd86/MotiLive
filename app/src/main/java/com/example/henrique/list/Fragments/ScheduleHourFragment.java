@@ -17,8 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.henrique.list.ActivityDrawer;
-import com.example.henrique.list.Adapters.MyAdapterFreeTime;
-import com.example.henrique.list.Adapters.MyAdapterServiceTypes;
+import com.example.henrique.list.Adapters.myAdapterFreeTime;
 import com.example.henrique.list.Bean.Servico;
 import com.example.henrique.list.R;
 import com.example.henrique.list.ResizeAnimation;
@@ -26,9 +25,7 @@ import com.example.henrique.list.ResizeAnimation;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Cristor on 26/02/2015.
@@ -78,9 +75,9 @@ public class ScheduleHourFragment extends Fragment {
         listHours = (ListView) v.findViewById(R.id.listHours);
         listMinutes = (ListView) v.findViewById(R.id.listMinutes);
         listServices = (ListView) v.findViewById(R.id.listServices);
-        myAdapterServiceTypes = new MyAdapterServiceTypes(getActivity(), testeS);
-        myAdapterFreeHours = new MyAdapterFreeTime(getActivity(), freeHours, listHours);
-        myAdapterFreeMinutes = new MyAdapterFreeTime(getActivity(), freeMinutes, listMinutes);
+        myAdapterServiceTypes = new com.example.henrique.list.Adapters.myAdapterServiceTypes(getActivity(), testeS);
+        myAdapterFreeHours = new myAdapterFreeTime(getActivity(), freeHours, listHours);
+        myAdapterFreeMinutes = new myAdapterFreeTime(getActivity(), freeMinutes, listMinutes);
 
         //Configura as variaveis do cabecalho
         textProfessionalName.setText(professionalName);

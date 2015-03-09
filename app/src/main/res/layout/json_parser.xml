@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".testandoBanco">
+    android:orientation="vertical">
 
-
-
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Teste"
-        android:id="@+id/editBanco"/>
-    <Button
+        android:id="@+id/line1"
+        android:text="line1"/>
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonBanco"
-        android:text="@string/testebanco"/>
-
+        android:id="@+id/line2"
+        android:text="line2"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/line3"
+        android:text="line3"/>
 
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.example.henrique.list;
+package com.example.henrique.list.Cliente;
 
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +11,8 @@ import android.view.MenuItem;
 
 import com.example.henrique.list.Fragments.ScheduleDateFragmentL;
 import com.example.henrique.list.Fragments.ScheduleDateFragmentP;
+import com.example.henrique.list.Login_facebook.LoginScreen;
+import com.example.henrique.list.R;
 import com.facebook.Session;
 
 

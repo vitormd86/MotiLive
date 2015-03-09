@@ -1,4 +1,4 @@
-package com.example.henrique.list;
+package com.example.henrique.list.Cliente;
 
 
 
@@ -11,6 +11,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.example.henrique.list.Adapters.myAdapterServicos;
+import com.example.henrique.list.R;
+import com.example.henrique.list.opcoesSelecionadas;
 
 public class SecondScreen extends Activity {
     @Override

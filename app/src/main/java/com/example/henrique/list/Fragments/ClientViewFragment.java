@@ -11,7 +11,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.henrique.list.Adapters.MyAdapterClientSmall;
+import com.example.henrique.list.Adapters.myAdapterClientSmall;
 import com.example.henrique.list.R;
 
 
@@ -43,7 +43,7 @@ public class ClientViewFragment extends Fragment {
         ListView myListView1 = (ListView) v.findViewById(R.id.ListView);
         ImageView phoneImage = (ImageView) v.findViewById(R.id.imageView2);
 
-        ListAdapter myAdapter = new MyAdapterClientSmall(getActivity(), schedules);
+        ListAdapter myAdapter = new myAdapterClientSmall(getActivity(), schedules);
 
         //Configurando as variaveis do cabecalho
         myTextView1.setText(clientName);
