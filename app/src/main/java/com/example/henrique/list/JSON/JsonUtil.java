@@ -8,18 +8,13 @@ import com.example.henrique.list.Bean.Pessoa;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Time;
-
 
 /**
  * Definição das classes que farão a transformação de JSON
  */
 public class JsonUtil {
 
-
-
     public static String toJSon(Pessoa pessoa) {
-
 
         try {
             // Here we convert Java Object to JSON
@@ -46,15 +41,14 @@ public class JsonUtil {
             jsonObj.put("google_login", pessoa.getGoogle_login());
             jsonObj.put("data_nascimento", pessoa.getData_nascimento());
 
-
-
-
-
+            //trnsforma o objeto em json
             return jsonObj.toString();
 
         }
         catch(JSONException ex) {
             ex.printStackTrace();
+            System.out.println("Não consegue tranformar em json");
+
         }
 
         return null;
@@ -69,17 +63,19 @@ public class JsonUtil {
             jsonObj.put("id_pessoa", cliente.getId_pessoa());
 
 
+            //trnsforma o objeto em json
             return jsonObj.toString();
 
         }
         catch(JSONException ex) {
             ex.printStackTrace();
+            System.out.println("Não consegue tranformar em json");
+
         }
 
         return null;
 
     }
-
     public static String toJSon(Agenda_Diaria agenda_diaria) {
 
 
@@ -93,24 +89,20 @@ public class JsonUtil {
             jsonObj.put("hora_saida", agenda_diaria.getHora_saida());
 
 
+            //trnsforma o objeto em json
+
             return jsonObj.toString();
 
         }
         catch(JSONException ex) {
             ex.printStackTrace();
+            System.out.println("Não consegue tranformar em json");
+
         }
 
         return null;
 
     }
-
-    private int id_agenda_diaria;
-    private int id_servico;
-    private Time hora_entrada;
-    private Time hora_saida;
-    private int id;
-    private int id_cliente;
-
     public static String toJSon(Agendamento agendamento) {
 
 
@@ -124,12 +116,14 @@ public class JsonUtil {
             jsonObj.put("id_cliente", agendamento.getId_cliente());
 
 
+            //trnsforma o objeto em json
 
             return jsonObj.toString();
 
         }
         catch(JSONException ex) {
             ex.printStackTrace();
+            System.out.println("Não consegue tranformar em json");
         }
 
         return null;

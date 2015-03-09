@@ -147,7 +147,6 @@ public class JSONParsingTest extends Activity {
             Toast.makeText(JSONParsingTest.this, "Pegou os dados no webserver", Toast.LENGTH_LONG).show();
 
 
-
         }
     }
 

@@ -128,18 +128,17 @@ public class atividadeTeste extends Activity {
                 pessoa.setComplemento("qualquer merda");
 
         //Cria um objeto e transformo em JSON
-    /*    JsonUtil jsonUtil = new JsonUtil();
-        jsonUtil.toJSon(pessoa);
 
-        JSONObject jObj = new JSONObject(jsonUtil);
 
-        //escreve os objetos em jSON na tela pra ver se funcionou
+              /*  JsonUtil jsonUtil = new JsonUtil();
+                jsonUtil.toJSon(pessoa);
 
-        JSONObject subObj = jsonUtil.("pessoa");
-        String city = subObj.getString("city");
+                JSONObject jObj = new JSONObject(jsonUtil);
+
+                //escreve os objetos em jSON na tela pra ver se funcionou
+
+                JSONObject subObj = jsonUtil.("pessoa");
+                String city = subObj.getString("city");
 */
-
     }
-
-
 }
