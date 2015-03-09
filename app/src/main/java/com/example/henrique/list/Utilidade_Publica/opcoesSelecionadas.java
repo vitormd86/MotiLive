@@ -2,7 +2,7 @@ package com.example.henrique.list.Utilidade_Publica;
 
 import java.io.Serializable;
 
-
+// CLasse criada para passar os dados entre objetos, activitys
 public class opcoesSelecionadas implements Serializable {
 
     private String profissionalEscolhido;

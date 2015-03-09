@@ -42,7 +42,7 @@
             android:label="Data, Hora e Serviço escolhido"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".ActivityDrawer"
+            android:name=".Drawer.ActivityDrawer"
             android:label="@string/title_activity_drawer_text" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

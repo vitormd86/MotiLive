@@ -1,4 +1,4 @@
-package com.example.henrique.list;
+package com.example.henrique.list.Drawer;
 
 
 import android.content.res.Configuration;
@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.example.henrique.list.Fragments.ScheduleDateFragmentP;
 import com.example.henrique.list.Fragments.ProfessionalCalendarFragment;
+import com.example.henrique.list.R;
 
 
 public class ActivityDrawer extends ActionBarActivity {

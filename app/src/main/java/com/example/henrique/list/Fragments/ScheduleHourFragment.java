@@ -16,7 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.henrique.list.ActivityDrawer;
+import com.example.henrique.list.Drawer.ActivityDrawer;
 import com.example.henrique.list.Adapters.myAdapterFreeTime;
 import com.example.henrique.list.Bean.Servico;
 import com.example.henrique.list.R;

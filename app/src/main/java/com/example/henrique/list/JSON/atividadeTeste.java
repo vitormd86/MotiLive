@@ -9,6 +9,8 @@ import com.example.henrique.list.R;
 import java.sql.Date;
 
 
+//Criei esta atividade com a finalidade de teste
+
 public class atividadeTeste extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
