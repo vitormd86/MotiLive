@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.henrique.list.Bean.Servico;
+import com.example.henrique.list.Mapeamento_de_Classes.Servico;
 import com.example.henrique.list.R;
 
 import java.sql.Time;

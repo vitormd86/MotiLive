@@ -1,4 +1,4 @@
-package com.example.henrique.list.Bean;
+package com.example.henrique.list.Mapeamento_de_Classes;
 
 /**
  * Created by htamashiro on 2/21/15.

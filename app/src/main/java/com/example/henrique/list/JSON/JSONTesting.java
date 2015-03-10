@@ -22,7 +22,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 
-public class JSONParsingTest extends Activity {
+public class JSONTesting extends Activity {
 
     static String yahooStockInfo = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quote%20where%20symbol%20in%20(%22MSFT%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
     static String  stockSymbol =  "";
@@ -144,7 +144,7 @@ public class JSONParsingTest extends Activity {
             line1.setText("Stock: " + stockSymbol + " : " + stockChange );
             line2.setText("Days Low: " + stockDaysLow);
             line3.setText("Days High: " + stockDaysHigh);
-            Toast.makeText(JSONParsingTest.this, "Pegou os dados no webserver", Toast.LENGTH_LONG).show();
+            Toast.makeText(JSONTesting.this, "Pegou os dados no webserver", Toast.LENGTH_LONG).show();
 
 
         }
