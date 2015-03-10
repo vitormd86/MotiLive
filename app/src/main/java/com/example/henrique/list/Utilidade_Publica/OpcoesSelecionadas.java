@@ -2,8 +2,10 @@ package com.example.henrique.list.Utilidade_Publica;
 
 import java.io.Serializable;
 
-// CLasse criada para passar os dados entre objetos, activitys
-public class opcoesSelecionadas implements Serializable {
+// CLasse criada para passar os dados entre objetos, activity
+
+
+public class OpcoesSelecionadas implements Serializable {
 
     private String profissionalEscolhido;
     private String servicoEscolhido;
@@ -51,7 +53,7 @@ public class opcoesSelecionadas implements Serializable {
         this.dataEscolhida = dataEscolhida;
     }
 
-    public opcoesSelecionadas(String profissionalEscolhido, String servicoEscolhido, String dataEscolhida) {
+    public OpcoesSelecionadas(String profissionalEscolhido, String servicoEscolhido, String dataEscolhida) {
         this.profissionalEscolhido = profissionalEscolhido;
         this.servicoEscolhido = servicoEscolhido;
         this.dataEscolhida = dataEscolhida;
