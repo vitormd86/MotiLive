@@ -16,13 +16,13 @@ import com.example.henrique.list.R;
 //Adaptador ele joga as  a imagem e um EditText dentro de uma lista
 public class myAdapter extends ArrayAdapter<String> {
     public myAdapter(Context context, String[] values) {
-        super(context, R.layout.row_layout2, values);
+        super(context, R.layout.row_myadapter, values);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater theInflator = LayoutInflater.from(getContext());
-        View theView = theInflator.inflate(R.layout.row_layout2, parent, false);
+        View theView = theInflator.inflate(R.layout.row_myadapter, parent, false);
 
         String profissionais = getItem(position);
         TextView textView = (TextView) theView.findViewById(R.id.textView1);
