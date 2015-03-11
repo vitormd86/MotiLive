@@ -5,8 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.example.henrique.list.R;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -29,7 +27,7 @@ public class JSONRecovery extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.json_parser);
+      //  setContentView(R.layout.json_parser);
 
         //Teremos que incluir um desses em cada tela
         new MyAsyncTask().execute();
