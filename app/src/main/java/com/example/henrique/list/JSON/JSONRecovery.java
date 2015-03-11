@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.henrique.list.R;
 
@@ -22,20 +20,18 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 
-public class JSONTesting extends Activity {
+public class JSONRecovery extends Activity {
 
-    static String yahooStockInfo = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quote%20where%20symbol%20in%20(%22MSFT%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
-    static String  stockSymbol =  "";
-    static String  stockDaysLow =  "";
-    static String  stockDaysHigh =  "";
-    static String  stockChange =  "";
 
+    //aqui colocamos o endereço JSON pra recuperar os dados desejados
+    static String enderecoJSON = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.json_parser);
 
+        //Teremos que incluir um desses em cada tela
         new MyAsyncTask().execute();
     }
 
@@ -47,8 +43,8 @@ public class JSONTesting extends Activity {
 
             //Cria um Http Client
             DefaultHttpClient httpClient = new DefaultHttpClient(new BasicHttpParams());
-            HttpPost httppost  = new HttpPost(yahooStockInfo);
-            System.out.println(yahooStockInfo);
+            HttpPost httppost  = new HttpPost(enderecoJSON);
+            System.out.println(enderecoJSON);
 
             //Avisa que eh JSON
             httppost.setHeader("Content-Type", "application/json");
@@ -112,39 +108,36 @@ public class JSONTesting extends Activity {
 
                 //atribui a String ao JSONObject
                 jsonObject = new JSONObject(result);
-                JSONObject queryJSONbject = jsonObject.getJSONObject("query");
+
+
+
+   /*             JSONObject queryJSONbject = jsonObject.getJSONObject("query");
                 JSONObject resultsJSONbject = queryJSONbject.getJSONObject("results");
-                JSONObject quoteJSONbject = resultsJSONbject.getJSONObject("quote");
+                JSONObject quoteJSONbject = resultsJSONbject.getJSONObject("quote");*/
 
 
-                stockSymbol =quoteJSONbject.getString("symbol");
-                stockDaysHigh =quoteJSONbject.getString("DaysHigh");
-                stockDaysLow =quoteJSONbject.getString("DaysLow");
-                stockChange =quoteJSONbject.getString("Change");
+//                stockSymbol =quoteJSONbject.getString("symbol");
+//                stockDaysHigh =quoteJSONbject.getString("DaysHigh");
+//                stockDaysLow =quoteJSONbject.getString("DaysLow");
+//                stockChange =quoteJSONbject.getString("Change");
 
 
             }catch (JSONException e)
             {
                 e.printStackTrace();
                 Log.i("sem JSONObject","");
-
-
             }
             return result;
         }
+
+        //Aqui  jogamos  os dados recuperados na tela.
+
 
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            TextView  line1 = (TextView) findViewById(R.id.line1);
-            TextView  line2 = (TextView) findViewById(R.id.line2);
-            TextView  line3 = (TextView) findViewById(R.id.line3);
 
-            line1.setText("Stock: " + stockSymbol + " : " + stockChange );
-            line2.setText("Days Low: " + stockDaysLow);
-            line3.setText("Days High: " + stockDaysHigh);
-            Toast.makeText(JSONTesting.this, "Pegou os dados no webserver", Toast.LENGTH_LONG).show();
 
 
         }

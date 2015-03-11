@@ -55,7 +55,7 @@
             android:theme="@style/AppTheme" />
 
         <activity
-            android:name=".JSON.JSONTesting"
+            android:name=".JSON.JSONRecovery"
             android:label="Testando Web Service" >
         </activity>
 
