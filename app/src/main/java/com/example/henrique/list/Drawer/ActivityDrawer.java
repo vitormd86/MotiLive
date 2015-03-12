@@ -16,11 +16,11 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.henrique.list.Fragments.ScheduleDateFragmentP;
+import com.example.henrique.list.Fragments.ScheduleDateFragmentPortrait;
 import com.example.henrique.list.Fragments.ProfessionalCalendarFragment;
 import com.example.henrique.list.R;
 
-
+/*Atividade que configura o drawer e o frame layout que recebe os fragments*/
 public class ActivityDrawer extends ActionBarActivity {
     DrawerLayout mDrawerLayout;
     CharSequence mTitle;
@@ -35,7 +35,7 @@ public class ActivityDrawer extends ActionBarActivity {
 
         //inicia o fragment inicial dentro do frame de conteudo
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content_frame, new ScheduleDateFragmentP());
+        ft.replace(R.id.content_frame, new ScheduleDateFragmentPortrait());
         setTitle("Novo Agendamento");
         ft.commit();
 
@@ -91,9 +91,9 @@ public class ActivityDrawer extends ActionBarActivity {
 
         //configurando listview (menu de opcoes)
         ProfessionalCalendarFragment professionalCalendar = new ProfessionalCalendarFragment();
-        ScheduleDateFragmentP scheduleDateFragmentP = new ScheduleDateFragmentP();
-        DrawerMenuItem item1 = new DrawerMenuItem(scheduleDateFragmentP, "Novo Agendamento");
-        DrawerMenuItem item2 = new DrawerMenuItem(professionalCalendar, "Consultar Agenda");
+        ScheduleDateFragmentPortrait scheduleDateFragmentPortrait = new ScheduleDateFragmentPortrait();
+        DrawerMenuItem item1 = new DrawerMenuItem(scheduleDateFragmentPortrait, "Novo Agendamento");
+        DrawerMenuItem item2 = new DrawerMenuItem(professionalCalendar, "Consultar Agenda (Profissional)");
         final DrawerMenuItem [] menuOptions = {item1, item2};
 
         listOptions = (ListView) findViewById(R.id.ListView);

@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.example.henrique.list.Adapters.myAdapterClientSmall;
 import com.example.henrique.list.R;
 
-
+/*Esta classe apresenta os dados do cliente selecionado para ser visualizado*/
 public class ClientViewFragment extends Fragment {
     private View v;
     private FragmentActivity fa;

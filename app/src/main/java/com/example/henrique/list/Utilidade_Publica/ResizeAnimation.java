@@ -8,6 +8,8 @@ import android.view.animation.Transformation;
 /**
  * Created by Vitor on 21/02/2015.
  */
+
+/*Redimensiona qualquer view com uma animacao de movimento para qualquer largura*/
 public class ResizeAnimation extends Animation {
     private int startWidth;
     private int targetWidth;

@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 /**
  * Created by Massaru on 28/02/2015.
  */
+/*Esta classe serve para sincronizar os items e seus respectivos fragments do Drawer*/
 public class DrawerMenuItem {
     private Fragment linkFragment;
     private String linkTitle;

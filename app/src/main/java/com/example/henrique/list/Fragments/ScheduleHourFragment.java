@@ -30,6 +30,7 @@ import java.util.TimeZone;
 /**
  * Created by Cristor on 26/02/2015.
  */
+/*Tela de selecao de horas e servicos de agendamento, ao final ela gera um alerta de confirmacao*/
 public class ScheduleHourFragment extends Fragment {
 
     private View v;
