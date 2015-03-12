@@ -15,13 +15,13 @@ import com.example.henrique.list.R;
 // mesma coisa que o myAdapter só que eu tirei o ImageView, pra fazer uma lista de serviços
 public class myAdapterServicos extends ArrayAdapter<String> {
     public myAdapterServicos(Context context, String[] values) {
-        super(context, R.layout.row_layout3, values);
+        super(context, R.layout.row_servicos, values);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater theInflator = LayoutInflater.from(getContext());
-        View theView = theInflator.inflate(R.layout.row_layout3, parent, false);
+        View theView = theInflator.inflate(R.layout.row_servicos, parent, false);
 
         String Servicos = getItem(position);
         TextView textView = (TextView) theView.findViewById(R.id.textView1);

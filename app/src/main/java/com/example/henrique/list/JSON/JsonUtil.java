@@ -1,138 +1,72 @@
 package com.example.henrique.list.JSON;
 
-import com.example.henrique.list.Bean.Agenda_Diaria;
-import com.example.henrique.list.Bean.Agendamento;
-import com.example.henrique.list.Bean.Cliente;
-import com.example.henrique.list.Bean.Pessoa;
+import com.example.henrique.list.Mapeamento_de_Classes.Servico;
+import com.google.gson.Gson;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.Time;
-
+import java.util.Date;
 
 /**
  * Definição das classes que farão a transformação de JSON
  */
+
+//Classe feita para tratar o envio e recebimento de dados JSON
+    // A classe era async,
+
 public class JsonUtil {
 
 
+// construtor
 
-    public static String toJSon(Pessoa pessoa) {
+ public JsonUtil(Object object)
+ {
 
+       Gson gson = new Gson();
+       gson.toJson(object);
+       JSONObject jsonObject = new JSONObject();
 
-        try {
-            // Here we convert Java Object to JSON
-            JSONObject jsonObj = new JSONObject();
-            jsonObj.put("nome", pessoa.getNome()); // Set the first name/pair
-            jsonObj.put("cpf_cnpj", pessoa.getCPF_CNPJ());
-            jsonObj.put("endereco", pessoa.getEndereco());
-            jsonObj.put("numero", pessoa.getNumero());
-            jsonObj.put("numero", pessoa.getNumero());
-            jsonObj.put("complemento", pessoa.getComplemento());
-            jsonObj.put("bairro", pessoa.getBairro() );
-            jsonObj.put("numero", pessoa.getNumero());
-            jsonObj.put("bairro", pessoa.getBairro());
-            jsonObj.put("cidade", pessoa.getCidade());
-            jsonObj.put("cep", pessoa.getCEP());
-            jsonObj.put("email", pessoa.getEmail());
-            jsonObj.put("ddd", pessoa.getDDD());
-            jsonObj.put("telefone", pessoa.getTelefone());
-            jsonObj.put("sexo", pessoa.getSexo());
-            jsonObj.put("status", pessoa.getStatus());
-            jsonObj.put("login", pessoa.getLogin());
-            jsonObj.put("senha", pessoa.getSenha());
-            jsonObj.put("facebook_login", pessoa.getFacebook_login());
-            jsonObj.put("google_login", pessoa.getGoogle_login());
-            jsonObj.put("data_nascimento", pessoa.getData_nascimento());
+ }
 
 
 
+public boolean enviaServidor()
+{
+    //cria um http da vida POST e etc.. e envia
+    // retorna true se enviado.
+    return false;
+
+}
+public JSONObject recebeServidor()
+{
+
+    // recebe um http loko da vida.. e  depois  joga pra um objeto JSON
+    //retorna null caso nao haja sucesso
+
+    JSONObject jsonRetornado = new JSONObject();
+    return jsonRetornado;
+
+}
 
 
-            return jsonObj.toString();
-
-        }
-        catch(JSONException ex) {
-            ex.printStackTrace();
-        }
-
-        return null;
-
-    }
-    public static String toJSon(Cliente cliente) {
+//funcao q retorna os servicos oferecidos por determinado Profissional
+public Servico[] retornaServicosProfissional (int idProfissional)
+{
+    Servico[] servicos = new Servico[10]; // vetor para armazenar os servicos
 
 
-        try {
-            JSONObject jsonObj = new JSONObject();
-            jsonObj.put("id", cliente.getId()); // Set the first name/pair
-            jsonObj.put("id_pessoa", cliente.getId_pessoa());
+    return servicos;
+}
+    //funcao q retornará somente os horarios disponiveis de um determinado profissional de um determinado dia,
+    // tem q estar armazenado de 5 em 5 minutos
 
 
-            return jsonObj.toString();
-
-        }
-        catch(JSONException ex) {
-            ex.printStackTrace();
-        }
-
-        return null;
-
-    }
-
-    public static String toJSon(Agenda_Diaria agenda_diaria) {
+public Time[] retornaHorariosDisponiveisProfissional ( int idProfissional, Date Dia)
+{
+    Time[] time = new Time[10];
+    return time;
+}
 
 
-        try {
-            JSONObject jsonObj = new JSONObject();
-            jsonObj.put("id", agenda_diaria.getId()); // Set the first name/pair
-            jsonObj.put("id_profissional", agenda_diaria.getId_profissional());
-            jsonObj.put("data", agenda_diaria.getData());
-            jsonObj.put("dia_util", agenda_diaria.getDia_util());
-            jsonObj.put("hora_entrada", agenda_diaria.getHora_entrada());
-            jsonObj.put("hora_saida", agenda_diaria.getHora_saida());
-
-
-            return jsonObj.toString();
-
-        }
-        catch(JSONException ex) {
-            ex.printStackTrace();
-        }
-
-        return null;
-
-    }
-
-    private int id_agenda_diaria;
-    private int id_servico;
-    private Time hora_entrada;
-    private Time hora_saida;
-    private int id;
-    private int id_cliente;
-
-    public static String toJSon(Agendamento agendamento) {
-
-
-        try {
-            JSONObject jsonObj = new JSONObject();
-            jsonObj.put("id_agenda_diaria", agendamento.getId_agenda_diaria()); // Set the first name/pair
-            jsonObj.put("id_servico", agendamento.getId_servico());
-            jsonObj.put("hora_entrada", agendamento.getHora_entrada());
-            jsonObj.put("id", agendamento.getId());
-            jsonObj.put("hora_saida", agendamento.getHora_saida());
-            jsonObj.put("id_cliente", agendamento.getId_cliente());
-
-
-
-            return jsonObj.toString();
-
-        }
-        catch(JSONException ex) {
-            ex.printStackTrace();
-        }
-
-        return null;
-
-    }
 }

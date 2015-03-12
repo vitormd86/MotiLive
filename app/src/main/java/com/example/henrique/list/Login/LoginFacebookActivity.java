@@ -41,7 +41,7 @@ public class LoginFacebookActivity extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_second_screent_login, container, false);
+        View view = inflater.inflate(R.layout.activity_second_screen_login, container, false);
 
         LoginButton authButton = (LoginButton) view.findViewById(R.id.authButton);
         authButton.setFragment(this);

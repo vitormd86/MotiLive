@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.example.henrique.list.Drawer.ActivityDrawer;
 import com.example.henrique.list.Adapters.myAdapterFreeTime;
-import com.example.henrique.list.Bean.Servico;
+import com.example.henrique.list.Mapeamento_de_Classes.Servico;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Utilidade_Publica.ResizeAnimation;
 
