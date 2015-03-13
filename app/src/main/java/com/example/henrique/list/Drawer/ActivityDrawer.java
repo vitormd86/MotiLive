@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.example.henrique.list.Adapters.MyAdapterDrawerOptions;
 import com.example.henrique.list.Fragments.ScheduleDateFragmentPortrait;
 import com.example.henrique.list.Fragments.ProfessionalCalendarFragment;
+import com.example.henrique.list.Fragments.ConsultScheduleFragment;
 import com.example.henrique.list.R;
 
 /*Atividade que configura o drawer e o frame layout que recebe os fragments*/
@@ -93,9 +94,11 @@ public class ActivityDrawer extends ActionBarActivity {
         //configurando listview (menu de opcoes)
         ProfessionalCalendarFragment professionalCalendar = new ProfessionalCalendarFragment();
         ScheduleDateFragmentPortrait scheduleDateFragmentPortrait = new ScheduleDateFragmentPortrait();
+        ConsultScheduleFragment consultSchedulesFragment = new ConsultScheduleFragment();
         DrawerMenuItem item1 = new DrawerMenuItem(scheduleDateFragmentPortrait, "Novo Agendamento");
-        DrawerMenuItem item2 = new DrawerMenuItem(professionalCalendar, "Consultar Agenda (Profissional)");
-        final DrawerMenuItem [] menuOptions = {item1, item2};
+        DrawerMenuItem item2 = new DrawerMenuItem(professionalCalendar, "Antigo Consultar Agenda (Profissional)");
+        DrawerMenuItem item3 = new DrawerMenuItem(consultSchedulesFragment, "Consultar Agendamentos");
+        final DrawerMenuItem [] menuOptions = {item1, item2, item3};
 
         listOptions = (ListView) findViewById(R.id.ListView);
         //configurando adapter da listView

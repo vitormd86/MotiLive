@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="50dp">
+
+    <TextView
+        android:id="@+id/textScheduleTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hora, Servico, Duracao"
+        android:textSize="20sp"/>
+    <TextView
+        android:id="@+id/textProfessionalName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textScheduleTitle"
+        android:text="Nome do Profissional"
+        android:textSize="15sp"/>
+    <TextView
+        android:id="@+id/textLeftTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="30min"
+        android:textSize="15sp"/>
+    <View
+        android:id="@+id/horizontalLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/textProfessionalName"
+        android:background="#000000"/>
+
+    <View
+        android:id="@+id/verticalLine"
+        android:layout_width="5dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="#000000"/>
+
+</RelativeLayout>

@@ -1,5 +1,5 @@
 
-package com.example.henrique.list.ListViewPinnedHeader;
+package com.example.henrique.list.Utilidade_Publica;
 
 import android.content.Context;
 import android.database.DataSetObserver;
@@ -25,6 +25,8 @@ import android.widget.SectionIndexer;
 
 /**
  * ListView, which is capable to pin section views at its top while the rest is still scrolled.
+ * LEMBRANDO QUE: a listview no xml deve ser do tipo <com.example.henrique.list.Utilidade_Publica.PinnedSectionListView/>,
+ *                o Adapter deve implementar esta classe e invocar o metodo " boolean isItemViewTypePinned(int viewType)"
  */
 public class PinnedSectionListView extends ListView {
 
