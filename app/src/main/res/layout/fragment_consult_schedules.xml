@@ -8,13 +8,16 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="15sp"
-        android:text="Futura busca por data"
+        android:text="Futura selecao de mês"
         android:textStyle="bold"/>
-    <ListView
-        android:id="@+id/listMinutes"
-        android:layout_width="0dp"
-        android:layout_height="fill_parent"
-        android:background="#0088dd"
+    <com.example.henrique.list.Utilidade_Publica.PinnedSectionListView
+        android:id="@+id/pinnedListSchedules"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:dividerHeight="0dp"
+        android:divider="@null"
         android:choiceMode="singleChoice"/>
+
+
 
 </LinearLayout>
