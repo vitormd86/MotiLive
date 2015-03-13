@@ -15,11 +15,11 @@ import java.util.ArrayList;
 /**
  * Created by Massaru on 17/02/2015.
  */
-public class myAdapterFreeTime extends ArrayAdapter<Integer> {
+public class MyAdapterFreeTime extends ArrayAdapter<Integer> {
     int numberOfFreeHours;
     ListView thisListView;
 
-    public myAdapterFreeTime(Context context, ArrayList clients, ListView listView) {
+    public MyAdapterFreeTime(Context context, ArrayList clients, ListView listView) {
         super(context, R.layout.view_free_hour, clients);
         thisListView =  listView;
 

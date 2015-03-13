@@ -14,8 +14,8 @@ import com.example.henrique.list.R;
  * Created by Henrique on 06/02/2015.
  */
 //Adaptador ele joga as  a imagem e um EditText dentro de uma lista
-public class myAdapter extends ArrayAdapter<String> {
-    public myAdapter(Context context, String[] values) {
+public class MyAdapter extends ArrayAdapter<String> {
+    public MyAdapter(Context context, String[] values) {
         super(context, R.layout.row_myadapter, values);
     }
 

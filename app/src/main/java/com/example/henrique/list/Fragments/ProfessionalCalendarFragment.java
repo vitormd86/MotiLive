@@ -3,16 +3,14 @@ package com.example.henrique.list.Fragments;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import com.example.henrique.list.Adapters.myAdapterClients;
+import com.example.henrique.list.Adapters.MyAdapterClients;
 import com.example.henrique.list.R;
 
 import java.util.ArrayList;
@@ -45,7 +43,7 @@ public class ProfessionalCalendarFragment extends Fragment {
         clientesAgendados.add("Cliente 1 ID");// buscar do banco os clientes do dia atual
         clientesAgendados.add("Cliente 2 ID");
         clientesAgendados.add("Cliente 3 ID");
-        clientsAdapter = new myAdapterClients(getActivity(), clientesAgendados, this);
+        clientsAdapter = new MyAdapterClients(getActivity(), clientesAgendados, this);
         myListView1.setAdapter(clientsAdapter);
 
         date = myCalendarView.getDate();

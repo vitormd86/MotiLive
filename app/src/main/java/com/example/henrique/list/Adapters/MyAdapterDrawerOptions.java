@@ -13,8 +13,8 @@ import com.example.henrique.list.R;
 /**
  * Created by Cristor on 26/02/2015.
  */
-public class myAdapterDrawerOptions extends ArrayAdapter<DrawerMenuItem> {
-    public myAdapterDrawerOptions(Context context, DrawerMenuItem[] clients) {
+public class MyAdapterDrawerOptions extends ArrayAdapter<DrawerMenuItem> {
+    public MyAdapterDrawerOptions(Context context, DrawerMenuItem[] clients) {
         super(context, R.layout.view_drawer_options, clients);
     }
 

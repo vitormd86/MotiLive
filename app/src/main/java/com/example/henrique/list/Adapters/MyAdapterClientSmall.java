@@ -13,8 +13,8 @@ import com.example.henrique.list.R;
  * Created by Massaru on 16/02/2015.
  */
 //PRECISO PASSAR MAIS DE UMA ARRAY COMO ARGUMENTO NO CONSTRUTOR... (HORARIO E STATUS)
-public class myAdapterClientSmall extends ArrayAdapter<String> {
-    public myAdapterClientSmall(Context context, String[] clients) {
+public class MyAdapterClientSmall extends ArrayAdapter<String> {
+    public MyAdapterClientSmall(Context context, String[] clients) {
         super(context, R.layout.view_schedule_client_small, clients);
 
     }

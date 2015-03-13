@@ -26,9 +26,9 @@ import java.util.ArrayList;
  * Created by Vitor on 14/02/2015.
 **/
 //PRECISO PASSAR MAIS DE UMA ARRAY COMO ARGUMENTO NO CONSTRUTOR... (HORARIO E STATUS)
-public class myAdapterClients extends ArrayAdapter<String> {
+public class MyAdapterClients extends ArrayAdapter<String> {
     Fragment fragment;
-    public myAdapterClients(Context context, ArrayList clients, Fragment f) {
+    public MyAdapterClients(Context context, ArrayList clients, Fragment f) {
         super(context, R.layout.view_schedule_client, clients);
         fragment = f;
     }
