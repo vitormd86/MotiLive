@@ -1,7 +1,6 @@
 package com.example.henrique.list.Adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,20 +8,23 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 
-import com.example.henrique.list.Utilidade_Publica.PinnedSectionListView;
+import com.example.henrique.list.Beans.ScheduleItem;
 import com.example.henrique.list.Utilidade_Publica.PinnedSectionListView.PinnedSectionListAdapter;
 import com.example.henrique.list.R;
+
+import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by Henrique on 06/02/2015.
  */
 /*Adaptador com mais de um TIPO de view.... ITEM e SECTION. Ele gera diferentes funcionalidade parqa cada tipo de view*/
-public class ScheduleAdapter extends ArrayAdapter<String> implements PinnedSectionListAdapter{
+public class ScheduleAdapter extends ArrayAdapter<ScheduleItem> implements PinnedSectionListAdapter{
 
     public static final int ITEM = 0;
     public static final int SECTION = 1;
 
-    public ScheduleAdapter(Context context, String[] values) {
+    public ScheduleAdapter(Context context, ArrayList<ScheduleItem> values) {
         super(context, R.layout.view_schedules, values);
     }
 
@@ -48,26 +50,66 @@ public class ScheduleAdapter extends ArrayAdapter<String> implements PinnedSecti
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater theInflator = LayoutInflater.from(getContext());
         View view;
-        String profissionais = getItem(position);
+        String profissionalName = getItem(position).getNameProfessional();
+        String inicialTime = getItem(position).getScheduleInicialTime();
+        String finalTime = getItem(position).getScheduleFinalTime();
+        String duration = getItem(position).getScheduleDuration();
+        String leftTime = getItem(position).getScheduleLeftTime();
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(getItem(position).getScheduleDate());
+
 
         switch (getItemViewType(position)){
             //Caso a view seja de SECAO
             case SECTION:
                 view = theInflator.inflate(R.layout.view_schedules_dates_pinned, parent, false);
-                TextView textDate = (TextView) view.findViewById(R.id.textScheduleDay);
-                textDate.setText("15");
+                TextView textDay = (TextView) view.findViewById(R.id.textScheduleDay);
+                TextView textDayOfWeek = (TextView) view.findViewById(R.id.textScheduleDayOfWeek);
+                textDay.setText(""+cal.get(Calendar.DAY_OF_MONTH));
+                textDayOfWeek.setText(getDayOfWeek(cal.get(Calendar.DAY_OF_WEEK)));
                 //AQUI A VIEW DEVE RECEBER O BACKGROUND para nao aparecer o item saindo.
-
                 break;
             //Caso a view seja ITEM
             default:
                 view = theInflator.inflate(R.layout.view_schedules, parent, false);
-                TextView textTitle = (TextView) view.findViewById(R.id.textProfessionalName);
-                textTitle.setText(profissionais);
+                TextView textTitle = (TextView) view.findViewById(R.id.textScheduleTitle);
+                TextView textSubTitle = (TextView) view.findViewById(R.id.textScheduleSubTitle);
+                TextView textLeftTime = (TextView) view.findViewById(R.id.textLeftTime);
+                textTitle.setText(inicialTime + ": " + profissionalName);
+                textSubTitle.setText("Duração: " + duration + "h");
+                textLeftTime.setText(leftTime);
+
         }
 
 
         return view;
     }
-
+    private String getDayOfWeek(int value) {
+        String day = "";
+        switch (value) {
+            case 1:
+                day = "dom";
+                break;
+            case 2:
+                day = "seg";
+                break;
+            case 3:
+                day = "ter";
+                break;
+            case 4:
+                day = "qua";
+                break;
+            case 5:
+                day = "qui";
+                break;
+            case 6:
+                day = "sex";
+                break;
+            case 7:
+                day = "sab";
+                break;
+        }
+        return day;
+    }
 }

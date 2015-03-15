@@ -22,7 +22,7 @@ import com.example.henrique.list.Fragments.ConsultScheduleFragment;
 import com.example.henrique.list.R;
 
 /*Atividade que configura o drawer e o frame layout que recebe os fragments*/
-public class ActivityDrawer extends ActionBarActivity {
+public class DrawerMenuActivity extends ActionBarActivity {
     DrawerLayout mDrawerLayout;
     CharSequence mTitle;
     ActionBarDrawerToggle mDrawerToggle;

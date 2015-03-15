@@ -16,7 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.henrique.list.Drawer.ActivityDrawer;
+import com.example.henrique.list.Drawer.DrawerMenuActivity;
 import com.example.henrique.list.Adapters.myAdapterFreeTime;
 import com.example.henrique.list.Mapeamento_de_Classes.Servico;
 import com.example.henrique.list.R;
@@ -282,7 +282,7 @@ public class ScheduleHourFragment extends Fragment {
                 //DEVE VERIFICAR SE TODAS AS LISTAS ESTAO SELECIONADAS
 
                 //Redireciona usuario para a tela inicial de agendamento
-                Intent endOfScheduleActivity = new Intent(getActivity(), ActivityDrawer.class);
+                Intent endOfScheduleActivity = new Intent(getActivity(), DrawerMenuActivity.class);
                 startActivity(endOfScheduleActivity);
 
             }

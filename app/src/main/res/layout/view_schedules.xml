@@ -9,14 +9,14 @@
         android:id="@+id/textScheduleTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hora, Servico, Duracao"
+        android:text="9:00 - Nome Profissional"
         android:textSize="20sp"/>
     <TextView
-        android:id="@+id/textProfessionalName"
+        android:id="@+id/textScheduleSubTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textScheduleTitle"
-        android:text="Nome do Profissional"
+        android:text="Duração: 00:20h"
         android:textSize="15sp"/>
     <TextView
         android:id="@+id/textLeftTime"
@@ -29,7 +29,7 @@
         android:id="@+id/horizontalLine"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/textProfessionalName"
+        android:layout_below="@+id/textScheduleSubTitle"
         android:background="#000000"/>
 
     <View
