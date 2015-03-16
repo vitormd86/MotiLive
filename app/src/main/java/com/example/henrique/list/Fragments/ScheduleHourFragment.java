@@ -16,9 +16,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.henrique.list.Adapters.MyAdapterServiceTypes;
-import com.example.henrique.list.Drawer.ActivityDrawer;
-import com.example.henrique.list.Adapters.MyAdapterFreeTime;
+import com.example.henrique.list.Drawer.DrawerMenuActivity;
+import com.example.henrique.list.Adapters.myAdapterFreeTime;
 import com.example.henrique.list.Mapeamento_de_Classes.Servico;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Utilidade_Publica.ResizeAnimation;
@@ -77,9 +76,9 @@ public class ScheduleHourFragment extends Fragment {
         listHours = (ListView) v.findViewById(R.id.listHours);
         listMinutes = (ListView) v.findViewById(R.id.listMinutes);
         listServices = (ListView) v.findViewById(R.id.listServices);
-        myAdapterServiceTypes = new MyAdapterServiceTypes(getActivity(), testeS);
-        myAdapterFreeHours = new MyAdapterFreeTime(getActivity(), freeHours, listHours);
-        myAdapterFreeMinutes = new MyAdapterFreeTime(getActivity(), freeMinutes, listMinutes);
+        myAdapterServiceTypes = new com.example.henrique.list.Adapters.myAdapterServiceTypes(getActivity(), testeS);
+        myAdapterFreeHours = new myAdapterFreeTime(getActivity(), freeHours, listHours);
+        myAdapterFreeMinutes = new myAdapterFreeTime(getActivity(), freeMinutes, listMinutes);
 
         //Configura as variaveis do cabecalho
         textProfessionalName.setText(professionalName);
@@ -283,7 +282,7 @@ public class ScheduleHourFragment extends Fragment {
                 //DEVE VERIFICAR SE TODAS AS LISTAS ESTAO SELECIONADAS
 
                 //Redireciona usuario para a tela inicial de agendamento
-                Intent endOfScheduleActivity = new Intent(getActivity(), ActivityDrawer.class);
+                Intent endOfScheduleActivity = new Intent(getActivity(), DrawerMenuActivity.class);
                 startActivity(endOfScheduleActivity);
 
             }
