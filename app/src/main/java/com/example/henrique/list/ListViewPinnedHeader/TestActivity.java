@@ -1,11 +1,9 @@
 package com.example.henrique.list.ListViewPinnedHeader;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import com.example.henrique.list.R;
 
@@ -14,15 +12,15 @@ public class TestActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.pinned_header_test);
+//        setContentView(R.layout.pinned_header_test);
 
         String[] favoriteProfessionals = new String[]{"Leandro Massaru Kubota", "Ivo Issao Tobioka",
                 "Michel SantaGuida", "Henrique Tamashiro", "Vitor Mendes", "Professional 6", "Professional 7", "Leandro Massaru Kubota", "Ivo Issao Tobioka",
                 "Michel SantaGuida", "Henrique Tamashiro", "Vitor Mendes", "Professional 6", "Professional 7"};
 
-        ListView theListView = (PinnedSectionListView) findViewById(R.id.pinnedList);
-        ArrayAdapter adap = new TestAdapter(this, favoriteProfessionals);
-        theListView.setAdapter(adap);
+     //   ListView theListView = (PinnedSectionListView) findViewById(R.id.pinnedList);
+       // ArrayAdapter adap = new TestAdapter(this, favoriteProfessionals);
+        //theListView.setAdapter(adap);
     }
 
 

@@ -47,9 +47,19 @@
             android:name=".Login.LoginScreen"
             android:label="Get Name"
             android:theme="@style/AppTheme" />
+
+
         <activity
-            android:name=".JSON.JSONRecovery"
-            android:label="Testando Web Service" >
+            android:name=".Login.CustLogin_1"
+            android:label="Tela Inicial do nosso APP" >
+        </activity>
+        <activity
+            android:name=".Drawer.DrawerMenuActivity"
+            android:label="Tela Inicial do nosso APP" >
+        </activity>
+        <activity
+            android:name=".Login.CustProfileChoose_3"
+            android:label="Tela Inicial do nosso APP" >
         </activity>
     </application>
 

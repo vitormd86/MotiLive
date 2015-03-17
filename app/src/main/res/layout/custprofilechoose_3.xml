@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:backgroundTint="@android:color/white"
+        android:weightSum="1">
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Cliente"
+        android:id="@+id/clienteBTN"
+        android:layout_gravity="center"
+        android:background="#ff0000"
+        android:layout_marginTop="20dp"
+        android:textColor="#ffffffff"
+        />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Profissional"
+        android:id="@+id/profissionalBTN"
+        android:layout_gravity="center_vertical"
+        android:background="#ff52a9ff"
+        android:layout_marginTop="20dp"
+        android:textColor="#ffffffff"/>
+</LinearLayout>
