@@ -3,40 +3,25 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:orientation="vertical">
 
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Criar Conta"
-        android:id="@+id/buttonCustLogin" />
-
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Login"
+        android:text="Name"
         android:ems="10"
-        android:id="@+id/custLoginNome" />
+        android:id="@+id/loginNewAccountName" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
+        android:text="Senha"
         android:ems="10"
-        android:id="@+id/custLoginSenha"
-        android:text="Senha"/>
+        android:id="@+id/loginNewAccountSenha" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Logar"
-        android:id="@+id/button2" />
-
-
-    <com.facebook.widget.LoginButton
-        android:id="@+id/authButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
-
+        android:id="@+id/buttonloginNewAccount" />
 </LinearLayout>

@@ -18,7 +18,7 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".Login.FirstScreen" >
+        <activity android:name=".UsoPosterior.Telatermos" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -55,6 +55,11 @@
         </activity>
         <activity
             android:name=".Drawer.DrawerMenuActivity"
+            android:label="Tela Inicial do nosso APP" >
+        </activity>
+
+        <activity
+            android:name=".Login.CustLoginNewAccount_2"
             android:label="Tela Inicial do nosso APP" >
         </activity>
         <activity

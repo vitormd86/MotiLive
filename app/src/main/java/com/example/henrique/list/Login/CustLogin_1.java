@@ -1,17 +1,15 @@
 package com.example.henrique.list.Login;
 
-import android.content.res.Configuration;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
-import com.example.henrique.list.Fragments.CustLoginFragmentLandscape;
-import com.example.henrique.list.Fragments.CustLoginFragmentPortrait;
+import com.example.henrique.list.Drawer.DrawerMenuActivity;
 import com.example.henrique.list.R;
-
-import static android.R.id.content;
 
 /**
  * Created by htamashiro on 3/16/15.
@@ -21,24 +19,29 @@ public class CustLogin_1 extends FragmentActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.custlogin_layout);
 
+        Button criarConta = (Button) findViewById(R.id.buttonCustLoginCriarConta);
+        EditText nome = (EditText) findViewById(R.id.custLoginNome );
+        EditText senha = (EditText) findViewById(R.id.custLoginSenha );
+        Button logar = (Button) findViewById(R.id.buttonCustLoginLogar);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        logar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent avancarTela = new Intent(CustLogin_1.this , CustLoginNewAccount_2.class);
+                startActivity(avancarTela);
 
-        Configuration configInfo = getResources().getConfiguration();
-        if (configInfo.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            }
+        });
 
-            CustLoginFragmentLandscape custLoginFragmentLandscape = new CustLoginFragmentLandscape();
-
-
-        } else {
-
-            CustLoginFragmentPortrait custLoginFragmentPortrait = new CustLoginFragmentPortrait();
-            fragmentTransaction.replace(content, custLoginFragmentPortrait);
-
-        }
-        fragmentTransaction.commit();
+        criarConta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent avancarTela = new Intent(CustLogin_1.this , DrawerMenuActivity.class);
+                startActivity(avancarTela);
+            }
+        });
     }
 
     @Override
