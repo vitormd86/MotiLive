@@ -1,5 +1,8 @@
-package com.example.henrique.list.Drawer;
+package com.example.henrique.list.Profissional;
 
+/**
+ * Created by htamashiro on 3/18/15.
+ */
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -17,13 +20,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.henrique.list.Adapters.MyAdapterDrawerOptions;
-import com.example.henrique.list.Fragments.ScheduleDateFragmentPortrait;
-import com.example.henrique.list.Fragments.ProfessionalCalendarFragment;
+import com.example.henrique.list.Mapeamento_de_Classes.DrawerMenuItem;
 import com.example.henrique.list.Fragments.ConsultScheduleFragment;
+import com.example.henrique.list.Fragments.ProfessionalCalendarFragment;
+import com.example.henrique.list.Fragments.ScheduleDateFragmentPortrait;
 import com.example.henrique.list.R;
 
 /*Atividade que configura o drawer e o frame layout que recebe os fragments*/
-public class DrawerMenuActivity extends ActionBarActivity {
+public class ProDrawerMenu_15 extends ActionBarActivity {
+
+
     DrawerLayout mDrawerLayout;
     CharSequence mTitle;
     ActionBarDrawerToggle mDrawerToggle;
@@ -92,6 +98,8 @@ public class DrawerMenuActivity extends ActionBarActivity {
         textOccupation.setText(occupation);
 
         //configurando listview (menu de opcoes)
+        //Depois eh preciso alterar para as classes do profissional.. aqui ta  as classes do cliente soh pra teste mesmo.
+
         ProfessionalCalendarFragment professionalCalendar = new ProfessionalCalendarFragment();
         ScheduleDateFragmentPortrait scheduleDateFragmentPortrait = new ScheduleDateFragmentPortrait();
         ConsultScheduleFragment consultSchedulesFragment = new ConsultScheduleFragment();

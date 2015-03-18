@@ -16,7 +16,7 @@ public class CustLoginNewAccount_2 extends Activity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.custloginnewaccount);
+        setContentView(R.layout.custloginnewaccount_2);
 
         EditText login = (EditText) findViewById(R.id.loginNewAccountName);
         EditText senha = (EditText) findViewById(R.id.loginNewAccountSenha);
@@ -25,7 +25,7 @@ public class CustLoginNewAccount_2 extends Activity {
         logar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent avancarTela = new Intent(CustLoginNewAccount_2.this , CustProfileChoose_3.class);
+                Intent avancarTela = new Intent(CustLoginNewAccount_2.this , CustProfileChoose_4.class);
                 startActivity(avancarTela);
 
                 //TODO Mais tarde teremos que colocar AsyncTask para fazer o login e a sessao

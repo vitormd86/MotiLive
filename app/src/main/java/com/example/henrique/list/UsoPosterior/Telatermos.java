@@ -16,7 +16,7 @@ public class Telatermos extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_first_screen);
+        setContentView(R.layout.bemvindo);
 
         // configura a acao do botao
         Button concordarContinuarButton = (Button) findViewById(R.id.concordarContinuarButton);

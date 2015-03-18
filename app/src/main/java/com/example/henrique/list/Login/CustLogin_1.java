@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.henrique.list.Drawer.DrawerMenuActivity;
+import com.example.henrique.list.Cliente.CustDrawerMenu_10;
 import com.example.henrique.list.R;
 
 /**
@@ -19,7 +19,7 @@ public class CustLogin_1 extends FragmentActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.custlogin_layout);
+        setContentView(R.layout.custlogin_layout_1);
 
         Button criarConta = (Button) findViewById(R.id.buttonCustLoginCriarConta);
         EditText nome = (EditText) findViewById(R.id.custLoginNome );
@@ -38,7 +38,7 @@ public class CustLogin_1 extends FragmentActivity {
         criarConta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent avancarTela = new Intent(CustLogin_1.this , DrawerMenuActivity.class);
+                Intent avancarTela = new Intent(CustLogin_1.this , CustDrawerMenu_10.class);
                 startActivity(avancarTela);
             }
         });

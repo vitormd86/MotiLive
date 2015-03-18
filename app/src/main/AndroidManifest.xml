@@ -54,7 +54,7 @@
             android:label="Tela Inicial do nosso APP" >
         </activity>
         <activity
-            android:name=".Drawer.DrawerMenuActivity"
+            android:name=".Cliente.CustDrawerMenu_10"
             android:label="Tela Inicial do nosso APP" >
         </activity>
 
@@ -63,7 +63,11 @@
             android:label="Tela Inicial do nosso APP" >
         </activity>
         <activity
-            android:name=".Login.CustProfileChoose_3"
+            android:name=".Login.CustProfileChoose_4"
+            android:label="Tela Inicial do nosso APP" >
+        </activity>
+        <activity
+            android:name=".Profissional.ProDrawerMenu_15"
             android:label="Tela Inicial do nosso APP" >
         </activity>
     </application>

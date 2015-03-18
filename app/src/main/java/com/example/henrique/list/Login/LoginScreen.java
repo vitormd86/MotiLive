@@ -10,7 +10,7 @@ import com.example.henrique.list.R;
 
 public class LoginScreen extends FragmentActivity {
 
-    private LoginFacebookActivity loginFacebookActivity;
+    private CustLoginSignUpFacebook_3 custLoginSignUpFacebook3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,15 +19,15 @@ public class LoginScreen extends FragmentActivity {
         if (savedInstanceState == null)
         {
             // Add the fragment on initial activity setup
-            loginFacebookActivity = new LoginFacebookActivity();
+            custLoginSignUpFacebook3 = new CustLoginSignUpFacebook_3();
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(android.R.id.content, loginFacebookActivity)
+                    .add(android.R.id.content, custLoginSignUpFacebook3)
                     .commit();
             Log.i("LoginScreen", "Passou em cima...");
         } else {
             // Or set the fragment from restored state info
-            loginFacebookActivity = (LoginFacebookActivity) getSupportFragmentManager()
+            custLoginSignUpFacebook3 = (CustLoginSignUpFacebook_3) getSupportFragmentManager()
                     .findFragmentById(android.R.id.content);
             Log.i("LoginScreen", "Passou em baixo...");
         }
