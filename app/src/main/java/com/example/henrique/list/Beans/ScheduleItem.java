@@ -11,6 +11,8 @@ public class ScheduleItem {
     Time scheduleDuration;
     Time scheduleLeftTime;
     String nameProfessional;
+    boolean isSection; //0 para ITEM e 1 para SECTION
+
 
     public Date getScheduleDate() {
         return scheduleDate;
@@ -37,7 +39,7 @@ public class ScheduleItem {
     }
 
     public String getScheduleDuration() {
-        SimpleDateFormat df = new SimpleDateFormat("HH'h e ':mm'min'");
+        SimpleDateFormat df = new SimpleDateFormat("HH'h e 'mm'min'");
         return df.format(scheduleDuration);
     }
 
@@ -63,5 +65,13 @@ public class ScheduleItem {
     private String contertTime(Time time){
         SimpleDateFormat df = new SimpleDateFormat("HH:mm");
         return df.format(time);
+    }
+
+    public boolean isSection() {
+        return isSection;
+    }
+
+    public void setSection(boolean isSection) {
+        this.isSection = isSection;
     }
 }
