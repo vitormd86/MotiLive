@@ -34,7 +34,7 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleItem> implements Pinne
     }
     //determina o tipo de view, para view da posicao indicada
     @Override public int getItemViewType(int position) {
-        if(position == 0 || position == 5){
+        if(getItem(position).isSection()){
             return SECTION;
         } else {
             return ITEM;
@@ -50,15 +50,8 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleItem> implements Pinne
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater theInflator = LayoutInflater.from(getContext());
         View view;
-        String profissionalName = getItem(position).getNameProfessional();
-        String inicialTime = getItem(position).getScheduleInicialTime();
-        String finalTime = getItem(position).getScheduleFinalTime();
-        String duration = getItem(position).getScheduleDuration();
-        String leftTime = getItem(position).getScheduleLeftTime();
-
         Calendar cal = Calendar.getInstance();
         cal.setTime(getItem(position).getScheduleDate());
-
 
         switch (getItemViewType(position)){
             //Caso a view seja de SECAO
@@ -73,11 +66,18 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleItem> implements Pinne
             //Caso a view seja ITEM
             default:
                 view = theInflator.inflate(R.layout.view_schedules, parent, false);
+                String profissionalName = getItem(position).getNameProfessional();
+                String inicialTime = getItem(position).getScheduleInicialTime();
+                String finalTime = getItem(position).getScheduleFinalTime();
+                String duration = getItem(position).getScheduleDuration();
+                String leftTime = getItem(position).getScheduleLeftTime();
+
                 TextView textTitle = (TextView) view.findViewById(R.id.textScheduleTitle);
                 TextView textSubTitle = (TextView) view.findViewById(R.id.textScheduleSubTitle);
                 TextView textLeftTime = (TextView) view.findViewById(R.id.textLeftTime);
+
                 textTitle.setText(inicialTime + ": " + profissionalName);
-                textSubTitle.setText("Duração: " + duration + "h");
+                textSubTitle.setText("Duração: " + duration);
                 textLeftTime.setText(leftTime);
 
         }
