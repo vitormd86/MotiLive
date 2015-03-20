@@ -29,7 +29,10 @@ public class CustLogin_1 extends FragmentActivity {
         logar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent avancarTela = new Intent(CustLogin_1.this , CustLoginNewAccount_2.class);
+
+
+                //TODO : Colocar rotina de autenticação aqui.
+                Intent avancarTela = new Intent(CustLogin_1.this , CustDrawerMenu_10.class);
                 startActivity(avancarTela);
 
             }
@@ -38,8 +41,9 @@ public class CustLogin_1 extends FragmentActivity {
         criarConta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent avancarTela = new Intent(CustLogin_1.this , CustDrawerMenu_10.class);
+                Intent avancarTela = new Intent(CustLogin_1.this , CustLoginNewAccount_2.class);
                 startActivity(avancarTela);
+
             }
         });
     }

@@ -21,7 +21,6 @@
         android:layout_height="wrap_content"
         android:text="Profissional"
         android:id="@+id/profissionalBTN"
-        android:layout_gravity="center_vertical"
         android:background="#ff52a9ff"
         android:layout_marginTop="20dp"
         android:textColor="#ffffffff"/>

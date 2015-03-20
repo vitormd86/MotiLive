@@ -40,4 +40,5 @@ dependencies {
     compile files('gson-2.3.1.jar')
     compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.3.2'
+    compile files('/home/htamashiro/AndroidStudioProjects/MotiLive/android-async-http-1.4.4.jar')
 }

@@ -1,43 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:orientation="vertical">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
-
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Criar Conta"
-        android:id="@+id/buttonCustLoginCriarConta" />
+        android:orientation="vertical"
+        android:padding="10dip" >
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Login"
-        android:ems="10"
-        android:id="@+id/custLoginNome" />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dip"
+            android:text="@string/login_title"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/custLoginSenha"
-        android:text="Senha"/>
+        <EditText
+            android:id="@+id/custLoginNome"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter your Email ID"
+            android:inputType="textEmailAddress" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Logar"
-        android:id="@+id/buttonCustLoginLogar" />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:text="@string/pwd" />
+
+        <EditText
+            android:id="@+id/custLoginSenha"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Password"
+            android:inputType="textPassword" />
+
+        <TextView
+            android:id="@+id/login_error"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:textColor="#e30000"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/buttonCustLoginLogar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:background="#088A08"
+            android:onClick="loginUser"
+            android:text="Login"
+            android:textColor="#fff" />
 
 
-    <com.facebook.widget.LoginButton
-        android:id="@+id/authButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
 
+        <com.facebook.widget.LoginButton
+            android:id="@+id/authButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/buttonCustLoginCriarConta"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dip"
+            android:background="#6A0888"
+            android:onClick="navigatetoRegisterActivity"
+            android:text="Signup"
+            android:textColor="#F2FBEF"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</ScrollView>
