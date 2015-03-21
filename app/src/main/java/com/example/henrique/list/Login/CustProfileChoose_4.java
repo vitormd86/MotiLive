@@ -22,7 +22,9 @@ public class CustProfileChoose_4 extends Activity {
 
 
         Button EscolheCliente = (Button) findViewById(R.id.clienteBTN);
+
         Button EscolheProfissional = (Button) findViewById(R.id.profissionalBTN);
+
 
         EscolheCliente.setOnClickListener(new View.OnClickListener() {
             @Override

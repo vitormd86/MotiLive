@@ -1,11 +1,13 @@
 package com.example.henrique.list.Login;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.henrique.list.R;
 
@@ -13,6 +15,18 @@ import com.example.henrique.list.R;
  * Created by htamashiro on 3/17/15.
  */
 public class CustLoginNewAccount_2 extends Activity {
+
+
+    // Progress Dialog Object
+    ProgressDialog prgDialog;
+    // Error Msg TextView Object
+    TextView errorMsg;
+    // Name Edit View Object
+    EditText nameET;
+    // Email Edit View Object
+    EditText emailET;
+    // Passwprd Edit View Object
+    EditText pwdET;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

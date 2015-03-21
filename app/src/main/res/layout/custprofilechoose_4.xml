@@ -1,27 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:orientation="vertical"
-    android:backgroundTint="@android:color/white"
+    android:backgroundTint="#FFFFFF"
         android:weightSum="1">
 
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Cliente"
-        android:id="@+id/clienteBTN"
-        android:layout_gravity="center"
-        android:background="#ff0000"
-        android:layout_marginTop="20dp"
-        android:textColor="#ffffffff"
-        />
 
-    <Button
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Profissional"
-        android:id="@+id/profissionalBTN"
-        android:background="#ff52a9ff"
-        android:layout_marginTop="20dp"
-        android:textColor="#ffffffff"/>
-</LinearLayout>
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:padding="10dip"
+        >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Escolha seu Perfil"
+            android:layout_marginTop="40dp"
+            android:textSize="25sp"
+            android:textStyle="bold"
+
+            />
+
+         <Button
+             android:id="@+id/clienteBTN"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="60dp"
+             android:background="#E91E63"
+             android:text="Eu quero agendar um serviço"
+             android:textColor="#fff"
+             />
+        <Button
+            android:id="@+id/profissionalBTN"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:background="#2980b9"
+            android:textColor="#fff"
+            android:text="Sou profissional Prestador de serviço"
+
+            />
+
+    </LinearLayout>
+
+
+
+</ScrollView>
