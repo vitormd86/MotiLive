@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.henrique.list.Cliente.MainActivity;
+import com.example.henrique.list.UsoPosterior.ActivityFragmentPortraitControl;
 import com.example.henrique.list.R;
 import com.facebook.Session;
 import com.facebook.SessionState;
@@ -91,7 +91,7 @@ public class CustLoginSignUpFacebook_3 extends Fragment {
     private void onSessionStateChange(Session session, SessionState state, Exception exception) {
         if (state.isOpened()) {
             Log.i(TAG, "Logged in...");
-            Intent avancarTelaAgendamento = new Intent(getActivity(), MainActivity.class);
+            Intent avancarTelaAgendamento = new Intent(getActivity(), ActivityFragmentPortraitControl.class);
             startActivity(avancarTelaAgendamento);
         } else if (state.isClosed()) {
             Log.i(TAG, "Logged out...");

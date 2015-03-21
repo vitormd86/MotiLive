@@ -31,7 +31,7 @@
             android:theme="@style/AppTheme" >
         </activity>
         <activity
-            android:name=".Cliente.MainActivity"
+            android:name=".UsoPosterior.ActivityFragmentPortraitControl"
             android:label="Get Name"
             android:theme="@style/AppTheme" />
         <activity
