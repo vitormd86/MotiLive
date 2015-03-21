@@ -6,7 +6,7 @@
         android:title="Remarcar"/>
 
     <item
-        android:id="@+id/cancelar"
-        android:title="Cancelar"/>
+        android:id="@+id/desmarcar"
+        android:title="Desmarcar"/>
 
 </menu>

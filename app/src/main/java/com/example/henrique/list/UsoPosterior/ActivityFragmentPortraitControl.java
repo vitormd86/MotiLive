@@ -1,4 +1,4 @@
-package com.example.henrique.list.Cliente;
+package com.example.henrique.list.UsoPosterior;
 
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -16,7 +16,7 @@ import com.example.henrique.list.R;
 import com.facebook.Session;
 
 
-public class MainActivity extends FragmentActivity {
+public class ActivityFragmentPortraitControl extends FragmentActivity {
 
     @Override
     //OnCreate, é o q a Activity faz logo que inicia, neste caso, inicia os vetores, variáveis e adaptadores

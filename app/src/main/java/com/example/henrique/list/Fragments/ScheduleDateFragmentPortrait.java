@@ -54,7 +54,7 @@ public class ScheduleDateFragmentPortrait extends Fragment {
                 String selectedProfessional = String.valueOf(parent.getItemAtPosition(position));
 
                 //instancia proximo fragment a ser iniciado
-                ScheduleHourFragment nextFragment = new ScheduleHourFragment();
+                CustScheduleHourFragment_7 nextFragment = new CustScheduleHourFragment_7();
 
                 //inicia valores que serao enviados para a proxima Fragment
                 Bundle args = new Bundle();

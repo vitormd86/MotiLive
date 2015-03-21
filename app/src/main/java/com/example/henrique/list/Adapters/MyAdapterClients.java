@@ -58,7 +58,7 @@ public class MyAdapterClients extends ArrayAdapter<String> {
             public void onClick(View v) {
 
                 PopupMenu popupMenu = new PopupMenu(getContext(), menuButton1);
-                popupMenu.getMenuInflater().inflate(R.menu.popupmenu_agendamento, popupMenu.getMenu());
+                popupMenu.getMenuInflater().inflate(R.menu.popupmenu_schedule, popupMenu.getMenu());
                 //// colocando listeners individuais para cada item do menu
 
                 //listener do botao de submenu
@@ -86,7 +86,7 @@ public class MyAdapterClients extends ArrayAdapter<String> {
 
                                 break;
 
-                            case R.id.cancelar:
+                            case R.id.desmarcar:
                                 //Alimenta o Alert Dialog para confirmar cancelamento
                                 builder.setTitle("Cancelar Agendamento");
                                 builder.setMessage("Voce deseja mesmo cancelar o agendamento com " + clients + "?");

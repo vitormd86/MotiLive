@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -20,7 +21,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class ConsultScheduleFragment extends Fragment {
+public class CustScheduleListFragment_9 extends Fragment {
 
     private View v;
     private FragmentActivity fa;
@@ -30,7 +31,7 @@ public class ConsultScheduleFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         fa = super.getActivity();
-        v = inflater.inflate(R.layout.fragment_consult_schedules, container, false);
+        v = inflater.inflate(R.layout.fragment_cust_schedule_list_9, container, false);
 
         ArrayList<ScheduleItem> scheduleItems = initScheduleItems();
 
@@ -39,12 +40,13 @@ public class ConsultScheduleFragment extends Fragment {
 
         listSchedules.initShadow(false);
         listSchedules.setAdapter(schedulesAdapter);
+        setListSchedulesListener(listSchedules);
 
         return v;
     }
 
     public ArrayList<ScheduleItem> initScheduleItems(){
-        //aqui deve ser gerada um vetor de AGENDAMENTO, para poder resgatar todos os dados
+        //aqui deve ser gerada um vetor de AGENDAMENTO e de seus respectivos nomes de PROFISSIONAIS, para poder resgatar todos os dados
         String[] favoriteProfessionals = new String[]{"Leandro Massaru", "Ivo Issao Tobioka",
             "Michel SantaGuida", "Henrique Tamashiro", "Vitor Mendes", "Professional 6", "Professional 7", "Leandro Massaru", "Ivo Issao Tobioka",
             "Michel SantaGuida", "Henrique Tamashiro", "Vitor Mendes", "Professional 6", "Professional 7", "Leandro Massaru", "Ivo Issao Tobioka",
@@ -87,5 +89,15 @@ public class ConsultScheduleFragment extends Fragment {
         items.add(item);
         }
         return items;
+    }
+
+    public void setListSchedulesListener(ListView lv){
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
+
     }
 }
