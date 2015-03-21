@@ -35,7 +35,7 @@
             android:label="Get Name"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".Drawer.ActivityDrawer"
+            android:name=".Drawer.DrawerMenuActivity"
             android:label="@string/title_activity_drawer_text" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

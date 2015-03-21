@@ -20,8 +20,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.henrique.list.Adapters.MyAdapterDrawerOptions;
+import com.example.henrique.list.Fragments.CustScheduleListFragment_9;
 import com.example.henrique.list.Mapeamento_de_Classes.DrawerMenuItem;
-import com.example.henrique.list.Fragments.ConsultScheduleFragment;
 import com.example.henrique.list.Fragments.ProfessionalCalendarFragment;
 import com.example.henrique.list.Fragments.ScheduleDateFragmentPortrait;
 import com.example.henrique.list.R;
@@ -102,7 +102,7 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
 
         ProfessionalCalendarFragment professionalCalendar = new ProfessionalCalendarFragment();
         ScheduleDateFragmentPortrait scheduleDateFragmentPortrait = new ScheduleDateFragmentPortrait();
-        ConsultScheduleFragment consultSchedulesFragment = new ConsultScheduleFragment();
+        CustScheduleListFragment_9 consultSchedulesFragment = new CustScheduleListFragment_9();
         DrawerMenuItem item1 = new DrawerMenuItem(scheduleDateFragmentPortrait, "Novo Agendamento");
         DrawerMenuItem item2 = new DrawerMenuItem(professionalCalendar, "Antigo Consultar Agenda (Profissional)");
         DrawerMenuItem item3 = new DrawerMenuItem(consultSchedulesFragment, "Consultar Agendamentos");

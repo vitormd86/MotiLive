@@ -31,7 +31,7 @@ import java.util.TimeZone;
  * Created by Cristor on 26/02/2015.
  */
 /*Tela de selecao de horas e servicos de agendamento, ao final ela gera um alerta de confirmacao*/
-public class ScheduleHourFragment extends Fragment {
+public class CustScheduleHourFragment_7 extends Fragment {
 
     private View v;
     private FragmentActivity fa;
@@ -59,7 +59,7 @@ public class ScheduleHourFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         fa = super.getActivity();
-        v = inflater.inflate(R.layout.fragment_schedule_hour, container, false);
+        v = inflater.inflate(R.layout.fragment_cust_schedule_hour_7, container, false);
 
         //recebe valores da fragment anterior
         Bundle args = getArguments();
