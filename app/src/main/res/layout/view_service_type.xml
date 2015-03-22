@@ -3,13 +3,14 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/list_item_selector">
-    <View
+    <Button
         android:id="@+id/infoButton"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_margin="5dp"
         android:layout_centerVertical="true"
-        android:src="@drawable/hide"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         android:background="#AAAAAA"/>
     <LinearLayout
         android:layout_width="match_parent"

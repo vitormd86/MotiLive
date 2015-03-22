@@ -13,8 +13,8 @@ import com.example.henrique.list.R;
  * Created by Henrique on 06/02/2015.
  */
 // mesma coisa que o myAdapter só que eu tirei o ImageView, pra fazer uma lista de serviços
-public class MyAdapterServicos extends ArrayAdapter<String> {
-    public MyAdapterServicos(Context context, String[] values) {
+public class MyAdapterServices extends ArrayAdapter<String> {
+    public MyAdapterServices(Context context, String[] values) {
         super(context, R.layout.row_servicos, values);
     }
 

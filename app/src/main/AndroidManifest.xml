@@ -34,15 +34,7 @@
             android:name=".UsoPosterior.ActivityFragmentPortraitControl"
             android:label="Get Name"
             android:theme="@style/AppTheme" />
-        <activity
-            android:name=".Drawer.DrawerMenuActivity"
-            android:label="@string/title_activity_drawer_text" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".Login.LoginScreen"
             android:label="Get Name"
