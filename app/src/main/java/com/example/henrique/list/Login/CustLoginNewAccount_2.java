@@ -35,6 +35,8 @@ public class CustLoginNewAccount_2 extends Activity {
         EditText login = (EditText) findViewById(R.id.loginNewAccountName);
         EditText senha = (EditText) findViewById(R.id.loginNewAccountSenha);
         Button logar = (Button) findViewById(R.id.buttonloginNewAccount);
+        Button cancelar = (Button) findViewById(R.id.btnCancelarTela2);
+
 
         logar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +48,17 @@ public class CustLoginNewAccount_2 extends Activity {
 
             }
         });
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent avancarTela = new Intent(CustLoginNewAccount_2.this , CustLogin_1.class);
+                startActivity(avancarTela);
+
+                //TODO Mais tarde teremos que colocar AsyncTask para fazer o login e a sessao
+
+            }
+        });
+
 
     }
 }

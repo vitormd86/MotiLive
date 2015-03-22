@@ -86,13 +86,13 @@
         <!-- Link to Login Screen -->
 
         <Button
-            android:id="@+id/btnLinkToLoginScreen"
+            android:id="@+id/btnCancelarTela2"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
             android:background="@null"
             android:onClick="navigatetoLoginActivity"
-            android:text="Login"
+            android:text="Cancelar"
             android:textColor="#228b22"
             android:textStyle="bold" />
     </LinearLayout>

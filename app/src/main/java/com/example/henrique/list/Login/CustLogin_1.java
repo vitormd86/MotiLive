@@ -118,11 +118,7 @@ public class CustLogin_1 extends Activity {
             Toast.makeText(getApplicationContext(), "Please fill the form, don't leave any field blank", Toast.LENGTH_LONG).show();
         }
 
-
-
 }
-
-
     /*
           * Method that performs RESTful webservice invocations
           *

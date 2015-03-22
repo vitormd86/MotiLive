@@ -11,4 +11,69 @@
         android:layout_height="wrap_content"
         android:text="Botao salvar"
         />
+    <EditText
+        android:id="@+id/nomeCompletET_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nome Completo "/>
+    <EditText
+        android:id="@+id/celularET_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Celular"/>
+    <EditText
+        android:id="@+id/emailET_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="E-Mail"/>
+
+       <LinearLayout
+
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/ruaET_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rua"/>
+                <EditText
+                    android:id="@+id/numeroET_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Numero"/>
+               <EditText
+                   android:id="@+id/CEPET_5"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="CEP"/>
+       </LinearLayout>
+
+    <EditText
+        android:id="@+id/complementoET_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Complemento"/>
+    <EditText
+        android:id="@+id/bairro_ET_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bairro"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+            <EditText
+                android:id="@+id/cidadeET_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cidade"/>
+            <EditText
+                android:id="@+id/estadoET_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Estado"/>
+    </LinearLayout>
+
 </LinearLayout>
