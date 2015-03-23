@@ -100,6 +100,7 @@ public class CustLogin_1 extends Activity {
         // Instantiate Http Request Param Object
         RequestParams params = new RequestParams();
         // When Email Edit View and Password Edit View have values other than Null
+        //verifica se os campos estao vazios
         if(Utility.isNotNull(email) && Utility.isNotNull(password)){
             // When Email entered is Valid
             if(Utility.validate(email)){

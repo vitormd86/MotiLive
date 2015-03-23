@@ -42,15 +42,9 @@ public class Pro_Profile_5 extends Fragment{
             @Override
             public void onClick(View v) {
 
-
-
-
             }
         });
-
-
         return v;
-
     }
 
 
@@ -71,11 +65,6 @@ public class Pro_Profile_5 extends Fragment{
         String bairro = bairroET.getText().toString();
         String cidade = cidadeET.getText().toString();
         String estado = estadoET.getText().toString();
-
-
-
-
-
 
     }
 
