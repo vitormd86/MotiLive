@@ -65,6 +65,7 @@ public class CustLogin_1 extends Activity {
                 //TODO : Colocar rotina de autenticação aqui.
                 Intent avancarTela = new Intent(CustLogin_1.this , CustDrawerMenu_10.class);
                 startActivity(avancarTela);
+                loginUser(v);
 
             }
         });
@@ -72,9 +73,7 @@ public class CustLogin_1 extends Activity {
         criarConta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent avancarTela = new Intent(CustLogin_1.this , CustLoginNewAccount_2.class);
-                startActivity(avancarTela);
-
+                navigatetoRegisterActivity(v);
             }
         });
     }
@@ -100,6 +99,9 @@ public class CustLogin_1 extends Activity {
         // Instantiate Http Request Param Object
         RequestParams params = new RequestParams();
         // When Email Edit View and Password Edit View have values other than Null
+
+
+
         //verifica se os campos estao vazios
         if(Utility.isNotNull(email) && Utility.isNotNull(password)){
             // When Email entered is Valid
@@ -130,6 +132,7 @@ public class CustLogin_1 extends Activity {
         prgDialog.show();
         // Make RESTful webservice call using AsyncHttpClient object
         AsyncHttpClient client = new AsyncHttpClient();
+        //TODO : Aqui utilizaremos  as CTE q o michel ira criar para averiguação de login
         client.get("http://192.168.2.2:9999/useraccount/login/dologin",params ,new AsyncHttpResponseHandler() {
             // When the response returned by REST has Http response code '200'
             @Override
