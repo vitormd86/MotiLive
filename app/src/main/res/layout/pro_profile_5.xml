@@ -22,31 +22,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nascimento"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp" />
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="40dp"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="49dp">
 
-        <Spinner
+       <AutoCompleteTextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Dia"/>
+        <AutoCompleteTextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-        </Spinner>
-
-        <Spinner
+            android:layout_height="wrap_content"
+            android:text="Mes"/>
+        <AutoCompleteTextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:text="Ano"/>
 
-        </Spinner>
 
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-        </Spinner>
 
 
     </LinearLayout>
@@ -55,24 +54,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sexo"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp" />
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="40dp"/>
 
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="40dp"
+        android:paddingBottom="10dp">
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Masculino" />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Masculino" />
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Feminino" />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Feminino" />
 
 
     </LinearLayout>
@@ -94,8 +96,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Local de Atendimento"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp" />
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp" />
 
     <LinearLayout
 
@@ -103,23 +105,23 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/ruaET_5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Rua" />
+                <EditText
+                    android:id="@+id/ruaET_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rua" />
 
-        <EditText
-            android:id="@+id/numeroET_5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Numero" />
+                <EditText
+                    android:id="@+id/numeroET_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Numero" />
 
-        <EditText
-            android:id="@+id/CEPET_5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CEP" />
+                <EditText
+                    android:id="@+id/CEPET_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CEP" />
     </LinearLayout>
 
     <EditText
