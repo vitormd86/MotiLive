@@ -20,9 +20,9 @@
             android:id="@+id/imageView1"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="15dp"
-            android:src="@drawable/hide" />
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            android:src="@drawable/hide2" />
 
         <EditText
             android:id="@+id/nomeCompletET_5"
@@ -61,8 +61,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ano"/>
-
-
 
 
     </LinearLayout>

@@ -15,8 +15,6 @@ import com.example.henrique.list.R;
  */
 public class Pro_Profile_5 extends Fragment{
 
-
-
     EditText nomeCompletoET;
     EditText celularET;
     EditText emailET;
@@ -28,12 +26,8 @@ public class Pro_Profile_5 extends Fragment{
     EditText cidadeET;
     EditText estadoET;
 
-
-
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.pro_profile_5, parent, false);
-
-
 
         //TODO  Aqui to implementando a forma como fazemos o webservice
         Button buttonActionBar = (Button) v.findViewById(R.id.confirmarActionBar);
