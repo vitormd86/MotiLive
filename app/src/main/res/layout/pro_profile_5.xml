@@ -5,18 +5,35 @@
     android:orientation="vertical"
     android:padding="10dip">
 
-
     <Button
         android:id="@+id/confirmarActionBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Botao salvar" />
 
-    <EditText
-        android:id="@+id/nomeCompletET_5"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nome Completo " />
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/imageView1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/hide" />
+
+        <EditText
+            android:id="@+id/nomeCompletET_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nome Completo " />
+
+        </LinearLayout>
+
+
+
 
     <TextView
         android:layout_width="wrap_content"

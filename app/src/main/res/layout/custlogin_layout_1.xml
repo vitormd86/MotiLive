@@ -58,7 +58,7 @@
 
 
         <com.facebook.widget.LoginButton
-            android:id="@+id/authButton"
+            android:id="@+id/authButtonLoginUsuario"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal" />

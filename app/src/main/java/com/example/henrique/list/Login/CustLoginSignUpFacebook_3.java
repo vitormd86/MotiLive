@@ -41,9 +41,9 @@ public class CustLoginSignUpFacebook_3 extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.termos_usuario, container, false);
+        View view = inflater.inflate(R.layout.custlogin_layout_1, container, false);
 
-        LoginButton authButton = (LoginButton) view.findViewById(R.id.authButton);
+        LoginButton authButton = (LoginButton) view.findViewById(R.id.authButtonLoginUsuario);
         authButton.setFragment(this);
         authButton.setReadPermissions(Arrays.asList("user_likes", "user_status"));
 

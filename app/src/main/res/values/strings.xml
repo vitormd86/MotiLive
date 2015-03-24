@@ -26,5 +26,7 @@
     <string name="email">Email</string>
     <string name="pwd">Password</string>
     <string name="btnRegister">Register</string>
+    <string name="action_refresh">action_refresh</string>
+    <string name="action_help">action_help</string>
 
 </resources>

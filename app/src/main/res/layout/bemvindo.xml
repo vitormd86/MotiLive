@@ -12,6 +12,7 @@
     android:paddingRight="0dp"
     android:paddingTop="0dp"
     android:paddingBottom="0dp"
+
     tools:context="com.example.henrique.list.UsoPosterior.Telatermos">
 
     <LinearLayout
@@ -45,14 +46,15 @@
             android:textIsSelectable="false" />
 
         <Button
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CONCORDO E CONTINUAR"
+            android:text="Concordo e Continuar"
             android:id="@+id/concordarContinuarButton"
             android:layout_gravity="center_horizontal"
             android:background="#ff52a9ff"
             android:layout_marginTop="20dp"
-            android:textColor="#ffffffff" />
+            android:textColor="#ffffffff"
+/>
     </LinearLayout>
 
 </LinearLayout>
