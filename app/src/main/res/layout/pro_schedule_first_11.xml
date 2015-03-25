@@ -1,5 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dip">
 
-</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/imageView1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            android:src="@drawable/hide2" />
+
+        <EditText
+            android:id="@+id/nomeCompletET_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nome Completo " />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Local de Atendimento"
+        android:paddingTop="80dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="40dp"/>
+
+    <LinearLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+       >
+
+        <EditText
+            android:id="@+id/ruaET_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rua"
+            android:paddingLeft="40dp"/>
+
+        <EditText
+            android:id="@+id/numeroET_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Numero" />
+
+        <EditText
+            android:id="@+id/CEPET_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CEP"
+            />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/complementoET_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Complemento"
+        android:paddingLeft="40dp"/>
+
+    <EditText
+        android:id="@+id/bairro_ET_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bairro"
+        android:paddingLeft="40dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="40dp">
+
+        <EditText
+            android:id="@+id/cidadeET_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cidade" />
+
+        <EditText
+            android:id="@+id/estadoET_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Estado" />
+    </LinearLayout>
+
+  </LinearLayout>
+
