@@ -1,4 +1,4 @@
-package com.example.henrique.list.Fragments;
+package com.example.henrique.list.Cliente;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;

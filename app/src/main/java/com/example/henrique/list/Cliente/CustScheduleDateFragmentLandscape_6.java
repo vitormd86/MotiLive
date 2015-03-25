@@ -1,8 +1,8 @@
-package com.example.henrique.list.Fragments;
+package com.example.henrique.list.Cliente;
 
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,35 +17,32 @@ import com.example.henrique.list.R;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * Created by Henrique on 12/02/2015.
- * Edited by Vitor on 23/02/2015.
- */
 /*Tela de selecao de data e profissional para o agendamento*/
-public class ScheduleDateFragmentPortrait extends Fragment {
-
+public class CustScheduleDateFragmentLandscape_6 extends Fragment  {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_schedule_calendar_p, parent, false);
 
 
-        String[] favoriteProfessionals = new String[]{"Leandro Massaru Kubota", "Ivo Issao Tobioka",
-                "Michel SantaGuida", "Henrique Tamashiro", "Vitor Mendes", "Professional 6", "Professional 7"};
+        View v = inflater.inflate(R.layout.fragment_schedule_calendar_l, parent, false);
 
         ListView theListView = (ListView) v.findViewById(R.id.ListView); // inicializa a List View do fragment inflado
         final CalendarView myCalendarView = (CalendarView) v.findViewById(R.id.calendarView); // inicializa a Calendar View do fragment inflado
+
+
+        String[] favoriteProfessionals;// aqui eu inicializo o array de opcoes
+        favoriteProfessionals = new String[]{"Leandro Massaru Kubota", "Ivo Issao Tobioka",
+                "Michel SantaGuida", "Henrique Tamashiro"};
 
         ListAdapter theAdapter; //inicializa o adaptador de array, pra encaixar o array na lista
         theAdapter = new MyAdapter(v.getContext(), favoriteProfessionals);
 
         theListView.setAdapter(theAdapter);// seleciona o adaptador... no caso  "theAdapter" q eh do tipo myAdapter
 
-
-
         theListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
 
                 //recebe a data selecionada para passar para a proxima tela
                 String selectedDate = getCalendarDate(myCalendarView);

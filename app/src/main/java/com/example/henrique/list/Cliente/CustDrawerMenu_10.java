@@ -17,8 +17,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.henrique.list.Adapters.MyAdapterDrawerOptions;
-import com.example.henrique.list.Fragments.CustScheduleListFragment_9;
-import com.example.henrique.list.Fragments.ScheduleDateFragmentPortrait;
 import com.example.henrique.list.Mapeamento_de_Classes.DrawerMenuItem;
 import com.example.henrique.list.R;
 
@@ -37,7 +35,7 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
 
         //inicia o fragment inicial dentro do frame de conteudo
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content_frame, new ScheduleDateFragmentPortrait());
+        ft.replace(R.id.content_frame, new CustScheduleDateFragmentPortrait_6());
         setTitle("Novo Agendamento");
         ft.commit();
 
@@ -92,11 +90,13 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
         textOccupation.setText(occupation);
 
         //configurando listview (menu de opcoes)
-        ScheduleDateFragmentPortrait scheduleDateFragmentPortrait = new ScheduleDateFragmentPortrait();
-        CustScheduleListFragment_9 consultSchedulesFragment = new CustScheduleListFragment_9();
-        DrawerMenuItem item1 = new DrawerMenuItem(scheduleDateFragmentPortrait, "Novo Agendamento");
-        DrawerMenuItem item3 = new DrawerMenuItem(consultSchedulesFragment, "Consultar Agendamentos");
-        final DrawerMenuItem [] menuOptions = {item1, item3};
+        CustScheduleDateFragmentPortrait_6 custScheduleDateFragment= new CustScheduleDateFragmentPortrait_6();
+        CustScheduleListFragment_9 custScheduleListFragment9 = new CustScheduleListFragment_9();
+        CustProfileFragment_5 custProfileFragment5 = new CustProfileFragment_5();
+        DrawerMenuItem item1 = new DrawerMenuItem(custScheduleDateFragment, "Novo Agendamento");
+        DrawerMenuItem item2= new DrawerMenuItem(custScheduleListFragment9, "Consultar Agendamentos");
+        DrawerMenuItem item3= new DrawerMenuItem(custProfileFragment5, "Editar Perfil");
+        final DrawerMenuItem [] menuOptions = {item1, item2, item3};
 
         listOptions = (ListView) findViewById(R.id.ListView);
         //configurando adapter da listView
