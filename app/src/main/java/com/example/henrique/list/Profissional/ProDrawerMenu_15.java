@@ -20,9 +20,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.henrique.list.Adapters.MyAdapterDrawerOptions;
-import com.example.henrique.list.Fragments.CustScheduleListFragment_9;
+import com.example.henrique.list.Cliente.CustScheduleListFragment_9;
 import com.example.henrique.list.Mapeamento_de_Classes.DrawerMenuItem;
-import com.example.henrique.list.Fragments.ScheduleDateFragmentPortrait;
+import com.example.henrique.list.Cliente.CustScheduleDateFragmentPortrait_6;
 import com.example.henrique.list.R;
 
 /*Atividade que configura o drawer e o frame layout que recebe os fragments*/
@@ -42,7 +42,7 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
 
         //inicia o fragment inicial dentro do frame de conteudo
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content_frame, new ScheduleDateFragmentPortrait());
+        ft.replace(R.id.content_frame, new CustScheduleDateFragmentPortrait_6());
         setTitle("Novo Agendamento");
         ft.commit();
 
@@ -99,9 +99,9 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
         //configurando listview (menu de opcoes)
         //Depois eh preciso alterar para as classes do profissional.. aqui ta  as classes do cliente soh pra teste mesmo.
 
-        ScheduleDateFragmentPortrait scheduleDateFragmentPortrait = new ScheduleDateFragmentPortrait();
+        CustScheduleDateFragmentPortrait_6 custScheduleDateFragmentPortrait6 = new CustScheduleDateFragmentPortrait_6();
         CustScheduleListFragment_9 consultSchedulesFragment = new CustScheduleListFragment_9();
-        DrawerMenuItem item1 = new DrawerMenuItem(scheduleDateFragmentPortrait, "Novo Agendamento");
+        DrawerMenuItem item1 = new DrawerMenuItem(custScheduleDateFragmentPortrait6, "Novo Agendamento");
         DrawerMenuItem item3 = new DrawerMenuItem(consultSchedulesFragment, "Consultar Agendamentos");
         final DrawerMenuItem [] menuOptions = {item1, item3};
 

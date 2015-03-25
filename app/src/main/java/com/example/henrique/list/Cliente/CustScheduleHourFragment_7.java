@@ -1,4 +1,4 @@
-package com.example.henrique.list.Fragments;
+package com.example.henrique.list.Cliente;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +17,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.henrique.list.Cliente.CustDrawerMenu_10;
 import com.example.henrique.list.Adapters.MyAdapterFreeTime;
 import com.example.henrique.list.Mapeamento_de_Classes.Servico;
 import com.example.henrique.list.R;
@@ -38,9 +38,11 @@ public class CustScheduleHourFragment_7 extends Fragment {
 
     ArrayList<Integer> freeHours = new ArrayList<>();
     ArrayList<Integer> freeMinutes = new ArrayList<>();
+    ArrayList<String> selectedServicesTitles = new ArrayList<>();
+    ArrayList<Double> selectedServicesPrices = new ArrayList<>();
     ResizeAnimation resizeAnimation;
     boolean isHoursOpened,  isMinutesOpened;
-    String selectedServicesTitle, sDate, professionalName;
+    String  sDate, professionalName, occupation;
     int freeHourMinutesWidth = 90;
     int selectedHour, selectedMinutes;
     double totalPrice;
@@ -66,7 +68,7 @@ public class CustScheduleHourFragment_7 extends Fragment {
         professionalName = args.getString("selectedProfessional");
         sDate = args.getString("selectedDate");
         //deve configurar dados do profissional a partir do bd
-        String occupation = "Massagista";
+        occupation = "Massagista";
         //String [] serviceTitles = {testeS[0].getNome()};
 
         //alimentando items do layout
@@ -221,16 +223,15 @@ public class CustScheduleHourFragment_7 extends Fragment {
 
                 //Armazena servico/hora/servicos selecionados
                 selectedMinutes = (int) myAdapterFreeMinutes.getItem(position);
-                selectedServicesTitle = "";
                 totalTime = 0;
                 totalPrice = 0;
-                //Alimentando variavel de titulo de servicos selecionados
+                //Alimentando array de servicos selecionados
                 SparseBooleanArray checkedServices = listServices.getCheckedItemPositions();
                 //para cada item selecionado alimenta seus respectivos valores;
                 for (int i = 0; i < listServices.getAdapter().getCount(); i++) {
                     if (checkedServices.get(i)) {
                         Servico s = (Servico) myAdapterServiceTypes.getItem(i);
-                        selectedServicesTitle = selectedServicesTitle + " " + s.getNome();
+                        selectedServicesTitles.add(s.getNome());
                         //esse valores devem ser buscados da classe Servicos armazenados no adapterServiceTypes
                         totalTime = totalTime + s.getTempo().getTime();
                         totalPrice = totalPrice + s.getValor();
@@ -238,8 +239,11 @@ public class CustScheduleHourFragment_7 extends Fragment {
                 }
                 totalTime = totalTime + (TimeZone.getDefault().getOffset(totalTime)* (checkedServices.size() - 1));
                 //Gera um alerta, para confirmar o agendamento
-                AlertDialog confirmAlert = getConfirmAlert();
-                confirmAlert.show();
+                //AlertDialog confirmAlert = getConfirmAlert();
+                //confirmAlert.show();
+                //Chama proximo Fragment incluindo suas informacoes nos argumentos
+                initConfirmScreen();
+
             }
         });
 
@@ -269,7 +273,7 @@ public class CustScheduleHourFragment_7 extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Confirmar agendamento?");
         builder.setMessage("Profissional: " + professionalName +
-                "\nServico(s): " + selectedServicesTitle +
+                "\nServico(s): " + selectedServicesTitles +
                 "\nDia: " + sDate +
                 "\nInicio: " + String.format("%02d",selectedHour) + ":" + String.format("%02d",selectedMinutes) + "h" +
                 "\nPeríodo: " + df.format(totalTime) +
@@ -310,6 +314,38 @@ public class CustScheduleHourFragment_7 extends Fragment {
         });
         alert = builder.create();
     return alert;
+    }
+
+    private void initConfirmScreen(){
+        //reinicia valores deste fragment
+        isHoursOpened = false;
+        isMinutesOpened = false;
+
+        freeMinutes.clear();
+        freeHours.clear();
+        listMinutes.clearChoices();
+        listHours.clearChoices();
+        listServices.clearChoices();
+
+        //inicia valores que serao enviados para a proxima Fragment
+        CustScheduleConfirmFragment_8 nextFragment = new CustScheduleConfirmFragment_8();
+        Bundle args = new Bundle();
+        args.putString("professionalName", professionalName);
+        args.putString("profession", occupation);
+        args.putStringArrayList("selectedServices", selectedServicesTitles);
+        args.putString("sDate", sDate);
+        args.putInt("selectedHour", selectedHour);
+        args.putInt("selectedMinutes", selectedMinutes);
+        args.putLong("totalTime", totalTime);
+        args.putDouble("totalPrice", totalPrice);
+        nextFragment.setArguments(args);
+        //inicia a transacao de Fragments
+        FragmentTransaction ft  = getFragmentManager().beginTransaction();
+        ft.replace(R.id.content_frame, nextFragment);
+        //este metodo permite q o usuario navegue de volta
+        ft.addToBackStack(null);
+        ft.commit();
+
     }
 
 }
