@@ -34,6 +34,10 @@
             android:name=".UsoPosterior.ActivityFragmentPortraitControl"
             android:label="Get Name"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Cliente.CustScheduleConfirmActivity_8"
+            android:label="Resumo"
+            android:theme="@style/AppTheme" />
 
         <activity
             android:name=".Login.LoginScreen"

@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.henrique.list.Adapters.MyAdapterFreeTime;
+import com.example.henrique.list.Login.CustProfileChoose_4;
 import com.example.henrique.list.Mapeamento_de_Classes.Servico;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Utilidade_Publica.ResizeAnimation;
@@ -241,8 +242,12 @@ public class CustScheduleHourFragment_7 extends Fragment {
                 //Gera um alerta, para confirmar o agendamento
                 //AlertDialog confirmAlert = getConfirmAlert();
                 //confirmAlert.show();
+
                 //Chama proximo Fragment incluindo suas informacoes nos argumentos
-                initConfirmScreen();
+                //initConfirmScreen();
+
+                //Chama proxima tela em activity
+                initNextActivity();
 
             }
         });
@@ -348,4 +353,17 @@ public class CustScheduleHourFragment_7 extends Fragment {
 
     }
 
+    private void initNextActivity(){
+        //reinicia valores deste fragment
+        isHoursOpened = false;
+        isMinutesOpened = false;
+        freeMinutes.clear();
+        freeHours.clear();
+        listMinutes.clearChoices();
+        listHours.clearChoices();
+        listServices.clearChoices();
+
+        Intent intent = new Intent(getActivity(),CustScheduleConfirmActivity_8.class);
+        startActivity(intent);
+    }
 }
