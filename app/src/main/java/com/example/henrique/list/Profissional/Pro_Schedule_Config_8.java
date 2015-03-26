@@ -10,6 +10,7 @@ import com.example.henrique.list.R;
 
 /**
  * Created by htamashiro on 3/21/15.
+ *
  */
 public class Pro_Schedule_Config_8 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {

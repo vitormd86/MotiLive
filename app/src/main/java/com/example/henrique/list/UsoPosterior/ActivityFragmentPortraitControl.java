@@ -15,6 +15,7 @@ import com.example.henrique.list.Login.LoginScreen;
 import com.example.henrique.list.R;
 import com.facebook.Session;
 
+//Codigo de referencia para mudança de  orientação do device
 
 public class ActivityFragmentPortraitControl extends FragmentActivity {
 

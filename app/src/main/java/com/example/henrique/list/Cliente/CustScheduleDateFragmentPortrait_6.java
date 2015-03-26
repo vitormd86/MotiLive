@@ -1,8 +1,8 @@
 package com.example.henrique.list.Cliente;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +13,18 @@ import android.widget.ListView;
 
 import com.example.henrique.list.Adapters.MyAdapter;
 import com.example.henrique.list.R;
+import com.loopj.android.http.RequestParams;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import br.com.motiserver.dto.CustomerDTO;
 
 /**
  * Created by Henrique on 12/02/2015.
  * Edited by Vitor on 23/02/2015.
  */
+//todo nao usar
 /*Tela de selecao de data e profissional para o agendamento*/
 public class CustScheduleDateFragmentPortrait_6 extends Fragment {
 
@@ -40,6 +44,11 @@ public class CustScheduleDateFragmentPortrait_6 extends Fragment {
         theAdapter = new MyAdapter(v.getContext(), favoriteProfessionals);
 
         theListView.setAdapter(theAdapter);// seleciona o adaptador... no caso  "theAdapter" q eh do tipo myAdapter
+
+        //TODO: colocar o objeto q vem la de traz do login
+        long teste = 50;
+        CustomerDTO customerDTO = new CustomerDTO();
+        customerDTO.setCustomerId(teste);
 
 
 
@@ -88,6 +97,12 @@ public class CustScheduleDateFragmentPortrait_6 extends Fragment {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         sDate = sdf.format(new Date(cv.getDate()));
         return sDate;
+    }
+
+    public void recoverListProfessionals(View view)
+    {
+        RequestParams params = new RequestParams();
+       // params.put("id_customer", customerDTO);
     }
 
 }

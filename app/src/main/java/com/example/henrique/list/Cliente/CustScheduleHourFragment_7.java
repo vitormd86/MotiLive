@@ -18,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.henrique.list.Adapters.MyAdapterFreeTime;
-import com.example.henrique.list.Login.CustProfileChoose_4;
 import com.example.henrique.list.Mapeamento_de_Classes.Servico;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Utilidade_Publica.ResizeAnimation;
@@ -27,7 +26,7 @@ import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.TimeZone;
-
+//todo nao mexer
 /**
  * Created by Cristor on 26/02/2015.
  */

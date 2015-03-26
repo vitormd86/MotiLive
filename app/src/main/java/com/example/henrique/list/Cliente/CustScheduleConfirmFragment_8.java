@@ -21,6 +21,8 @@ import java.util.TimeZone;
 /**
  * Created by Cristor on 24/03/2015.
  */
+//todo nao mexer
+
 public class CustScheduleConfirmFragment_8 extends Fragment {
     private View v;
     private FragmentActivity fa;

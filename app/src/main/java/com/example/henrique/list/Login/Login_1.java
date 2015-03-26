@@ -4,15 +4,17 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.henrique.list.Cliente.CustDrawerMenu_10;
+import com.example.henrique.list.Cliente.CustScheduleListFragment_9;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Utilidade_Publica.Utility;
-import com.facebook.LoginActivity;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -21,68 +23,93 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by htamashiro on 3/17/15.
+ * Created by htamashiro on 3/16/15.
  */
-public class CustLoginNewAccount_2 extends Activity {
+public class Login_1 extends Activity {
 
 
-    // Progress Dialog Object
     ProgressDialog prgDialog;
-    // Error Msg TextView Object
     TextView errorMsg;
-    // Name Edit View Object
-    EditText nameET;
-    // Email Edit View Object
     EditText emailET;
-    // Passwprd Edit View Object
     EditText pwdET;
+
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.custloginnewaccount_2);
+        setContentView(R.layout.login_layout_1);
 
-        EditText login = (EditText) findViewById(R.id.loginNewAccountName);
-        EditText senha = (EditText) findViewById(R.id.loginNewAccountSenha);
-        Button logar = (Button) findViewById(R.id.buttonloginNewAccount);
-        Button cancelar = (Button) findViewById(R.id.btnCancelarTela2);
 
+        errorMsg = (TextView)findViewById(R.id.login_error);
+        // Find Email Edit View control by ID
+        emailET = (EditText)findViewById(R.id.custLoginNome);
+        // Find Password Edit View control by ID
+        pwdET = (EditText)findViewById(R.id.custLoginSenha);
+        // Instantiate Progress Dialog object
+        prgDialog = new ProgressDialog(this);
+        // Set Progress Dialog Text
+        prgDialog.setMessage("Please wait...");
+        // Set Cancelable as False
+        prgDialog.setCancelable(false);
+
+
+
+
+        Button criarConta = (Button) findViewById(R.id.buttonCustLoginCriarConta);
+        Button logar = (Button) findViewById(R.id.buttonCustLoginLogar);
 
         logar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registerUser(v);
-                navigatetoLoginActivity(v);
+
+
+                //TODO : Colocar rotina de autenticação aqui.
+                Intent avancarTela = new Intent(Login_1.this , CustDrawerMenu_10.class);
+                startActivity(avancarTela);
+                loginUser(v);
 
             }
         });
-        cancelar.setOnClickListener(new View.OnClickListener() {
+
+        criarConta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            navigatetoLoginActivity(v);
+                navigatetoRegisterActivity(v);
             }
         });
-
-
     }
 
-    public void registerUser(View view){
-        // Get NAme ET control value
-        String name = nameET.getText().toString();
-        // Get Email ET control value
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    /**
+     * Method gets triggered when Login button is clicked
+     *
+     * @param view
+     */
+    public void  loginUser(View view){
+
+        // Get Email Edit View Value
         String email = emailET.getText().toString();
-        // Get Password ET control value
+        // Get Password Edit View Value
         String password = pwdET.getText().toString();
         // Instantiate Http Request Param Object
         RequestParams params = new RequestParams();
-        // When Name Edit View, Email Edit View and Password Edit View have values other than Null
-        if(Utility.isNotNull(name) && Utility.isNotNull(email) && Utility.isNotNull(password)){
+        // When Email Edit View and Password Edit View have values other than Null
+
+
+
+        //verifica se os campos estao vazios
+        if(Utility.isNotNull(email) && Utility.isNotNull(password)){
             // When Email entered is Valid
             if(Utility.validate(email)){
-                // Put Http parameter name with value of Name Edit View control
-                params.put("name", name);
                 // Put Http parameter username with value of Email Edit View control
-                params.put("username", email);
-                // Put Http parameter password with value of Password Edit View control
+                params.put("email", email);
+                // Put Http parameter password with value of Password Edit Value control
                 params.put("password", password);
                 // Invoke RESTful Web Service with Http parameters
                 invokeWS(params);
@@ -91,27 +118,23 @@ public class CustLoginNewAccount_2 extends Activity {
             else{
                 Toast.makeText(getApplicationContext(), "Please enter valid email", Toast.LENGTH_LONG).show();
             }
-        }
-        // When any of the Edit View control left blank
-        else{
+        } else{
             Toast.makeText(getApplicationContext(), "Please fill the form, don't leave any field blank", Toast.LENGTH_LONG).show();
         }
 
-    }
-
-    /**
-     * Method that performs RESTful webservice invocations
-     *
-     * @param params
-     */
+}
+    /*
+          * Method that performs RESTful webservice invocations
+          *
+          * @param params
+          */
     public void invokeWS(RequestParams params){
         // Show Progress Dialog
         prgDialog.show();
         // Make RESTful webservice call using AsyncHttpClient object
         AsyncHttpClient client = new AsyncHttpClient();
-
-        //TODO : Aqui utilizaremos  as CTE q o michel ira criar do cadastro de usuario
-        client.get("http://192.168.2.2:9999/useraccount/register/doregister",params ,new AsyncHttpResponseHandler() {
+        //TODO : Aqui utilizaremos  as CTE q o michel ira criar para averiguação de login
+        client.get("endereco service login_1",params ,new AsyncHttpResponseHandler() {
             // When the response returned by REST has Http response code '200'
             @Override
             public void onSuccess(String response) {
@@ -122,10 +145,9 @@ public class CustLoginNewAccount_2 extends Activity {
                     JSONObject obj = new JSONObject(response);
                     // When the JSON response has status boolean value assigned with true
                     if(obj.getBoolean("status")){
-                        // Set Default Values for Edit View controls
-                        setDefaultValues();
-                        // Display successfully registered message using Toast
-                        Toast.makeText(getApplicationContext(), "You are successfully registered!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "You are successfully logged in!", Toast.LENGTH_LONG).show();
+                        // Navigate to Home screen
+                        navigatetoHomeActivity();
                     }
                     // Else display error message
                     else{
@@ -161,22 +183,26 @@ public class CustLoginNewAccount_2 extends Activity {
         });
     }
 
-    /**
-     * Method which navigates from Register Activity to Login Activity
-     */
-    public void navigatetoLoginActivity(View view){
-        Intent loginIntent = new Intent(getApplicationContext(),LoginActivity.class);
-        // Clears History of Activity
+    // Utilizamos essa função para ir para a primeira tela do usuario logado, no caso.. sua lista de agendamentos.
+    public void navigatetoHomeActivity(){
+        Intent homeIntent = new Intent(getApplicationContext(),CustScheduleListFragment_9.class);
+        homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(homeIntent);
+    }
+
+    //navega para a tela de cadastro no caso  loginnewaccount_2
+    public void navigatetoRegisterActivity(View view){
+        Intent loginIntent = new Intent(getApplicationContext(),LoginNewAccount_2.class);
         loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(loginIntent);
     }
-
     /**
      * Set degault values for Edit View controls
      */
     public void setDefaultValues(){
-        nameET.setText("");
         emailET.setText("");
         pwdET.setText("");
     }
+
+
 }

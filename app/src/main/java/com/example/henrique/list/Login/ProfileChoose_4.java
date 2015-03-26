@@ -13,12 +13,12 @@ import com.example.henrique.list.R;
 /**
  * Created by htamashiro on 3/17/15.
  */
-public class CustProfileChoose_4 extends Activity {
+public class ProfileChoose_4 extends Activity {
 
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.custprofilechoose_4);
+        setContentView(R.layout.profilechoose_4);
 
 
         Button EscolheCliente = (Button) findViewById(R.id.clienteBTN);
@@ -29,18 +29,30 @@ public class CustProfileChoose_4 extends Activity {
         EscolheCliente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent avancarTela = new Intent(CustProfileChoose_4.this , CustDrawerMenu_10.class);
-                startActivity(avancarTela);
+                navigateToClient(v);
             }
         });
 
         EscolheProfissional.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent avancarTela = new Intent(CustProfileChoose_4.this , ProDrawerMenu_15.class);
-                startActivity(avancarTela);            }
+                navigateToProfissional(v);            }
         });
 
 
+    }
+
+    //metodo de navegacao paraprimeira tela profissional
+    public void navigateToProfissional(View view){
+        Intent loginIntent = new Intent(getApplicationContext(),ProDrawerMenu_15.class);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(loginIntent);
+    }
+
+    //metodo de navegacao para primeira tela cliente
+    public void navigateToClient(View view){
+        Intent loginIntent = new Intent(getApplicationContext(),CustDrawerMenu_10.class);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(loginIntent);
     }
 }

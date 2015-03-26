@@ -17,7 +17,7 @@ import com.facebook.widget.LoginButton;
 
 import java.util.Arrays;
 
-public class CustLoginSignUpFacebook_3 extends Fragment {
+public class LoginSignUpFacebook_3 extends Fragment {
 
     private static final String TAG = "MainFragment";
 
@@ -41,7 +41,7 @@ public class CustLoginSignUpFacebook_3 extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.custlogin_layout_1, container, false);
+        View view = inflater.inflate(R.layout.login_layout_1, container, false);
 
         LoginButton authButton = (LoginButton) view.findViewById(R.id.authButtonLoginUsuario);
         authButton.setFragment(this);
