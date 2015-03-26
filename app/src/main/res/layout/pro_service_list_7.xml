@@ -18,7 +18,7 @@
 
     </RelativeLayout>
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/serviceListProTV_7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -26,9 +26,9 @@
         android:background="#444444"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:text="Lista de serviços"/>
+        android:text="@string/serviceListProTV_7"/>
     <ListView
-        android:id="@+id/ListView"
+        android:id="@+id/serviceListProLV_7"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"

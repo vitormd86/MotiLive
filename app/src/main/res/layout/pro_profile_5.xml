@@ -17,7 +17,7 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/imageView1"
+            android:id="@+id/imageViewPro_5"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="0dp"
@@ -25,23 +25,21 @@
             android:src="@drawable/hide2" />
 
         <EditText
-            android:id="@+id/nomeCompletET_5"
+            android:id="@+id/CompleteNameProET_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nome Completo " />
+            android:text="@string/CompleteNameProET_5" />
 
-        </LinearLayout>
-
-
-
+    </LinearLayout>
 
     <TextView
+        android:id="@+id/BirthProET_5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nascimento"
+        android:text="@string/BirthProET_5"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:paddingLeft="40dp"/>
+        android:paddingLeft="40dp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -49,29 +47,35 @@
         android:orientation="horizontal"
         android:paddingLeft="49dp">
 
-       <AutoCompleteTextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="Dia"/>
         <AutoCompleteTextView
+            android:id="@+id/DayProET_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mes"/>
+            android:text="@string/DayProET_5" />
+
         <AutoCompleteTextView
+            android:id="@+id/MonthProET_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ano"/>
+            android:text="@string/MonthProET_5" />
+
+        <AutoCompleteTextView
+            android:id="@+id/yearProET_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/yearProET_5" />
 
 
     </LinearLayout>
 
     <TextView
+        android:id="@+id/SexProTV_5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sexo"
+        android:text="@string/SexProTV_5"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:paddingLeft="40dp"/>
+        android:paddingLeft="40dp" />
 
 
     <LinearLayout
@@ -81,15 +85,17 @@
         android:paddingLeft="40dp"
         android:paddingBottom="10dp">
 
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Masculino" />
+        <RadioButton
+            android:id="@+id/MaleProRB_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/MaleProRB_5" />
 
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Feminino" />
+        <RadioButton
+            android:id="@+id/FemaleProRB_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/FemaleProRB_5" />
 
 
     </LinearLayout>
@@ -99,18 +105,19 @@
         android:id="@+id/celularET_5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Celular" />
+        android:text="@string/CelProET_5" />
 
     <EditText
-        android:id="@+id/emailET_5"
+        android:id="@+id/EmailProET_5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="E-Mail" />
+        android:text="@string/EmailProET_5" />
 
     <TextView
+        android:id="@+id/pointofcareTV_5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Local de Atendimento"
+        android:text="@string/pointofcareTV_5"
         android:paddingTop="10dp"
         android:paddingBottom="10dp" />
 
@@ -120,36 +127,36 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/ruaET_5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Rua" />
+        <EditText
+            android:id="@+id/StreetProET_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/StreetProET_5" />
 
-                <EditText
-                    android:id="@+id/numeroET_5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Numero" />
+        <EditText
+            android:id="@+id/NumberProET_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/NumberProET_5" />
 
-                <EditText
-                    android:id="@+id/CEPET_5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="CEP" />
+        <EditText
+            android:id="@+id/CEPProET_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/CEPProET_5" />
     </LinearLayout>
 
     <EditText
-        android:id="@+id/complementoET_5"
+        android:id="@+id/ComplementProET_5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Complemento" />
+        android:text="@string/ComplementProET_5" />
 
     <EditText
-        android:id="@+id/bairro_ET_5"
+        android:id="@+id/neighborhoodProET_5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bairro" />
+        android:text="@string/neighborhoodProET_5" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -157,16 +164,16 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/cidadeET_5"
+            android:id="@+id/cityProET_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cidade" />
+            android:text="@string/cityProET_5" />
 
         <EditText
-            android:id="@+id/estadoET_5"
+            android:id="@+id/stateProET_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Estado" />
+            android:text="@string/stateProET_5" />
     </LinearLayout>
 
 </LinearLayout>

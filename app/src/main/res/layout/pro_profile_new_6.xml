@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dip">
 
     <EditText
-        android:text="Nome do Serviço"
+        android:id="@+id/serviceNameProET_6"
+        android:text="@string/serviceNameProET_6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <TextView
+        android:id="@+id/descriptionofServiceProTV_6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
-        android:text="Descrição do Serviço"/>
+        android:text="@string/descriptionofServiceProTV_6" />
 
     <EditText
+        android:id="@+id/descriptionProET_6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
-        android:text="Descrição"/>
+        android:text="@string/descriptionProET_6" />
 
 
     <LinearLayout
@@ -34,13 +38,16 @@
             android:padding="10dp">
 
             <TextView
+                android:id="@+id/sessionTimeProTV_6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tempo de Sessão"/>
+                android:text="@string/sessionTimeProTV_6" />
+
             <EditText
+                android:id="@+id/sessionTimeProET_6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="00 min"/>
+                android:text="@string/sessionTimeProET_6" />
         </LinearLayout>
 
         <LinearLayout
@@ -50,16 +57,17 @@
             android:padding="10dp">
 
             <TextView
+                android:id="@+id/shiftingTimeProTV_6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tempo de deslocamento"/>
+                android:text="@string/shiftingTimeProTV_6" />
+
             <EditText
+                android:id="@+id/shiftingTimeProET_6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="000 min min"/>
+                android:text="@string/shiftingTimeProET_6" />
         </LinearLayout>
-
-
 
 
     </LinearLayout>
@@ -72,16 +80,17 @@
         android:padding="10dp">
 
         <TextView
+            android:id="@+id/valueProTV_6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Valor"/>
+            android:text="@string/valueProTV_6" />
+
         <EditText
+            android:id="@+id/valueProET_6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="00,00"/>
+            android:text="@string/valueProET_6" />
     </LinearLayout>
-
-
 
 
 </LinearLayout>

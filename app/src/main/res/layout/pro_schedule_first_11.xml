@@ -11,7 +11,7 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/imageView1"
+            android:id="@+id/imageButtonPro_11"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="0dp"
@@ -19,17 +19,18 @@
             android:src="@drawable/hide2" />
 
         <EditText
-            android:id="@+id/nomeCompletET_5"
+            android:id="@+id/completeNameProET_11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nome Completo " />
+            android:text="@string/completeNameProET_11" />
 
     </LinearLayout>
 
     <TextView
+        android:id="@+id/pointofcareProTV_11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Local de Atendimento"
+        android:text="@string/pointofcareProTV_11"
         android:paddingTop="80dp"
         android:paddingBottom="10dp"
         android:paddingLeft="40dp"/>
@@ -42,38 +43,38 @@
        >
 
         <EditText
-            android:id="@+id/ruaET_5"
+            android:id="@+id/streetProET_11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rua"
+            android:text="@string/streetProET_11"
             android:paddingLeft="40dp"/>
 
         <EditText
-            android:id="@+id/numeroET_5"
+            android:id="@+id/numberProET_11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Numero" />
+            android:text="@string/numberProET_11" />
 
         <EditText
-            android:id="@+id/CEPET_5"
+            android:id="@+id/CEPProET_11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CEP"
+            android:text="@string/CEPProET_11"
             />
     </LinearLayout>
 
     <EditText
-        android:id="@+id/complementoET_5"
+        android:id="@+id/complementProET_11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Complemento"
+        android:text="@string/complementProET_11"
         android:paddingLeft="40dp"/>
 
     <EditText
-        android:id="@+id/bairro_ET_5"
+        android:id="@+id/neighborhoodProET_11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bairro"
+        android:text="@string/neighborhoodProET_11"
         android:paddingLeft="40dp"/>
 
     <LinearLayout
@@ -83,16 +84,16 @@
         android:paddingLeft="40dp">
 
         <EditText
-            android:id="@+id/cidadeET_5"
+            android:id="@+id/cityProET_11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cidade" />
+            android:text="@string/cityProET_11" />
 
         <EditText
-            android:id="@+id/estadoET_5"
+            android:id="@+id/stateProET_11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Estado" />
+            android:text="@string/stateProET_11" />
     </LinearLayout>
 
   </LinearLayout>

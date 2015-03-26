@@ -1,4 +1,4 @@
-package com.example.henrique.list.Cliente;
+package com.example.henrique.list.UsoPosterior;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.example.henrique.list.Adapters.MyAdapter;
+import com.example.henrique.list.Cliente.CustScheduleHourFragment_7;
 import com.example.henrique.list.R;
 
 import java.text.SimpleDateFormat;
