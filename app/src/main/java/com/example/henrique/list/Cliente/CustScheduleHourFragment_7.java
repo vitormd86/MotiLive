@@ -299,20 +299,7 @@ public class CustScheduleHourFragment_7 extends Fragment {
             public void onClick(DialogInterface arg0, int arg1) {
 
                 //REINICIA ListMinutes/ListHours Menu
-                resizeAnimation = new ResizeAnimation(listHours, 0);
-                listHours.startAnimation(resizeAnimation);
-                resizeAnimation = new ResizeAnimation(listMinutes, 0);
-                listMinutes.startAnimation(resizeAnimation);
-
-                isHoursOpened = false;
-                isMinutesOpened = false;
-
-                freeMinutes.clear();
-                freeHours.clear();
-                listMinutes.clearChoices();
-                listHours.clearChoices();
-                listServices.clearChoices();
-
+                restartFragmentValues();
                 Toast.makeText(getActivity(), "Nao", Toast.LENGTH_SHORT).show();
             }
         });
@@ -321,15 +308,8 @@ public class CustScheduleHourFragment_7 extends Fragment {
     }
 
     private void initConfirmScreen(){
-        //reinicia valores deste fragment
-        isHoursOpened = false;
-        isMinutesOpened = false;
 
-        freeMinutes.clear();
-        freeHours.clear();
-        listMinutes.clearChoices();
-        listHours.clearChoices();
-        listServices.clearChoices();
+        restartFragmentValues();
 
         //inicia valores que serao enviados para a proxima Fragment
         CustScheduleConfirmFragment_8 nextFragment = new CustScheduleConfirmFragment_8();
@@ -353,6 +333,26 @@ public class CustScheduleHourFragment_7 extends Fragment {
     }
 
     private void initNextActivity(){
+        Intent intent = new Intent(getActivity(),CustScheduleConfirmActivity_8.class);
+        intent.putExtra("professionalName", professionalName);
+        intent.putExtra("profession", occupation);
+        intent.putExtra("selectedServices", selectedServicesTitles);
+        intent.putExtra("sDate", sDate);
+        intent.putExtra("selectedHour", selectedHour);
+        intent.putExtra("selectedMinutes", selectedMinutes);
+        intent.putExtra("totalTime", totalTime);
+        intent.putExtra("totalPrice", totalPrice);
+
+        startActivity(intent);
+    }
+
+    @Override
+    public void onStop(){
+        //esse metodo eh chamado sempre q a fragment vai para backStack
+        super.onStop();
+        restartFragmentValues();
+    }
+    public void restartFragmentValues(){
         //reinicia valores deste fragment
         isHoursOpened = false;
         isMinutesOpened = false;
@@ -361,8 +361,9 @@ public class CustScheduleHourFragment_7 extends Fragment {
         listMinutes.clearChoices();
         listHours.clearChoices();
         listServices.clearChoices();
-
-        Intent intent = new Intent(getActivity(),CustScheduleConfirmActivity_8.class);
-        startActivity(intent);
+        listHours.getLayoutParams().width = 0;
+        listMinutes.getLayoutParams().width = 0;
+        listHours.requestLayout();
+        listHours.requestLayout();
     }
 }

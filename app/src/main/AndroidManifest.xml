@@ -37,7 +37,12 @@
         <activity
             android:name=".Cliente.CustScheduleConfirmActivity_8"
             android:label="Resumo"
-            android:theme="@style/AppTheme" />
+            android:parentActivityName=".Cliente.CustDrawerMenu_10"
+            android:theme="@style/AppTheme" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Cliente.CustDrawerMenu_10" />
+        </activity>
 
         <activity
             android:name=".Login.LoginScreen"
@@ -51,7 +56,8 @@
         </activity>
         <activity
             android:name=".Cliente.CustDrawerMenu_10"
-            android:label="Tela Inicial do nosso APP" >
+            android:label="Tela Inicial do nosso APP"
+            android:launchMode="singleTask">
         </activity>
 
         <activity
