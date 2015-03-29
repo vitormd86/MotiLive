@@ -33,15 +33,10 @@
         android:id="@+id/textLeftTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/button"
+        android:layout_alignParentRight="true"
         android:text="30min"
         android:textSize="15sp"/>
-    <Button
-        android:id="@+id/button"
-        android:layout_width="15dp"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="5dp"/>
+
     <View
         android:id="@+id/horizontalLine"
         android:layout_width="match_parent"

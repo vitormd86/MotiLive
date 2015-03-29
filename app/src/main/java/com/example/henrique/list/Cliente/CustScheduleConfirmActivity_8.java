@@ -1,6 +1,8 @@
 package com.example.henrique.list.Cliente;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -11,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +28,8 @@ import java.util.TimeZone;
  * Created by Cristor on 25/03/2015.
  */
 public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
+    String professionalName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,15 +40,14 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
 
         //recebe valores da activity anterior
         Bundle extras = getIntent().getExtras();
-        String professionalName = extras.getString("professionalName");
+        professionalName = extras.getString("professionalName");
         String profession = extras.getString("profession");
         ArrayList<String> serviceNames = extras.getStringArrayList("selectedServices");
         String sDate = extras.getString("sDate");
-        int selectedHour = extras.getInt("selecterHour");
+        int selectedHour = extras.getInt("selectedHour");
         int selectedMinutes = extras.getInt("selectedMinutes");
         long totalTime = extras.getLong("totalTime");
         double totalPrice = extras.getDouble("totalPrice");
-
         //inicia objetos de layout
         ImageView imagePhoto = (ImageView) findViewById(R.id.photo);
         TextView textProfessionalName = (TextView) findViewById(R.id.professionalName);
@@ -76,6 +80,8 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         ArrayAdapter servicesNameAdapter = new ServicesNameAdapter(this,serviceNames);
         listServiceNames.setAdapter(servicesNameAdapter);
 
+        //iniciando adapter de precos de servicos
+        //todo assim que esta classe receber intencias da classe SERVICE implementar adapter de listServicePrices
 
         //configura valores em suas views
         textProfessionalName.setText(professionalName);
@@ -85,6 +91,7 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         textInicialHour.setText(df2.format(inicialTime));
         textTotalTime.setText(df.format(totalTime));
         textFinalHour.setText(df2.format(finalTime));
+        textAddress.setText("Rua xxxxxxxxx, 000 - ap 00. ");
         //falta buscar endereco do usuario, ou profissional e precos isolados
     }
 
@@ -97,14 +104,53 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle presses on the action bar items
+        // Admininstra cliques da ActionBar
         switch (item.getItemId()) {
-            case R.id.backButton:
-                Toast.makeText(this, "Nao", Toast.LENGTH_SHORT).show();
+            case R.id.confirmButton:
+                Intent confirmIntent = new Intent(this,CustDrawerMenu_10.class);
+                confirmIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                //todo verificar se existe o agendamento. se existir alterar dados, se nao existir incluir novo no BD
+                Toast.makeText(this, "Confirmado", Toast.LENGTH_SHORT).show();
+                startActivity(confirmIntent);
                 return true;
+
+            case R.id.cancelButton:
+                initCancelSchedule();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    public void initCancelSchedule(){
+
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    AlertDialog popupAlert;
+
+   //Alimenta o Alert Dialog para confirmar cancelamento
+    builder.setTitle("Cancelar Agendamento");
+    builder.setMessage("Voce deseja mesmo cancelar o agendamento com " + professionalName + "?");
+    //define o listener dos botoes SIM / NAO do Alert Dialog
+    builder.setPositiveButton("Sim", new DialogInterface.OnClickListener(){
+        public void onClick(DialogInterface arg0, int arg1){
+            //caso clique sim, deve voltar para atividade anterior
+            //todo verificar se existe agendamento no bd, caso exista, remover
+            Intent cancelIntent = new Intent(getBaseContext(),CustDrawerMenu_10.class);
+            cancelIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(cancelIntent);
+            Toast.makeText(getBaseContext(), "Cancelado", Toast.LENGTH_SHORT).show();
+        }
+    });
+    builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface arg0, int arg1) {
+            //caso clique nao deve continuar na mesma atividade
+        }
+    });
+    popupAlert = builder.create();
+    popupAlert.show();
+    }
+
 }
+

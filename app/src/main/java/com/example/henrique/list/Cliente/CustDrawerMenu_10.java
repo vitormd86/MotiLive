@@ -35,7 +35,7 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
 
         //inicia o fragment inicial dentro do frame de conteudo
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content_frame, new CustScheduleDateFragmentPortrait_6());
+        ft.replace(R.id.content_frame, new CustScheduleListFragment_9());
         setTitle("Novo Agendamento");
         ft.commit();
 
