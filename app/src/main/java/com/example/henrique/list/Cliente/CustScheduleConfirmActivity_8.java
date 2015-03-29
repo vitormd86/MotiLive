@@ -107,16 +107,16 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         // Admininstra cliques da ActionBar
         switch (item.getItemId()) {
             case R.id.confirmButton:
+                //todo fazer com q a intent identifique se deve voltar para tela de novo agendamento ou meus agendamentos
                 Intent confirmIntent = new Intent(this,CustDrawerMenu_10.class);
                 confirmIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
                 //todo verificar se existe o agendamento. se existir alterar dados, se nao existir incluir novo no BD
                 Toast.makeText(this, "Confirmado", Toast.LENGTH_SHORT).show();
                 startActivity(confirmIntent);
                 return true;
 
             case R.id.cancelButton:
-                initCancelSchedule();
+                initCancelScheduleAlert();
                 return true;
 
             default:
@@ -124,7 +124,7 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         }
     }
 
-    public void initCancelSchedule(){
+    public void initCancelScheduleAlert(){
 
     AlertDialog.Builder builder = new AlertDialog.Builder(this);
     AlertDialog popupAlert;
@@ -137,6 +137,8 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         public void onClick(DialogInterface arg0, int arg1){
             //caso clique sim, deve voltar para atividade anterior
             //todo verificar se existe agendamento no bd, caso exista, remover
+
+            //todo fazer com q a intent identifique se deve voltar para tela de novo agendamento ou meus agendamentos
             Intent cancelIntent = new Intent(getBaseContext(),CustDrawerMenu_10.class);
             cancelIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(cancelIntent);
