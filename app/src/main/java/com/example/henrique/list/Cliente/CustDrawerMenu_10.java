@@ -3,6 +3,7 @@ package com.example.henrique.list.Cliente;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -33,12 +34,8 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer_layout);
 
-        //inicia o fragment inicial dentro do frame de conteudo
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content_frame, new CustScheduleListFragment_9());
-        setTitle("Novo Agendamento");
-        ft.commit();
 
+        initFirstFragment("Meus Agendamentos", new CustScheduleListFragment_9());
 
         //Criacao e configuracao do menu lateral
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -75,6 +72,13 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
         setLayoutItems();
     }
 
+    public void initFirstFragment(String title, Fragment fragment){
+        //inicia o fragment inicial dentro do frame de conteudo
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_frame, fragment);
+        setTitle(title);
+        ft.commit();
+    }
     //Esta classe alimenta e configura o conteudo do drawer
     public void setLayoutItems (){
 
