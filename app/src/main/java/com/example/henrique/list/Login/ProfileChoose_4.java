@@ -21,9 +21,9 @@ public class ProfileChoose_4 extends Activity {
         setContentView(R.layout.profilechoose_4);
 
 
-        Button EscolheCliente = (Button) findViewById(R.id.clienteBTN);
+        Button EscolheCliente = (Button) findViewById(R.id.clienteBTN_1);
 
-        Button EscolheProfissional = (Button) findViewById(R.id.profissionalBTN);
+        Button EscolheProfissional = (Button) findViewById(R.id.profissionalBTN_1);
 
 
         EscolheCliente.setOnClickListener(new View.OnClickListener() {

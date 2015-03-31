@@ -14,8 +14,6 @@
     <string name="title_activity_drawer_text">DrawerText</string>
     <string name="drawer_close">Close</string>
     <string name="drawer_open">Open</string>
-    <string name="Teste">Bom dia</string>
-    <string name="testebanco">Cadastrar</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_test">TestActivity</string>
     <string name="title_activity_login">Login</string>
@@ -28,6 +26,17 @@
     <string name="btnRegister">Register</string>
     <string name="action_refresh">action_refresh</string>
     <string name="action_help">action_help</string>
+
+    <!-- Tela 4  -->
+
+    <string name="chooseYourProfileTV_4">Escolha seu Perfil</string>
+    <string name="clienteBTN_4">Eu quero agendar um serviço</string>
+    <string name="profissionalBTN_4">Sou profissional Prestador de serviço</string>
+
+    <!-- Tela 5 Profissional  -->
+
+    <string name="yearProET_5">Ano</string>
+    <string name="pointofcareTV_5">pointofcareProET_5</string>
     <string name="CompleteNameProET_5">Nome Completo</string>
     <string name="BirthProET_5">Nascimento</string>
     <string name="DayProET_5">Dia</string>
@@ -48,6 +57,11 @@
     <string name="neighborhoodProET_5">Bairro</string>
     <string name="cityProET_5">Cidade</string>
     <string name="stateProET_5">Estado</string>
+
+
+
+    <!-- Tela 6 Profissional -->
+
     <string name="serviceNameProET_6">Nome do Serviço</string>
     <string name="descriptionofServiceProTV_6">Descrição do Serviço</string>
     <string name="descriptionProET_6">Descrição</string>
@@ -58,6 +72,11 @@
     <string name="shiftingTimeProTV_6">shiftingTimeProTV_6</string>
     <string name="valueProTV_6">Valor</string>
     <string name="valueProET_6">00,00</string>
+
+
+    <!-- Tela 11 Profissional -->
+
+
     <string name="completeNameProET_11">Nome Completo</string>
     <string name="pointofcareProTV_11">Local de Atendimento</string>
     <string name="streetProET_11">Rua</string>
@@ -67,8 +86,11 @@
     <string name="neighborhoodProET_11">Bairro</string>
     <string name="cityProET_11">Cidade</string>
     <string name="stateProET_11">Estado</string>
-    <string name="yearProET_5">Ano</string>
-    <string name="pointofcareTV_5">pointofcareProET_5</string>
+
+    <!-- Tela 7 Profissional -->
+
     <string name="serviceListProTV_7">Lista de serviços</string>
+
+
 
 </resources>

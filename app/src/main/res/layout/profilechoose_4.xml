@@ -14,9 +14,10 @@
         >
 
         <TextView
+            android:id="@+id/chooseYourProfileTV_4"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Escolha seu Perfil"
+            android:text="@string/chooseYourProfileTV_4"
             android:layout_marginTop="40dp"
             android:textSize="25sp"
             android:textStyle="bold"
@@ -24,22 +25,22 @@
             />
 
          <Button
-             android:id="@+id/clienteBTN"
+             android:id="@+id/clienteBTN_4"
              android:layout_width="fill_parent"
              android:layout_height="wrap_content"
              android:layout_marginTop="60dp"
              android:background="#E91E63"
-             android:text="Eu quero agendar um serviço"
+             android:text="@string/clienteBTN_4"
              android:textColor="#fff"
              />
         <Button
-            android:id="@+id/profissionalBTN"
+            android:id="@+id/profissionalBTN_4"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
             android:background="#2980b9"
             android:textColor="#fff"
-            android:text="Sou profissional Prestador de serviço"
+            android:text="@string/profissionalBTN_4"
 
             />
 

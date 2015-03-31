@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="clienteBTN_1" type="id">clienteBTN_1</item>
+    <item name="profissionalBTN_1" type="id">profissionalBTN_1</item>
+</resources>

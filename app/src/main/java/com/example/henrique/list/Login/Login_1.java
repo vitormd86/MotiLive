@@ -22,6 +22,8 @@ import com.loopj.android.http.RequestParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import br.com.motiserver.dto.CustomerDTO;
+
 /**
  * Created by htamashiro on 3/16/15.
  */
@@ -32,13 +34,12 @@ public class Login_1 extends Activity {
     TextView errorMsg;
     EditText emailET;
     EditText pwdET;
-
+    CustomerDTO customerDTO = new CustomerDTO();
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_layout_1);
-
 
         errorMsg = (TextView)findViewById(R.id.login_error);
         // Find Email Edit View control by ID
@@ -91,6 +92,8 @@ public class Login_1 extends Activity {
      *
      * @param view
      */
+
+    //Aqui teremos as inicializações das views e a invocação do invokews
     public void  loginUser(View view){
 
         // Get Email Edit View Value
@@ -101,9 +104,8 @@ public class Login_1 extends Activity {
         RequestParams params = new RequestParams();
         // When Email Edit View and Password Edit View have values other than Null
 
-
-
         //verifica se os campos estao vazios
+        // mudar pq vamos fazer essa verificação no back end
         if(Utility.isNotNull(email) && Utility.isNotNull(password)){
             // When Email entered is Valid
             if(Utility.validate(email)){

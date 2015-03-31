@@ -46,7 +46,11 @@ public class CustScheduleDateFragmentPortrait_6 extends Fragment {
         theListView.setAdapter(theAdapter);// seleciona o adaptador... no caso  "theAdapter" q eh do tipo myAdapter
 
         //TODO: colocar o objeto q vem la de traz do login
+
+        //supondo q personDTO já exista por causa do login.
         long teste = 50;
+
+
         CustomerDTO customerDTO = new CustomerDTO();
         customerDTO.setCustomerId(teste);
 
