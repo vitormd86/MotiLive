@@ -1,5 +1,6 @@
 package com.example.henrique.list.Cliente;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.henrique.list.Adapters.ScheduleAdapter;
 import com.example.henrique.list.Beans.ScheduleItem;
@@ -26,6 +28,8 @@ public class CustScheduleListFragment_9 extends Fragment {
     private View v;
     private FragmentActivity fa;
 
+    PinnedSectionListView listSchedules;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,23 +39,26 @@ public class CustScheduleListFragment_9 extends Fragment {
 
         ArrayList<ScheduleItem> scheduleItems = initScheduleItems();
 
-        PinnedSectionListView listSchedules = (PinnedSectionListView) v.findViewById(R.id.pinnedListSchedules);
+        listSchedules = (PinnedSectionListView) v.findViewById(R.id.pinnedListSchedules);
         ArrayAdapter schedulesAdapter = new ScheduleAdapter(getActivity(), scheduleItems);
 
         listSchedules.initShadow(false);
         listSchedules.setAdapter(schedulesAdapter);
-        setListSchedulesListener(listSchedules);
+        setListSchedulesListener();
 
         return v;
     }
 
     public ArrayList<ScheduleItem> initScheduleItems(){
-        //aqui deve ser gerada um vetor de AGENDAMENTO e de seus respectivos nomes de PROFISSIONAIS, para poder resgatar todos os dados
+        //inicia instancias de agendamento e itens a serem apresentados na lista
+        //todo aqui deve ser gerada um vetor de AGENDAMENTO e de seus respectivos nomes de PROFISSIONAIS, para poder resgatar todos os dados
         String[] favoriteProfessionals = new String[]{"Leandro Massaru", "Ivo Issao Tobioka",
             "Michel SantaGuida", "Henrique Tamashiro", "Vitor Mendes", "Professional 6", "Professional 7", "Leandro Massaru", "Ivo Issao Tobioka",
             "Michel SantaGuida", "Henrique Tamashiro", "Vitor Mendes", "Professional 6", "Professional 7", "Leandro Massaru", "Ivo Issao Tobioka",
             "Michel SantaGuida", "Henrique Tamashiro", "Vitor Mendes", "Professional 6", "Professional 7"};
         ArrayList<ScheduleItem> items = new ArrayList<>();
+
+        //recebe data atual e configura no calendario
         Date pinnedMenuDate = new Date();
         Calendar cal = Calendar.getInstance();
         Calendar cal2 = Calendar.getInstance();
@@ -66,6 +73,7 @@ public class CustScheduleListFragment_9 extends Fragment {
 
             //inicializa valores da view a partir dos agendamentos buscado no BD
             item.setNameProfessional(favoriteProfessionals[i]);
+            //todo receber data do vetor de agendamento
             item.setScheduleDate(new Date());
             cal2.setTime(item.getScheduleDate());
             item.setSection(false);
@@ -91,11 +99,22 @@ public class CustScheduleListFragment_9 extends Fragment {
         return items;
     }
 
-    public void setListSchedulesListener(ListView lv){
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    public void setListSchedulesListener(){
+        listSchedules.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                Intent intent = new Intent(getActivity(),CustScheduleConfirmActivity_8.class);
+                //todo deve passar nesta intent os dados do agendamento selecionados
+                ScheduleItem selectedItem = (ScheduleItem) listSchedules.getItemAtPosition(position);
+                intent.putExtra("professionalName", selectedItem.getNameProfessional());
+                intent.putExtra("profession", "Sem dados");
+                intent.putExtra("selectedServices", new ArrayList<String>());
+                intent.putExtra("sDate", "Sem dados");
+                intent.putExtra("selectedHour", 0);
+                intent.putExtra("selectedMinutes", 0);
+                intent.putExtra("totalTime", 0);
+                intent.putExtra("totalPrice", 0);
+                startActivity(intent);
             }
         });
 

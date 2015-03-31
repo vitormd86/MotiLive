@@ -3,6 +3,7 @@ package com.example.henrique.list.Cliente;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -32,13 +33,7 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer_layout);
-
-        //inicia o fragment inicial dentro do frame de conteudo
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content_frame, new CustScheduleDateFragmentPortrait_6());
-        setTitle("Novo Agendamento");
-        ft.commit();
-
+        setInicialFragment();
 
         //Criacao e configuracao do menu lateral
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -75,6 +70,30 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
         setLayoutItems();
     }
 
+    public void setInicialFragment(){
+        //verifica se existe uma intent anterior. caso exista, aponto a fragment a ser aberta.
+        //caso nao exista, inicia com a tela inicial.
+        Bundle extras = getIntent().getExtras();
+        if (extras != null){
+            int openFragment = extras.getInt("nextScreen");
+            if (openFragment == 6){
+                initFragment("Novo Agendamento", new CustScheduleDateFragmentPortrait_6());
+            } else {
+                initFragment("Meus Agendamentos", new CustScheduleListFragment_9());
+            }
+        }
+        else {
+            initFragment("Meus Agendamentos", new CustScheduleListFragment_9());
+        }
+    }
+
+    public void initFragment(String title, Fragment fragment){
+        //inicia um fragment dentro do frame de conteudo
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_frame, fragment);
+        setTitle(title);
+        ft.commit();
+    }
     //Esta classe alimenta e configura o conteudo do drawer
     public void setLayoutItems (){
 
@@ -94,8 +113,8 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
         CustScheduleListFragment_9 custScheduleListFragment9 = new CustScheduleListFragment_9();
         CustProfileFragment_5 custProfileFragment5 = new CustProfileFragment_5();
         DrawerMenuItem item1 = new DrawerMenuItem(custScheduleDateFragment, "Novo Agendamento");
-        DrawerMenuItem item2= new DrawerMenuItem(custScheduleListFragment9, "Consultar Agendamentos");
-        DrawerMenuItem item3= new DrawerMenuItem(custProfileFragment5, "Editar Perfil");
+        DrawerMenuItem item2 = new DrawerMenuItem(custScheduleListFragment9, "Consultar Agendamentos");
+        DrawerMenuItem item3 = new DrawerMenuItem(custProfileFragment5, "Editar Perfil");
         final DrawerMenuItem [] menuOptions = {item1, item2, item3};
 
         listOptions = (ListView) findViewById(R.id.ListView);
@@ -108,7 +127,10 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
         listOptions.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectMenuItem(position, menuOptions);
+                //Brilha opcao do vetor selecionada, atualiza titulo, e fecha o drawer
+                listOptions.setItemChecked(position, true);
+                initFragment(menuOptions[position].getLinkTitle(), menuOptions[position].getLinkFragment());
+                mDrawerLayout.closeDrawers();
             }
         });
     }
@@ -120,10 +142,8 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
         ft.replace(R.id.content_frame, menuOptions[pos].getLinkFragment()); //aponta para o fragment correspondente ao clique no vetor de fragments
         ft.commit();
 
-        //Brilha opcao do vetor selecionada, atualiza titulo, e fecha o drawer
-        listOptions.setItemChecked(pos, true);
+
         setTitle(menuOptions[pos].getLinkTitle());
-        mDrawerLayout.closeDrawers();
     }
 
     @Override
@@ -181,10 +201,4 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
         getSupportActionBar().setTitle(mTitle);
     }
 
-//    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-//        @Override
-//        public void onItemClick(AdapterView parent, View view, int position, long id) {
-//            selectItem(position);
-//}
-//    }
 }

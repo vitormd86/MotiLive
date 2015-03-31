@@ -39,7 +39,6 @@ public class CustScheduleHourFragment_7 extends Fragment {
     ArrayList<Integer> freeHours = new ArrayList<>();
     ArrayList<Integer> freeMinutes = new ArrayList<>();
     ArrayList<String> selectedServicesTitles = new ArrayList<>();
-    ArrayList<Double> selectedServicesPrices = new ArrayList<>();
     ResizeAnimation resizeAnimation;
     boolean isHoursOpened,  isMinutesOpened;
     String  sDate, professionalName, occupation;
@@ -238,131 +237,53 @@ public class CustScheduleHourFragment_7 extends Fragment {
                     }
                 }
                 totalTime = totalTime + (TimeZone.getDefault().getOffset(totalTime)* (checkedServices.size() - 1));
-                //Gera um alerta, para confirmar o agendamento
-                //AlertDialog confirmAlert = getConfirmAlert();
-                //confirmAlert.show();
-
-                //Chama proximo Fragment incluindo suas informacoes nos argumentos
-                //initConfirmScreen();
 
                 //Chama proxima tela em activity
-                initNextActivity();
+                initConfirmActivity();
 
             }
         });
 
 
     }
-    //este metodo gera as informacoes do alerta de confirmacao de agendamento
-    public AlertDialog getConfirmAlert(){
-        //inicializando e configurando horarios
-        SimpleDateFormat df = new SimpleDateFormat("HH' horas e 'mm' minutos'");
-        SimpleDateFormat df2 = new SimpleDateFormat("HH:mm");
-        df.setTimeZone(TimeZone.getDefault());
-        df2.setTimeZone(TimeZone.getDefault());
 
-        long inicialTime, finalTime;
-        try{
-            inicialTime = df2.parse(String.format("%02d",selectedHour) + ":" + String.format("%02d",selectedMinutes)).getTime();
-
-        } catch (Exception e){
-            inicialTime = 0;
-            e.printStackTrace();
-        }
-        finalTime = inicialTime + totalTime + TimeZone.getDefault().getOffset(inicialTime);
-
-
-        //alimentando o builder do alerta
-        AlertDialog alert;
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Confirmar agendamento?");
-        builder.setMessage("Profissional: " + professionalName +
-                "\nServico(s): " + selectedServicesTitles +
-                "\nDia: " + sDate +
-                "\nInicio: " + String.format("%02d",selectedHour) + ":" + String.format("%02d",selectedMinutes) + "h" +
-                "\nPeríodo: " + df.format(totalTime) +
-                "\nPrevisão de término: " + df2.format(finalTime) + "h" +
-                "\nValor: " + "R$: " + String.format("%.2f", totalPrice));
-        builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface arg0, int arg1) {
-                //OPCAO SIM = confirma agendamento
-                //DEVE ACRESCENTAR OS DADOS NO BD
-                //DEVE VERIFICAR SE TODAS AS LISTAS ESTAO SELECIONADAS
-
-                //Redireciona usuario para a tela inicial de agendamento
-                Intent endOfScheduleActivity = new Intent(getActivity(), CustDrawerMenu_10.class);
-                startActivity(endOfScheduleActivity);
-
-            }
-        });
-        builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface arg0, int arg1) {
-
-                //REINICIA ListMinutes/ListHours Menu
-                resizeAnimation = new ResizeAnimation(listHours, 0);
-                listHours.startAnimation(resizeAnimation);
-                resizeAnimation = new ResizeAnimation(listMinutes, 0);
-                listMinutes.startAnimation(resizeAnimation);
-
-                isHoursOpened = false;
-                isMinutesOpened = false;
-
-                freeMinutes.clear();
-                freeHours.clear();
-                listMinutes.clearChoices();
-                listHours.clearChoices();
-                listServices.clearChoices();
-
-                Toast.makeText(getActivity(), "Nao", Toast.LENGTH_SHORT).show();
-            }
-        });
-        alert = builder.create();
-    return alert;
-    }
-
-    private void initConfirmScreen(){
-        //reinicia valores deste fragment
-        isHoursOpened = false;
-        isMinutesOpened = false;
-
-        freeMinutes.clear();
-        freeHours.clear();
-        listMinutes.clearChoices();
-        listHours.clearChoices();
-        listServices.clearChoices();
-
-        //inicia valores que serao enviados para a proxima Fragment
-        CustScheduleConfirmFragment_8 nextFragment = new CustScheduleConfirmFragment_8();
-        Bundle args = new Bundle();
-        args.putString("professionalName", professionalName);
-        args.putString("profession", occupation);
-        args.putStringArrayList("selectedServices", selectedServicesTitles);
-        args.putString("sDate", sDate);
-        args.putInt("selectedHour", selectedHour);
-        args.putInt("selectedMinutes", selectedMinutes);
-        args.putLong("totalTime", totalTime);
-        args.putDouble("totalPrice", totalPrice);
-        nextFragment.setArguments(args);
-        //inicia a transacao de Fragments
-        FragmentTransaction ft  = getFragmentManager().beginTransaction();
-        ft.replace(R.id.content_frame, nextFragment);
-        //este metodo permite q o usuario navegue de volta
-        ft.addToBackStack(null);
-        ft.commit();
-
-    }
-
-    private void initNextActivity(){
-        //reinicia valores deste fragment
-        isHoursOpened = false;
-        isMinutesOpened = false;
-        freeMinutes.clear();
-        freeHours.clear();
-        listMinutes.clearChoices();
-        listHours.clearChoices();
-        listServices.clearChoices();
-
+    private void initConfirmActivity(){
         Intent intent = new Intent(getActivity(),CustScheduleConfirmActivity_8.class);
+
+        //todo deve passar na intent o vetor dos servicos selecionados
+        intent.putExtra("professionalName", professionalName);
+        intent.putExtra("profession", occupation);
+        intent.putExtra("selectedServices", selectedServicesTitles);
+        intent.putExtra("sDate", sDate);
+        intent.putExtra("selectedHour", selectedHour);
+        intent.putExtra("selectedMinutes", selectedMinutes);
+        intent.putExtra("totalTime", totalTime);
+        intent.putExtra("totalPrice", totalPrice);
+        intent.putExtra("nextScreen", 6);
+
         startActivity(intent);
+    }
+
+    @Override
+    public void onStop(){
+        //esse metodo eh chamado sempre q a fragment vai para BackStack (chamando outra atividade por exemplo)
+        super.onStop();
+        restartFragmentValues();
+    }
+
+    public void restartFragmentValues(){
+        //reinicia valores deste fragment
+        isHoursOpened = false;
+        isMinutesOpened = false;
+        freeMinutes.clear();
+        freeHours.clear();
+        selectedServicesTitles.clear();
+        listMinutes.clearChoices();
+        listHours.clearChoices();
+        listServices.clearChoices();
+        listHours.getLayoutParams().width = 0;
+        listMinutes.getLayoutParams().width = 0;
+        listHours.requestLayout();
+        listHours.requestLayout();
     }
 }
