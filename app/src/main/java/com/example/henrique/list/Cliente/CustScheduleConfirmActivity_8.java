@@ -29,6 +29,7 @@ import java.util.TimeZone;
  */
 public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
     String professionalName;
+    int nextScreen; //Esta variavel determina a tela q deve voltar
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,7 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         int selectedMinutes = extras.getInt("selectedMinutes");
         long totalTime = extras.getLong("totalTime");
         double totalPrice = extras.getDouble("totalPrice");
+        nextScreen = extras.getInt("nextScreen");
         //inicia objetos de layout
         ImageView imagePhoto = (ImageView) findViewById(R.id.photo);
         TextView textProfessionalName = (TextView) findViewById(R.id.professionalName);
@@ -107,10 +109,10 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         // Admininstra cliques da ActionBar
         switch (item.getItemId()) {
             case R.id.confirmButton:
-                //todo fazer com q a intent identifique se deve voltar para tela de novo agendamento ou meus agendamentos
                 Intent confirmIntent = new Intent(this,CustDrawerMenu_10.class);
                 confirmIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 //todo verificar se existe o agendamento. se existir alterar dados, se nao existir incluir novo no BD
+                confirmIntent.putExtra("nextScreen", nextScreen);
                 Toast.makeText(this, "Confirmado", Toast.LENGTH_SHORT).show();
                 startActivity(confirmIntent);
                 return true;
@@ -138,9 +140,9 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
             //caso clique sim, deve voltar para atividade anterior
             //todo verificar se existe agendamento no bd, caso exista, remover
 
-            //todo fazer com q a intent identifique se deve voltar para tela de novo agendamento ou meus agendamentos
             Intent cancelIntent = new Intent(getBaseContext(),CustDrawerMenu_10.class);
             cancelIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            cancelIntent.putExtra("nextScreen", nextScreen);
             startActivity(cancelIntent);
             Toast.makeText(getBaseContext(), "Cancelado", Toast.LENGTH_SHORT).show();
         }

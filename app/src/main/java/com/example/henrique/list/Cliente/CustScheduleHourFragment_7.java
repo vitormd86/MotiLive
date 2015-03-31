@@ -259,6 +259,7 @@ public class CustScheduleHourFragment_7 extends Fragment {
         intent.putExtra("selectedMinutes", selectedMinutes);
         intent.putExtra("totalTime", totalTime);
         intent.putExtra("totalPrice", totalPrice);
+        intent.putExtra("nextScreen", 6);
 
         startActivity(intent);
     }
