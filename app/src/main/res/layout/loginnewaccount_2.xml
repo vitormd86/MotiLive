@@ -40,7 +40,7 @@
         <!-- Email TextField -->
 
         <EditText
-            android:id="@+id/registerEmail"
+            android:id="@+id/loginNewAccountEmail"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="Enter your Email ID"

@@ -42,8 +42,10 @@ public class LoginNewAccount_2 extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loginnewaccount_2);
 
-        EditText login = (EditText) findViewById(R.id.loginNewAccountName);
-        EditText senha = (EditText) findViewById(R.id.loginNewAccountSenha);
+        nameET = (EditText) findViewById(R.id.loginNewAccountName);
+        emailET = (EditText) findViewById(R.id.loginNewAccountEmail);
+        pwdET = (EditText) findViewById(R.id.loginNewAccountSenha);
+
         Button logar = (Button) findViewById(R.id.buttonloginNewAccount);
         Button cancelar = (Button) findViewById(R.id.btnCancelarTela2);
 
@@ -67,12 +69,13 @@ public class LoginNewAccount_2 extends Activity {
     }
 
     public void registerUser(View view){
+        String name, email, password;
         // Get NAme ET control value
-        String name = nameET.getText().toString();
+        name = nameET.getText().toString();
         // Get Email ET control value
-        String email = emailET.getText().toString();
+        email = emailET.getText().toString();
         // Get Password ET control value
-        String password = pwdET.getText().toString();
+        password = pwdET.getText().toString();
         // Instantiate Http Request Param Object
         RequestParams params = new RequestParams();
         // When Name Edit View, Email Edit View and Password Edit View have values other than Null
@@ -176,8 +179,8 @@ public class LoginNewAccount_2 extends Activity {
      * Set degault values for Edit View controls
      */
     public void setDefaultValues(){
-        nameET.setText("");
-        emailET.setText("");
-        pwdET.setText("");
+        nameET.setText("Sem nome");
+        emailET.setText("Sem email");
+        pwdET.setText("Sem senha");
     }
 }
