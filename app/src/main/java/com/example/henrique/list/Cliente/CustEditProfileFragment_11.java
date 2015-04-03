@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.example.henrique.list.R;
 
-public class CustProfileFragment_5 extends Fragment {
+public class CustEditProfileFragment_11 extends Fragment {
     private View v;
     private FragmentActivity fa;
     @Override
@@ -17,7 +17,7 @@ public class CustProfileFragment_5 extends Fragment {
         super.onCreate(savedInstanceState);
 
         fa = super.getActivity();
-        v = inflater.inflate(R.layout.fragment_cust_profile_5, container, false);
+        v = inflater.inflate(R.layout.fragment_cust_profile_5_11, container, false);
 
         return v;
     }

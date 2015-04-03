@@ -25,7 +25,7 @@ public class CustScheduleDateFragmentLandscape_6 extends Fragment  {
 
 
 
-        View v = inflater.inflate(R.layout.fragment_schedule_calendar_l, parent, false);
+        View v = inflater.inflate(R.layout.fragment_cust_schedule_date_l, parent, false);
 
         ListView theListView = (ListView) v.findViewById(R.id.ListView); // inicializa a List View do fragment inflado
         final CalendarView myCalendarView = (CalendarView) v.findViewById(R.id.calendarView); // inicializa a Calendar View do fragment inflado

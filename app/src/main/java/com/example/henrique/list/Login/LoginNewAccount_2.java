@@ -40,7 +40,7 @@ public class LoginNewAccount_2 extends Activity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.loginnewaccount_2);
+        setContentView(R.layout.activity_login_new_account_2);
 
         nameET = (EditText) findViewById(R.id.loginNewAccountName);
         emailET = (EditText) findViewById(R.id.loginNewAccountEmail);

@@ -41,7 +41,7 @@ public class LoginSignUpFacebook_3 extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.login_layout_1, container, false);
+        View view = inflater.inflate(R.layout.activity_login_1, container, false);
 
         LoginButton authButton = (LoginButton) view.findViewById(R.id.authButtonLoginUsuario);
         authButton.setFragment(this);

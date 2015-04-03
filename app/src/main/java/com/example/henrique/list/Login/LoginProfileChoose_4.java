@@ -13,12 +13,12 @@ import com.example.henrique.list.R;
 /**
  * Created by htamashiro on 3/17/15.
  */
-public class ProfileChoose_4 extends Activity {
+public class LoginProfileChoose_4 extends Activity {
 
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.profilechoose_4);
+        setContentView(R.layout.activity_login_profile_choose_4);
 
 
         Button EscolheCliente = (Button) findViewById(R.id.clienteBTN_1);

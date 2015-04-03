@@ -71,7 +71,7 @@
             android:label="Tela Inicial do nosso APP" >
         </activity>
         <activity
-            android:name=".Login.ProfileChoose_4"
+            android:name=".Login.LoginProfileChoose_4"
             android:label="Tela Inicial do nosso APP" >
         </activity>
         <activity

@@ -11,10 +11,10 @@ import com.example.henrique.list.R;
 /**
  * Created by htamashiro on 3/21/15.
  */
-public class Pro_Schedule_List_14 extends Fragment {
-    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.pro_schedule_list_14, parent, false);
-        return v;
+public class ProScheduleFirstActivity_11 extends Fragment{
 
+    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.activity_pro_schedule_first_11, parent, false);
+        return v;
     }
 }

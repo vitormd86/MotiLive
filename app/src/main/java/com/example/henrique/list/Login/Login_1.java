@@ -39,7 +39,7 @@ public class Login_1 extends Activity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_layout_1);
+        setContentView(R.layout.activity_login_1);
 
         errorMsg = (TextView)findViewById(R.id.login_error);
         // Find Email Edit View control by ID
@@ -192,7 +192,7 @@ public class Login_1 extends Activity {
         startActivity(homeIntent);
     }
 
-    //navega para a tela de cadastro no caso  loginnewaccount_2
+    //navega para a tela de cadastro no caso  activity_login_new_account_2
     public void navigatetoRegisterActivity(View view){
         Intent loginIntent = new Intent(getApplicationContext(),LoginNewAccount_2.class);
         loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

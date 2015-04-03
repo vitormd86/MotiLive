@@ -32,7 +32,7 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.drawer_layout);
+        setContentView(R.layout.activity_cust_drawer_10);
         setInicialFragment();
 
         //Criacao e configuracao do menu lateral
@@ -111,7 +111,7 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
         //configurando listview (menu de opcoes)
         CustScheduleDateFragmentPortrait_6 custScheduleDateFragment= new CustScheduleDateFragmentPortrait_6();
         CustScheduleListFragment_9 custScheduleListFragment9 = new CustScheduleListFragment_9();
-        CustProfileFragment_5 custProfileFragment5 = new CustProfileFragment_5();
+        CustEditProfileFragment_11 custProfileFragment5 = new CustEditProfileFragment_11();
         DrawerMenuItem item1 = new DrawerMenuItem(custScheduleDateFragment, "Novo Agendamento");
         DrawerMenuItem item2 = new DrawerMenuItem(custScheduleListFragment9, "Consultar Agendamentos");
         DrawerMenuItem item3 = new DrawerMenuItem(custProfileFragment5, "Editar Perfil");

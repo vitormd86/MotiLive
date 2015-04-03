@@ -31,7 +31,7 @@ public class CustScheduleDateFragmentPortrait_6 extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_schedule_calendar_p, parent, false);
+        View v = inflater.inflate(R.layout.fragment_cust_schedule_date_p, parent, false);
 
 
         String[] favoriteProfessionals = new String[]{"Leandro Massaru Kubota", "Ivo Issao Tobioka",

@@ -6,6 +6,7 @@ package com.example.henrique.list.Profissional;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -20,9 +21,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.henrique.list.Adapters.MyAdapterDrawerOptions;
-import com.example.henrique.list.Cliente.CustScheduleListFragment_9;
 import com.example.henrique.list.Mapeamento_de_Classes.DrawerMenuItem;
-import com.example.henrique.list.Cliente.CustScheduleDateFragmentPortrait_6;
 import com.example.henrique.list.R;
 
 /*Atividade que configura o drawer e o frame layout que recebe os fragments*/
@@ -38,14 +37,8 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.drawer_layout);
-
-        //inicia o fragment inicial dentro do frame de conteudo
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content_frame, new CustScheduleDateFragmentPortrait_6());
-        setTitle("Novo Agendamento");
-        ft.commit();
-
+        setContentView(R.layout.activity_pro_drawer_15);
+        setInicialFragment();
 
         //Criacao e configuracao do menu lateral
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -82,6 +75,30 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
         setLayoutItems();
     }
 
+    public void setInicialFragment(){
+        //verifica se existe uma intent anterior. caso exista, aponto a fragment a ser aberta.
+        //caso nao exista, inicia com a tela inicial.
+        Bundle extras = getIntent().getExtras();
+        if (extras != null){
+            int openFragment = extras.getInt("nextScreen");
+            if (openFragment == 6){
+                initFragment("Novo Agendamento", new ProScheduleDateFragment_10());
+            } else {
+                initFragment("Meus Agendamentos", new ProScheduleListFragment_14());
+            }
+        }
+        else {
+            initFragment("Meus Agendamentos", new ProScheduleListFragment_14());
+        }
+    }
+
+    public void initFragment(String title, Fragment fragment){
+        //inicia um fragment dentro do frame de conteudo
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_frame, fragment);
+        setTitle(title);
+        ft.commit();
+    }
     //Esta classe alimenta e configura o conteudo do drawer
     public void setLayoutItems (){
 
@@ -97,13 +114,13 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
         textOccupation.setText(occupation);
 
         //configurando listview (menu de opcoes)
-        //Depois eh preciso alterar para as classes do profissional.. aqui ta  as classes do cliente soh pra teste mesmo.
-
-        CustScheduleDateFragmentPortrait_6 custScheduleDateFragmentPortrait6 = new CustScheduleDateFragmentPortrait_6();
-        CustScheduleListFragment_9 consultSchedulesFragment = new CustScheduleListFragment_9();
-        DrawerMenuItem item1 = new DrawerMenuItem(custScheduleDateFragmentPortrait6, "Novo Agendamento");
-        DrawerMenuItem item3 = new DrawerMenuItem(consultSchedulesFragment, "Consultar Agendamentos");
-        final DrawerMenuItem [] menuOptions = {item1, item3};
+        ProScheduleDateFragment_10 proScheduleDateFragment_10 = new ProScheduleDateFragment_10();
+        ProScheduleListFragment_14 proScheduleListFragment_14 = new ProScheduleListFragment_14();
+        ProEditProfileFragment_16 proEditProfileFragment_16 = new ProEditProfileFragment_16();
+        DrawerMenuItem item1 = new DrawerMenuItem(proScheduleDateFragment_10, "Novo Agendamento");
+        DrawerMenuItem item2 = new DrawerMenuItem(proScheduleListFragment_14, "Consultar Agendamentos");
+        DrawerMenuItem item3 = new DrawerMenuItem(proEditProfileFragment_16, "Editar Perfil");
+        final DrawerMenuItem [] menuOptions = {item1, item2, item3};
 
         listOptions = (ListView) findViewById(R.id.ListView);
         //configurando adapter da listView
@@ -115,7 +132,10 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
         listOptions.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectMenuItem(position, menuOptions);
+                //Brilha opcao do vetor selecionada, atualiza titulo, e fecha o drawer
+                listOptions.setItemChecked(position, true);
+                initFragment(menuOptions[position].getLinkTitle(), menuOptions[position].getLinkFragment());
+                mDrawerLayout.closeDrawers();
             }
         });
     }
@@ -127,10 +147,8 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
         ft.replace(R.id.content_frame, menuOptions[pos].getLinkFragment()); //aponta para o fragment correspondente ao clique no vetor de fragments
         ft.commit();
 
-        //Brilha opcao do vetor selecionada, atualiza titulo, e fecha o drawer
-        listOptions.setItemChecked(pos, true);
+
         setTitle(menuOptions[pos].getLinkTitle());
-        mDrawerLayout.closeDrawers();
     }
 
     @Override
@@ -188,10 +206,4 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
         getSupportActionBar().setTitle(mTitle);
     }
 
-//    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-//        @Override
-//        public void onItemClick(AdapterView parent, View view, int position, long id) {
-//            selectItem(position);
-//}
-//    }
 }

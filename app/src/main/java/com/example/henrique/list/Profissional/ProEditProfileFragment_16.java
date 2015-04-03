@@ -1,7 +1,7 @@
 package com.example.henrique.list.Profissional;
 
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +13,7 @@ import com.example.henrique.list.R;
 /**
  * Created by htamashiro on 3/21/15.
  */
-public class Pro_Profile_5 extends Fragment{
+public class ProEditProfileFragment_16 extends Fragment{
 
     EditText nomeCompletoET;
     EditText celularET;
@@ -27,7 +27,7 @@ public class Pro_Profile_5 extends Fragment{
     EditText estadoET;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.pro_profile_5, parent, false);
+        View v = inflater.inflate(R.layout.fragment_pro_profile_5_16, parent, false);
 
         //TODO  Aqui to implementando a forma como fazemos o webservice
         Button buttonActionBar = (Button) v.findViewById(R.id.confirmarActionBar);
