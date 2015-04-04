@@ -76,14 +76,5 @@
         android:choiceMode="multipleChoice"
         />
     <!-- esta lista vai mostrar os servicos prestados pelo profissional-->
-
-
-    <!--    <ListView
-            android:id="@+id/listMinutes"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/photo"/>-->
-
-        <!-- ESSA VIEW DEVE FIKAR DO LADO DE FORA REPRESENTA OS MINUTOS-->
 </RelativeLayout>
 

@@ -81,7 +81,7 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null){
             int openFragment = extras.getInt("nextScreen");
-            if (openFragment == 6){
+            if (openFragment == 10){
                 initFragment("Novo Agendamento", new ProScheduleDateFragment_10());
             } else {
                 initFragment("Meus Agendamentos", new ProScheduleListFragment_14());

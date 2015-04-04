@@ -99,14 +99,11 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
 
         //Configurando cabecalho
         String userName = "Leandro";
-        String occupation = "Massagista";
 
         ImageView imagePhoto = (ImageView) findViewById(R.id.photo);
         TextView textName = (TextView) findViewById(R.id.name);
-        TextView textOccupation = (TextView) findViewById(R.id.occupation);
 
         textName.setText(userName);
-        textOccupation.setText(occupation);
 
         //configurando listview (menu de opcoes)
         CustScheduleDateFragmentPortrait_6 custScheduleDateFragment= new CustScheduleDateFragmentPortrait_6();

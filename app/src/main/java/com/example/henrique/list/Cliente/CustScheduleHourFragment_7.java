@@ -1,12 +1,9 @@
 package com.example.henrique.list.Cliente;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.henrique.list.Adapters.MyAdapterFreeTime;
 import com.example.henrique.list.Mapeamento_de_Classes.Servico;
@@ -26,7 +22,6 @@ import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.TimeZone;
-//todo nao mexer
 /**
  * Created by Cristor on 26/02/2015.
  */

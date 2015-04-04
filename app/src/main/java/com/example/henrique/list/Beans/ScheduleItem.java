@@ -10,7 +10,7 @@ public class ScheduleItem {
     Time scheduleFinalTime;
     Time scheduleDuration;
     Time scheduleLeftTime;
-    String nameProfessional;
+    String personName;
     boolean isSection; //0 para ITEM e 1 para SECTION
 
 
@@ -55,12 +55,12 @@ public class ScheduleItem {
         this.scheduleLeftTime = scheduleLeftTime;
     }
 
-    public String getNameProfessional() {
-        return nameProfessional;
+    public String getPersonName() {
+        return personName;
     }
 
-    public void setNameProfessional(String nameProfessional) {
-        this.nameProfessional = nameProfessional;
+    public void setPersonName(String personName) {
+        this.personName = personName;
     }
     private String contertTime(Time time){
         SimpleDateFormat df = new SimpleDateFormat("HH:mm");

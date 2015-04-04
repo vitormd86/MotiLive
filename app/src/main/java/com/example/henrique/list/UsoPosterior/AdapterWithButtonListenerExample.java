@@ -71,7 +71,7 @@ public class AdapterWithButtonListenerExample extends ArrayAdapter<ScheduleItem>
             //Caso a view seja ITEM
             default:
                 view = theInflator.inflate(R.layout.view_schedules, parent, false);
-                String profissionalName = getItem(position).getNameProfessional();
+                String profissionalName = getItem(position).getPersonName();
                 String inicialTime = getItem(position).getScheduleInicialTime();
                 String finalTime = getItem(position).getScheduleFinalTime();
                 String duration = getItem(position).getScheduleDuration();

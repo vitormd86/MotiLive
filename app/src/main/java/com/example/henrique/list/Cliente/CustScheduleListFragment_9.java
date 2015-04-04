@@ -9,8 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.henrique.list.Adapters.ScheduleAdapter;
 import com.example.henrique.list.Beans.ScheduleItem;
@@ -72,7 +70,7 @@ public class CustScheduleListFragment_9 extends Fragment {
             ScheduleItem item = new ScheduleItem();
 
             //inicializa valores da view a partir dos agendamentos buscado no BD
-            item.setNameProfessional(favoriteProfessionals[i]);
+            item.setPersonName(favoriteProfessionals[i]);
             //todo receber data do vetor de agendamento
             item.setScheduleDate(new Date());
             cal2.setTime(item.getScheduleDate());
@@ -103,18 +101,20 @@ public class CustScheduleListFragment_9 extends Fragment {
         listSchedules.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(),CustScheduleConfirmActivity_8.class);
                 //todo deve passar nesta intent os dados do agendamento selecionados
                 ScheduleItem selectedItem = (ScheduleItem) listSchedules.getItemAtPosition(position);
-                intent.putExtra("professionalName", selectedItem.getNameProfessional());
-                intent.putExtra("profession", "Sem dados");
-                intent.putExtra("selectedServices", new ArrayList<String>());
-                intent.putExtra("sDate", "Sem dados");
-                intent.putExtra("selectedHour", 0);
-                intent.putExtra("selectedMinutes", 0);
-                intent.putExtra("totalTime", 0);
-                intent.putExtra("totalPrice", 0);
-                startActivity(intent);
+                if(!selectedItem.isSection()) {
+                    Intent intent = new Intent(getActivity(), CustScheduleConfirmActivity_8.class);
+                    intent.putExtra("professionalName", selectedItem.getPersonName());
+                    intent.putExtra("profession", "Sem dados");
+                    intent.putExtra("selectedServices", new ArrayList<String>());
+                    intent.putExtra("sDate", "Sem dados");
+                    intent.putExtra("selectedHour", 0);
+                    intent.putExtra("selectedMinutes", 0);
+                    intent.putExtra("totalTime", 0);
+                    intent.putExtra("totalPrice", 0);
+                    startActivity(intent);
+                }
             }
         });
 

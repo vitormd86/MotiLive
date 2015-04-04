@@ -11,27 +11,26 @@ import android.widget.TextView;
 import com.example.henrique.list.R;
 
 /**
- * Created by Henrique on 06/02/2015.
+ * Created by Massaru on 04/04/2015.
  */
-//Adaptador ele joga as  a imagem e um EditText dentro de uma lista
-public class MyAdapter extends ArrayAdapter<String> {
-    public MyAdapter(Context context, String[] values) {
-        super(context, R.layout.row_myadapter, values);
+public class ClientAdapter extends ArrayAdapter<String>{
+    public ClientAdapter(Context context, String[] values) {
+        super(context, R.layout.view_person, values);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater theInflator = LayoutInflater.from(getContext());
-        View theView = theInflator.inflate(R.layout.row_myadapter, parent, false);
+        View theView = theInflator.inflate(R.layout.view_person, parent, false);
 
-        String profissionais = getItem(position);
+        String clients = getItem(position);
         TextView textView = (TextView) theView.findViewById(R.id.textView1);
 
-        textView.setText(profissionais);
+        textView.setText(clients);
         ImageView theImageView =  (ImageView) theView.findViewById(R.id.imageView1);
         theImageView.setImageResource(R.drawable.hide);
 
         return theView;
 
-        }
+    }
 }

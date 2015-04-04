@@ -11,7 +11,7 @@ import android.widget.CalendarView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import com.example.henrique.list.Adapters.MyAdapter;
+import com.example.henrique.list.Adapters.ProfessionalAdapter;
 import com.example.henrique.list.Cliente.CustScheduleHourFragment_7;
 import com.example.henrique.list.R;
 
@@ -36,7 +36,7 @@ public class CustScheduleDateFragmentLandscape_6 extends Fragment  {
                 "Michel SantaGuida", "Henrique Tamashiro"};
 
         ListAdapter theAdapter; //inicializa o adaptador de array, pra encaixar o array na lista
-        theAdapter = new MyAdapter(v.getContext(), favoriteProfessionals);
+        theAdapter = new ProfessionalAdapter(v.getContext(), favoriteProfessionals);
 
         theListView.setAdapter(theAdapter);// seleciona o adaptador... no caso  "theAdapter" q eh do tipo myAdapter
 

@@ -76,7 +76,17 @@
         </activity>
         <activity
             android:name=".Profissional.ProDrawerMenu_15"
-            android:label="Tela Inicial do nosso APP" >
+            android:label="Tela Inicial do nosso APP"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity
+            android:name=".Profissional.ProScheduleConfirmActivity_13"
+            android:label="Confirmar Agendamento"
+            android:parentActivityName=".Profissional.ProDrawerMenu_15"
+            android:theme="@style/AppTheme" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Profissional.ProDrawerMenu_15" />>
         </activity>
     </application>
 

@@ -11,7 +11,7 @@ import android.widget.CalendarView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import com.example.henrique.list.Adapters.MyAdapter;
+import com.example.henrique.list.Adapters.ProfessionalAdapter;
 import com.example.henrique.list.R;
 import com.loopj.android.http.RequestParams;
 
@@ -40,10 +40,10 @@ public class CustScheduleDateFragmentPortrait_6 extends Fragment {
         ListView theListView = (ListView) v.findViewById(R.id.ListView); // inicializa a List View do fragment inflado
         final CalendarView myCalendarView = (CalendarView) v.findViewById(R.id.calendarView); // inicializa a Calendar View do fragment inflado
 
-        ListAdapter theAdapter; //inicializa o adaptador de array, pra encaixar o array na lista
-        theAdapter = new MyAdapter(v.getContext(), favoriteProfessionals);
+        ListAdapter professionalAdapter; //inicializa o adaptador de array, pra encaixar o array na lista
+        professionalAdapter = new ProfessionalAdapter(v.getContext(), favoriteProfessionals);
 
-        theListView.setAdapter(theAdapter);// seleciona o adaptador... no caso  "theAdapter" q eh do tipo myAdapter
+        theListView.setAdapter(professionalAdapter);// seleciona o adaptador... no caso  "professionalAdapter" q eh do tipo myAdapter
 
         //TODO: colocar o objeto q vem la de traz do login
 
@@ -83,19 +83,13 @@ public class CustScheduleDateFragmentPortrait_6 extends Fragment {
                 ft.addToBackStack(null);
 
                 ft.commit();
-
-                //Intent intentHourConsult;
-                //intentHourConsult = new Intent(getActivity() , HourConsult.class);
-                //intentHourConsult.putExtra("Escolhas", opcoes); // joga o objeto para a proxima activity
-                //intentHourConsult.putExtra("Date", selectedDate); // joga o objeto para a proxima activity
-                //startActivity(intentHourConsult);
             }
         });
 
         return v;
     }
 
-    //este metodo retorna a data selecionada no calendario
+    //este metodo retorna a data selecionada no calendario formatado em String
     private String getCalendarDate(CalendarView cv){
         String sDate;
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
