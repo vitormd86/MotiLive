@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.henrique.list.Adapters.ServicesNameAdapter;
-import com.example.henrique.list.Cliente.CustDrawerMenu_10;
 import com.example.henrique.list.R;
 
 import java.text.SimpleDateFormat;
@@ -98,7 +97,7 @@ public class ProScheduleConfirmActivity_13 extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_confirm_schedule, menu);
+        inflater.inflate(R.menu.menu_confirm_cancel, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -111,7 +110,7 @@ public class ProScheduleConfirmActivity_13 extends ActionBarActivity {
                 confirmIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 //todo verificar se existe o agendamento. se existir alterar dados, se nao existir incluir novo no BD
                 confirmIntent.putExtra("nextScreen", nextScreen);
-                Toast.makeText(this, "Confirmado", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Cliente adicionado", Toast.LENGTH_SHORT).show();
                 startActivity(confirmIntent);
                 return true;
 
@@ -125,7 +124,7 @@ public class ProScheduleConfirmActivity_13 extends ActionBarActivity {
     }
 
     public void initCancelScheduleAlert() {
-
+        //este metodo gera um alerta para o cancelamento
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         AlertDialog popupAlert;
 

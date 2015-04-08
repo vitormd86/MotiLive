@@ -65,7 +65,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".Profissional.ProScheduleFirstActivity_11"
+            android:label="Novo Cliente"
+            android:parentActivityName=".Profissional.ProDrawerMenu_15">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Profissional.ProDrawerMenu_15" />
+        </activity>
         <activity
             android:name=".Login.LoginNewAccount_2"
             android:label="Tela Inicial do nosso APP" >
