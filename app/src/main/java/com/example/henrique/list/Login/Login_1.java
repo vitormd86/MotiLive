@@ -34,27 +34,27 @@ public class Login_1 extends Activity {
     TextView errorMsg;
     EditText emailET;
     EditText pwdET;
+    public  RequestParams params;
+    public  View view;
     CustomerDTO customerDTO = new CustomerDTO();
+
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_1);
 
+        //Inicia as variáveis
+
         errorMsg = (TextView)findViewById(R.id.login_error);
         // Find Email Edit View control by ID
         emailET = (EditText)findViewById(R.id.custLoginNome);
         // Find Password Edit View control by ID
         pwdET = (EditText)findViewById(R.id.custLoginSenha);
-        // Instantiate Progress Dialog object
-        prgDialog = new ProgressDialog(this);
-        // Set Progress Dialog Text
-        prgDialog.setMessage("Please wait...");
-        // Set Cancelable as False
-        prgDialog.setCancelable(false);
 
+        CustomerDTO customerDTO1 = new CustomerDTO(); //  onde armazenaremos os dados retornados pelo json
 
-
+        //inicia os listeners
 
         Button criarConta = (Button) findViewById(R.id.buttonCustLoginCriarConta);
         Button logar = (Button) findViewById(R.id.buttonCustLoginLogar);
@@ -63,20 +63,22 @@ public class Login_1 extends Activity {
             @Override
             public void onClick(View v) {
 
-
-                //TODO : Colocar rotina de autenticação aqui.
-                Intent avancarTela = new Intent(Login_1.this , CustDrawerMenu_10.class);
-                startActivity(avancarTela);
-                loginUser(v);
-
+               if (loginUser(v))
+               {
+                   navigatetoMainActivity(v);
+               }else //avisa q usuarios nao existem, e limpa os Edit Texts
+               {
+                   Toast.makeText(getApplication(), "Usuario nao existente", Toast.LENGTH_SHORT).show();
+                   setDefaultValues();
+               }
             }
         });
-
+        //define o comportamento do botao criarConta
         criarConta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 navigatetoRegisterActivity(v);
-            }
+            }// aqui  eh só uma transiçao de tela mesmo
         });
     }
 
@@ -93,8 +95,8 @@ public class Login_1 extends Activity {
      * @param view
      */
 
-    //Aqui teremos as inicializações das views e a invocação do invokews
-    public void  loginUser(View view){
+    //funcao que tenta realizar o login do usuario
+    public boolean  loginUser( View view){
 
         // Get Email Edit View Value
         String email = emailET.getText().toString();
@@ -103,14 +105,11 @@ public class Login_1 extends Activity {
         // Instantiate Http Request Param Object
         RequestParams params = new RequestParams();
         // When Email Edit View and Password Edit View have values other than Null
-
-        //verifica se os campos estao vazios
-        // mudar pq vamos fazer essa verificação no back end
         if(Utility.isNotNull(email) && Utility.isNotNull(password)){
             // When Email entered is Valid
             if(Utility.validate(email)){
                 // Put Http parameter username with value of Email Edit View control
-                params.put("email", email);
+                params.put("username", email);
                 // Put Http parameter password with value of Password Edit Value control
                 params.put("password", password);
                 // Invoke RESTful Web Service with Http parameters
@@ -124,19 +123,15 @@ public class Login_1 extends Activity {
             Toast.makeText(getApplicationContext(), "Please fill the form, don't leave any field blank", Toast.LENGTH_LONG).show();
         }
 
-}
-    /*
-          * Method that performs RESTful webservice invocations
-          *
-          * @param params
-          */
+        //preciso colocar algum retorno
+        return true;
+
+    }
     public void invokeWS(RequestParams params){
-        // Show Progress Dialog
-        prgDialog.show();
+
         // Make RESTful webservice call using AsyncHttpClient object
         AsyncHttpClient client = new AsyncHttpClient();
-        //TODO : Aqui utilizaremos  as CTE q o michel ira criar para averiguação de login
-        client.get("endereco service login_1",params ,new AsyncHttpResponseHandler() {
+        client.get("http://192.169.198.138:8080/login/user",params ,new AsyncHttpResponseHandler() {
             // When the response returned by REST has Http response code '200'
             @Override
             public void onSuccess(String response) {
@@ -185,6 +180,7 @@ public class Login_1 extends Activity {
         });
     }
 
+
     // Utilizamos essa função para ir para a primeira tela do usuario logado, no caso.. sua lista de agendamentos.
     public void navigatetoHomeActivity(){
         Intent homeIntent = new Intent(getApplicationContext(),CustScheduleListFragment_9.class);
@@ -194,7 +190,13 @@ public class Login_1 extends Activity {
 
     //navega para a tela de cadastro no caso  activity_login_new_account_2
     public void navigatetoRegisterActivity(View view){
-        Intent loginIntent = new Intent(getApplicationContext(),LoginNewAccount_2.class);
+        Intent loginIntent = new Intent(Login_1.this,LoginNewAccount_2.class);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(loginIntent);
+    }
+
+    public void navigatetoMainActivity(View view){
+        Intent loginIntent = new Intent(Login_1.this,CustDrawerMenu_10.class);
         loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(loginIntent);
     }
