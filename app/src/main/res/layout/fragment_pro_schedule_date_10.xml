@@ -8,7 +8,9 @@
         android:id="@+id/calendarViewPro_10"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:showWeekNumber="false"
+        android:shownWeekCount="5" />
     <Button
         android:id="@+id/newClientButton"
         android:layout_width="match_parent"

@@ -44,8 +44,6 @@
             android:name=".Login.LoginScreen"
             android:label="Get Name"
             android:theme="@style/AppTheme" />
-
-
         <activity
             android:name=".Login.Login_1"
             android:label="Tela Inicial do nosso APP" >
@@ -55,6 +53,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".Cliente.CustDrawerMenu_10"
             android:label="Tela Inicial do nosso APP"
@@ -65,6 +64,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Profissional.ProScheduleConfig_8"
+            android:label="Configurar Agenda"/>
         <activity
             android:name=".Profissional.ProScheduleFirstActivity_11"
             android:label="Novo Cliente"
