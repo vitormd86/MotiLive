@@ -1,5 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
+    <EditText
+        android:id="@+id/scheduleName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:text="Nome do expediente" />
+    <TextView
+        android:id="@+id/scheduleAppointmentTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Horário de Expediente:"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/expedientStart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="datetime"
+            android:focusable="false"
+            android:text="09:00"
+            android:layout_weight="1" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="~"/>
+        <EditText
+            android:id="@+id/expedientEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="datetime"
+            android:focusable="false"
+            android:text="18:00"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/breakTimeTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Horário de Intervalo:"/>
+    <ListView
+        android:id="@+id/breakTimeList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <!--esta lista mostrara as celulas de selecao de intervalo,
+    pois o mesmo pode haver mais de 1 item-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/addBreakTimeButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:text="+"
+            android:textSize="20sp"/>
+        <TextView
+            android:id="@+id/addBreakTimeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/addBreakTimeButton"
+            android:layout_centerVertical="true"
+            android:paddingRight="20dp"
+            android:text="Adicionar Intervalo"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/calendarTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dias de Funcionamento:"/>
+    <CalendarView
+        android:id="@+id/calendarViewPro_8"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:showWeekNumber="false"
+        android:shownWeekCount="5"/>
 </LinearLayout>
