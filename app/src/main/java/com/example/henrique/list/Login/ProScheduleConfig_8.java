@@ -3,6 +3,7 @@ package com.example.henrique.list.Login;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -42,14 +43,21 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pro_schedule_config_8);
+        //gerando o layouts secundarios, abaixo e acima da listView
+        LayoutInflater inflater = this.getLayoutInflater();
+        View footerView = inflater.inflate(R.layout.activity_pro_schedule_config_8_footer, null);
+        View headerView = inflater.inflate(R.layout.activity_pro_schedule_config_8_header, null);
 
-        expedientStartET = (EditText) findViewById(R.id.expedientStart);
-        expedientEndET = (EditText) findViewById(R.id.expedientEnd);
+        //configurando views do layout
         breakTimeList = (ListView) findViewById(R.id.breakTimeList);
-        addBreakTimeButton = (Button) findViewById(R.id.addBreakTimeButton);
+        expedientStartET = (EditText) headerView.findViewById(R.id.expedientStart);
+        expedientEndET = (EditText) headerView.findViewById(R.id.expedientEnd);
+        addBreakTimeButton = (Button) footerView.findViewById(R.id.addBreakTimeButton);
 
-        breakTimeAdapter = new BreakTimeAdapter(getBaseContext());
+        breakTimeAdapter = new BreakTimeAdapter(ProScheduleConfig_8.this);
         breakTimeList.setAdapter(breakTimeAdapter);
+        breakTimeList.addHeaderView(headerView);
+        breakTimeList.addFooterView(footerView);
 
         setTimePickerListeners();
         setExpedientHourETListeners();
@@ -114,7 +122,7 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 breakTimeAdapter.add(breakTimeId);
-                breakTimeAdapter.notifyDataSetChanged();
+                //breakTimeAdapter.notifyDataSetChanged();
                 breakTimeId = breakTimeId + 1;
 
             }
