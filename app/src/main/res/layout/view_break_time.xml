@@ -11,6 +11,11 @@
         android:focusable="false"
         android:text="12:00"
         android:layout_weight="1"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="~"/>
     <EditText
         android:id="@+id/breakEnd"
         android:layout_width="wrap_content"
@@ -19,6 +24,11 @@
         android:focusable="false"
         android:text="13:00"
         android:layout_weight="1"/>
-
+    <Button
+        android:id="@+id/breakTimeRemoveButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:textSize="20sp"
+        android:text="X"/>
 
 </LinearLayout>

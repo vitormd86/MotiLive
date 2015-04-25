@@ -65,7 +65,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Profissional.ProScheduleConfig_8"
+            android:name=".Login.ProScheduleConfig_8"
             android:label="Configurar Agenda"/>
         <activity
             android:name=".Profissional.ProScheduleFirstActivity_11"
