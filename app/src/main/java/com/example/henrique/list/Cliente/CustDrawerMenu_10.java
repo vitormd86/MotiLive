@@ -18,7 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.henrique.list.Adapters.MyAdapterDrawerOptions;
-import com.example.henrique.list.Mapeamento_de_Classes.DrawerMenuItem;
+import com.example.henrique.list.Fragments.DrawerMenuItem;
 import com.example.henrique.list.R;
 
 /*Atividade que configura o drawer e o frame layout que recebe os fragments*/
