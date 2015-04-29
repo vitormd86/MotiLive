@@ -200,7 +200,7 @@ public class CustProfile_5 extends FragmentActivity {
     }
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "datePicker");
+        //newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
 }
