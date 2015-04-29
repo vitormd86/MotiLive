@@ -47,7 +47,12 @@ public class ProScheduleConfirmActivity_13 extends ActionBarActivity {
         long totalTime = extras.getLong("totalTime");
         double totalPrice = extras.getDouble("totalPrice");
         nextScreen = extras.getInt("nextScreen");
+
+
         //inicia objetos de layout
+
+
+
         ImageView imagePhoto = (ImageView) findViewById(R.id.photo);
         TextView textClientName = (TextView) findViewById(R.id.clientName);
         TextView textDate = (TextView) findViewById(R.id.date);
