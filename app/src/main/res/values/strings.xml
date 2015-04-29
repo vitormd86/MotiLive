@@ -90,7 +90,7 @@
     <!-- Tela 7 Profissional -->
 
     <string name="serviceListProTV_7">Lista de serviços</string>
-
+    <string name="nameCustET_5">Nome Completo</string>
 
 
 </resources>
