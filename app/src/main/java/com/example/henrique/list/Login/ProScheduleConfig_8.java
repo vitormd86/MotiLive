@@ -3,19 +3,16 @@ package com.example.henrique.list.Login;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.example.henrique.list.Adapters.BreakTimeAdapter;
 import com.example.henrique.list.R;
 
 import java.util.Calendar;
@@ -25,49 +22,44 @@ import java.util.Calendar;
  */
 public class ProScheduleConfig_8 extends ActionBarActivity {
 
-    EditText expedientStartET;
-    EditText expedientEndET;
-    ListView breakTimeList;
-    Button addBreakTimeButton;
-    ArrayAdapter breakTimeAdapter;
+    EditText expedientStartET, expedientEndET, breakStartET, breakEndET;
+    RadioGroup breakTimeRadioGroup;
+    RadioButton breakTimeYes, breakTimeNo;
+
     Calendar expedientStartCalendar = Calendar.getInstance();
     Calendar expedientEndCalendar = Calendar.getInstance();
+    Calendar breakStartCalendar = Calendar.getInstance();
+    Calendar breakEndCalendar = Calendar.getInstance();
 
-    TimePickerDialog.OnTimeSetListener startHourPickerListener;
-    TimePickerDialog.OnTimeSetListener endHourPickerListener;
+    TimePickerDialog.OnTimeSetListener startExpedientPickerListener;
+    TimePickerDialog.OnTimeSetListener endExpedientPickerListener;
+    TimePickerDialog.OnTimeSetListener startBreakPickerListener;
+    TimePickerDialog.OnTimeSetListener endBreakPickerListener;
 
-    int breakTimeId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pro_schedule_config_8);
-        //gerando o layouts secundarios, abaixo e acima da listView
-        LayoutInflater inflater = this.getLayoutInflater();
-        View footerView = inflater.inflate(R.layout.activity_pro_schedule_config_8_footer, null);
-        View headerView = inflater.inflate(R.layout.activity_pro_schedule_config_8_header, null);
 
         //configurando views do layout
-        breakTimeList = (ListView) findViewById(R.id.breakTimeList);
-        expedientStartET = (EditText) headerView.findViewById(R.id.expedientStart);
-        expedientEndET = (EditText) headerView.findViewById(R.id.expedientEnd);
-        addBreakTimeButton = (Button) footerView.findViewById(R.id.addBreakTimeButton);
+        expedientStartET = (EditText) findViewById(R.id.expedientStart);
+        expedientEndET = (EditText) findViewById(R.id.expedientEnd);
+        breakStartET = (EditText) findViewById(R.id.breakStart);
+        breakEndET = (EditText) findViewById(R.id.breakEnd);
+        breakTimeRadioGroup = (RadioGroup) findViewById(R.id.breakTimeRadioGroup);
 
-        breakTimeAdapter = new BreakTimeAdapter(ProScheduleConfig_8.this);
-        breakTimeList.setAdapter(breakTimeAdapter);
-        breakTimeList.addHeaderView(headerView);
-        breakTimeList.addFooterView(footerView);
-
+        //configurando listeners
         setTimePickerListeners();
         setExpedientHourETListeners();
-        setAddBreakTimeButtonListener();
-        breakTimeId = 100;
+        setBreakTimeETListeners();
+        setBreakTimeRadioListeners();
     }
 
     public void setTimePickerListeners(){
-        //esse metodo define os listeners de dentro dos 2 TimePickerDialogs
-        startHourPickerListener  = new TimePickerDialog.OnTimeSetListener(){
+        //esse metodo define os listeners de dentro dos 4 TimePickerDialogs
+        startExpedientPickerListener = new TimePickerDialog.OnTimeSetListener(){
             public void onTimeSet(TimePicker view, int hourOfDay,
                                   int minute) {
                 //quando selecionado o horario, aliemnta o calendar e o editText com o horario selecionado
@@ -76,8 +68,7 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
                 expedientStartET.setText(String.format("%02d", hourOfDay) + ":" + String.format("%02d", minute));
             }
         };
-
-        endHourPickerListener  = new TimePickerDialog.OnTimeSetListener(){
+        endExpedientPickerListener  = new TimePickerDialog.OnTimeSetListener(){
             public void onTimeSet(TimePicker view, int hourOfDay,
                                   int minute) {
                 //quando selecionado o horario, aliemnta o calendar e o editText com o horario selecionado
@@ -86,8 +77,26 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
                 expedientEndET.setText(String.format("%02d", hourOfDay) + ":" + String.format("%02d", minute));
             }
         };
-    }
+        startBreakPickerListener  = new TimePickerDialog.OnTimeSetListener(){
+            public void onTimeSet(TimePicker view, int hourOfDay,
+                                  int minute) {
+                //quando selecionado o horario, aliemnta o calendar e o editText com o horario selecionado
+                breakStartCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                breakStartCalendar.set(Calendar.MINUTE, minute);
+                breakStartET.setText(String.format("%02d", hourOfDay) + ":" + String.format("%02d", minute));
+            }
+        };
+        endBreakPickerListener  = new TimePickerDialog.OnTimeSetListener(){
+            public void onTimeSet(TimePicker view, int hourOfDay,
+                                  int minute) {
+                //quando selecionado o horario, aliemnta o calendar e o editText com o horario selecionado
+                breakEndCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                breakEndCalendar.set(Calendar.MINUTE, minute);
+                breakEndET.setText(String.format("%02d", hourOfDay) + ":" + String.format("%02d", minute));
+            }
+        };
 
+    }
 
     public void setExpedientHourETListeners(){
         //este metodo define os listeners dos EditTexts de horario de expediente.
@@ -98,7 +107,7 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
                 new TimePickerDialog(
                         //inicia o timePicker escolhendo seu listener, e com qual horario deve iniciar (que vem da instancia do Calendar)
                         ProScheduleConfig_8.this,
-                        startHourPickerListener,
+                        startExpedientPickerListener,
                         expedientStartCalendar.get(Calendar.HOUR_OF_DAY),
                         expedientStartCalendar.get(Calendar.MINUTE), true).show();
             }
@@ -110,20 +119,62 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
                 new TimePickerDialog(
                         //inicia o timePicker escolhendo seu listener, e com qual horario deve iniciar (que vem da instancia do Calendar)
                         ProScheduleConfig_8.this,
-                        endHourPickerListener,
+                        endExpedientPickerListener,
                         expedientEndCalendar.get(Calendar.HOUR_OF_DAY),
                         expedientEndCalendar.get(Calendar.MINUTE), true).show();
             }
         });
     }
 
-    public void setAddBreakTimeButtonListener(){
-        addBreakTimeButton.setOnClickListener(new View.OnClickListener() {
+    public void setBreakTimeETListeners(){
+        //este metodo define os listeners dos EditTexts de tempo de pausa.
+        breakStartET.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                breakTimeAdapter.add(breakTimeId);
-                //breakTimeAdapter.notifyDataSetChanged();
-                breakTimeId = breakTimeId + 1;
+                //todo para implementar outros layouts de TimePcker, verificar eu uso com DIALOGFRAGMENT em "android API guides"
+                new TimePickerDialog(
+                        //inicia o timePicker escolhendo seu listener, e com qual horario deve iniciar (que vem da instancia do Calendar)
+                        ProScheduleConfig_8.this,
+                        startBreakPickerListener,
+                        breakStartCalendar.get(Calendar.HOUR_OF_DAY),
+                        breakStartCalendar.get(Calendar.MINUTE), true).show();
+            }
+        });
+
+        breakEndET.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new TimePickerDialog(
+                        //inicia o timePicker escolhendo seu listener, e com qual horario deve iniciar (que vem da instancia do Calendar)
+                        ProScheduleConfig_8.this,
+                        endBreakPickerListener,
+                        breakEndCalendar.get(Calendar.HOUR_OF_DAY),
+                        breakEndCalendar.get(Calendar.MINUTE), true).show();
+            }
+        });
+    }
+
+    public void setBreakTimeRadioListeners(){
+        breakTimeRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.breakTimeRadioYes:
+                        Toast.makeText(getBaseContext(), "Sim", Toast.LENGTH_SHORT).show();
+                        breakStartET.setEnabled(true);
+                        breakStartET.setClickable(true);
+                        breakEndET.setEnabled(true);
+                        breakEndET.setClickable(true);
+
+                        break;
+                    case R.id.breakTimeRadioNo:
+                        Toast.makeText(getBaseContext(), "Não", Toast.LENGTH_SHORT).show();
+                        breakStartET.setEnabled(false);
+                        breakStartET.setClickable(false);
+                        breakEndET.setEnabled(false);
+                        breakEndET.setClickable(false);
+                        break;
+                }
 
             }
         });
