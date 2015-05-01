@@ -30,6 +30,15 @@ public class CustomerService {
         return list;
     }
 
+    public void findCustomerContactsByProfessionalId(Long professionalId) {
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+        Map<String, Object> vars = new HashMap<String, Object>();
+        vars.put("professionalId", professionalId);
+        List<CustomerDTO> list = restTemplate.getForObject(URLConstants.JSON_SERVER_URL +
+            URLConstants.CUSTOMER_FIND_CONTACTS_BY_PROFESSIONAL_ID, new ArrayList<CustomerDTO>().getClass(), vars);
+    }
+
     public CustomerDTO save(CustomerDTO customerDTO) {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());

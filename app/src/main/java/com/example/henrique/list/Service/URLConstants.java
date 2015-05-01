@@ -7,6 +7,7 @@ public class URLConstants {
     // CUSTOMER SERVICE
     public static final String CUSTOMER_FIND = "/customer/find?id={id}";
     public static final String CUSTOMER_FIND_ALL = "/customer/findAll";
+    public static final String CUSTOMER_FIND_CONTACTS_BY_PROFESSIONAL_ID = "/customer/findCustomerContactsByProfessionalId?professionalId={professionalId}";
     public static final String CUSTOMER_SAVE = "/customer/save";
 
     // DAILY SCHEDULE SERVICE
@@ -22,6 +23,7 @@ public class URLConstants {
     // PROFESSIONAL SERVICE
     public static final String PROFESSIONAL_FIND = "/professional/find?id={id}";
     public static final String PROFESSIONAL_FIND_ALL = "/professional/findAll";
+    public static final String PROFESSIONAL_FIND_CONTACTS_BY_CUSTOMER_ID = "/professional/findProfessionalContactsByCustomerId?customerId={customerId}";
     public static final String PROFESSIONAL_SAVE = "/professional/save";
 
     // SCHEDULING SERVICE
