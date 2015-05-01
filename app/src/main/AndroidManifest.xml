@@ -108,6 +108,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Profissional.ProDrawerMenu_15" />>
         </activity>
+        <activity
+            android:name=".Profissional.ProServiceNewActivity_6"
+            android:label="Novo Serviço">
+        </activity>
     </application>
 
 </manifest>
