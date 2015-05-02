@@ -27,13 +27,13 @@
     <string name="action_refresh">action_refresh</string>
     <string name="action_help">action_help</string>
 
-    <!-- Tela 4  -->
+    <!-- Tela 4 -->
 
     <string name="chooseYourProfileTV_4">Escolha seu Perfil</string>
     <string name="clienteBTN_4">Eu quero agendar um serviço</string>
     <string name="profissionalBTN_4">Sou profissional Prestador de serviço</string>
 
-    <!-- Tela 5 Profissional  -->
+    <!-- Tela 5 Profissional -->
 
     <string name="yearProET_5">Ano</string>
     <string name="pointofcareTV_5">pointofcareProET_5</string>
@@ -58,8 +58,6 @@
     <string name="cityProET_5">Cidade</string>
     <string name="stateProET_5">Estado</string>
 
-
-
     <!-- Tela 6 Profissional -->
 
     <string name="serviceNameProET_6">Nome do Serviço</string>
@@ -73,9 +71,7 @@
     <string name="valueProTV_6">Valor</string>
     <string name="valueProET_6">00,00</string>
 
-
     <!-- Tela 11 Profissional -->
-
 
     <string name="completeNameProET_11">Nome Completo</string>
     <string name="pointofcareProTV_11">Local de Atendimento</string>
@@ -91,24 +87,6 @@
 
     <string name="serviceListProTV_7">Lista de serviços</string>
     <string name="nameCustET_5">Nome Completo</string>
-
-    <!-- Calendario -->
-    <string name="day_name_format">EEE</string>
-    <string name="invalid_date">Date must be between %1$s and %2$s.</string>
-    <string name="month_name_format">MMMM yyyy</string>
-
-    <!-- Horas e minutos -->
-    <string-array name="hours">
-        <item>00:</item><item>01:</item><item>02:</item><item>03:</item><item>04:</item><item>05:</item>
-        <item>06:</item><item>07:</item><item>08:</item><item>09:</item>
-        <item>10:</item><item>11:</item><item>12:</item><item>13:</item><item>14:</item><item>15:</item>
-        <item>16:</item><item>17:</item><item>18:</item><item>19:</item>
-        <item>20:</item><item>21:</item><item>22:</item><item>23:</item>
-    </string-array>
-    <string-array name="minutes">
-        <item>00</item><item>05</item><item>10</item><item>15</item><item>20</item><item>25</item>
-        <item>30</item><item>35</item><item>40</item><item>45</item><item>50</item><item>55</item>
-    </string-array>
-
+    <string name="title_activity_pro_profile_new">ProProfileNewActivity</string>
 
 </resources>

@@ -54,7 +54,7 @@ public class ProScheduleDateFragment_10 extends Fragment {
         //supondo q personDTO já exista por causa do login.
         long teste = 50;
         CustomerDTO customerDTO = new CustomerDTO();
-        //customerDTO.setCustomerId(teste);
+        customerDTO.setId(teste);
 
         //configurando listeners
         setNewClientListener();

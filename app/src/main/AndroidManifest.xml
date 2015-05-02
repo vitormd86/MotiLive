@@ -30,6 +30,10 @@
         </activity>
 
         <activity
+            android:name=".UsoPosterior.ActivityFragmentPortraitControl"
+            android:label="Get Name"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".Login.CustProfile_5"
             android:label="Registry"
             android:parentActivityName=".Login.LoginNewAccount_2"
@@ -49,7 +53,7 @@
         </activity>
 
         <activity
-            android:name=".UsoPosterior.LoginScreen"
+            android:name=".Login.LoginScreen"
             android:label="Get Name"
             android:theme="@style/AppTheme" />
         <activity
@@ -73,9 +77,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Profissional.ProScheduleConfig_8"
-            android:label="Configurar Agenda"
-            android:windowSoftInputMode="stateHidden"/>
+            android:name=".Login.ProScheduleConfig_8"
+            android:label="Configurar Agenda"/>
         <activity
             android:name=".Profissional.ProScheduleFirstActivity_11"
             android:label="Novo Cliente"

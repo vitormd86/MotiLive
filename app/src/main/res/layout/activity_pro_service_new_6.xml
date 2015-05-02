@@ -12,85 +12,46 @@
         android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/descriptionofServiceProTV_6"
+        android:id="@+id/serviceDescriptionProTV_6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
         android:text="@string/descriptionofServiceProTV_6" />
 
     <EditText
-        android:id="@+id/descriptionProET_6"
+        android:id="@+id/serviceDescriptionProET_6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
         android:text="@string/descriptionProET_6" />
 
-
-    <LinearLayout
+    <TextView
+        android:id="@+id/serviceTimeProTV_6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:text="@string/sessionTimeProTV_6" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
-
-            <TextView
-                android:id="@+id/sessionTimeProTV_6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sessionTimeProTV_6" />
-
-            <EditText
-                android:id="@+id/sessionTimeProET_6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sessionTimeProET_6" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
-
-            <TextView
-                android:id="@+id/shiftingTimeProTV_6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/shiftingTimeProTV_6" />
-
-            <EditText
-                android:id="@+id/shiftingTimeProET_6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/shiftingTimeProET_6" />
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-
-    <LinearLayout
+    <EditText
+        android:id="@+id/serviceTimeProET_6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:text="@string/sessionTimeProET_6" />
 
-        <TextView
-            android:id="@+id/valueProTV_6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/valueProTV_6" />
+    <TimePicker
+        android:id="@+id/timePicker1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    
+    <TextView
+        android:id="@+id/serviceValueProTV_6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/valueProTV_6" />
 
-        <EditText
-            android:id="@+id/valueProET_6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/valueProET_6" />
-    </LinearLayout>
-
+    <EditText
+        android:id="@+id/serviceValueProET_6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/valueProET_6" />
 
 </LinearLayout>
