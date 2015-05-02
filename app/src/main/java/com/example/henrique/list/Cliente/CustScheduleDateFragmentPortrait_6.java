@@ -52,7 +52,7 @@ public class CustScheduleDateFragmentPortrait_6 extends Fragment {
 
 
         CustomerDTO customerDTO = new CustomerDTO();
-        customerDTO.setCustomerId(teste);
+        //customerDTO.setCustomerId(teste);
 
 
 

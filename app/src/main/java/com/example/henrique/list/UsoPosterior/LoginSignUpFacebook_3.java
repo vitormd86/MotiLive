@@ -1,4 +1,4 @@
-package com.example.henrique.list.Login;
+package com.example.henrique.list.UsoPosterior;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -43,9 +43,9 @@ public class LoginSignUpFacebook_3 extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_login_1, container, false);
 
-        LoginButton authButton = (LoginButton) view.findViewById(R.id.authButtonLoginUsuario);
-        authButton.setFragment(this);
-        authButton.setReadPermissions(Arrays.asList("user_likes", "user_status"));
+        //LoginButton authButton = (LoginButton) view.findViewById(R.id.authButtonLoginUsuario);
+        //authButton.setFragment(this);
+        //authButton.setReadPermissions(Arrays.asList("user_likes", "user_status"));
 
         return view;
     }

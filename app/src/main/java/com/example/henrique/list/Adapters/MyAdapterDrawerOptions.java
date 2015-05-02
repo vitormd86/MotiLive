@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.henrique.list.Fragments.DrawerMenuItem;
+import com.example.henrique.list.Beans.DrawerMenuItem;
 import com.example.henrique.list.R;
 
 /**

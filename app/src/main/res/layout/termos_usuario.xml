@@ -12,7 +12,7 @@
     android:paddingRight="0dp"
     android:paddingTop="0dp"
     android:paddingBottom="0dp"
-    tools:context="com.example.henrique.list.Login.LoginScreen">
+    tools:context="com.example.henrique.list.UsoPosterior.LoginScreen">
 
     <LinearLayout
         android:layout_width="match_parent"

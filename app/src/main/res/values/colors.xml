@@ -14,4 +14,16 @@
     <color name="green">#27ae60</color>
     <color name="lightGreen">#2ecc71</color>
 
+    <!--cores do calendario-->
+    <color name="calendar_active_month_bg">#ff5f7f</color>
+    <color name="calendar_bg">#ffffff</color>
+    <color name="calendar_divider">#ffffff</color>
+    <color name="calendar_inactive_month_bg">#ffd7d9</color>
+    <color name="calendar_selected_day_bg">#ff379b</color>
+    <color name="calendar_highlighted_day_bg">#ccffcc</color>
+    <color name="calendar_selected_range_bg">#ff96cf</color>
+    <color name="calendar_text_inactive">#407780</color>
+    <color name="calendar_text_active">#ff7788</color>
+    <color name="calendar_text_selected">#ffffff</color>
+    <color name="calendar_text_unselectable">#7f7780</color>
 </resources>

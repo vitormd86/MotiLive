@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.henrique.list.Cliente.CustScheduleDateFragmentPortrait_6;
-import com.example.henrique.list.Login.LoginScreen;
 import com.example.henrique.list.R;
 import com.facebook.Session;
 

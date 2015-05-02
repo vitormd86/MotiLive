@@ -1,4 +1,4 @@
-package com.example.henrique.list.Login;
+package com.example.henrique.list.UsoPosterior;
 
 import android.app.TimePickerDialog;
 import android.os.Bundle;
@@ -8,23 +8,23 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.henrique.list.R;
+import com.example.henrique.list.Utilidade_Publica.Calendar.CalendarPickerView;
 
 import java.util.Calendar;
 
 /**
  * Created by Cristor on 14/04/2015.
  */
-public class ProScheduleConfig_8 extends ActionBarActivity {
-
+public class ProScheduleConfig_8_v2 extends ActionBarActivity {
+/*
     EditText expedientStartET, expedientEndET, breakStartET, breakEndET;
     RadioGroup breakTimeRadioGroup;
-    RadioButton breakTimeYes, breakTimeNo;
+    CalendarPickerView screenCalendar;
 
     Calendar expedientStartCalendar = Calendar.getInstance();
     Calendar expedientEndCalendar = Calendar.getInstance();
@@ -35,6 +35,7 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
     TimePickerDialog.OnTimeSetListener endExpedientPickerListener;
     TimePickerDialog.OnTimeSetListener startBreakPickerListener;
     TimePickerDialog.OnTimeSetListener endBreakPickerListener;
+
 
 
     @Override
@@ -49,14 +50,32 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
         breakStartET = (EditText) findViewById(R.id.breakStart);
         breakEndET = (EditText) findViewById(R.id.breakEnd);
         breakTimeRadioGroup = (RadioGroup) findViewById(R.id.breakTimeRadioGroup);
+        screenCalendar = (CalendarPickerView) findViewById(R.id.calendar_view);
 
         //configurando listeners
         setTimePickerListeners();
         setExpedientHourETListeners();
         setBreakTimeETListeners();
         setBreakTimeRadioListeners();
+
+        //configurando calendario
+        setCalendar();
+
     }
 
+    public void setCalendar(){
+        //metodo q inicializa calendario
+
+        //configura duas datas para limites, inicial e final
+        Calendar initDate = Calendar.getInstance();
+        Calendar endDate = Calendar.getInstance();
+        endDate.add(Calendar.YEAR, 1);
+
+        //inicializa calendario apontando datas finais, iniciais e modo de selecao
+        screenCalendar.init(initDate.getTime(), endDate.getTime())
+                .inMode(CalendarPickerView.SelectionMode.MULTIPLE);
+
+    }
     public void setTimePickerListeners(){
         //esse metodo define os listeners de dentro dos 4 TimePickerDialogs
         startExpedientPickerListener = new TimePickerDialog.OnTimeSetListener(){
@@ -106,7 +125,7 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
                 //todo para implementar outros layouts de TimePcker, verificar eu uso com DIALOGFRAGMENT em "android API guides"
                 new TimePickerDialog(
                         //inicia o timePicker escolhendo seu listener, e com qual horario deve iniciar (que vem da instancia do Calendar)
-                        ProScheduleConfig_8.this,
+                        ProScheduleConfig_8_v2.this,
                         startExpedientPickerListener,
                         expedientStartCalendar.get(Calendar.HOUR_OF_DAY),
                         expedientStartCalendar.get(Calendar.MINUTE), true).show();
@@ -118,7 +137,7 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
             public void onClick(View v) {
                 new TimePickerDialog(
                         //inicia o timePicker escolhendo seu listener, e com qual horario deve iniciar (que vem da instancia do Calendar)
-                        ProScheduleConfig_8.this,
+                        ProScheduleConfig_8_v2.this,
                         endExpedientPickerListener,
                         expedientEndCalendar.get(Calendar.HOUR_OF_DAY),
                         expedientEndCalendar.get(Calendar.MINUTE), true).show();
@@ -134,7 +153,7 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
                 //todo para implementar outros layouts de TimePcker, verificar eu uso com DIALOGFRAGMENT em "android API guides"
                 new TimePickerDialog(
                         //inicia o timePicker escolhendo seu listener, e com qual horario deve iniciar (que vem da instancia do Calendar)
-                        ProScheduleConfig_8.this,
+                        ProScheduleConfig_8_v2.this,
                         startBreakPickerListener,
                         breakStartCalendar.get(Calendar.HOUR_OF_DAY),
                         breakStartCalendar.get(Calendar.MINUTE), true).show();
@@ -146,7 +165,7 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
             public void onClick(View v) {
                 new TimePickerDialog(
                         //inicia o timePicker escolhendo seu listener, e com qual horario deve iniciar (que vem da instancia do Calendar)
-                        ProScheduleConfig_8.this,
+                        ProScheduleConfig_8_v2.this,
                         endBreakPickerListener,
                         breakEndCalendar.get(Calendar.HOUR_OF_DAY),
                         breakEndCalendar.get(Calendar.MINUTE), true).show();
@@ -199,4 +218,5 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+    */
 }
