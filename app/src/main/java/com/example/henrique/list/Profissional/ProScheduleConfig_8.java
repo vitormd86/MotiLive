@@ -6,13 +6,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.henrique.list.Utilidade_Publica.Calendar.CalendarPickerView;
@@ -71,17 +67,21 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
 
     public void setSpinnersAdapters(){
         //este metodo configura os adapters de todos spinners
-
+        //todo mudar o lado da setinha de dropdown. e falha de botao sim/ nao que nao muda a cor da fonte do textview
         //adapter de array de horas
-        ArrayAdapter<CharSequence> hourAdapter = ArrayAdapter.createFromResource(this, R.array.hours, android.R.layout.simple_spinner_item);
-        hourAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> hourAdapter = ArrayAdapter.createFromResource(this, R.array.hours, R.layout.view_spinner_text_hour);
+        hourAdapter.setDropDownViewResource(R.layout.view_spinner_dropdown_hour);
         expedientStartHourSP.setAdapter(hourAdapter);
+        expedientStartHourSP.setSelection(8);
         expedientEndHourSP.setAdapter(hourAdapter);
+        expedientEndHourSP.setSelection(17);
         breakStartHourSP.setAdapter(hourAdapter);
+        breakStartHourSP.setSelection(12);
         breakEndHourSP.setAdapter(hourAdapter);
+        breakEndHourSP.setSelection(13);
 
         //adaprter de array de minutos
-        ArrayAdapter<CharSequence> minutesAdapter = ArrayAdapter.createFromResource(this, R.array.minutes, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> minutesAdapter = ArrayAdapter.createFromResource(this, R.array.minutes, android.R.layout.simple_spinner_dropdown_item);
         minutesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         expedientStartMinutesSP.setAdapter(minutesAdapter);
         expedientEndMinutesSP.setAdapter(minutesAdapter);

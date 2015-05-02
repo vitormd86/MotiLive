@@ -13,7 +13,7 @@ public class ProProfileNew_6 extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pro_profile_new_6);
+        setContentView(R.layout.activity_pro_service_new_6);
     }
 
 }
