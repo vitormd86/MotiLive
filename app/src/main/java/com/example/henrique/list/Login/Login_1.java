@@ -3,7 +3,9 @@ package com.example.henrique.list.Login;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -16,9 +18,8 @@ import com.example.henrique.list.Cliente.CustScheduleListFragment_9;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Service.LoginService;
 import com.example.henrique.list.Utilidade_Publica.Utility;
-import com.loopj.android.http.RequestParams;
 
-import br.com.motiserver.dto.CustomerDTO;
+import br.com.motiserver.dto.PersonDTO;
 
 /**
  * Created by htamashiro on 3/16/15.
@@ -30,10 +31,11 @@ public class Login_1 extends Activity {
     TextView errorMsg;
     EditText emailET;
     EditText pwdET;
-    public  RequestParams params;
+    String email;
+    String password;
     public  View view;
     public LoginService loginService;
-    public CustomerDTO customerDTO;
+    public PersonDTO personDTO;
 
 
 
@@ -58,15 +60,9 @@ public class Login_1 extends Activity {
         logar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loginUser(v);
 
-        /*       if (loginUser(v))
-               {
-                   navigatetoMainActivity(v);
-               }else //avisa q usuarios nao existem, e limpa os Edit Texts
-               {
-                   Toast.makeText(getApplication(), "Usuario nao existente", Toast.LENGTH_SHORT).show();
-                   setDefaultValues();
-               }*/
+
             }
         });
         //define o comportamento do botao criarConta
@@ -95,15 +91,14 @@ public class Login_1 extends Activity {
     public boolean  loginUser( View view){
 
         // Get Email Edit View Value
-        String email = emailET.getText().toString();
+        email = emailET.getText().toString();
         // Get Password Edit View Value
-        String password = pwdET.getText().toString();
+        password = pwdET.getText().toString();
         // When Email Edit View and Password Edit View have values other than Null
         if(Utility.isNotNull(email) && Utility.isNotNull(password)){
             // When Email entered is Valid
             if(Utility.validate(email)){
-
-                //invokeWS(params);
+                new HttpRequestTask().execute();
             }
             // When Email is invalid
             else{
@@ -145,6 +140,27 @@ public class Login_1 extends Activity {
     public void setDefaultValues(){
         emailET.setText("");
         pwdET.setText("");
+    }
+
+    private class HttpRequestTask extends AsyncTask<Void, Void, PersonDTO> {
+        @Override
+        protected PersonDTO doInBackground(Void... params) {
+            try {
+
+                personDTO =loginService.login(email, password);
+                return personDTO;
+
+            } catch (Exception e) {
+                Log.e("MainActivity", e.getMessage(), e);
+            }
+
+            return null;
+        }
+
+        protected void onPostExecute() {
+             Toast.makeText(Login_1.this, "Login efetuado com sucesso", Toast.LENGTH_LONG).show();
+        }
+
     }
 
 

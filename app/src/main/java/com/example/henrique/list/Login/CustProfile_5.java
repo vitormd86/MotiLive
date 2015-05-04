@@ -2,11 +2,10 @@ package com.example.henrique.list.Login;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,14 +16,23 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
-
-import com.example.henrique.list.Cliente.CustScheduleDateFragmentPortrait_6;
+import com.example.henrique.list.Cliente.CustDrawerMenu_10;
 import com.example.henrique.list.R;
+import com.example.henrique.list.Service.CustomerService;
+import com.example.henrique.list.Service.URLConstants;
+
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import br.com.motiserver.constants.Gender;
+import br.com.motiserver.constants.PersonType;
+import br.com.motiserver.constants.Status;
+import br.com.motiserver.constants.UF;
 import br.com.motiserver.dto.CustomerDTO;
 
 
@@ -32,18 +40,24 @@ import br.com.motiserver.dto.CustomerDTO;
 /**
  * Created by Massaru on 03/04/2015.
  */
-public class CustProfile_5 extends FragmentActivity {
+public class CustProfile_5 extends ActionBarActivity {
 
     ImageButton imageButton;
     EditText nomeET;
 
-
     TextView dataEscolhidaTV;
 
 
-    Button chamaDatePickerBTN;
-    private TextView tvDisplayDate;
-    private DatePicker dpResult;
+    private Button chamaDatePickerBTN;
+
+    private int year;
+    private int month;
+    private int day;
+
+    private Date chosenDate;
+
+    public CustomerService customerService;
+
 
     RadioButton masculinoRB;
     RadioButton femininoRB;
@@ -60,6 +74,10 @@ public class CustProfile_5 extends FragmentActivity {
     EditText estadoET;
 
     CustomerDTO customerDTO;
+    boolean usuarioSalvo;
+
+    static final int DATE_DIALOG_ID = 999;
+
 
 
     @Override
@@ -68,7 +86,7 @@ public class CustProfile_5 extends FragmentActivity {
         setContentView(R.layout.fragment_cust_profile_5_11);
 
         //Habilitando BackNavigation button
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //Aqui  inicializaremos as variáveis
 
         customerDTO = new CustomerDTO();
@@ -89,20 +107,15 @@ public class CustProfile_5 extends FragmentActivity {
         CEPET = (EditText) findViewById(R.id.CEPCustET_5);
         numeroET = (EditText) findViewById(R.id.numeroCustET_5);
         ruaET = (EditText) findViewById(R.id.RuaCustET_5);
-        complementoET = (EditText) findViewById(R.id.ComplementProET_5);
+        complementoET = (EditText) findViewById(R.id.complementoCustET_5);
         bairroET = (EditText) findViewById(R.id.bairroCustET_5);
         cidadeET = (EditText) findViewById(R.id.cidadeCustET_5);
         estadoET = (EditText) findViewById(R.id.estadoCustET_5);
 
+        //onRadioButtonClicked(findViewById(R.id.radioGroup));
 
-        chamaDatePickerBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        addListenerOnButton();
 
-            }
-        });
-
-        //Inicializando RadioButtons
     }
 
     //aqui inicializamos os botoes da action bar
@@ -130,32 +143,41 @@ public class CustProfile_5 extends FragmentActivity {
         }
     }
 
-    private void cancelRegistration(){
-        Intent i = new Intent(CustProfile_5.this, LoginNewAccount_2.class);
-        startActivity(i);
-    }
+
     private void confirmRegistration(){
         customerDTO.setName(nomeET.getText().toString());
         customerDTO.setEmail(emailET.getText().toString());
+        customerDTO.setBirthDate(chosenDate);
 
-
-
-        // end definir
+        customerDTO.setPhoneNumber(celularET.getText().toString());
         customerDTO.setAddressStreet(ruaET.getText().toString());
         customerDTO.setAddressDistrict(bairroET.getText().toString());
         customerDTO.setAddressCity(cidadeET.getText().toString());
-        customerDTO.setAddressComplement(complementoET.getText().toString());
         customerDTO.setAddressNumber(numeroET.getText().toString());
         customerDTO.setAddressZipCode(CEPET.getText().toString());
+        customerDTO.setAddressState(UF.SAO_PAULO);
+        //Toast.makeText(getApplicationContext(), customerDTO.getAddressState().toString(), Toast.LENGTH_LONG).show();
 
-        String celular = celularET.getText().toString();
-        String email = emailET.getText().toString();
+        customerDTO.setAddressComplement(complementoET.getText().toString());
+        customerDTO.setCpfCnpj("36652914883");
+        Calendar dg = Calendar.getInstance();
+        customerDTO.setUpdateDate(dg.getTime());
+        customerDTO.setStatus(Status.TRUE);
+        customerDTO.setType(PersonType.CUSTOMER);
+        customerDTO.setPhoneCode("11");
+        customerDTO.setLogin("jaodasilva");
+        customerDTO.setFacebookLogin("flangoflito");
+        customerDTO.setGoogleLogin("jao canabrava");
+        customerDTO.setPassword("pancreas");
+
+
+
 
 
         // Get Password Edit View Value
+         new HttpRequestTask().execute(customerDTO);
 
-
-        Intent i = new Intent(CustProfile_5.this, CustScheduleDateFragmentPortrait_6.class);
+        Intent i = new Intent(CustProfile_5.this, CustDrawerMenu_10.class);
         startActivity(i);
 
     }
@@ -171,36 +193,92 @@ public class CustProfile_5 extends FragmentActivity {
             case R.id.masculinoCustRB_5:
                 if (checked)
                     customerDTO.setGender(Gender.MALE);
-                    break;
+                Toast.makeText(getApplicationContext(), customerDTO.getGender().toString(), Toast.LENGTH_LONG).show();
+
+                break;
             case R.id.femininoCustRB_5:
                 if (checked)
                     customerDTO.setGender(Gender.FEMALE);
-                    break;
+                Toast.makeText(getApplicationContext(), customerDTO.getGender().toString(), Toast.LENGTH_LONG).show();
+
+                break;
         }
     }
 
-    public static class DatePickerFragment extends DialogFragment
-            implements DatePickerDialog.OnDateSetListener {
+    public void addListenerOnButton() {
 
+        chamaDatePickerBTN = (Button) findViewById(R.id.escolheDataCustBTN_5);
+
+        chamaDatePickerBTN.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                showDialog(DATE_DIALOG_ID);
+
+            }
+
+        });
+
+    }
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        switch (id) {
+            case DATE_DIALOG_ID:
+                // set date picker as current date
+                return new DatePickerDialog(this, datePickerListener,
+                        year, month,day);
+        }
+        return null;
+    }
+
+    public DatePickerDialog.OnDateSetListener datePickerListener
+            = new DatePickerDialog.OnDateSetListener() {
+
+        // when dialog box is closed, below method will be called.
+        public void onDateSet(DatePicker view, int selectedYear,
+                              int selectedMonth, int selectedDay) {
+            year = selectedYear;
+            month = selectedMonth;
+            day = selectedDay;
+            // coloca o resultado dentro de uma variavel do tipo date
+            Calendar myCal = Calendar.getInstance();
+            myCal.set(Calendar.YEAR, year);
+            myCal.set(Calendar.MONTH, month);
+            myCal.set(Calendar.DAY_OF_MONTH, day);
+            chosenDate = myCal.getTime();
+
+            // coloca data selecionada dentro do TextView correspondente
+            dataEscolhidaTV.setText(new StringBuilder().append(month + 1)
+                    .append("-").append(day).append("-").append(year)
+                    .append(" "));
+
+        }
+    };
+
+    private class HttpRequestTask extends AsyncTask<CustomerDTO, Void, CustomerDTO> {
         @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the current date as the default date in the picker
-            final Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
+        protected CustomerDTO doInBackground(CustomerDTO... params) {
+            try {
 
-            // Create a new instance of DatePickerDialog and return it
-            return new DatePickerDialog(getActivity(), this, year, month, day);
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                customerDTO = restTemplate.postForObject(URLConstants.JSON_SERVER_URL +
+                URLConstants.CUSTOMER_SAVE, customerDTO, CustomerDTO.class);
+                System.out.println("conectou");
+                return customerDTO;
+            } catch (Exception e) {
+                //Log.e("CustProfile_5", e.getMessage(), e);
+                System.out.println("nao conectou");
+            }
+            return null;
         }
 
-        public void onDateSet(DatePicker view, int year, int month, int day) {
-            // Do something with the date chosen by the user
-        }
-    }
-    public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment();
-        //newFragment.show(getSupportFragmentManager(), "datePicker");
+       /* @Override
+        protected void onPostExecute(CustomerService customerService1) {
+           // tela de carregamento
+        }*/
+
     }
 
 }
