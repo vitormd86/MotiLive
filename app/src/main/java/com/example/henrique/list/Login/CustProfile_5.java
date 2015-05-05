@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -171,9 +172,6 @@ public class CustProfile_5 extends ActionBarActivity {
         customerDTO.setPassword("pancreas");
 
 
-
-
-
         // Get Password Edit View Value
          new HttpRequestTask().execute(customerDTO);
 
@@ -268,8 +266,8 @@ public class CustProfile_5 extends ActionBarActivity {
                 System.out.println("conectou");
                 return customerDTO;
             } catch (Exception e) {
-                //Log.e("CustProfile_5", e.getMessage(), e);
-                System.out.println("nao conectou");
+                    System.out.println("nao conectou");
+                    e.printStackTrace();
             }
             return null;
         }

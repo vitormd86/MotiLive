@@ -99,7 +99,7 @@ public class CustScheduleDateFragmentPortrait_6 extends Fragment {
 
     public void recoverListProfessionals(View view)
     {
-        RequestParams params = new RequestParams();
+        //RequestParams params = new RequestParams();
        // params.put("id_customer", customerDTO);
     }
 

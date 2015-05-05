@@ -39,4 +39,5 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-databind:2.3.2'
     compile files('/home/htamashiro/AndroidStudioProjects/MotiLive/android-async-http-1.4.4.jar')
     compile 'br.com.motiserver:moti-dto:0.0.1-SNAPSHOT'
+    compile files('C:/Users/Hide/AndroidStudioProjects/MotiLive/android-async-http-1.4.4.jar')
 }

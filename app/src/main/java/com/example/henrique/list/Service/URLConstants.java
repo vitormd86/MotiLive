@@ -2,7 +2,10 @@ package com.example.henrique.list.Service;
 
 public class URLConstants {
     // SERVER
+
     public static final String JSON_SERVER_URL = "http://192.169.198.138:8080//moti-json";
+
+    //public static final String JSON_SERVER_URL = "http://192.168.0.10:8080//moti-json";
 
     // CUSTOMER SERVICE
     public static final String CUSTOMER_FIND = "/customer/find?id={id}";
