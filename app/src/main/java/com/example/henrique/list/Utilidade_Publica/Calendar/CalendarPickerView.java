@@ -37,6 +37,7 @@ import static java.util.Calendar.MINUTE;
 import static java.util.Calendar.MONTH;
 import static java.util.Calendar.SECOND;
 import static java.util.Calendar.YEAR;
+import static java.util.Calendar.getInstance;
 
 /**
  * Android component to allow picking a date from a calendar view (a list of months).  Must be
@@ -646,6 +647,67 @@ public class CalendarPickerView extends ListView {
     }
     selectedCells.clear();
     selectedCals.clear();
+  }
+
+  public void unselectDate(Date date){
+      validateDate(date);
+      Calendar newlyCalendar = getInstance(locale);
+      newlyCalendar.setTime(date);
+      setMidnight(newlyCalendar);
+
+      for (MonthCellDescriptor selectedCell : selectedCells) {
+          if(selectedCell.getDate().equals(newlyCalendar.getTime())){
+              Toast.makeText(getContext(), "Entrou no if ", Toast.LENGTH_SHORT).show();
+              selectedCell.setSelected(false);
+              selectedCells.remove(selectedCell);
+              break;
+          }
+      }
+      for (Calendar cal : selectedCals) {
+          if (sameDate(cal, newlyCalendar)) {
+              selectedCals.remove(cal);
+              break;
+          }
+      }
+      validateAndUpdate();
+
+      //Toast.makeText(getContext(), "Entrou no metodo " + s, Toast.LENGTH_SHORT).show();
+
+ /*     for (MonthCellDescriptor selectedCell : selectedCells) {
+          // De-select the currently-selected cell.
+
+          selectedCell.setSelected(false);
+
+          if (dateListener != null) {
+              Date selectedDate = selectedCell.getDate();
+
+              if (selectionMode == SelectionMode.RANGE) {
+                  int index = selectedCells.indexOf(selectedCell);
+                  if (index == 0 || index == selectedCells.size() - 1) {
+                      dateListener.onDateUnselected(selectedDate);
+                  }
+              } else {
+                  dateListener.onDateUnselected(selectedDate);
+              }
+          }
+      }
+      selectedCells.clear();
+      selectedCals.clear();
+
+
+
+
+      for (MonthCellDescriptor selectedCell : selectedCells) {
+          if (selectedCell.getDate().equals(date)) {
+
+              // De-select the currently-selected cell.
+              selectedCell.setSelected(false);
+              selectedCells.remove(selectedCell);
+              date = null;
+              validateAndUpdate();
+              break;
+          }
+      }*/
   }
 
   private Date applyMultiSelect(Date date, Calendar selectedCal) {
