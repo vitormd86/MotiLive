@@ -45,20 +45,13 @@ public class CustProfile_5 extends ActionBarActivity {
 
     ImageButton imageButton;
     EditText nomeET;
-
     TextView dataEscolhidaTV;
-
-
     private Button chamaDatePickerBTN;
-
     private int year;
     private int month;
     private int day;
-
     private Date chosenDate;
-
     public CustomerService customerService;
-
 
     RadioButton masculinoRB;
     RadioButton femininoRB;
@@ -75,7 +68,6 @@ public class CustProfile_5 extends ActionBarActivity {
     EditText estadoET;
 
     CustomerDTO customerDTO;
-    boolean usuarioSalvo;
 
     static final int DATE_DIALOG_ID = 999;
 
@@ -113,7 +105,6 @@ public class CustProfile_5 extends ActionBarActivity {
         cidadeET = (EditText) findViewById(R.id.cidadeCustET_5);
         estadoET = (EditText) findViewById(R.id.estadoCustET_5);
 
-        //onRadioButtonClicked(findViewById(R.id.radioGroup));
 
         addListenerOnButton();
 
@@ -146,6 +137,7 @@ public class CustProfile_5 extends ActionBarActivity {
 
 
     private void confirmRegistration(){
+        customerDTO = new CustomerDTO();
         customerDTO.setName(nomeET.getText().toString());
         customerDTO.setEmail(emailET.getText().toString());
         customerDTO.setBirthDate(chosenDate);
@@ -157,6 +149,7 @@ public class CustProfile_5 extends ActionBarActivity {
         customerDTO.setAddressNumber(numeroET.getText().toString());
         customerDTO.setAddressZipCode(CEPET.getText().toString());
         customerDTO.setAddressState(UF.SAO_PAULO);
+        customerDTO.setGender(Gender.MALE); //TODO arrumar o  sexo do programa
         //Toast.makeText(getApplicationContext(), customerDTO.getAddressState().toString(), Toast.LENGTH_LONG).show();
 
         customerDTO.setAddressComplement(complementoET.getText().toString());
@@ -172,12 +165,8 @@ public class CustProfile_5 extends ActionBarActivity {
         customerDTO.setPassword("pancreas");
 
 
-        // Get Password Edit View Value
+        // executa requisição JSON
          new HttpRequestTask().execute(customerDTO);
-
-        Intent i = new Intent(CustProfile_5.this, CustDrawerMenu_10.class);
-        startActivity(i);
-
     }
 //TODO preencher corretamente
 
@@ -258,7 +247,6 @@ public class CustProfile_5 extends ActionBarActivity {
         @Override
         protected CustomerDTO doInBackground(CustomerDTO... params) {
             try {
-
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
                 customerDTO = restTemplate.postForObject(URLConstants.JSON_SERVER_URL +
@@ -272,10 +260,18 @@ public class CustProfile_5 extends ActionBarActivity {
             return null;
         }
 
-       /* @Override
-        protected void onPostExecute(CustomerService customerService1) {
+        protected void onPostExecute(CustomerDTO Result) {
+            super.onPostExecute(Result);
            // tela de carregamento
-        }*/
+            if (Result != null) {
+                Intent i = new Intent(CustProfile_5.this, CustDrawerMenu_10.class);
+                startActivity(i);
+            }else{
+                System.out.println("alguma coisa deu errado");
+            }
+        }
+
+
 
     }
 
