@@ -1,6 +1,5 @@
 package com.example.henrique.list.Profissional;
 
-import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -16,7 +15,9 @@ import android.widget.Toast;
 import com.example.henrique.list.Utilidade_Publica.Calendar.CalendarPickerView;
 import com.example.henrique.list.R;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Cristor on 14/04/2015.
@@ -106,7 +107,7 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
         //configura duas datas para limites, inicial e final
         initDate = Calendar.getInstance();
         endDate = Calendar.getInstance();
-        endDate.add(Calendar.YEAR, 1);
+        endDate.add(Calendar.MONTH, 3);
 
         //inicializa calendario apontando datas finais, iniciais e modo de selecao
         screenCalendar.init(initDate.getTime(), endDate.getTime())
@@ -153,19 +154,19 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(buttonView==sunCB)
-                    selectWeekDays(isChecked, 0);
-                if(buttonView==monCB)
                     selectWeekDays(isChecked, 1);
-                if(buttonView==tueCB)
+                if(buttonView==monCB)
                     selectWeekDays(isChecked, 2);
-                if(buttonView==wedCB)
+                if(buttonView==tueCB)
                     selectWeekDays(isChecked, 3);
-                if(buttonView==thuCB)
+                if(buttonView==wedCB)
                     selectWeekDays(isChecked, 4);
-                if(buttonView==friCB)
+                if(buttonView==thuCB)
                     selectWeekDays(isChecked, 5);
-                if(buttonView==satCB)
+                if(buttonView==friCB)
                     selectWeekDays(isChecked, 6);
+                if(buttonView==satCB)
+                    selectWeekDays(isChecked, 7);
 
             }
         };
@@ -180,16 +181,57 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
 
     public void selectWeekDays(boolean isChecked, int dayOfWeek){
         //recebe qual semana deve ser adicionada/removida do calendario
-
+        ArrayList<Date> repeatDates = repeatDaysOfWeek(initDate.getTime(), endDate.getTime(), dayOfWeek);
         if(isChecked){
             //Toast.makeText(this, "Clicado = " + dayOfWeek + " isChecked = 1", Toast.LENGTH_SHORT).show();
-            screenCalendar.selectDate(initDate.getTime());
+            for (Date toCheckDate : repeatDates){
+                if(!screenCalendar.isDateSelected(toCheckDate)){
+                    screenCalendar.selectDate(toCheckDate);
+                }
+            }
+            //screenCalendar.selectDate(initDate.getTime());
         } if (!isChecked){
+            for (Date toUncheckDate : repeatDates){
+                screenCalendar.unselectDate(toUncheckDate);
+            }
             //Toast.makeText(this, "Clicado = " + dayOfWeek + " isChecked = 0", Toast.LENGTH_SHORT).show();
-            screenCalendar.unselectDate(initDate.getTime());
+            //screenCalendar.unselectDate(initDate.getTime());
         }
     }
 
+    public ArrayList<Date> repeatDaysOfWeek (Date initDate, Date endDate, int targetDayOfWeek){
+        //este metodo gera uma array de repeticao de dias de semana, dentro de um limite minimo e maximo de data.
+
+        ArrayList<Date> selectedDaysOfWeeK = new ArrayList<>();
+
+        //inicializando calendarios
+        Calendar dateCal = Calendar.getInstance();
+        Calendar endDateCal = Calendar.getInstance();
+        dateCal.setTime(initDate);
+        endDateCal.setTime(endDate);
+        //zerando horario dos calendarios
+        CalendarPickerView.setMidnight(dateCal);
+        CalendarPickerView.setMidnight(endDateCal);
+
+        int initDayOfWeek = dateCal.get(Calendar.DAY_OF_WEEK);
+        for (int i = 0; i < 7; i++){
+            //laco para encontrar o dia da semana requisitado como argumento do metodo
+            if (initDayOfWeek == targetDayOfWeek)
+                break;
+            dateCal.add(Calendar.DAY_OF_WEEK, 1);
+            initDayOfWeek = dateCal.get(Calendar.DAY_OF_WEEK);
+        }
+
+        while(dateCal.getTime().getTime() < endDateCal.getTime().getTime()){
+            //adiciona todos os dias escolhidos dentro da array que sera retornada
+            selectedDaysOfWeeK.add(dateCal.getTime());
+            dateCal.add(Calendar.DAY_OF_WEEK, 7);
+        }
+
+        //Toast.makeText(this, "Igualou no dia " + initDayOfWeek + ". Date = " + initDateCal, Toast.LENGTH_SHORT).show();
+
+        return selectedDaysOfWeeK;
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu items for use in the action bar

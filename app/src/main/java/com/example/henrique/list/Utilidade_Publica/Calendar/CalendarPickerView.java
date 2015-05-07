@@ -474,7 +474,7 @@ public class CalendarPickerView extends ListView {
   }
 
   /** Clears out the hours/minutes/seconds/millis of a Calendar. */
-  static void setMidnight(Calendar cal) {
+  public static void setMidnight(Calendar cal) {
     cal.set(HOUR_OF_DAY, 0);
     cal.set(MINUTE, 0);
     cal.set(SECOND, 0);
@@ -540,9 +540,9 @@ public class CalendarPickerView extends ListView {
       return false;
     }
     boolean wasSelected = doSelectDate(date, monthCellWithMonthIndex.cell);
-    if (wasSelected) {
-      scrollToSelectedMonth(monthCellWithMonthIndex.monthIndex, smoothScroll);
-    }
+    //if (wasSelected) {
+    //  scrollToSelectedMonth(monthCellWithMonthIndex.monthIndex, smoothScroll);
+    //}
     return wasSelected;
   }
 
@@ -657,7 +657,6 @@ public class CalendarPickerView extends ListView {
 
       for (MonthCellDescriptor selectedCell : selectedCells) {
           if(selectedCell.getDate().equals(newlyCalendar.getTime())){
-              Toast.makeText(getContext(), "Entrou no if ", Toast.LENGTH_SHORT).show();
               selectedCell.setSelected(false);
               selectedCells.remove(selectedCell);
               break;
@@ -708,6 +707,15 @@ public class CalendarPickerView extends ListView {
               break;
           }
       }*/
+  }
+
+  public boolean isDateSelected(Date date){
+      for (MonthCellDescriptor selectedCell : selectedCells){
+          if(selectedCell.getDate().equals(date)){
+              return true;
+          }
+      }
+      return false;
   }
 
   private Date applyMultiSelect(Date date, Calendar selectedCal) {
