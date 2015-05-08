@@ -111,7 +111,13 @@ public class ProScheduleListFragment_14 extends Fragment {
                 if(!selectedItem.isSection()) {
                     Intent intent = new Intent(getActivity(), ProScheduleConfirmActivity_13.class);
                     intent.putExtra("clientName", selectedItem.getPersonName());
-                    intent.putExtra("address", "Endereco");
+                    intent.putExtra("street", "Av da Liberdade");
+                    intent.putExtra("number", "444");
+                    intent.putExtra("cep", "01501-001");
+                    intent.putExtra("complement", "Casa 2");
+                    intent.putExtra("district", "Liberdade");
+                    intent.putExtra("city", "São Paulo");
+                    intent.putExtra("state", "SP");
                     intent.putExtra("selectedServices", new ArrayList<String>());
                     intent.putExtra("sDate", "Sem dados");
                     intent.putExtra("selectedHour", 0);

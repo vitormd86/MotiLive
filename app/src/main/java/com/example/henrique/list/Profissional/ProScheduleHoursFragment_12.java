@@ -37,7 +37,8 @@ public class ProScheduleHoursFragment_12 extends Fragment {
     ArrayList<String> selectedServicesTitles = new ArrayList<>();
     ResizeAnimation resizeAnimation;
     boolean isHoursOpened,  isMinutesOpened;
-    String  sDate, clientName, address;
+    String  sDate, clientName, fullAddress;
+    String street, number, cep, complement, district, city, state;
     int freeHourMinutesWidth = 90;
     int selectedHour, selectedMinutes;
     double totalPrice;
@@ -63,7 +64,14 @@ public class ProScheduleHoursFragment_12 extends Fragment {
         clientName = args.getString("selectedClient");
         sDate = args.getString("selectedDate");
         //deve configurar dados do cliente a partir do bd
-        address = "Av. Leoncio de Magalhães, 1066";
+        street = "Av. Leoncio de Magalhães";
+        number = "1066";
+        complement = " " + "ap 12";
+        district = "Jardim São Paulo";
+        city = "São Paulo";
+        state = "SP";
+        cep = "02101-000";
+        fullAddress = street + ", " + number + complement + ". ";
         //String [] serviceTitles = {testeS[0].getNome()};
 
         //alimentando items do layout
@@ -79,7 +87,7 @@ public class ProScheduleHoursFragment_12 extends Fragment {
 
         //Configura as variaveis do cabecalho
         textClientName.setText(clientName);
-        textAddress.setText(address);
+        textAddress.setText(fullAddress);
         textDate.setText(sDate);
 
         //Configurando listas de servicos/horas/minutos livre
@@ -248,7 +256,13 @@ public class ProScheduleHoursFragment_12 extends Fragment {
 
         //todo deve passar na intent o vetor dos servicos selecionados
         intent.putExtra("clientName", clientName);
-        intent.putExtra("address", address);
+        intent.putExtra("street", street);
+        intent.putExtra("number", number);
+        intent.putExtra("cep", cep);
+        intent.putExtra("complement", complement);
+        intent.putExtra("district", district);
+        intent.putExtra("city", city);
+        intent.putExtra("state", state);
         intent.putExtra("selectedServices", selectedServicesTitles);
         intent.putExtra("sDate", sDate);
         intent.putExtra("selectedHour", selectedHour);

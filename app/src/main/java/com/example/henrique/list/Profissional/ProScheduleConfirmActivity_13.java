@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -39,7 +40,13 @@ public class ProScheduleConfirmActivity_13 extends ActionBarActivity {
         //recebe valores da activity anterior
         Bundle extras = getIntent().getExtras();
         clientName = extras.getString("clientName");
-        String address = extras.getString("address");
+        String street = extras.getString("street");
+        String number = extras.getString("number");
+        String cep = extras.getString("cep");
+        String complement = extras.getString("complement");
+        String district = extras.getString("district");
+        String city = extras.getString("city");
+        String state = extras.getString("state");
         ArrayList<String> serviceNames = extras.getStringArrayList("selectedServices");
         String sDate = extras.getString("sDate");
         int selectedHour = extras.getInt("selectedHour");
@@ -50,9 +57,6 @@ public class ProScheduleConfirmActivity_13 extends ActionBarActivity {
 
 
         //inicia objetos de layout
-
-
-
         ImageView imagePhoto = (ImageView) findViewById(R.id.photo);
         TextView textClientName = (TextView) findViewById(R.id.clientName);
         TextView textDate = (TextView) findViewById(R.id.date);
@@ -62,7 +66,14 @@ public class ProScheduleConfirmActivity_13 extends ActionBarActivity {
         TextView textFinalHour = (TextView) findViewById(R.id.finalHour);
         ListView listServicePrices = (ListView) findViewById(R.id.listServicePrices);
         TextView textTotalPrice = (TextView) findViewById(R.id.totalPrice);
-        TextView textAddress = (TextView) findViewById(R.id.address);
+        EditText streetET = (EditText) findViewById(R.id.street);
+        EditText numberET = (EditText) findViewById(R.id.number);
+        EditText cepET = (EditText) findViewById(R.id.cep);
+        EditText complementET = (EditText) findViewById(R.id.complement);
+        EditText districtET = (EditText) findViewById(R.id.district);
+        EditText cityET  = (EditText) findViewById(R.id.city);
+        EditText stateET = (EditText) findViewById(R.id.state);
+
 
         //comeca a formatar valores a serem apresentados
         //inicializando e configurando horarios
@@ -89,12 +100,20 @@ public class ProScheduleConfirmActivity_13 extends ActionBarActivity {
         //configura valores em suas views
         textClientName.setText(clientName);
         textDate.setText(sDate);
-        textAddress.setText(address);
         textTotalPrice.setText("R$: " + String.format("%.2f", totalPrice));
         textInicialHour.setText(df2.format(inicialTime));
         textTotalTime.setText(df.format(totalTime));
         textFinalHour.setText(df2.format(finalTime));
-        textAddress.setText("Rua xxxxxxxxx, 000 - ap 00. ");
+        streetET.setText(street);
+        numberET.setText(number);
+        complementET.setText(complement);
+        cepET.setText(cep);
+        districtET.setText(district);
+        cityET.setText(city);
+        stateET.setText(state);
+
+
+
         //falta buscar endereco do usuario, ou profissional e precos isolados
     }
 
