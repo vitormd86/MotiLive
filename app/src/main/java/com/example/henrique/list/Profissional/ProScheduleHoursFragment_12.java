@@ -14,7 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.henrique.list.Adapters.MyAdapterFreeTime;
-import com.example.henrique.list.Adapters.MyAdapterServiceTypes;
+import com.example.henrique.list.Adapters.MyAdapterServicesSchedule;
 import com.example.henrique.list.Mapeamento_de_Classes.Servico;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Utilidade_Publica.ResizeAnimation;
@@ -72,7 +72,6 @@ public class ProScheduleHoursFragment_12 extends Fragment {
         state = "SP";
         cep = "02101-000";
         fullAddress = street + ", " + number + complement + ". ";
-        //String [] serviceTitles = {testeS[0].getNome()};
 
         //alimentando items do layout
         textClientName = (TextView) v.findViewById(R.id.professionalName);
@@ -81,7 +80,7 @@ public class ProScheduleHoursFragment_12 extends Fragment {
         listHours = (ListView) v.findViewById(R.id.listHours);
         listMinutes = (ListView) v.findViewById(R.id.listMinutes);
         listServices = (ListView) v.findViewById(R.id.listServices);
-        myAdapterServiceTypes = new MyAdapterServiceTypes(getActivity(), testeS);
+        myAdapterServiceTypes = new MyAdapterServicesSchedule(getActivity(), testeS);
         myAdapterFreeHours = new MyAdapterFreeTime(getActivity(), freeHours, listHours);
         myAdapterFreeMinutes = new MyAdapterFreeTime(getActivity(), freeMinutes, listMinutes);
 

@@ -9,17 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.example.henrique.list.Adapters.ClientAdapter;
-import com.example.henrique.list.Adapters.ProfessionalAdapter;
-import com.example.henrique.list.Cliente.CustScheduleHourFragment_7;
 import com.example.henrique.list.R;
+import com.example.henrique.list.Utilidade_Publica.Calendar.CalendarPickerView;
 import com.loopj.android.http.RequestParams;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import br.com.motiserver.dto.CustomerDTO;
@@ -29,28 +28,25 @@ import br.com.motiserver.dto.CustomerDTO;
  */
 public class ProScheduleDateFragment_10 extends Fragment {
 
+    View v;
     String[] favoriteClients;
     ListView listClients;
-    CalendarView myCalendarView;
     Button newClientButton;
 
+    CalendarPickerView screenCalendar;
+    Calendar initDate, endDate;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_pro_schedule_date_10, parent, false);
+        v = inflater.inflate(R.layout.fragment_pro_schedule_date_10, parent, false);
 
         favoriteClients = new String[]{"Leandro Massaru Kubota (Cliente)", "Ivo Issao Tobioka",
                 "Michel SantaGuida", "Henrique Tamashiro", "Vitor Mendes", "Professional 6", "Professional 7"};
 
-        listClients = (ListView) v.findViewById(R.id.ListViewPro_10); // inicializa a List View do fragment inflado
-        myCalendarView = (CalendarView) v.findViewById(R.id.calendarViewPro_10); // inicializa a Calendar View do fragment inflado
-        newClientButton = (Button) v.findViewById(R.id.newClientButton);
+        initViews();
+        initCalendar();
 
-        ListAdapter clientAdapter; //inicializa o adaptador de array, pra encaixar o array na lista
-        clientAdapter = new ClientAdapter(v.getContext(), favoriteClients);
-
-        listClients.setAdapter(clientAdapter);// seleciona o adaptador... no caso  "clientAdapter"
 
         //TODO: colocar o objeto q vem la de traz do login
-
         //supondo q personDTO já exista por causa do login.
         long teste = 50;
         CustomerDTO customerDTO = new CustomerDTO();
@@ -63,15 +59,39 @@ public class ProScheduleDateFragment_10 extends Fragment {
         return v;
     }
 
+    private void initViews(){
+        listClients = (ListView) v.findViewById(R.id.ListViewPro_10); // inicializa a List View do fragment inflado
+        newClientButton = (Button) v.findViewById(R.id.newClientButton);
+        screenCalendar = (CalendarPickerView) v.findViewById(R.id.calendar_view);
+
+        ListAdapter clientAdapter; //inicializa o adaptador de array, pra encaixar o array na lista
+        clientAdapter = new ClientAdapter(v.getContext(), favoriteClients);
+        listClients.setAdapter(clientAdapter);// seleciona o adaptador... no caso  "clientAdapter"
+    }
+
+    private void initCalendar(){
+        //metodo q inicializa calendario
+
+        //configura duas datas para limites, inicial e final
+        initDate = Calendar.getInstance();
+        endDate = Calendar.getInstance();
+        endDate.add(Calendar.MONTH, 3);
+
+        //inicializa calendario apontando datas finais, iniciais e modo de selecao
+        screenCalendar.init(initDate.getTime(), endDate.getTime())
+                .inMode(CalendarPickerView.SelectionMode.SINGLE);
+
+    }
     //este metodo retorna a data selecionada no calendario formatada em String
-    private String getCalendarDate(CalendarView cv){
+    private String getCalendarDate(CalendarPickerView calendar){
         String sDate;
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        sDate = sdf.format(new Date(cv.getDate()));
+        sDate = sdf.format(new Date(calendar.getSelectedDate().getTime()));
+
         return sDate;
     }
 
-    public void setNewClientListener(){
+    private void setNewClientListener(){
         //esse metodo gera o listener do botao Novo Cliente
         newClientButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,14 +102,15 @@ public class ProScheduleDateFragment_10 extends Fragment {
             }
         });
     }
-    public void setClientsListener(){
+    private void setClientsListener(){
         //este metodo gera os listener da lista de cliente
         listClients.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 //recebe a data selecionada para passar para a proxima tela
-                String selectedDate = getCalendarDate(myCalendarView);
+                String selectedDate = getCalendarDate(screenCalendar);
+
 
                 //opcoesSelecionadas opcoes = new opcoesSelecionadas(String.valueOf(parent.getItemAtPosition(position)), null, null);
                 String selectedClient = String.valueOf(parent.getItemAtPosition(position));

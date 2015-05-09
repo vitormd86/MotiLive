@@ -26,10 +26,11 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
 
     Spinner expedientStartHourSP, expedientStartMinutesSP, expedientEndHourSP, expedientEndMinutesSP;
     Spinner breakStartHourSP, breakStartMinutesSP, breakEndHourSP, breakEndMinutesSP;
+    Spinner intervalBetweenHour, intervalBeteewMinutes;
     RadioGroup breakTimeRadioGroup;
     CheckBox sunCB, monCB, tueCB, wedCB, thuCB, friCB, satCB;
-    CalendarPickerView screenCalendar;
 
+    CalendarPickerView screenCalendar;
     Calendar initDate, endDate;
 
 
@@ -39,6 +40,9 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pro_schedule_config_8);
+
+        //Habilitando BackNavigation button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //configurando views do layout
         initViews();
@@ -53,7 +57,7 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
 
     }
 
-    public void initViews(){
+    private void initViews(){
         //este metodo inicializa as views
         expedientStartHourSP = (Spinner) findViewById(R.id.expedientStartHour);
         expedientStartMinutesSP = (Spinner) findViewById(R.id.expedientStartMinutes);
@@ -63,6 +67,8 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
         breakStartMinutesSP = (Spinner) findViewById(R.id.breakTimeStartMinutes);
         breakEndHourSP = (Spinner) findViewById(R.id.breakTimeEndHour);
         breakEndMinutesSP = (Spinner) findViewById(R.id.breakTimeEndMinutes);
+        intervalBetweenHour = (Spinner) findViewById(R.id.intervalBetweenHour);
+        intervalBeteewMinutes = (Spinner) findViewById(R.id.intervalBetweenMinutes);
 
         sunCB = (CheckBox) findViewById(R.id.checkboxSun);
         monCB = (CheckBox) findViewById(R.id.checkboxMon);
@@ -91,17 +97,24 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
         breakStartHourSP.setSelection(12);
         breakEndHourSP.setAdapter(hourAdapter);
         breakEndHourSP.setSelection(13);
+        intervalBetweenHour.setAdapter(hourAdapter);
+        intervalBetweenHour.setSelection(0);
 
-        //adaprter de array de minutos
+        //adapter de array de minutos
         ArrayAdapter<CharSequence> minutesAdapter = ArrayAdapter.createFromResource(this, R.array.minutes, android.R.layout.simple_spinner_dropdown_item);
         minutesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         expedientStartMinutesSP.setAdapter(minutesAdapter);
         expedientEndMinutesSP.setAdapter(minutesAdapter);
         breakStartMinutesSP.setAdapter(minutesAdapter);
         breakEndMinutesSP.setAdapter(minutesAdapter);
+        intervalBeteewMinutes.setAdapter(minutesAdapter);
+        intervalBeteewMinutes.setSelection(4);
+
+
+
     }
 
-    public void initCalendar(){
+    private void initCalendar(){
         //metodo q inicializa calendario
 
         //configura duas datas para limites, inicial e final

@@ -106,6 +106,13 @@ public class CustScheduleListFragment_9 extends Fragment {
                 if(!selectedItem.isSection()) {
                     Intent intent = new Intent(getActivity(), CustScheduleConfirmActivity_8.class);
                     intent.putExtra("professionalName", selectedItem.getPersonName());
+                    intent.putExtra("street", "Av da Liberdade");
+                    intent.putExtra("number", "444");
+                    intent.putExtra("cep", "01501-001");
+                    intent.putExtra("complement", "Casa 2");
+                    intent.putExtra("district", "Liberdade");
+                    intent.putExtra("city", "São Paulo");
+                    intent.putExtra("state", "SP");
                     intent.putExtra("profession", "Sem dados");
                     intent.putExtra("selectedServices", new ArrayList<String>());
                     intent.putExtra("sDate", "Sem dados");
