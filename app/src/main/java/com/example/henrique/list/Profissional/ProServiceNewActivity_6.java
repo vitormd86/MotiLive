@@ -9,8 +9,11 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.henrique.list.R;
+
+import br.com.motiserver.dto.ServiceDTO;
 
 /**
  * Created by michael on 01/05/2015.
@@ -19,14 +22,12 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
 
     EditText serviceNameET, serviceDescriptionET, sessionValueET;
     Spinner sessionHoursSP, sessionMinutesSP;
+    ServiceDTO serviceDTO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pro_service_new_6);
-
-        //Habilitando BackNavigation button
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         initViews();
         initSpinnerAdapters();
@@ -65,6 +66,8 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         switch (item.getItemId()) {
             case R.id.confirmButton:
                 Intent intent = new Intent(ProServiceNewActivity_6.this, ProServiceListActivity_7.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                intent.putExtra("service", serviceNameET.getText().toString());
                 startActivity(intent);
                 return true;
             default:

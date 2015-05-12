@@ -4,14 +4,17 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 
 import com.example.henrique.list.Adapters.ScheduleAdapter;
 import com.example.henrique.list.Beans.ScheduleItem;
+import com.example.henrique.list.Profissional.ProScheduleDateFragment_10;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Utilidade_Publica.PinnedSectionListView;
 
@@ -27,6 +30,7 @@ public class CustScheduleListFragment_9 extends Fragment {
     private FragmentActivity fa;
 
     PinnedSectionListView listSchedules;
+    ImageButton addScheduleBT;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,11 +42,13 @@ public class CustScheduleListFragment_9 extends Fragment {
         ArrayList<ScheduleItem> scheduleItems = initScheduleItems();
 
         listSchedules = (PinnedSectionListView) v.findViewById(R.id.pinnedListSchedules);
+        addScheduleBT = (ImageButton) v.findViewById(R.id.addSchedule);
         ArrayAdapter schedulesAdapter = new ScheduleAdapter(getActivity(), scheduleItems);
 
         listSchedules.initShadow(false);
         listSchedules.setAdapter(schedulesAdapter);
         setListSchedulesListener();
+        setAddServiceListener();
 
         return v;
     }
@@ -124,6 +130,20 @@ public class CustScheduleListFragment_9 extends Fragment {
                 }
             }
         });
+    }
+    private void setAddServiceListener(){
+        addScheduleBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CustScheduleDateFragmentPortrait_6 custScheduleDateFragmentPortrait_6 = new CustScheduleDateFragmentPortrait_6();
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(R.id.content_frame, custScheduleDateFragmentPortrait_6);
 
+                //este metodo permite q o usuario navegue de volta
+                ft.addToBackStack(null);
+
+                ft.commit();
+            }
+        });
     }
 }

@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 
 import com.example.henrique.list.Adapters.ScheduleAdapter;
 import com.example.henrique.list.Beans.ScheduleItem;
@@ -32,6 +34,7 @@ public class ProScheduleListFragment_14 extends Fragment {
     private FragmentActivity fa;
 
     PinnedSectionListView listSchedules;
+    ImageButton addScheduleBT;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,11 +46,13 @@ public class ProScheduleListFragment_14 extends Fragment {
         ArrayList<ScheduleItem> scheduleItems = initScheduleItems();
 
         listSchedules = (PinnedSectionListView) v.findViewById(R.id.pinnedListSchedules);
+        addScheduleBT = (ImageButton) v.findViewById(R.id.addSchedule);
         ArrayAdapter schedulesAdapter = new ScheduleAdapter(getActivity(), scheduleItems);
 
         listSchedules.initShadow(false);
         listSchedules.setAdapter(schedulesAdapter);
         setListSchedulesListener();
+        setAddServiceListener();
 
         return v;
     }
@@ -128,6 +133,21 @@ public class ProScheduleListFragment_14 extends Fragment {
                 }
             }
         });
+    }
 
+    private void setAddServiceListener(){
+        addScheduleBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProScheduleDateFragment_10 proScheduleDateFragment_10 = new ProScheduleDateFragment_10();
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(R.id.content_frame, proScheduleDateFragment_10);
+
+                //este metodo permite q o usuario navegue de volta
+                ft.addToBackStack(null);
+
+                ft.commit();
+            }
+        });
     }
 }
