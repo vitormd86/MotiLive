@@ -151,7 +151,7 @@ public class Login_1 extends Activity {
                 return personDTO;
 
             } catch (Exception e) {
-                Log.e("MainActivity", e.getMessage(), e);
+                e.printStackTrace();
             }
 
             return null;

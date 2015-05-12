@@ -32,8 +32,7 @@
 
             android:layout_above="@+id/nascimentoCustTV_5"
             android:layout_toRightOf="@+id/nascimentoCustTV_5"
-            android:layout_alignRight="@+id/escolheDataCustBTN_5"
-            android:layout_alignEnd="@+id/escolheDataCustBTN_5"
+            android:maxLength="60"
             android:inputType="text" />
 
         <TextView
@@ -50,22 +49,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Data escolhida"
+            android:onClick="showDatePickerDialog"
             android:textSize="20sp"
             android:id="@+id/dataEscolhidaTV_5"
-            android:layout_alignBottom="@+id/escolheDataCustBTN_5"
+            android:layout_below="@id/nascimentoCustTV_5"
             android:layout_alignLeft="@+id/nascimentoCustTV_5"
             android:layout_alignStart="@+id/nascimentoCustTV_5" />
-
-
-
-
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sexo"
             android:id="@+id/sexoCustTV_5"
-            android:layout_below="@+id/escolheDataCustBTN_5"
+            android:layout_below="@+id/dataEscolhidaTV_5"
             android:layout_alignLeft="@+id/dataEscolhidaTV_5"
             android:layout_alignStart="@+id/dataEscolhidaTV_5" />
 
@@ -80,7 +76,8 @@
             android:layout_toRightOf="@+id/sexoCustTV_5"
             android:layout_alignRight="@+id/emailCustET_5"
             android:layout_alignEnd="@+id/emailCustET_5"
-            android:inputType="phone" />
+            android:inputType="phone"
+            android:maxLength="9"/>
 
         <EditText
             android:layout_width="fill_parent"
@@ -90,9 +87,9 @@
             android:id="@+id/emailCustET_5"
             android:layout_below="@+id/radioGroup"
             android:layout_toRightOf="@+id/sexoCustTV_5"
-            android:layout_alignRight="@+id/escolheDataCustBTN_5"
-            android:layout_alignEnd="@+id/escolheDataCustBTN_5"
-            android:inputType="textWebEmailAddress" />
+
+            android:inputType="textWebEmailAddress"
+            android:maxLength="60"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -112,7 +109,9 @@
             android:layout_below="@+id/localAtendimentoCustTV_5"
             android:layout_alignLeft="@+id/RuaCustET_5"
             android:layout_alignStart="@+id/RuaCustET_5"
-            android:inputType="text" />
+            android:maxLength="8"
+            android:inputType="number"
+            />
 
         <EditText
             android:layout_width="wrap_content"
@@ -123,7 +122,8 @@
             android:layout_above="@+id/RuaCustET_5"
             android:layout_toRightOf="@+id/CEPCustET_5"
             android:layout_toEndOf="@+id/CEPCustET_5"
-            android:inputType="text" />
+            android:maxLength="10"
+            android:inputType="number" />
 
         <EditText
             android:layout_width="fill_parent"
@@ -136,6 +136,7 @@
             android:layout_alignStart="@+id/celularCustET_5"
             android:layout_alignRight="@+id/celularCustET_5"
             android:layout_alignEnd="@+id/celularCustET_5"
+            android:maxLength="40"
             android:inputType="text" />
 
         <EditText
@@ -146,6 +147,7 @@
             android:layout_alignLeft="@+id/RuaCustET_5"
             android:layout_alignStart="@+id/RuaCustET_5"
             android:id="@+id/complementoCustET_5"
+            android:maxLength="20"
             android:inputType="text" />
 
         <EditText
@@ -156,6 +158,7 @@
             android:id="@+id/bairroCustET_5"
             android:layout_below="@+id/RuaCustET_5"
             android:layout_toRightOf="@+id/CEPCustET_5"
+            android:maxLength="40"
             android:inputType="text" />
 
         <EditText
@@ -169,6 +172,7 @@
             android:layout_alignStart="@+id/complementoCustET_5"
             android:layout_alignRight="@+id/complementoCustET_5"
             android:layout_alignEnd="@+id/complementoCustET_5"
+            android:maxLength="40"
             android:inputType="text" />
 
         <EditText
@@ -180,6 +184,7 @@
             android:layout_alignLeft="@+id/bairroCustET_5"
             android:layout_alignStart="@+id/bairroCustET_5"
             android:id="@+id/estadoCustET_5"
+            android:maxLength="2"
             android:inputType="text" />
 
         <RadioGroup
@@ -213,16 +218,6 @@
                 android:layout_alignEnd="@+id/numeroCustET_5"
                 android:onClick="onRadioButtonClicked"/>
         </RadioGroup>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Escolher Data"
-            android:id="@+id/escolheDataCustBTN_5"
-            android:onClick="showDatePickerDialog"
-            android:layout_below="@+id/nascimentoCustTV_5"
-            android:layout_toRightOf="@+id/localAtendimentoCustTV_5"
-            android:layout_toEndOf="@+id/localAtendimentoCustTV_5" />
 
 
     </RelativeLayout>
