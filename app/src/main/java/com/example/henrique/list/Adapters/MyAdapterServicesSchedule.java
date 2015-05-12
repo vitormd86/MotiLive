@@ -4,14 +4,11 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.henrique.list.Mapeamento_de_Classes.Servico;
 import com.example.henrique.list.R;
@@ -23,14 +20,14 @@ import java.util.TimeZone;
 /**
  * Created by Massaru on 17/02/2015.
  */
-public class MyAdapterServiceTypes extends ArrayAdapter<Servico> {
-    public MyAdapterServiceTypes(Context context, Servico[] clients) {
-        super(context, R.layout.view_service_type, clients);
+public class MyAdapterServicesSchedule extends ArrayAdapter<Servico> {
+    public MyAdapterServicesSchedule(Context context, Servico[] clients) {
+        super(context, R.layout.view_schedule_service_type, clients);
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater theInflator = LayoutInflater.from(getContext());
-        View theView = theInflator.inflate(R.layout.view_service_type, parent, false);
+        View theView = theInflator.inflate(R.layout.view_schedule_service_type, parent, false);
 
         Servico service = getItem(position);
         TextView textService = (TextView) theView.findViewById(R.id.service);

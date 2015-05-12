@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.henrique.list.R;
@@ -23,6 +22,7 @@ public class ServicesNameAdapter extends ArrayAdapter <String> {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater theInflator = LayoutInflater.from(getContext());
         View theView = theInflator.inflate(R.layout.view_services_name, parent, false);
+
 
         String services = getItem(position);
         TextView textView = (TextView) theView.findViewById(R.id.serviceName);

@@ -14,7 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.henrique.list.Adapters.MyAdapterFreeTime;
-import com.example.henrique.list.Adapters.MyAdapterServiceTypes;
+import com.example.henrique.list.Adapters.MyAdapterServicesSchedule;
 import com.example.henrique.list.Mapeamento_de_Classes.Servico;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Utilidade_Publica.ResizeAnimation;
@@ -37,7 +37,8 @@ public class ProScheduleHoursFragment_12 extends Fragment {
     ArrayList<String> selectedServicesTitles = new ArrayList<>();
     ResizeAnimation resizeAnimation;
     boolean isHoursOpened,  isMinutesOpened;
-    String  sDate, clientName, address;
+    String  sDate, clientName, fullAddress;
+    String street, number, cep, complement, district, city, state;
     int freeHourMinutesWidth = 90;
     int selectedHour, selectedMinutes;
     double totalPrice;
@@ -63,8 +64,14 @@ public class ProScheduleHoursFragment_12 extends Fragment {
         clientName = args.getString("selectedClient");
         sDate = args.getString("selectedDate");
         //deve configurar dados do cliente a partir do bd
-        address = "Av. Leoncio de Magalhães, 1066";
-        //String [] serviceTitles = {testeS[0].getNome()};
+        street = "Av. Leoncio de Magalhães";
+        number = "1066";
+        complement = " " + "ap 12";
+        district = "Jardim São Paulo";
+        city = "São Paulo";
+        state = "SP";
+        cep = "02101-000";
+        fullAddress = street + ", " + number + complement + ". ";
 
         //alimentando items do layout
         textClientName = (TextView) v.findViewById(R.id.professionalName);
@@ -73,13 +80,13 @@ public class ProScheduleHoursFragment_12 extends Fragment {
         listHours = (ListView) v.findViewById(R.id.listHours);
         listMinutes = (ListView) v.findViewById(R.id.listMinutes);
         listServices = (ListView) v.findViewById(R.id.listServices);
-        myAdapterServiceTypes = new MyAdapterServiceTypes(getActivity(), testeS);
+        myAdapterServiceTypes = new MyAdapterServicesSchedule(getActivity(), testeS);
         myAdapterFreeHours = new MyAdapterFreeTime(getActivity(), freeHours, listHours);
         myAdapterFreeMinutes = new MyAdapterFreeTime(getActivity(), freeMinutes, listMinutes);
 
         //Configura as variaveis do cabecalho
         textClientName.setText(clientName);
-        textAddress.setText(address);
+        textAddress.setText(fullAddress);
         textDate.setText(sDate);
 
         //Configurando listas de servicos/horas/minutos livre
@@ -248,7 +255,13 @@ public class ProScheduleHoursFragment_12 extends Fragment {
 
         //todo deve passar na intent o vetor dos servicos selecionados
         intent.putExtra("clientName", clientName);
-        intent.putExtra("address", address);
+        intent.putExtra("street", street);
+        intent.putExtra("number", number);
+        intent.putExtra("cep", cep);
+        intent.putExtra("complement", complement);
+        intent.putExtra("district", district);
+        intent.putExtra("city", city);
+        intent.putExtra("state", state);
         intent.putExtra("selectedServices", selectedServicesTitles);
         intent.putExtra("sDate", sDate);
         intent.putExtra("selectedHour", selectedHour);
