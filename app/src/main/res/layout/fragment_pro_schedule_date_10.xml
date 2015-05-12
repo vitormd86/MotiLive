@@ -4,13 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <CalendarView
-        android:id="@+id/calendarViewPro_10"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:showWeekNumber="false"
-        android:shownWeekCount="5" />
+    <com.example.henrique.list.Utilidade_Publica.Calendar.CalendarPickerView
+        android:id="@+id/calendar_view"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+
+        />
     <Button
         android:id="@+id/newClientButton"
         android:layout_width="match_parent"
@@ -20,7 +19,6 @@
     <ListView
         android:id="@+id/ListViewPro_10"
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"></ListView>
+        android:layout_height="match_parent"></ListView>
 
 </LinearLayout>

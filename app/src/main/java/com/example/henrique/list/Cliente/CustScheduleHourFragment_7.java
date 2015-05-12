@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.henrique.list.Adapters.MyAdapterFreeTime;
+import com.example.henrique.list.Adapters.MyAdapterServicesSchedule;
 import com.example.henrique.list.Mapeamento_de_Classes.Servico;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Utilidade_Publica.ResizeAnimation;
@@ -72,7 +73,7 @@ public class CustScheduleHourFragment_7 extends Fragment {
         listHours = (ListView) v.findViewById(R.id.listHours);
         listMinutes = (ListView) v.findViewById(R.id.listMinutes);
         listServices = (ListView) v.findViewById(R.id.listServices);
-        myAdapterServiceTypes = new com.example.henrique.list.Adapters.MyAdapterServiceTypes(getActivity(), testeS);
+        myAdapterServiceTypes = new MyAdapterServicesSchedule(getActivity(), testeS);
         myAdapterFreeHours = new MyAdapterFreeTime(getActivity(), freeHours, listHours);
         myAdapterFreeMinutes = new MyAdapterFreeTime(getActivity(), freeMinutes, listMinutes);
 
@@ -248,6 +249,13 @@ public class CustScheduleHourFragment_7 extends Fragment {
         //todo deve passar na intent o vetor dos servicos selecionados
         intent.putExtra("professionalName", professionalName);
         intent.putExtra("profession", occupation);
+        intent.putExtra("street", "Av da Liberdade");
+        intent.putExtra("number", "444");
+        intent.putExtra("cep", "01501-001");
+        intent.putExtra("complement", "Casa 2");
+        intent.putExtra("district", "Liberdade");
+        intent.putExtra("city", "São Paulo");
+        intent.putExtra("state", "SP");
         intent.putExtra("selectedServices", selectedServicesTitles);
         intent.putExtra("sDate", sDate);
         intent.putExtra("selectedHour", selectedHour);

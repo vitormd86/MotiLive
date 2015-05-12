@@ -1,11 +1,10 @@
 package com.example.henrique.list.UsoPosterior;
 
+import android.content.res.Configuration;
+import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.content.Intent;
-import android.content.res.Configuration;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -65,8 +64,8 @@ public class ActivityFragmentPortraitControl extends FragmentActivity {
                 Session.getActiveSession().closeAndClearTokenInformation();
             }
             Session.setActiveSession(null);
-            Intent retornarTelaLogin = new Intent(this , LoginScreen.class);
-            startActivity(retornarTelaLogin);
+            //Intent retornarTelaLogin = new Intent(this , LoginScreen.class);
+            //startActivity(retornarTelaLogin);
         }
 
         return super.onOptionsItemSelected(item);

@@ -29,6 +29,7 @@ public class ProScheduleFirstActivity_11 extends ActionBarActivity {
 
         //iniciando componentes da tela
         nameText = (EditText) findViewById(R.id.completeNameProET_11);
+
         //recebendo int que avisa o drawer qual fragment abrir
         Bundle extras = getIntent().getExtras();
         nextScreen = extras.getInt("nextScreen");

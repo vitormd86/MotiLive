@@ -1,79 +1,77 @@
 package com.example.henrique.list.Profissional;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.henrique.list.R;
 
-import br.com.motiserver.dto.ProfessionalDTO;
 import br.com.motiserver.dto.ServiceDTO;
 
+/**
+ * Created by michael on 01/05/2015.
+ */
 public class ProServiceNewActivity_6 extends ActionBarActivity {
 
-    private ProfessionalDTO professional;
-    private ServiceDTO serviceDTO;
-
-    private EditText serviceNameET;
-    private EditText serviceDescriptionET;
-    private EditText serviceTimeET;
-    private EditText serviceValueET;
+    EditText serviceNameET, serviceDescriptionET, sessionValueET;
+    Spinner sessionHoursSP, sessionMinutesSP;
+    ServiceDTO serviceDTO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pro_service_new_6);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        initViews();
+        initSpinnerAdapters();
 
-        // TODO
-        professional = null;
+    }
 
-        serviceNameET = (EditText) findViewById(R.id.serviceNameProET_6);
-        serviceDescriptionET = (EditText) findViewById(R.id.serviceDescriptionProET_6);
-        serviceTimeET = (EditText) findViewById(R.id.serviceTimeProET_6);
-        serviceValueET = (EditText) findViewById(R.id.serviceValueProET_6);
+    private void initViews(){
+        sessionHoursSP = (Spinner) findViewById(R.id.sessionHours);
+        sessionMinutesSP = (Spinner) findViewById(R.id.sessionMinutes);
+        serviceNameET = (EditText) findViewById(R.id.serviceName);
+        serviceDescriptionET = (EditText) findViewById(R.id.serviceDescription);
+        sessionValueET = (EditText) findViewById(R.id.sessionValue);
+    }
+
+    private void initSpinnerAdapters(){
+        ArrayAdapter<CharSequence> hourAdapter = ArrayAdapter.createFromResource(this, R.array.hours, R.layout.view_spinner_text_hour);
+        hourAdapter.setDropDownViewResource(R.layout.view_spinner_dropdown_hour);
+        sessionHoursSP.setAdapter(hourAdapter);
+
+        ArrayAdapter<CharSequence> minutesAdapter = ArrayAdapter.createFromResource(this, R.array.minutes, android.R.layout.simple_spinner_dropdown_item);
+        minutesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sessionMinutesSP.setAdapter(minutesAdapter);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        //todo IF servico já existente usar menu com botao de exclusao do servico
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_confirm, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Take appropriate action for each action item click
+        // Admininstra cliques da ActionBar
         switch (item.getItemId()) {
             case R.id.confirmButton:
-                // location found
-                confirmRegistration();
+                Intent intent = new Intent(ProServiceNewActivity_6.this, ProServiceListActivity_7.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                intent.putExtra("service", serviceNameET.getText().toString());
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    private void confirmRegistration() {
-        serviceDTO = getServiceDTO();
-
-
-    }
-
-    private ServiceDTO getServiceDTO() {
-        ServiceDTO serviceDTO = new ServiceDTO();
-        serviceDTO.setDelayTolerance(null);
-        serviceDTO.setDescription(serviceDescriptionET.getText().toString());
-        serviceDTO.setName(serviceNameET.getText().toString());
-        serviceDTO.setProfessional(professional);
-        // TODO
-        serviceDTO.setTime(null);
-        serviceDTO.setValue(null);
-        return serviceDTO;
     }
 }

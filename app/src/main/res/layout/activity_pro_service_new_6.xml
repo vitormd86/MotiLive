@@ -2,56 +2,75 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dip">
+    android:orientation="vertical">
 
     <EditText
-        android:id="@+id/serviceNameProET_6"
-        android:text="@string/serviceNameProET_6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
+        android:id="@+id/serviceName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:text="Nome do Serviço" />
     <TextView
-        android:id="@+id/serviceDescriptionProTV_6"
+        android:id="@+id/serviceDescriptionTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:text="@string/descriptionofServiceProTV_6" />
-
+        android:text="Descrição do serviço:"/>
     <EditText
-        android:id="@+id/serviceDescriptionProET_6"
-        android:layout_width="wrap_content"
+        android:id="@+id/serviceDescription"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:text="@string/descriptionProET_6" />
-
+        android:text="descreva aqui o serviço"/>
     <TextView
-        android:id="@+id/serviceTimeProTV_6"
+        android:id="@+id/sessionTimeTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sessionTimeProTV_6" />
-
-    <EditText
-        android:id="@+id/serviceTimeProET_6"
-        android:layout_width="wrap_content"
+        android:text="Tempo da sessão"/>
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/sessionTimeProET_6" />
-
-    <TimePicker
-        android:id="@+id/timePicker1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    
+        android:orientation="horizontal">
+        <Spinner
+            android:id="@+id/sessionHours"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <Spinner
+            android:id="@+id/sessionMinutes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
     <TextView
-        android:id="@+id/serviceValueProTV_6"
+        android:id="@+id/sessionValueTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/valueProTV_6" />
+        android:text="Valor da sessão"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+        <TextView
+            android:id="@+id/currency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:text="R$"/>
+        <EditText
+            android:id="@+id/sessionValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="00,00"/>
+    </LinearLayout>
 
-    <EditText
-        android:id="@+id/serviceValueProET_6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/valueProET_6" />
 
 </LinearLayout>

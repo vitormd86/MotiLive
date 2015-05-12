@@ -11,7 +11,6 @@
 
     <application
         android:screenOrientation="portrait"
-
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -30,14 +29,17 @@
         </activity>
 
         <activity
-            android:name=".UsoPosterior.ActivityFragmentPortraitControl"
-            android:label="Get Name"
-            android:theme="@style/AppTheme" />
-        <activity
             android:name=".Login.CustProfile_5"
             android:label="Registry"
-            android:parentActivityName=".Login.LoginNewAccount_2"
-            android:theme="@style/AppTheme" >
+            android:parentActivityName=".Login.LoginNewAccount_2"            android:windowSoftInputMode="stateHidden"
+
+
+        android:theme="@style/AppTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Login.LoginNewAccount_2" />
@@ -53,7 +55,7 @@
         </activity>
 
         <activity
-            android:name=".Login.LoginScreen"
+            android:name=".UsoPosterior.LoginScreen"
             android:label="Get Name"
             android:theme="@style/AppTheme" />
         <activity
@@ -77,8 +79,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Login.ProScheduleConfig_8"
-            android:label="Configurar Agenda"/>
+            android:name=".Profissional.ProScheduleConfig_8"
+            android:label="Configurar Agenda"
+            android:windowSoftInputMode="stateHidden"
+            android:parentActivityName=".Profissional.ProServiceListActivity_7" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Profissional.ProServiceListActivity_7"/>
+        </activity>
         <activity
             android:name=".Profissional.ProScheduleFirstActivity_11"
             android:label="Novo Cliente"
@@ -86,6 +94,24 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Profissional.ProDrawerMenu_15" />
+        </activity>
+        <activity
+            android:name=".Profissional.ProServiceListActivity_7"
+            android:label="Meus Serviços"
+            android:parentActivityName=".Profissional.ProServiceNewActivity_6">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Profissional.ProServiceNewActivity_6"
+                android:windowSoftInputMode="stateHidden"/>
+        </activity>
+        <activity
+            android:name=".Profissional.ProServiceNewActivity_6"
+            android:label="Novo Servico"
+            android:parentActivityName=".Login.ProProfile_5">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Login.ProProfile_5"
+                android:windowSoftInputMode="stateHidden"/>
         </activity>
         <activity
             android:name=".Login.LoginNewAccount_2"
@@ -107,11 +133,7 @@
             android:theme="@style/AppTheme" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Profissional.ProDrawerMenu_15" />>
-        </activity>
-        <activity
-            android:name=".Profissional.ProServiceNewActivity_6"
-            android:label="Novo Serviço">
+                android:value=".Profissional.ProDrawerMenu_15" />
         </activity>
     </application>
 

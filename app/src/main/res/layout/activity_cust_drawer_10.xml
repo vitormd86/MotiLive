@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:id="@+id/fragmenttest"></fragment>
     android:name="com.example.henrique.list.Fragments.FragmentPortrait"
-    tools:layout="@layout/fragment_cust_schedule_date_p"-->
+    tools:layout="@layout/fragment_cust_schedule_date_6_p"-->
 
     <LinearLayout android:id="@+id/left_drawer"
         android:layout_width="240dp"

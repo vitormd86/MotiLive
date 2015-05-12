@@ -32,12 +32,12 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'com.facebook.android:facebook-android-sdk:3.21.1'
     compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.3.2'
     compile files('/home/htamashiro/AndroidStudioProjects/MotiLive/android-async-http-1.4.4.jar')
     compile 'br.com.motiserver:moti-dto:0.0.1-SNAPSHOT'
-    compile files('C:/workspace/MotiLive/android-async-http-1.4.4.jar')
+    compile files('C:/Users/Hide/AndroidStudioProjects/MotiLive/android-async-http-1.4.4.jar')
 }

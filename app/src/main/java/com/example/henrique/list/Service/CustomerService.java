@@ -42,8 +42,14 @@ public class CustomerService {
     public CustomerDTO save(CustomerDTO customerDTO) {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-        customerDTO = restTemplate.postForObject(URLConstants.JSON_SERVER_URL +
+        try{customerDTO = restTemplate.postForObject(URLConstants.JSON_SERVER_URL +
             URLConstants.CUSTOMER_SAVE, customerDTO, CustomerDTO.class);
+            System.out.println("conectou");
+
+        }
+        catch (Exception e){
+            System.out.println("nao conectou");
+        }
         return customerDTO;
     }
 }

@@ -1,7 +1,6 @@
 package com.example.henrique.list.UsoPosterior;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,8 +21,8 @@ public class Telatermos extends Activity {
         concordarContinuarButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // do something when the button is clicked
-                Intent avancarTelaLogin = new Intent(Telatermos.this , LoginScreen.class);
-                startActivity(avancarTelaLogin);
+                //Intent avancarTelaLogin = new Intent(Telatermos.this , LoginScreen.class);
+            //    startActivity(avancarTelaLogin);
             }
         });
     }
