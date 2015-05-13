@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -34,15 +35,17 @@ public class ProServiceListActivity_7 extends ActionBarActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pro_service_list_7);
 
-        //recuperando dados da tela anterior
-        extras = getIntent().getExtras();
+        //desabilitando BackNavigation button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+
 
         initViews();
+        setSelectServiceListener();
         setAddServiceListener();
     }
 
     private void initViews(){
-        Toast.makeText(this, extras.getString("service"), Toast.LENGTH_SHORT).show();
         //inicia valores dos servicos
         servicesList = new ArrayList<>();
 
@@ -53,6 +56,18 @@ public class ProServiceListActivity_7 extends ActionBarActivity{
         servicesLV.setAdapter(myServiceAdapter);
     }
 
+    private void setSelectServiceListener(){
+        servicesLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String serviceToIntent = String.valueOf(parent.getItemAtPosition(position));
+                Intent intent = new Intent(ProServiceListActivity_7.this, ProServiceNewActivity_6.class);
+                intent.putExtra("service", serviceToIntent);
+                intent.putExtra("isEditing", true);
+                startActivity(intent);
+            }
+        });
+    }
     private void setAddServiceListener(){
         addServiceBT.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +81,14 @@ public class ProServiceListActivity_7 extends ActionBarActivity{
     @Override
     protected void onResume(){
         super.onResume();
-        servicesList.add(extras.getString("service"));
+        //todo deve receber todos os servicos do bd e adicionar ao vetor
+        extras = getIntent().getExtras();
+        if(extras != null) {
+            //recuperando dados da tela anterior
+            servicesList.add(extras.getString("service"));
+        }
+
+        //atualiza dados da listView
         myServiceAdapter.notifyDataSetChanged();
     }
 

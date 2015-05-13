@@ -17,7 +17,7 @@ public class CustEditProfileFragment_11 extends Fragment {
         super.onCreate(savedInstanceState);
 
         fa = super.getActivity();
-        v = inflater.inflate(R.layout.fragment_cust_profile_5_11, container, false);
+        v = inflater.inflate(R.layout.activity_cust_profile_5, container, false);
 
         return v;
     }

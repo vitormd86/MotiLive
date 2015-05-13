@@ -15,7 +15,6 @@ import android.widget.ListView;
 import com.example.henrique.list.Adapters.ClientAdapter;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Utilidade_Publica.Calendar.CalendarPickerView;
-import com.loopj.android.http.RequestParams;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -138,7 +137,7 @@ public class ProScheduleDateFragment_10 extends Fragment {
 
     public void recoverListProfessionals(View view)
     {
-        RequestParams params = new RequestParams();
+//        RequestParams params = new RequestParams();
         // params.put("id_customer", customerDTO);
     }
 

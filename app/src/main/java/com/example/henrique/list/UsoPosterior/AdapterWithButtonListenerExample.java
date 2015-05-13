@@ -80,13 +80,13 @@ public class AdapterWithButtonListenerExample extends ArrayAdapter<ScheduleItem>
                 TextView textTitle = (TextView) view.findViewById(R.id.textScheduleTitle);
                 TextView textSubTitle = (TextView) view.findViewById(R.id.textScheduleSubTitle);
                 TextView textLeftTime = (TextView) view.findViewById(R.id.textLeftTime);
-                Button moreButton = (Button) view.findViewById(R.id.button);
+//                Button moreButton = (Button) view.findViewById(R.id.button);
 
                 textTitle.setText(inicialTime + ": " + profissionalName);
                 textSubTitle.setText("Duração: " + duration);
                 textLeftTime.setText(leftTime);
 
-                setButtonListener(moreButton, profissionalName);
+//                setButtonListener(moreButton, profissionalName);
         }
 
 

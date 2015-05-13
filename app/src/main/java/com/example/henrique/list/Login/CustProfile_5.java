@@ -6,12 +6,10 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -21,19 +19,17 @@ import android.widget.Toast;
 
 import com.example.henrique.list.Cliente.CustDrawerMenu_10;
 import com.example.henrique.list.R;
-import com.example.henrique.list.Service.CustomerService;
+import com.example.henrique.list.Service.CustomerSaveService;
 import com.example.henrique.list.Service.URLConstants;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import br.com.motiserver.constants.Gender;
-import br.com.motiserver.constants.PersonType;
 import br.com.motiserver.constants.Status;
 import br.com.motiserver.constants.UF;
 import br.com.motiserver.dto.CustomerDTO;
@@ -67,8 +63,9 @@ public class CustProfile_5 extends ActionBarActivity {
 
     //Inicializacao dos EditTexts Obrigatorios
 
-    private Date chosenDate;
-    private Gender opcaoEscolhidaGenero;
+    Calendar chosenDate;//TODO arrumar direito0
+    Calendar dg = Calendar.getInstance();
+    Gender opcaoEscolhidaGenero;
     RadioButton masculinoRB;
     RadioButton femininoRB;
     EditText nomeET;
@@ -108,7 +105,7 @@ public class CustProfile_5 extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_cust_profile_5_11);
+        setContentView(R.layout.activity_cust_profile_5);
 
         //Verificando se está iniciando ou restaurando
         if ( savedInstanceState == null)
@@ -306,8 +303,7 @@ public class CustProfile_5 extends ActionBarActivity {
             customerDTO.setAddressZipCode(cep);
             customerDTO.setAddressState(UF.SAO_PAULO);
             customerDTO.setGender(opcaoEscolhidaGenero);
-            Calendar dg = Calendar.getInstance();
-            customerDTO.setUpdateDate(dg.getTime());
+            customerDTO.setUpdateDate(dg);
 
             //campos nao obrigatorios
 
@@ -324,8 +320,15 @@ public class CustProfile_5 extends ActionBarActivity {
 
             // executa requisição JSON
             try {
-                new HttpRequestTask().execute(customerDTO);
-                System.out.println("Alcançou Json Com sucesso");
+                CustomerSaveService customerSaveService = new CustomerSaveService();
+                customerSaveService.execute(customerDTO);
+                customerDTO = customerSaveService.get();
+
+                if (customerDTO == null) {
+                    System.out.println("=== DEU ERRO E O CLIENTE RETORNO NULLO");
+                } else {
+                    System.out.println("=== DEU CERTO E O CLIENTE RETORNOU COM SUCESSO " + customerDTO.getId());
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("Falha ao executar JSON");
@@ -335,7 +338,9 @@ public class CustProfile_5 extends ActionBarActivity {
             Toast.makeText(getApplicationContext(), "Por favor, preencha todos os campos obrigatórios", Toast.LENGTH_SHORT).show();
         }
     }
+
     //gerencia a manipulação de Radio Buttons
+
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
@@ -390,7 +395,7 @@ public class CustProfile_5 extends ActionBarActivity {
             myCal.set(Calendar.YEAR, year);
             myCal.set(Calendar.MONTH, month);
             myCal.set(Calendar.DAY_OF_MONTH, day);
-            chosenDate = myCal.getTime();
+            chosenDate = myCal;
 
             // coloca data selecionada dentro do TextView correspondente
             dataEscolhidaTV.setText(new StringBuilder().append(month + 1)
@@ -399,40 +404,6 @@ public class CustProfile_5 extends ActionBarActivity {
         }
     };
 
-    //Métodos relacionados ao JSON
-
-    private class HttpRequestTask extends AsyncTask<CustomerDTO, Void, CustomerDTO> {
-        @Override
-        protected CustomerDTO doInBackground(CustomerDTO... params) {
-            try {
-                RestTemplate restTemplate = new RestTemplate();
-                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-                customerDTO = restTemplate.postForObject(URLConstants.JSON_SERVER_URL +
-                        URLConstants.CUSTOMER_SAVE, customerDTO, CustomerDTO.class);
-                System.out.println("conectou");
-                return customerDTO;
-            } catch (Exception e) {
-                System.out.println("nao conectou");
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        protected void onPostExecute(CustomerDTO Result) {
-            super.onPostExecute(Result);
-            // tela de carregamento
-            try {
-                if (Result != null) {
-                    Intent i = new Intent(CustProfile_5.this, CustDrawerMenu_10.class);
-                    startActivity(i);
-                } else {
-                    System.out.println("Nao conseguiu fazer post execute( mudar de tela");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
 //    Metodos de validacao de dados
 
@@ -557,7 +528,7 @@ public class CustProfile_5 extends ActionBarActivity {
         }
 
     }
-    private boolean isValidNascimento(Date chosenDate){
+    private boolean isValidNascimento(Calendar chosenDate){
         if(chosenDate==null){
             return false;
         }
@@ -573,7 +544,7 @@ public class CustProfile_5 extends ActionBarActivity {
             return true;
         }
     }
-
+// em caso de restauração
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(NOME_CTE, nome);
