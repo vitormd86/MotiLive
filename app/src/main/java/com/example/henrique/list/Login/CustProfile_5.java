@@ -3,7 +3,6 @@ package com.example.henrique.list.Login;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -20,10 +19,6 @@ import android.widget.Toast;
 import com.example.henrique.list.Cliente.CustDrawerMenu_10;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Service.CustomerSaveService;
-import com.example.henrique.list.Service.URLConstants;
-
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.Calendar;
 import java.util.regex.Matcher;
@@ -323,13 +318,14 @@ public class CustProfile_5 extends ActionBarActivity {
 
             // executa requisição JSON
             try {
-                new HttpRequestTask().execute(customerDTO);
-
+                customerDTO = new CustomerSaveService().execute(customerDTO).get();
 
                 if (customerDTO == null) {
                     System.out.println("=== DEU ERRO E O CLIENTE RETORNO NULLO");
                 } else {
-                    System.out.println("=== DEU CERTO E O CLIENTE RETORNOU COM SUCESSO " + customerDTO.getName());
+                    System.out.println("=== DEU CERTO E O CLIENTE RETORNOU COM SUCESSO " + customerDTO.getName());  //TODO verificar se o back adiciona o id no objeto de retorno
+                    Intent i = new Intent(CustProfile_5.this, CustDrawerMenu_10.class);
+                    startActivity(i);
                                                         }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -405,40 +401,6 @@ public class CustProfile_5 extends ActionBarActivity {
                     .append(" "));
         }
     };
-
-    private class HttpRequestTask extends AsyncTask<CustomerDTO, Void, CustomerDTO> {
-        @Override
-        protected CustomerDTO doInBackground(CustomerDTO... params) {
-            try {
-                RestTemplate restTemplate = new RestTemplate();
-                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-                customerDTO = restTemplate.postForObject(URLConstants.JSON_SERVER_URL +
-                        URLConstants.CUSTOMER_SAVE, customerDTO, CustomerDTO.class);
-                System.out.println("conectou");
-                return customerDTO;
-            } catch (Exception e) {
-                customerDTO =null;
-                System.out.println("nao conectou");
-                e.printStackTrace();
-            }
-            return customerDTO;
-        }
-
-        protected void onPostExecute(CustomerDTO Result) {
-            super.onPostExecute(Result);
-            // tela de carregamento
-            try {
-                if (Result != null) {
-                    Intent i = new Intent(CustProfile_5.this, CustDrawerMenu_10.class);
-                    startActivity(i);
-                } else {
-                    System.out.println("Nao conseguiu fazer post execute( mudar de tela");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
 
 //    Metodos de validacao de dados
