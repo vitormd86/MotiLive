@@ -27,10 +27,10 @@ public class ProEditProfileFragment_16 extends Fragment{
     EditText estadoET;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_pro_profile_5_16, parent, false);
+        View v = inflater.inflate(R.layout.activity_pro_profile_5, parent, false);
 
         //TODO  Aqui to implementando a forma como fazemos o webservice
-        Button buttonActionBar = (Button) v.findViewById(R.id.confirmarActionBar);
+        Button buttonActionBar = (Button) v.findViewById(R.id.action_bar);
 
         buttonActionBar.setOnClickListener(new View.OnClickListener() {
             @Override

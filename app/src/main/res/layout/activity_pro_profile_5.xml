@@ -15,7 +15,7 @@
         <ImageButton
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:id="@+id/ImageButtonCust_5_11"
+            android:id="@+id/ImageButtonPro_5"
             android:src="@drawable/hide"
             android:layout_marginLeft="34dp"
             android:layout_marginStart="34dp"
@@ -41,9 +41,9 @@
             android:text="Nascimento"
             android:id="@+id/nascimentoCustTV_5"
             android:layout_marginTop="28dp"
-            android:layout_below="@+id/ImageButtonCust_5_11"
-            android:layout_alignLeft="@+id/ImageButtonCust_5_11"
-            android:layout_alignStart="@+id/ImageButtonCust_5_11" />
+            android:layout_below="@+id/ImageButtonPro_5"
+            android:layout_alignLeft="@+id/ImageButtonPro_5"
+            android:layout_alignStart="@+id/ImageButtonPro_5" />
 
         <TextView
             android:layout_width="wrap_content"

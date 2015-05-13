@@ -50,6 +50,9 @@ public class CustProfile_5 extends ActionBarActivity {
     private static final String BAIRRO_CTE = "BAIRRO_CTE";
     private static final String CIDADE_CTE = "CIDADE_CTE";
     private static final String ESTADO_CTE = "ESTADO_CTE";
+
+    //TODO: fazer recuperaçao de data e Genero
+
     private static final String GENERO_CTE = "GENERO_CTE";
     private static final String DATA_CTE = "DATA_CTE";
 
@@ -148,7 +151,7 @@ public class CustProfile_5 extends ActionBarActivity {
 
         // Botoes nao obrigatorios
         complementoET = (EditText) findViewById(R.id.complementoCustET_5);
-        imageButton = (ImageButton) findViewById(R.id.ImageButtonCust_5_11);
+        imageButton = (ImageButton) findViewById(R.id.ImageButtonPro_5);
 
        // Objetos
         customerDTO = new CustomerDTO();
@@ -320,15 +323,14 @@ public class CustProfile_5 extends ActionBarActivity {
 
             // executa requisição JSON
             try {
-                CustomerSaveService customerSaveService = new CustomerSaveService();
-                customerSaveService.execute(customerDTO);
-                customerDTO = customerSaveService.get();
+                new HttpRequestTask().execute(customerDTO);
+
 
                 if (customerDTO == null) {
                     System.out.println("=== DEU ERRO E O CLIENTE RETORNO NULLO");
                 } else {
-                    System.out.println("=== DEU CERTO E O CLIENTE RETORNOU COM SUCESSO " + customerDTO.getId());
-                }
+                    System.out.println("=== DEU CERTO E O CLIENTE RETORNOU COM SUCESSO " + customerDTO.getName());
+                                                        }
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("Falha ao executar JSON");
@@ -403,6 +405,40 @@ public class CustProfile_5 extends ActionBarActivity {
                     .append(" "));
         }
     };
+
+    private class HttpRequestTask extends AsyncTask<CustomerDTO, Void, CustomerDTO> {
+        @Override
+        protected CustomerDTO doInBackground(CustomerDTO... params) {
+            try {
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                customerDTO = restTemplate.postForObject(URLConstants.JSON_SERVER_URL +
+                        URLConstants.CUSTOMER_SAVE, customerDTO, CustomerDTO.class);
+                System.out.println("conectou");
+                return customerDTO;
+            } catch (Exception e) {
+                customerDTO =null;
+                System.out.println("nao conectou");
+                e.printStackTrace();
+            }
+            return customerDTO;
+        }
+
+        protected void onPostExecute(CustomerDTO Result) {
+            super.onPostExecute(Result);
+            // tela de carregamento
+            try {
+                if (Result != null) {
+                    Intent i = new Intent(CustProfile_5.this, CustDrawerMenu_10.class);
+                    startActivity(i);
+                } else {
+                    System.out.println("Nao conseguiu fazer post execute( mudar de tela");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 
 //    Metodos de validacao de dados
