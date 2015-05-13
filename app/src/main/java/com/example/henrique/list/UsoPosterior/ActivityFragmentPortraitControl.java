@@ -10,7 +10,6 @@ import android.view.MenuItem;
 
 import com.example.henrique.list.Cliente.CustScheduleDateFragmentPortrait_6;
 import com.example.henrique.list.R;
-import com.facebook.Session;
 
 //Codigo de referencia para mudança de  orientação do device
 
@@ -60,10 +59,10 @@ public class ActivityFragmentPortraitControl extends FragmentActivity {
             return true;
         } else if (id == R.id.exit_the_app) {
             // EFETUA LOGOUT E RETORNA PARA A TELA DE LOGIN
-            if (Session.getActiveSession() != null) {
-                Session.getActiveSession().closeAndClearTokenInformation();
-            }
-            Session.setActiveSession(null);
+//            if (Session.getActiveSession() != null) {
+//                Session.getActiveSession().closeAndClearTokenInformation();
+//            }
+//            Session.setActiveSession(null);
             //Intent retornarTelaLogin = new Intent(this , LoginScreen.class);
             //startActivity(retornarTelaLogin);
         }
