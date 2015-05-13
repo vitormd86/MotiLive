@@ -20,6 +20,7 @@ public class CustomerSaveService extends AsyncTask<CustomerDTO, Void, CustomerDT
             System.out.println("conectou");
             return customerDTOResposta;
         } catch (Exception e) {
+            customerDTOResposta = null;
             System.out.println("nao conectou");
             e.printStackTrace();
         }

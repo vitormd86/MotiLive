@@ -95,18 +95,7 @@ public class Login_1 extends Activity {
         // Get Password Edit View Value
         password = pwdET.getText().toString();
         // When Email Edit View and Password Edit View have values other than Null
-        if(Utility.isNotNull(email) && Utility.isNotNull(password)){
-            // When Email entered is Valid
-            if(Utility.validate(email)){
-                new HttpRequestTask().execute();
-            }
-            // When Email is invalid
-            else{
-                Toast.makeText(getApplicationContext(), "Please enter valid email", Toast.LENGTH_LONG).show();
-            }
-        } else{
-            Toast.makeText(getApplicationContext(), "Please fill the form, don't leave any field blank", Toast.LENGTH_LONG).show();
-        }
+
 
         //preciso colocar algum retorno
         return true;

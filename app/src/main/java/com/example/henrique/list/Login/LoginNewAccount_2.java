@@ -75,27 +75,9 @@ public class LoginNewAccount_2 extends Activity {
         // Instantiate Http Request Param Object
 //        RequestParams params = new RequestParams();
         // When Name Edit View, Email Edit View and Password Edit View have values other than Null
-        if(Utility.isNotNull(name) && Utility.isNotNull(email) && Utility.isNotNull(password)){
-            // When Email entered is Valid
-            if(Utility.validate(email)){
-                // Put Http parameter name with value of Name Edit View control
-               /* params.put("name", name);
-                // Put Http parameter username with value of Email Edit View control
-                params.put("username", email);
-                // Put Http parameter password with value of Password Edit View control
-                params.put("password", password);
-                // Invoke RESTful Web Service with Http parameters
-                invokeWS(params);*/
-            }
-            // When Email is invalid
-            else{
-                Toast.makeText(getApplicationContext(), "Please enter valid email", Toast.LENGTH_LONG).show();
-            }
-        }
+
         // When any of the Edit View control left blank
-        else{
-            Toast.makeText(getApplicationContext(), "Please fill the form, don't leave any field blank", Toast.LENGTH_LONG).show();
-        }
+
 
     }
 
