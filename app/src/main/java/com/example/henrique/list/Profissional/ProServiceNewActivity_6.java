@@ -16,7 +16,7 @@ import com.example.henrique.list.R;
 import br.com.motiserver.dto.ServiceDTO;
 
 /**
- * Created by michael on 01/05/2015.
+ * Created by Cristor on 01/05/2015.
  */
 public class ProServiceNewActivity_6 extends ActionBarActivity {
 
@@ -24,14 +24,26 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
     Spinner sessionHoursSP, sessionMinutesSP;
     ServiceDTO serviceDTO;
 
+    Boolean isEditing;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pro_service_new_6);
 
+        //verifica se esta no modo de edicao ou de novo servico
+        isEditing = isEditingService();
+
+        //inicializa componentes da tela
         initViews();
         initSpinnerAdapters();
 
+        //configurando BackNavigation button
+        if(isEditing){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        } else{
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        }
     }
 
     private void initViews(){
@@ -40,6 +52,11 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         serviceNameET = (EditText) findViewById(R.id.serviceName);
         serviceDescriptionET = (EditText) findViewById(R.id.serviceDescription);
         sessionValueET = (EditText) findViewById(R.id.sessionValue);
+
+        if (isEditing){
+            Bundle extras = getIntent().getExtras();
+            serviceNameET.setText(extras.getString("service"));
+        }
     }
 
     private void initSpinnerAdapters(){
@@ -52,23 +69,46 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         sessionMinutesSP.setAdapter(minutesAdapter);
     }
 
+    private boolean isEditingService(){
+        boolean isEditing = false;
+        if(getIntent().getBooleanExtra("isEditing", false)){
+            isEditing = true;
+        }
+        return isEditing;
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu items for use in the action bar
-        //todo IF servico já existente usar menu com botao de exclusao do servico
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_confirm, menu);
+        if(isEditing){
+            inflater.inflate(R.menu.menu_confirm_delete, menu);
+        } else {
+            inflater.inflate(R.menu.menu_confirm, menu);
+        }
         return super.onCreateOptionsMenu(menu);
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = new Intent(ProServiceNewActivity_6.this, ProServiceListActivity_7.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         // Admininstra cliques da ActionBar
         switch (item.getItemId()) {
             case R.id.confirmButton:
-                Intent intent = new Intent(ProServiceNewActivity_6.this, ProServiceListActivity_7.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                intent.putExtra("service", serviceNameET.getText().toString());
+                if(isEditingService()){
+                    //todo deve alterar servico selecionado no banco
+                } else {
+                    //todo deve adicionar servico no banco
+                    intent.putExtra("service", serviceNameET.getText().toString());
+                }
+                Toast.makeText(this, serviceNameET.getText().toString(), Toast.LENGTH_SHORT).show();
                 startActivity(intent);
+                finish();
+                return true;
+            case R.id.deleteButton:
+                //todo deve apagar servico escolhido do banco
+                Toast.makeText(this, "Deletar Serviço", Toast.LENGTH_SHORT).show();
+                startActivity(intent);
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
