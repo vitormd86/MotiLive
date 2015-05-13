@@ -24,6 +24,11 @@ android {
         exclude 'META-INF/NOTICE'
         exclude 'META-INF/notice.txt'
     }
+    configurations.compile {
+        exclude module: 'spring-core'
+        exclude module: 'spring-web'
+        exclude module: 'commons-logging'
+    }
 }
 
 repositories {
@@ -38,5 +43,6 @@ dependencies {
     compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.3.2'
     compile 'br.com.motiserver:moti-dto:0.0.1-SNAPSHOT'
+
 
 }
