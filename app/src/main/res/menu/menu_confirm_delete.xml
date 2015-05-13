@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/cancelButton"
+        android:id="@+id/deleteButton"
         android:title="Cancelar"
         android:icon="@drawable/ic_action_cancel"
         app:showAsAction="ifRoom"

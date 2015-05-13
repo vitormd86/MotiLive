@@ -96,16 +96,12 @@
         <activity
             android:name=".Profissional.ProServiceListActivity_7"
             android:label="Meus Serviços"
-            android:parentActivityName=".Profissional.ProServiceNewActivity_6">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Profissional.ProServiceNewActivity_6"
-                android:windowSoftInputMode="stateHidden"/>
+            android:launchMode="singleTask">
         </activity>
         <activity
             android:name=".Profissional.ProServiceNewActivity_6"
             android:label="Novo Servico"
-            android:parentActivityName=".Login.ProProfile_5">
+            android:parentActivityName=".Profissional.ProServiceListActivity_7">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Login.ProProfile_5"

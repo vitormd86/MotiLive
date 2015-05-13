@@ -118,7 +118,7 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
     public boolean onCreateOptionsMenu (Menu menu){
         // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_confirm_cancel, menu);
+        inflater.inflate(R.menu.menu_confirm_delete, menu);
         return super.onCreateOptionsMenu(menu);
     }
     @Override
@@ -134,7 +134,7 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
                 startActivity(confirmIntent);
                 return true;
 
-            case R.id.cancelButton:
+            case R.id.deleteButton:
                 initCancelScheduleAlert();
                 return true;
 
