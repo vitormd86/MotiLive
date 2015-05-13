@@ -31,8 +31,10 @@
         <activity
             android:name=".Login.CustProfile_5"
             android:label="Registry"
-            android:parentActivityName=".Login.LoginNewAccount_2"
-            android:theme="@style/AppTheme" >
+            android:parentActivityName=".Login.LoginNewAccount_2"            android:windowSoftInputMode="stateHidden"
+
+
+        android:theme="@style/AppTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
