@@ -3,7 +3,6 @@ package com.example.henrique.list.Profissional;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,11 +110,11 @@ public class ProScheduleDateFragment_10 extends Fragment {
                 String selectedDate = getCalendarDate(screenCalendar);
                 String selectedClient = String.valueOf(parent.getItemAtPosition(position));
 
-                //inicia a transacao de Fragments
-                Intent toDateFragmentIntent = new Intent(getActivity(), ProScheduleHoursActivity_12.class);
-                toDateFragmentIntent.putExtra("selectedClient", selectedClient);
-                toDateFragmentIntent.putExtra("selectedDate", selectedDate);
-                startActivity(toDateFragmentIntent);
+                //inicia chamada de agendamento de horario
+                Intent toHourIntent = new Intent(getActivity(), ProScheduleHoursActivity_12.class);
+                toHourIntent.putExtra("selectedClient", selectedClient);
+                toHourIntent.putExtra("selectedDate", selectedDate);
+                startActivity(toHourIntent);
             }
         });
     }

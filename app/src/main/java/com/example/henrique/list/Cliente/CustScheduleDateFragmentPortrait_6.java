@@ -1,8 +1,8 @@
 package com.example.henrique.list.Cliente;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,9 +30,11 @@ public class CustScheduleDateFragmentPortrait_6 extends Fragment {
 
     View v;
     ListView professionalLV;
+    String[] favoriteProfessionals;
+
+
     CalendarPickerView screenCalendar;
     Calendar initDate, endDate;
-    String[] favoriteProfessionals;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
 
@@ -89,29 +91,14 @@ public class CustScheduleDateFragmentPortrait_6 extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                //recebe a data selecionada para passar para a proxima tela
+                //recebe dados selecionada para passar para a proxima tela
                 String selectedDate = getCalendarDate(screenCalendar);
-
-                //opcoesSelecionadas opcoes = new opcoesSelecionadas(String.valueOf(parent.getItemAtPosition(position)), null, null);
                 String selectedProfessional = String.valueOf(parent.getItemAtPosition(position));
 
-                //instancia proximo fragment a ser iniciado
-                CustScheduleHourFragment_7 nextFragment = new CustScheduleHourFragment_7();
-
-                //inicia valores que serao enviados para a proxima Fragment
-                Bundle args = new Bundle();
-                args.putString("selectedProfessional", selectedProfessional);
-                args.putString("selectedDate", selectedDate);
-                nextFragment.setArguments(args);
-
-                //inicia a transacao de Fragments
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.content_frame, nextFragment);
-
-                //este metodo permite q o usuario navegue de volta
-                ft.addToBackStack(null);
-
-                ft.commit();
+                //inicia chamada de agendamento de horario
+                Intent toHourIntent = new Intent(getActivity(), CustScheduleHourActivity_7.class);
+                toHourIntent.putExtra("selectedProfessional", selectedProfessional);
+                toHourIntent.putExtra("selectedDate", selectedDate);
             }
         });
 

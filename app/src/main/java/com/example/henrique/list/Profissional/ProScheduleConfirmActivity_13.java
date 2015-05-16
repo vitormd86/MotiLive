@@ -127,10 +127,6 @@ public class ProScheduleConfirmActivity_13 extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Admininstra cliques da ActionBar
         switch (item.getItemId()) {
-            case R.id.homeAsUp:
-                Toast.makeText(this, "Voltou", Toast.LENGTH_SHORT).show();
-                this.finish();
-                return true;
             case R.id.confirmButton:
                 Intent confirmIntent = new Intent(this, ProDrawerMenu_15.class);
                 confirmIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

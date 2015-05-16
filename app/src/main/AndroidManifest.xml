@@ -61,11 +61,11 @@
         <activity
             android:name=".Cliente.CustScheduleConfirmActivity_8"
             android:label="Resumo"
-            android:parentActivityName=".Cliente.CustDrawerMenu_10"
+            android:parentActivityName=".Cliente.CustScheduleHourActivity_7"
             android:theme="@style/AppTheme" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Cliente.CustDrawerMenu_10" />
+                android:value=".Cliente.CustScheduleHourActivity_7" />
         </activity>
 
         <activity
@@ -91,6 +91,16 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".Cliente.CustScheduleHourActivity_7"
+            android:label="Novo Agendamento"
+            android:launchMode="singleTop"
+            android:parentActivityName=".Cliente.CustDrawerMenu_10"
+            android:theme="@style/AppTheme" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Cliente.CustDrawerMenu_10" />
         </activity>
         <activity
             android:name=".Profissional.ProScheduleConfig_8"

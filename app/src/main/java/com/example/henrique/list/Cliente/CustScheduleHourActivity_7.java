@@ -2,12 +2,9 @@ package com.example.henrique.list.Cliente;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBarActivity;
 import android.util.SparseBooleanArray;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -27,10 +24,7 @@ import java.util.TimeZone;
  * Created by Cristor on 26/02/2015.
  */
 /*Tela de selecao de horas e servicos de agendamento, ao final ela gera um alerta de confirmacao*/
-public class CustScheduleHourFragment_7 extends Fragment {
-
-    private View v;
-    private FragmentActivity fa;
+public class CustScheduleHourActivity_7 extends ActionBarActivity {
 
     ArrayList<Integer> freeHours = new ArrayList<>();
     ArrayList<Integer> freeMinutes = new ArrayList<>();
@@ -38,6 +32,7 @@ public class CustScheduleHourFragment_7 extends Fragment {
     ResizeAnimation resizeAnimation;
     boolean isHoursOpened,  isMinutesOpened;
     String  sDate, professionalName, occupation;
+    String street, number, cep, complement, district, city, state;
     int freeHourMinutesWidth = 90;
     int selectedHour, selectedMinutes;
     double totalPrice;
@@ -52,14 +47,15 @@ public class CustScheduleHourFragment_7 extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_cust_schedule_hour_7);
 
-        fa = super.getActivity();
-        v = inflater.inflate(R.layout.fragment_cust_schedule_hour_7, container, false);
+        //Habilitando BackNavigation button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //recebe valores da fragment anterior
-        Bundle args = getArguments();
+        Bundle args = getIntent().getExtras();
         professionalName = args.getString("selectedProfessional");
         sDate = args.getString("selectedDate");
         //deve configurar dados do profissional a partir do bd
@@ -67,15 +63,15 @@ public class CustScheduleHourFragment_7 extends Fragment {
         //String [] serviceTitles = {testeS[0].getNome()};
 
         //alimentando items do layout
-        textProfessionalName = (TextView) v.findViewById(R.id.professionalName);
-        textProfession = (TextView) v.findViewById(R.id.profession);
-        textDate = (TextView) v.findViewById(R.id.date);
-        listHours = (ListView) v.findViewById(R.id.listHours);
-        listMinutes = (ListView) v.findViewById(R.id.listMinutes);
-        listServices = (ListView) v.findViewById(R.id.listServices);
-        myAdapterServiceTypes = new MyAdapterServicesSchedule(getActivity(), testeS);
-        myAdapterFreeHours = new MyAdapterFreeTime(getActivity(), freeHours, listHours);
-        myAdapterFreeMinutes = new MyAdapterFreeTime(getActivity(), freeMinutes, listMinutes);
+        textProfessionalName = (TextView) findViewById(R.id.professionalName);
+        textProfession = (TextView) findViewById(R.id.profession);
+        textDate = (TextView) findViewById(R.id.date);
+        listHours = (ListView) findViewById(R.id.listHours);
+        listMinutes = (ListView) findViewById(R.id.listMinutes);
+        listServices = (ListView) findViewById(R.id.listServices);
+        myAdapterServiceTypes = new MyAdapterServicesSchedule(this, testeS);
+        myAdapterFreeHours = new MyAdapterFreeTime(this, freeHours, listHours);
+        myAdapterFreeMinutes = new MyAdapterFreeTime(this, freeMinutes, listMinutes);
 
         //Configura as variaveis do cabecalho
         textProfessionalName.setText(professionalName);
@@ -92,8 +88,6 @@ public class CustScheduleHourFragment_7 extends Fragment {
         setServicesListener();
         setHoursListener();
         setMinutesListener();
-
-        return v;
     }
 
     //metdodo provisorio que retorna os servicos
@@ -244,7 +238,7 @@ public class CustScheduleHourFragment_7 extends Fragment {
     }
 
     private void initConfirmActivity(){
-        Intent intent = new Intent(getActivity(),CustScheduleConfirmActivity_8.class);
+        Intent intent = new Intent(this,CustScheduleConfirmActivity_8.class);
 
         //todo deve passar na intent o vetor dos servicos selecionados
         intent.putExtra("professionalName", professionalName);
@@ -262,7 +256,6 @@ public class CustScheduleHourFragment_7 extends Fragment {
         intent.putExtra("selectedMinutes", selectedMinutes);
         intent.putExtra("totalTime", totalTime);
         intent.putExtra("totalPrice", totalPrice);
-        intent.putExtra("nextScreen", 6);
 
         startActivity(intent);
     }
@@ -271,10 +264,10 @@ public class CustScheduleHourFragment_7 extends Fragment {
     public void onStop(){
         //esse metodo eh chamado sempre q a fragment vai para BackStack (chamando outra atividade por exemplo)
         super.onStop();
-        restartFragmentValues();
+        restartValues();
     }
 
-    public void restartFragmentValues(){
+    public void restartValues(){
         //reinicia valores deste fragment
         isHoursOpened = false;
         isMinutesOpened = false;

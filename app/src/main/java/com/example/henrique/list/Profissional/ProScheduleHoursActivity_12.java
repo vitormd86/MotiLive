@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.TimeZone;
 
 /**
- * Created by htamashiro on 3/21/15.
+ * Created by Cristor on 3/21/15.
  */
 public class ProScheduleHoursActivity_12 extends ActionBarActivity {
 
