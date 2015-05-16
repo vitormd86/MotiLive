@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--Login Process -->
+    <string name="hintEmail">Digite seu e-mail</string>
+    <string name="hintPassword">Digite sua senha</string>
+    <string name="descriptionLogo">Logo Moti</string>
+    <string name="buttonLogin">Entrar</string>
+    <string name="buttonSignUp">Criar Conta</string>
+
+    <!--Outros -->
     <string name="app_name">List</string>
     <string name="facebook_app_id">456445487839463</string>
     <string name="hello_world">Hello world!</string>
@@ -9,7 +17,6 @@
     <string name="enter_name_text_view">Enter your name:</string>
     <string name="enter_name_button_text">Enter</string>
     <string name="calling_activity_message">The calling activity was</string>
-    <string name="login_BTN">Login</string>
     <string name="title_activity_hour_consult">HourConsult</string>
     <string name="title_activity_drawer_text">DrawerText</string>
     <string name="drawer_close">Close</string>

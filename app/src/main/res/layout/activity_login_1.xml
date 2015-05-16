@@ -1,72 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="@dimen/margin_app"
+        android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dip" >
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dip"
-            android:text="@string/login_title"
-            android:textSize="25sp"
-            android:textStyle="bold" />
-
+        <ImageView
+            android:id="@+id/imageLogo"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/margin_betweenElements_medium"
+            android:src="@drawable/img_logo"
+            android:contentDescription="@string/descriptionLogo"
+            />
         <EditText
             android:id="@+id/custLoginNome"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter your Email ID"
-            android:inputType="textEmailAddress" />
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dip"
-            android:text="@string/pwd" />
-
+            android:layout_marginBottom="@dimen/margin_betweenElements_small"
+            android:inputType="textEmailAddress"
+            android:hint="@string/hintEmail"/>
         <EditText
             android:id="@+id/custLoginSenha"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Password"
-            android:inputType="textPassword" />
-
+            android:inputType="textPassword"
+            android:fontFamily="sans-serif"
+            android:hint="@string/hintPassword"
+            />
         <TextView
-            android:id="@+id/login_error"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dip"
-            android:textColor="#e30000"
-            android:textStyle="bold" />
-
+            style="@style/TextAlert"
+            android:layout_marginBottom="@dimen/margin_betweenElements_small"
+            android:id="@+id/login_error"/>
         <Button
+            style="@style/LoginButton"
             android:id="@+id/buttonCustLoginLogar"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
-            android:background="#27ae60"
-            android:onClick="loginUser"
-            android:text="Login"
-            android:textColor="#fff" />
+            android:text="@string/buttonLogin"
+            android:onClick="loginUser"/>
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <Button
+            style="@style/SignUpButton"
             android:id="@+id/buttonCustLoginCriarConta"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dip"
-            android:background="#6A0888"
-            android:onClick="navigatetoRegisterActivity"
-            android:text="Signup"
-            android:textColor="#F2FBEF"
-            android:textStyle="bold" />
+            android:layout_marginBottom="@dimen/margin_betweenElements_small"
+            android:text="@string/buttonSignUp"
+            android:onClick="navigatetoRegisterActivity"/>
+    </RelativeLayout>
 
-    </LinearLayout>
-
-</ScrollView>
+</LinearLayout>

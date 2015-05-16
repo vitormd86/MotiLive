@@ -1,7 +1,17 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
+    <!-- Espacamento de margens de visualizações -->
+    <dimen name="margin_app">16dp</dimen>
+    <dimen name="margin_betweenElements_small">10dp</dimen>
+    <dimen name="margin_betweenElements_medium">20dp</dimen>
+
+    <!-- Dimensoes de fontes -->
+    <dimen name="text_blankSpace">30dp</dimen>
+    <dimen name="textSize_medium">20sp</dimen>
+
+
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
 
     <!--calendar dimens -->
     <dimen name="calendar_day_headers_paddingbottom">4dp</dimen>

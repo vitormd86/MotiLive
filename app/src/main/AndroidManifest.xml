@@ -15,9 +15,19 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
+
+        <activity
+            android:name=".Login.Login_1"
+            android:label="Login" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity android:name=".UsoPosterior.Telatermos" >
 
@@ -72,15 +82,7 @@
             android:name=".UsoPosterior.LoginScreen"
             android:label="Get Name"
             android:theme="@style/AppTheme" />
-        <activity
-            android:name=".Login.Login_1"
-            android:label="Tela Inicial do nosso APP" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
         <activity
             android:name=".Cliente.CustDrawerMenu_10"

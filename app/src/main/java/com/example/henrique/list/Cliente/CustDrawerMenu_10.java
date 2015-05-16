@@ -98,7 +98,7 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
     public void setLayoutItems (){
 
         //Configurando cabecalho
-        String userName = "Leandro";
+        String userName = "Leandro (Cliente)";
 
         ImageView imagePhoto = (ImageView) findViewById(R.id.photo);
         TextView textName = (TextView) findViewById(R.id.name);

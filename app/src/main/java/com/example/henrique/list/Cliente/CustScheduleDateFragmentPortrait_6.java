@@ -99,6 +99,7 @@ public class CustScheduleDateFragmentPortrait_6 extends Fragment {
                 Intent toHourIntent = new Intent(getActivity(), CustScheduleHourActivity_7.class);
                 toHourIntent.putExtra("selectedProfessional", selectedProfessional);
                 toHourIntent.putExtra("selectedDate", selectedDate);
+                startActivity(toHourIntent);
             }
         });
 
