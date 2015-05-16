@@ -29,8 +29,8 @@ public class CustomerService {
         } catch (Exception e) {
             throw new ServiceException(e);
         }
-        if (wrapperDTO.getException() != null) {
-            throw new ServiceException(wrapperDTO.getException());
+        if (wrapperDTO.getErrorMessage() != null) {
+            throw new ServiceException(wrapperDTO.getErrorMessage());
         } else {
             return wrapperDTO.getObject();
         }
@@ -43,8 +43,8 @@ public class CustomerService {
         } catch (Exception e) {
             throw new ServiceException(e);
         }
-        if (wrapperDTO.getException() != null) {
-            throw new ServiceException(wrapperDTO.getException());
+        if (wrapperDTO.getErrorMessage() != null) {
+            throw new ServiceException(wrapperDTO.getErrorMessage());
         } else {
             return wrapperDTO.getObject();
         }
@@ -57,8 +57,8 @@ public class CustomerService {
         } catch (Exception e) {
             throw new ServiceException(e);
         }
-        if (wrapperDTO.getException() != null) {
-            throw new ServiceException(wrapperDTO.getException());
+        if (wrapperDTO.getErrorMessage() != null) {
+            throw new ServiceException(wrapperDTO.getErrorMessage());
         } else {
             return wrapperDTO.getObject();
         }
@@ -71,8 +71,8 @@ public class CustomerService {
         } catch (Exception e) {
             throw new ServiceException(e);
         }
-        if (wrapperDTO.getException() != null) {
-            throw new ServiceException(wrapperDTO.getException());
+        if (wrapperDTO.getErrorMessage() != null) {
+            throw new ServiceException(wrapperDTO.getErrorMessage());
         } else {
             return wrapperDTO.getObject();
         }
