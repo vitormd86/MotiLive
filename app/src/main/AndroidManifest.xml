@@ -30,8 +30,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".UsoPosterior.Telatermos" >
+        <activity
+            android:name=".Login.LoginNewAccount_2"
+            android:label="Criar Conta"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
 
+        <activity android:name=".UsoPosterior.Telatermos" >
         </activity>
         <activity
             android:name="com.facebook.LoginActivity"
@@ -136,10 +141,7 @@
                 android:value=".Login.ProProfile_5"
                 android:windowSoftInputMode="stateHidden"/>
         </activity>
-        <activity
-            android:name=".Login.LoginNewAccount_2"
-            android:label="Tela Inicial do nosso APP" >
-        </activity>
+
         <activity
             android:name=".Login.LoginProfileChoose_4"
             android:label="Tela Inicial do nosso APP" >

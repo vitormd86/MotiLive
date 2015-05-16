@@ -14,7 +14,6 @@ import com.example.henrique.list.R;
 import com.example.henrique.list.Utilidade_Publica.Utility;
 
 import br.com.motiserver.constants.Status;
-import br.com.motiserver.dto.ProfessionDTO;
 import br.com.motiserver.dto.ProfessionalDTO;
 
 /**
@@ -33,7 +32,7 @@ public class ProScheduleFirstActivity_11 extends ActionBarActivity {
     private static final String CIDADE_CTE = "CIDADE_CTE";
     private static final String ESTADO_CTE = "ESTADO_CTE";
 
-    //Dados Obrigatórios
+    //Dados Obrigatï¿½rios
 
     EditText nomeET;
     EditText CEPET;
@@ -73,13 +72,13 @@ public class ProScheduleFirstActivity_11 extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pro_schedule_first_11);
 
-        //Verificando se está iniciando ou restaurando
+        //Verificando se estï¿½ iniciando ou restaurando
         if ( savedInstanceState == null)
         {
-            //significa que o APP está iniciando
+            //significa que o APP estï¿½ iniciando
 
         }else{
-            //significa que o APP está restaurando
+            //significa que o APP estï¿½ restaurando
             nomeET.setText(savedInstanceState.getString(NOME_CTE));
             CEPET.setText(savedInstanceState.getString(CEP_CTE));
             numeroET.setText(savedInstanceState.getString(NUMERO_CTE));
@@ -91,7 +90,7 @@ public class ProScheduleFirstActivity_11 extends ActionBarActivity {
             /*
         inflando as views
 */
-            //campos obrigatórios
+            //campos obrigatï¿½rios
             nomeET = (EditText) findViewById(R.id.NomeET_Pro_11);
             CEPET = (EditText) findViewById(R.id.CEPProET_11);
             numeroET = (EditText) findViewById(R.id.numeroProET_11);
@@ -167,7 +166,7 @@ public class ProScheduleFirstActivity_11 extends ActionBarActivity {
 
         cep = CEPET.getText().toString();
         if (!Utility.isValidCEP(cep)) {
-            CEPET.setError("O CEP precisa conter 8 dígitos.");
+            CEPET.setError("O CEP precisa conter 8 dï¿½gitos.");
             executaJSON = false;
         }else{
             if(CEPET.getError() != null)
@@ -176,7 +175,7 @@ public class ProScheduleFirstActivity_11 extends ActionBarActivity {
 
         numero = numeroET.getText().toString();
         if (!Utility.isValidNumero(numero)) {
-            numeroET.setError("O número não");
+            numeroET.setError("O nï¿½mero nï¿½o");
             executaJSON = false;
         }else{
             if(numeroET.getError() != null)
@@ -185,7 +184,7 @@ public class ProScheduleFirstActivity_11 extends ActionBarActivity {
 
         rua = ruaET.getText().toString();
         if (!Utility.isValidRua(rua)) {
-            ruaET.setError("A rua não pode conter números.");
+            ruaET.setError("A rua nï¿½o pode conter nï¿½meros.");
             executaJSON = false;
         }else{
             if(ruaET.getError() != null)
@@ -194,7 +193,7 @@ public class ProScheduleFirstActivity_11 extends ActionBarActivity {
 
         bairro = bairroET.getText().toString();
         if (!Utility.isValidBairro(bairro)) {
-            bairroET.setError("O bairro não pode conter números.");
+            bairroET.setError("O bairro nï¿½o pode conter nï¿½meros.");
             executaJSON = false;
         }else{
             if(bairroET.getError() != null)
@@ -203,7 +202,7 @@ public class ProScheduleFirstActivity_11 extends ActionBarActivity {
 
         cidade = cidadeET.getText().toString();
         if (!Utility.isValidCidade(cidade)) {
-            cidadeET.setError("A cidade não pode conter números.");
+            cidadeET.setError("A cidade nï¿½o pode conter nï¿½meros.");
             executaJSON = false;
         }else{
             if(cidadeET.getError() != null)
@@ -211,7 +210,7 @@ public class ProScheduleFirstActivity_11 extends ActionBarActivity {
         }
         estado = estadoET.getText().toString();
         if (!Utility.isValidEstado(estado)) {
-            estadoET.setError("O estado não pode conter números.");
+            estadoET.setError("O estado nï¿½o pode conter nï¿½meros.");
             executaJSON = false;
         }else{
             if(estadoET.getError() != null)
@@ -242,7 +241,7 @@ public class ProScheduleFirstActivity_11 extends ActionBarActivity {
             professionalDTO.setGoogleLogin("NaoEssencial");
             professionalDTO.setPassword("definirNaTelaLogin");
 
-            // executa requisição JSON //TODO modificar
+            // executa requisiï¿½ï¿½o JSON //TODO modificar
             try {
              //   professionalDTO = new ProfessionalSaveService().execute(professionalDTO).get();
 
@@ -258,10 +257,10 @@ public class ProScheduleFirstActivity_11 extends ActionBarActivity {
             }
 
         } else {
-            Toast.makeText(getApplicationContext(), "Por favor, preencha todos os campos obrigatórios", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Por favor, preencha todos os campos obrigatï¿½rios", Toast.LENGTH_SHORT).show();
         }
     }
-    // em caso de restauração
+    // em caso de restauraÃ§Ã£o
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(NOME_CTE, nome);
