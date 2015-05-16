@@ -30,6 +30,9 @@ public class URLConstants {
     public static final String PROFESSIONAL_FIND_CONTACTS_BY_CUSTOMER_ID = JSON_SERVER_URL + "/professional/findProfessionalContactsByCustomerId?customerId={customerId}";
     public static final String PROFESSIONAL_SAVE = JSON_SERVER_URL + "/professional/save";
 
+    // PROFESSION SERVICE
+    public static final String PROFESSION_FIND_ALL = JSON_SERVER_URL + "/profession/findAll";
+
     // SCHEDULING SERVICE
     public static final String SCHEDULING_FIND_ALL_BY_CUSTOMER_ID = JSON_SERVER_URL + "/scheduling/findAllByCustomerId?customerId={customerId}";
     public static final String SCHEDULING_FIND_ALL_BY_PROFESSIONAL_ID = JSON_SERVER_URL + "/scheduling/findAllByProfessionalId?professionalId={professionalId}";
