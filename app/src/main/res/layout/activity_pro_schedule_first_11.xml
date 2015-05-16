@@ -1,100 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content" android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="10dip">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:fillViewport="true"
+        android:padding="20dip">
+
 
         <ImageButton
-            android:id="@+id/imageButtonPro_11"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="0dp"
-            android:src="@drawable/hide" />
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/ImageButtonPro_11"
+            android:src="@drawable/hide"
+            android:layout_marginTop="31dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="31dp"
+            android:layout_marginStart="31dp" />
 
         <EditText
-            android:id="@+id/completeNameProET_11"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/NomeET_Pro_11"
+            android:hint="Seu Nome Completo"
+
+            android:maxLength="60"
+            android:inputType="text"
+            android:layout_above="@+id/localAtendimentoProTV_11"
+            android:layout_toRightOf="@+id/ImageButtonPro_11"
+            android:layout_toEndOf="@+id/ImageButtonPro_11" />
+
+
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/completeNameProET_11" />
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/pointofcareProTV_11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/pointofcareProTV_11"
-        android:paddingTop="80dp"
-        android:paddingBottom="10dp"
-        android:paddingLeft="40dp"/>
-
-    <LinearLayout
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-       >
+            android:text="Local de Atendimento"
+            android:id="@+id/localAtendimentoProTV_11"
+            android:layout_marginTop="58dp"
+            android:layout_below="@+id/ImageButtonPro_11"
+            android:layout_alignLeft="@+id/radioGroup"
+            android:layout_alignStart="@+id/radioGroup" />
 
         <EditText
-            android:id="@+id/streetProET_11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/streetProET_11"
-            android:paddingLeft="40dp"/>
+            android:hint="Digite seu CEP"
 
-        <EditText
-            android:id="@+id/numberProET_11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/numberProET_11" />
-
-        <EditText
             android:id="@+id/CEPProET_11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/CEPProET_11"
-            />
-    </LinearLayout>
-
-    <EditText
-        android:id="@+id/complementProET_11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/complementProET_11"
-        android:paddingLeft="40dp"/>
-
-    <EditText
-        android:id="@+id/neighborhoodProET_11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/neighborhoodProET_11"
-        android:paddingLeft="40dp"/>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="40dp">
+            android:maxLength="8"
+            android:inputType="number"
+            android:layout_below="@+id/localAtendimentoProTV_11"
+            android:layout_alignLeft="@+id/ImageButtonPro_11"
+            android:layout_alignStart="@+id/ImageButtonPro_11" />
 
         <EditText
-            android:id="@+id/cityProET_11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cityProET_11" />
+            android:hint="Número"
+
+            android:id="@+id/numeroProET_11"
+            android:layout_above="@+id/RuaProET_11"
+            android:layout_toRightOf="@+id/CEPProET_11"
+            android:layout_toEndOf="@+id/CEPProET_11"
+            android:maxLength="10"
+            android:inputType="number" />
 
         <EditText
-            android:id="@+id/stateProET_11"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Digite sua rua"
+
+            android:id="@+id/RuaProET_11"
+            android:maxLength="40"
+            android:inputType="text"
+            android:layout_below="@+id/CEPProET_11"
+            android:layout_alignLeft="@+id/CEPProET_11"
+            android:layout_alignStart="@+id/CEPProET_11" />
+
+        <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/stateProET_11" />
-    </LinearLayout>
+            android:hint="Complemento"
+            android:layout_below="@+id/RuaProET_11"
+            android:layout_alignLeft="@+id/RuaProET_11"
+            android:layout_alignStart="@+id/RuaProET_11"
+            android:id="@+id/complementoProET_11"
+            android:maxLength="20"
+            android:inputType="text" />
 
-  </LinearLayout>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Bairro"
 
+            android:id="@+id/bairroProET_11"
+            android:layout_below="@+id/RuaProET_11"
+            android:layout_toRightOf="@+id/CEPProET_11"
+            android:maxLength="40"
+            android:inputType="text" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Cidade"
+
+            android:id="@+id/cidadeProET_11"
+            android:layout_below="@+id/complementoProET_11"
+            android:layout_alignLeft="@+id/complementoProET_11"
+            android:layout_alignStart="@+id/complementoProET_11"
+            android:layout_alignRight="@+id/complementoProET_11"
+            android:layout_alignEnd="@+id/complementoProET_11"
+            android:maxLength="40"
+            android:inputType="text" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Estado"
+
+            android:layout_below="@+id/bairroProET_11"
+            android:layout_alignLeft="@+id/bairroProET_11"
+            android:layout_alignStart="@+id/bairroProET_11"
+            android:id="@+id/estadoProET_11"
+            android:maxLength="2"
+            android:inputType="text" />
+
+    </RelativeLayout>
+</ScrollView>

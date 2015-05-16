@@ -15,17 +15,17 @@ import com.example.henrique.list.R;
  */
 public class LoginProfileChoose_4 extends Activity {
 
+    Button EscolheCliente;
+    Button EscolheProfissional;
+
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_profile_choose_4);
 
 
-        Button EscolheCliente = (Button) findViewById(R.id.clienteBTN_1);
-
-        Button EscolheProfissional = (Button) findViewById(R.id.profissionalBTN_1);
-
-
+        EscolheCliente = (Button) findViewById(R.id.clienteBTN_1);
+        EscolheProfissional = (Button) findViewById(R.id.profissionalBTN_1);
         EscolheCliente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -33,10 +33,11 @@ public class LoginProfileChoose_4 extends Activity {
             }
         });
 
+
+
         EscolheProfissional.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                navigateToProfissional(v);            }
+            public void onClick(View v) { navigateToProfissional(v);            }
         });
 
 
@@ -51,8 +52,8 @@ public class LoginProfileChoose_4 extends Activity {
 
     //metodo de navegacao para primeira tela cliente
     public void navigateToClient(View view){
-        Intent loginIntent = new Intent(getApplicationContext(),CustDrawerMenu_10.class);
-        loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(loginIntent);
+        Intent escolheuProfissional = new Intent(getApplicationContext(),CustDrawerMenu_10.class);
+        escolheuProfissional.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(escolheuProfissional);
     }
 }

@@ -18,12 +18,10 @@ import android.widget.Toast;
 
 import com.example.henrique.list.Cliente.CustDrawerMenu_10;
 import com.example.henrique.list.R;
-import com.example.henrique.list.Service.CustomerSaveService;
+import com.example.henrique.list.Service.CustomerService;
 import com.example.henrique.list.Utilidade_Publica.Utility;
 
 import java.util.Calendar;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import br.com.motiserver.constants.Gender;
 import br.com.motiserver.constants.Status;
@@ -134,21 +132,21 @@ public class CustProfile_5 extends ActionBarActivity {
         //inflando as views
 
         //campos obrigatórios
-        nomeET = (EditText) findViewById(R.id.NomeET_Cust_5);
-        dataEscolhidaTV = (TextView) findViewById(R.id.dataEscolhidaTV_5);
-        masculinoRB = (RadioButton) findViewById(R.id.masculinoCustRB_5);
-        femininoRB = (RadioButton) findViewById(R.id.femininoCustRB_5);
-        celularET = (EditText) findViewById(R.id.celularCustET_5);
-        emailET = (EditText) findViewById(R.id.emailCustET_5);
-        CEPET = (EditText) findViewById(R.id.CEPCustET_5);
-        numeroET = (EditText) findViewById(R.id.numeroCustET_5);
-        ruaET = (EditText) findViewById(R.id.RuaCustET_5);
-        bairroET = (EditText) findViewById(R.id.bairroCustET_5);
-        cidadeET = (EditText) findViewById(R.id.cidadeCustET_5);
-        estadoET = (EditText) findViewById(R.id.estadoCustET_5);
+        nomeET = (EditText) findViewById(R.id.NomeET_Pro_5);
+        dataEscolhidaTV = (TextView) findViewById(R.id.dataEscolhidaProTV_5);
+        masculinoRB = (RadioButton) findViewById(R.id.masculinoProRB_5);
+        femininoRB = (RadioButton) findViewById(R.id.femininoProRB_5);
+        celularET = (EditText) findViewById(R.id.celularProET_5);
+        emailET = (EditText) findViewById(R.id.emailProET_5);
+        CEPET = (EditText) findViewById(R.id.CEPProET_5);
+        numeroET = (EditText) findViewById(R.id.numeroProET_5);
+        ruaET = (EditText) findViewById(R.id.RuaProET_5);
+        bairroET = (EditText) findViewById(R.id.bairroProET_5);
+        cidadeET = (EditText) findViewById(R.id.cidadeProET_5);
+        estadoET = (EditText) findViewById(R.id.estadoProET_5);
 
         // Botoes nao obrigatorios
-        complementoET = (EditText) findViewById(R.id.complementoCustET_5);
+        complementoET = (EditText) findViewById(R.id.complementoProET_5);
         imageButton = (ImageButton) findViewById(R.id.ImageButtonPro_5);
 
        // Objetos
@@ -321,7 +319,8 @@ public class CustProfile_5 extends ActionBarActivity {
 
             // executa requisição JSON
             try {
-                customerDTO = new CustomerSaveService().execute(customerDTO).get();
+                CustomerService customerService = new CustomerService();
+                customerService.save(customerDTO);
 
                 if (customerDTO == null) {
                     System.out.println("=== DEU ERRO E O CLIENTE RETORNO NULLO");
@@ -347,11 +346,11 @@ public class CustProfile_5 extends ActionBarActivity {
         boolean checked = ((RadioButton) view).isChecked();
         // Check which radio button was clicked
         switch (view.getId()) {
-            case R.id.masculinoCustRB_5:
+            case R.id.masculinoProRB_5:
                 if (checked)
                     opcaoEscolhidaGenero = Gender.MALE;
                 break;
-            case R.id.femininoCustRB_5:
+            case R.id.femininoProRB_5:
                 if (checked)
                     opcaoEscolhidaGenero = Gender.FEMALE;
                 break;
@@ -361,7 +360,7 @@ public class CustProfile_5 extends ActionBarActivity {
     //Metodos Relacionados ao Date Picker
 
     public void addListenerOnButton() {
-        dataEscolhidaTV = (TextView) findViewById(R.id.dataEscolhidaTV_5);
+        dataEscolhidaTV = (TextView) findViewById(R.id.dataEscolhidaProTV_5);
         dataEscolhidaTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -30,7 +30,22 @@
 
         <activity
             android:name=".Login.CustProfile_5"
-            android:label="Registry"
+            android:label="Cadastro Cliente"
+            android:parentActivityName=".Login.LoginNewAccount_2"
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@style/AppTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Login.LoginNewAccount_2" />
+        </activity>
+        <activity
+            android:name=".Login.ProProfile_5"
+            android:label="Cadastro Profissional"
             android:parentActivityName=".Login.LoginNewAccount_2"
             android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme" >

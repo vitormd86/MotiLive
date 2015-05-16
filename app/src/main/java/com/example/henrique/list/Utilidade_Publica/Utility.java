@@ -135,6 +135,23 @@ public class Utility {
         }
 
     }
+    public static boolean isValidProfissao(String profissao) {
+        if (profissao.equals("")) {
+            return false;
+        }
+        else{
+            if(profissao.length() > 40){
+                return false;
+            }
+            else{
+                String PROFESSION = "^[_A-Za-z\\+]{3,15}+((\\s[_A-Za-z]+)*)$";
+
+                Pattern pattern = Pattern.compile(PROFESSION);
+                Matcher matcher = pattern.matcher(profissao);
+                return matcher.matches();
+            }
+        }
+    }
     public static boolean isValidNascimento(Calendar chosenDate){
         if(chosenDate==null){
             return false;
