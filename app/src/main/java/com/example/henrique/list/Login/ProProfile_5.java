@@ -54,7 +54,7 @@ public class ProProfile_5 extends ActionBarActivity {
     private static final String PROFISSIONAL_CTE = "PROFISSIONAL_CTE";
 
 
-    //TODO: fazer recuperaçao de data e Genero
+    //TODO: fazer recuperacao de data e Genero
 
     private static final String GENERO_CTE = "GENERO_CTE";
     private static final String DATA_CTE = "DATA_CTE";
@@ -114,13 +114,13 @@ public class ProProfile_5 extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pro_profile_5);
 
-        //Verificando se está iniciando ou restaurando
+        //Verificando se esta iniciando ou restaurando
         if ( savedInstanceState == null)
         {
-            //significa que o APP está iniciando
+            //significa que o APP esta iniciando
 
         }else{
-            //significa que o APP está restaurando
+            //significa que o APP esta restaurando
             nomeET.setText(savedInstanceState.getString(NOME_CTE));
             emailET.setText(savedInstanceState.getString(EMAIL_CTE));
             celularET.setText(savedInstanceState.getString(CELULAR_CTE));
@@ -325,7 +325,6 @@ public class ProProfile_5 extends ActionBarActivity {
             professionalDTO.setUpdateDate(dg);
 
             ProfessionDTO professionDTO = new ProfessionDTO(); //Inicializa o objeto profissao
-            professionDTO.setName(profissao);
             professionalDTO.setProfession(professionDTO);
             professionalDTO.setRegistry("1234225");  //TODO colocar um campo na tela
             //campos nao obrigatorios
@@ -344,7 +343,7 @@ public class ProProfile_5 extends ActionBarActivity {
             // executa requisição JSON
             try {
                 ProfessionalService professionalService = new ProfessionalService();
-                professionalService.save(professionalDTO);
+                professionalDTO =professionalService.save(professionalDTO);
                 if (professionalDTO == null) {
                     System.out.println("=== DEU ERRO E O PROFISSIONAl RETORNO NULLO");
                 } else {
@@ -361,7 +360,7 @@ public class ProProfile_5 extends ActionBarActivity {
         }
     }
 
-    //gerencia a manipulação de Radio Buttons
+    //gerencia a manipulacao de Radio Buttons
 
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?
@@ -428,7 +427,7 @@ public class ProProfile_5 extends ActionBarActivity {
 
 
 
-    // em caso de restauração
+    // em caso de restauracao
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(NOME_CTE, nome);
