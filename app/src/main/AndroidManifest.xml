@@ -122,13 +122,23 @@
             android:launchMode="singleTask" >
         </activity>
         <activity
-            android:name=".Profissional.ProScheduleConfirmActivity_13"
-            android:label="Confirmar Agendamento"
+            android:name=".Profissional.ProScheduleHoursActivity_12"
+            android:label="Novo Agendamento"
+            android:launchMode="singleTop"
             android:parentActivityName=".Profissional.ProDrawerMenu_15"
             android:theme="@style/AppTheme" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Profissional.ProDrawerMenu_15" />
+        </activity>
+        <activity
+            android:name=".Profissional.ProScheduleConfirmActivity_13"
+            android:label="Confirmar Agendamento"
+            android:parentActivityName=".Profissional.ProScheduleHoursActivity_12"
+            android:theme="@style/AppTheme" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Profissional.ProScheduleHoursActivity_12" />
         </activity>
     </application>
 

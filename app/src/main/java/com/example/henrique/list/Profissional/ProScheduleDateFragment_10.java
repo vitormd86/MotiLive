@@ -78,7 +78,7 @@ public class ProScheduleDateFragment_10 extends Fragment {
 
         //inicializa calendario apontando datas finais, iniciais e modo de selecao
         screenCalendar.init(initDate.getTime(), endDate.getTime())
-                .inMode(CalendarPickerView.SelectionMode.SINGLE);
+                .inMode(CalendarPickerView.SelectionMode.SINGLE).withSelectedDate(initDate.getTime());
 
     }
     //este metodo retorna a data selecionada no calendario formatada em String
@@ -107,30 +107,15 @@ public class ProScheduleDateFragment_10 extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                //recebe a data selecionada para passar para a proxima tela
+                //recebe a dados selecionada para passar para a proxima tela
                 String selectedDate = getCalendarDate(screenCalendar);
-
-
-                //opcoesSelecionadas opcoes = new opcoesSelecionadas(String.valueOf(parent.getItemAtPosition(position)), null, null);
                 String selectedClient = String.valueOf(parent.getItemAtPosition(position));
 
-                //instancia proximo fragment a ser iniciado
-                ProScheduleHoursFragment_12 proScheduleHoursFragment12 = new ProScheduleHoursFragment_12();
-
-                //inicia valores que serao enviados para a proxima Fragment
-                Bundle args = new Bundle();
-                args.putString("selectedClient", selectedClient);
-                args.putString("selectedDate", selectedDate);
-                proScheduleHoursFragment12.setArguments(args);
-
                 //inicia a transacao de Fragments
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.content_frame, proScheduleHoursFragment12);
-
-                //este metodo permite q o usuario navegue de volta
-                ft.addToBackStack(null);
-
-                ft.commit();
+                Intent toDateFragmentIntent = new Intent(getActivity(), ProScheduleHoursActivity_12.class);
+                toDateFragmentIntent.putExtra("selectedClient", selectedClient);
+                toDateFragmentIntent.putExtra("selectedDate", selectedDate);
+                startActivity(toDateFragmentIntent);
             }
         });
     }

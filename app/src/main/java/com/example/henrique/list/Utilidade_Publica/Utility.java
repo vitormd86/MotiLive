@@ -77,7 +77,7 @@ public class Utility {
                 return false;
             }
             else{
-                String STATE_PATTERN = "^[a-z]{1,2}$";
+                String STATE_PATTERN = "^[a-zA-Z]{1,2}$";
 
                 Pattern pattern = Pattern.compile(STATE_PATTERN);
                 Matcher matcher = pattern.matcher(estado);

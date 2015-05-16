@@ -83,11 +83,6 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
             int openFragment = extras.getInt("nextScreen");
             if (openFragment == 10){
                 initFragment("Novo Agendamento", new ProScheduleDateFragment_10());
-            } else if (openFragment == 12) {
-                ProScheduleHoursFragment_12 proScheduleHoursFragment12 = new ProScheduleHoursFragment_12();
-                Bundle toHourFragmentExtras = extras.getBundle("extras");
-                proScheduleHoursFragment12.setArguments(toHourFragmentExtras);
-                initFragment("Novo Agendamento", proScheduleHoursFragment12);
             } else{
                 initFragment("Meus Agendamentos", new ProScheduleListFragment_14());
             }
