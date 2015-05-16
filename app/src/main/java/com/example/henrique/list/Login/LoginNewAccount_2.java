@@ -12,12 +12,8 @@ import android.widget.Toast;
 
 import com.example.henrique.list.R;
 import com.example.henrique.list.Utilidade_Publica.Utility;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+
 
 /**
  * Created by htamashiro on 3/17/15.
@@ -77,29 +73,11 @@ public class LoginNewAccount_2 extends Activity {
         // Get Password ET control value
         password = pwdET.getText().toString();
         // Instantiate Http Request Param Object
-        RequestParams params = new RequestParams();
+//        RequestParams params = new RequestParams();
         // When Name Edit View, Email Edit View and Password Edit View have values other than Null
-        if(Utility.isNotNull(name) && Utility.isNotNull(email) && Utility.isNotNull(password)){
-            // When Email entered is Valid
-            if(Utility.validate(email)){
-                // Put Http parameter name with value of Name Edit View control
-                params.put("name", name);
-                // Put Http parameter username with value of Email Edit View control
-                params.put("username", email);
-                // Put Http parameter password with value of Password Edit View control
-                params.put("password", password);
-                // Invoke RESTful Web Service with Http parameters
-                invokeWS(params);
-            }
-            // When Email is invalid
-            else{
-                Toast.makeText(getApplicationContext(), "Please enter valid email", Toast.LENGTH_LONG).show();
-            }
-        }
+
         // When any of the Edit View control left blank
-        else{
-            Toast.makeText(getApplicationContext(), "Please fill the form, don't leave any field blank", Toast.LENGTH_LONG).show();
-        }
+
 
     }
 
@@ -108,7 +86,7 @@ public class LoginNewAccount_2 extends Activity {
      *
      * @param params
      */
-    public void invokeWS(RequestParams params){
+   /* public void invokeWS(RequestParams params){
         // Show Progress Dialog
         prgDialog.show();
         // Make RESTful webservice call using AsyncHttpClient object
@@ -144,7 +122,7 @@ public class LoginNewAccount_2 extends Activity {
                 }
             }
             // When the response returned by REST has Http response code other than '200'
-            @Override
+
             public void onFailure(int statusCode, Throwable error,
                                   String content) {
                 // Hide Progress Dialog
@@ -163,7 +141,7 @@ public class LoginNewAccount_2 extends Activity {
                 }
             }
         });
-    }
+    }*/
 
     /**
      * Botao Cancelar

@@ -3,15 +3,12 @@ package com.example.henrique.list.Login;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -21,19 +18,14 @@ import android.widget.Toast;
 
 import com.example.henrique.list.Cliente.CustDrawerMenu_10;
 import com.example.henrique.list.R;
-import com.example.henrique.list.Service.CustomerService;
-import com.example.henrique.list.Service.URLConstants;
-
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
+import com.example.henrique.list.Service.CustomerSaveService;
+import com.example.henrique.list.Utilidade_Publica.Utility;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import br.com.motiserver.constants.Gender;
-import br.com.motiserver.constants.PersonType;
 import br.com.motiserver.constants.Status;
 import br.com.motiserver.constants.UF;
 import br.com.motiserver.dto.CustomerDTO;
@@ -54,6 +46,9 @@ public class CustProfile_5 extends ActionBarActivity {
     private static final String BAIRRO_CTE = "BAIRRO_CTE";
     private static final String CIDADE_CTE = "CIDADE_CTE";
     private static final String ESTADO_CTE = "ESTADO_CTE";
+
+    //TODO: fazer recuperaçao de data e Genero
+
     private static final String GENERO_CTE = "GENERO_CTE";
     private static final String DATA_CTE = "DATA_CTE";
 
@@ -67,8 +62,9 @@ public class CustProfile_5 extends ActionBarActivity {
 
     //Inicializacao dos EditTexts Obrigatorios
 
-    private Date chosenDate;
-    private Gender opcaoEscolhidaGenero;
+    Calendar chosenDate;//TODO arrumar direito
+    Calendar dg = Calendar.getInstance();
+    Gender opcaoEscolhidaGenero;
     RadioButton masculinoRB;
     RadioButton femininoRB;
     EditText nomeET;
@@ -104,11 +100,13 @@ public class CustProfile_5 extends ActionBarActivity {
     String cidade;
     String estado;
 
+    Utility utility ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_cust_profile_5_11);
+        setContentView(R.layout.activity_cust_profile_5);
 
         //Verificando se está iniciando ou restaurando
         if ( savedInstanceState == null)
@@ -151,7 +149,7 @@ public class CustProfile_5 extends ActionBarActivity {
 
         // Botoes nao obrigatorios
         complementoET = (EditText) findViewById(R.id.complementoCustET_5);
-        imageButton = (ImageButton) findViewById(R.id.ImageButtonCust_5_11);
+        imageButton = (ImageButton) findViewById(R.id.ImageButtonPro_5);
 
        // Objetos
         customerDTO = new CustomerDTO();
@@ -196,7 +194,7 @@ public class CustProfile_5 extends ActionBarActivity {
         //validacoes dos campos
 
         nome = nomeET.getText().toString();
-        if (!isValidName(nome)) {
+        if (!Utility.isValidName(nome)) {
             nomeET.setError("O nome precisa conter no Minimo 3 letras");
             executaJSON = false;
 
@@ -207,7 +205,7 @@ public class CustProfile_5 extends ActionBarActivity {
 
 
         email = emailET.getText().toString();
-        if (!isValidEmail(email)) {
+        if (!Utility.isValidEmail(email)) {
             emailET.setError("Email invalido");
             executaJSON = false;
         }
@@ -217,7 +215,7 @@ public class CustProfile_5 extends ActionBarActivity {
         }
 
         celular = celularET.getText().toString();
-        if (!isValidCelular(celular)) {
+        if (!Utility.isValidCelular(celular)) {
             celularET.setError("O celular precisa conter 9 dígitos.");
             executaJSON = false;
         }
@@ -227,7 +225,7 @@ public class CustProfile_5 extends ActionBarActivity {
         }
 
         cep = CEPET.getText().toString();
-        if (!isValidCEP(cep)) {
+        if (!Utility.isValidCEP(cep)) {
             CEPET.setError("O CEP precisa conter 8 dígitos.");
             executaJSON = false;
         }else{
@@ -236,7 +234,7 @@ public class CustProfile_5 extends ActionBarActivity {
         }
 
         numero = numeroET.getText().toString();
-        if (!isValidNumero(numero)) {
+        if (!Utility.isValidNumero(numero)) {
             numeroET.setError("O número não");
             executaJSON = false;
         }else{
@@ -245,7 +243,7 @@ public class CustProfile_5 extends ActionBarActivity {
         }
 
         rua = ruaET.getText().toString();
-        if (!isValidRua(rua)) {
+        if (!Utility.isValidRua(rua)) {
             ruaET.setError("A rua não pode conter números.");
             executaJSON = false;
         }else{
@@ -254,7 +252,7 @@ public class CustProfile_5 extends ActionBarActivity {
         }
 
         bairro = bairroET.getText().toString();
-        if (!isValidBairro(bairro)) {
+        if (!Utility.isValidBairro(bairro)) {
             bairroET.setError("O bairro não pode conter números.");
             executaJSON = false;
         }else{
@@ -263,7 +261,7 @@ public class CustProfile_5 extends ActionBarActivity {
         }
 
         cidade = cidadeET.getText().toString();
-        if (!isValidCidade(cidade)) {
+        if (!Utility.isValidCidade(cidade)) {
             cidadeET.setError("A cidade não pode conter números.");
             executaJSON = false;
         }else{
@@ -271,7 +269,7 @@ public class CustProfile_5 extends ActionBarActivity {
                 cidadeET.setError(null);
         }
         estado = estadoET.getText().toString();
-        if (!isValidEstado(estado)) {
+        if (!Utility.isValidEstado(estado)) {
             estadoET.setError("O estado não pode conter números.");
             executaJSON = false;
         }else{
@@ -279,12 +277,12 @@ public class CustProfile_5 extends ActionBarActivity {
                 estadoET.setError(null);
         }
 
-        if (!isValidNascimento(chosenDate)) {
+        if (!Utility.isValidNascimento(chosenDate)) {
             Toast.makeText(getApplicationContext(), "Por favor,escolha sua data de nascimento ", Toast.LENGTH_SHORT).show();
             executaJSON = false;
 
         }
-        if (!isValidSexo(opcaoEscolhidaGenero)) {
+        if (!Utility.isValidSexo(opcaoEscolhidaGenero)) {
             Toast.makeText(getApplicationContext(), "Por favor,por favor escolha seu genero ", Toast.LENGTH_SHORT).show();
             executaJSON = false;
 
@@ -306,8 +304,7 @@ public class CustProfile_5 extends ActionBarActivity {
             customerDTO.setAddressZipCode(cep);
             customerDTO.setAddressState(UF.SAO_PAULO);
             customerDTO.setGender(opcaoEscolhidaGenero);
-            Calendar dg = Calendar.getInstance();
-            customerDTO.setUpdateDate(dg.getTime());
+            customerDTO.setUpdateDate(dg);
 
             //campos nao obrigatorios
 
@@ -324,8 +321,15 @@ public class CustProfile_5 extends ActionBarActivity {
 
             // executa requisição JSON
             try {
-                new HttpRequestTask().execute(customerDTO);
-                System.out.println("Alcançou Json Com sucesso");
+                customerDTO = new CustomerSaveService().execute(customerDTO).get();
+
+                if (customerDTO == null) {
+                    System.out.println("=== DEU ERRO E O CLIENTE RETORNO NULLO");
+                } else {
+                    System.out.println("=== DEU CERTO E O CLIENTE RETORNOU COM SUCESSO " + customerDTO.getName());  //TODO verificar se o back adiciona o id no objeto de retorno
+                    Intent i = new Intent(CustProfile_5.this, CustDrawerMenu_10.class); //TODO modificar para tela inicial
+                    startActivity(i);
+                                                        }
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("Falha ao executar JSON");
@@ -335,7 +339,9 @@ public class CustProfile_5 extends ActionBarActivity {
             Toast.makeText(getApplicationContext(), "Por favor, preencha todos os campos obrigatórios", Toast.LENGTH_SHORT).show();
         }
     }
+
     //gerencia a manipulação de Radio Buttons
+
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
@@ -390,7 +396,7 @@ public class CustProfile_5 extends ActionBarActivity {
             myCal.set(Calendar.YEAR, year);
             myCal.set(Calendar.MONTH, month);
             myCal.set(Calendar.DAY_OF_MONTH, day);
-            chosenDate = myCal.getTime();
+            chosenDate = myCal;
 
             // coloca data selecionada dentro do TextView correspondente
             dataEscolhidaTV.setText(new StringBuilder().append(month + 1)
@@ -399,181 +405,9 @@ public class CustProfile_5 extends ActionBarActivity {
         }
     };
 
-    //Métodos relacionados ao JSON
 
-    private class HttpRequestTask extends AsyncTask<CustomerDTO, Void, CustomerDTO> {
-        @Override
-        protected CustomerDTO doInBackground(CustomerDTO... params) {
-            try {
-                RestTemplate restTemplate = new RestTemplate();
-                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-                customerDTO = restTemplate.postForObject(URLConstants.JSON_SERVER_URL +
-                        URLConstants.CUSTOMER_SAVE, customerDTO, CustomerDTO.class);
-                System.out.println("conectou");
-                return customerDTO;
-            } catch (Exception e) {
-                System.out.println("nao conectou");
-                e.printStackTrace();
-            }
-            return null;
-        }
 
-        protected void onPostExecute(CustomerDTO Result) {
-            super.onPostExecute(Result);
-            // tela de carregamento
-            try {
-                if (Result != null) {
-                    Intent i = new Intent(CustProfile_5.this, CustDrawerMenu_10.class);
-                    startActivity(i);
-                } else {
-                    System.out.println("Nao conseguiu fazer post execute( mudar de tela");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-//    Metodos de validacao de dados
-
-    private boolean isValidName(String nome) {
-
-        if (nome.equals("")) {
-
-            return false;
-        }
-        else{
-            if(nome.length() > 60){
-                return false;
-            }
-            else{
-                String NAME_PATTERN = "^[_A-Za-z\\+]{3,15}+((\\s[_A-Za-z]+)*)$";
-
-                Pattern pattern = Pattern.compile(NAME_PATTERN);
-                Matcher matcher = pattern.matcher(nome);
-                return matcher.matches();
-            }
-        }
-    }
-    private boolean isValidEmail(String email) {
-        String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-
-        Pattern pattern = Pattern.compile(EMAIL_PATTERN);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
-    }
-    private boolean isValidCelular(String celular) {
-        if (celular.equals("") || celular.length() > 9) {
-            return false;
-        }else  if(celular.length()==9)
-        {
-            return true;
-        }
-            return false;
-
-    }
-    private boolean isValidCEP(String cep) {
-        if (cep.equals("") || cep.length() > 8 ) {
-            return false;
-        }
-        else if(cep.length()==8){
-            return true;
-        }
-        return false;
-    }
-    private boolean isValidNumero(String numero) {
-        if (numero.equals("") || numero.length() > 9) {
-            return false;
-        }
-        else{
-            return true;
-        }
-    }
-    private boolean isValidEstado(String estado) {
-        if (estado.equals("")) {
-            return false;
-        }
-        else{
-            if(estado.length() > 2){
-                return false;
-            }
-            else{
-                String STATE_PATTERN = "^[a-z]{1,2}$";
-
-                Pattern pattern = Pattern.compile(STATE_PATTERN);
-                Matcher matcher = pattern.matcher(estado);
-                return matcher.matches();
-            }
-        }
-    }
-    private boolean isValidCidade(String cidade) {
-        if (cidade.equals("")) {
-            return false;
-        }
-        else{
-            if(cidade.length() > 40){
-                return false;
-            }
-            else{
-                String CITY_NAME = "^[_A-Za-z\\+]{3,15}+((\\s[_A-Za-z]+)*)$";
-
-                Pattern pattern = Pattern.compile(CITY_NAME);
-                Matcher matcher = pattern.matcher(cidade);
-                return matcher.matches();
-            }
-        }
-    }
-    private boolean isValidBairro(String bairro) {
-        if (bairro.equals("")) {
-            return false;
-        }
-        else{
-            if(bairro.length() > 60){
-                return false;
-            }
-            else{
-                String DISTRICT_NAME = "^[_A-Za-z\\+]{3,15}+((\\s[_A-Za-z]+)*)$";
-
-                Pattern pattern = Pattern.compile(DISTRICT_NAME);
-                Matcher matcher = pattern.matcher(bairro);
-                return matcher.matches();            }
-        }
-    }
-    private boolean isValidRua(String rua) {
-        if (rua.equals("")) {
-            return false;
-        }
-        else{
-            if(rua.length() > 60){
-                return false;
-            }
-            else{
-                String STREET_NAME = "^[_A-Za-z\\+]{3,15}+((\\s[_A-Za-z]+)*)$";
-
-                Pattern pattern = Pattern.compile(STREET_NAME);
-                Matcher matcher = pattern.matcher(rua);
-                return matcher.matches();             }
-        }
-
-    }
-    private boolean isValidNascimento(Date chosenDate){
-        if(chosenDate==null){
-            return false;
-        }
-        else{
-            return true;
-        }
-    }
-    private Boolean isValidSexo(Gender opcaoEscolhidaGenero){
-        if(opcaoEscolhidaGenero==null){
-            return false;
-        }
-        else{
-            return true;
-        }
-    }
-
+// em caso de restauração
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(NOME_CTE, nome);
