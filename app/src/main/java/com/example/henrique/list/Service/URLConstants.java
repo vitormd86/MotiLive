@@ -1,40 +1,41 @@
 package com.example.henrique.list.Service;
 
 public class URLConstants {
-    // SERVER
 
+    // LOCAL
+    //public static final String JSON_SERVER_URL = "http://192.168.0.13:8081//moti-json";
+
+    // SERVER
     public static final String JSON_SERVER_URL = "http://192.169.198.138:8080//moti-json";
 
-//    public static final String JSON_SERVER_URL = "http://192.168.0.10:8080//moti-json";
-
     // CUSTOMER SERVICE
-    public static final String CUSTOMER_FIND = "/customer/find?id={id}";
-    public static final String CUSTOMER_FIND_ALL = "/customer/findAll";
-    public static final String CUSTOMER_FIND_CONTACTS_BY_PROFESSIONAL_ID = "/customer/findCustomerContactsByProfessionalId?professionalId={professionalId}";
-    public static final String CUSTOMER_SAVE = "/customer/save";
+    public static final String CUSTOMER_FIND = JSON_SERVER_URL + "/customer/find?id={id}";
+    public static final String CUSTOMER_FIND_ALL = JSON_SERVER_URL + "/customer/findAll";
+    public static final String CUSTOMER_FIND_CONTACTS_BY_PROFESSIONAL_ID = JSON_SERVER_URL + "/customer/findCustomerContactsByProfessionalId?professionalId={professionalId}";
+    public static final String CUSTOMER_SAVE = JSON_SERVER_URL + "/customer/save";
 
     // DAILY SCHEDULE SERVICE
-    public static final String DAILY_SCHEDULE_FIND_ALL_BY_PROFESSIONAL_ID = "/dailySchedule/findAllByProfessionalId?professionalId={professionalId}";
-    public static final String DAILY_SCHEDULE_SAVE = "/dailySchedule/save";
-    public static final String DAILY_SCHEDULE_SAVE_ALL = "/dailySchedule/saveAll";
+    public static final String DAILY_SCHEDULE_FIND_ALL_BY_PROFESSIONAL_ID = JSON_SERVER_URL + "/dailySchedule/findAllByProfessionalId?professionalId={professionalId}";
+    public static final String DAILY_SCHEDULE_SAVE = JSON_SERVER_URL + "/dailySchedule/save";
+    public static final String DAILY_SCHEDULE_SAVE_ALL = JSON_SERVER_URL + "/dailySchedule/saveAll";
 
     // LOGIN SERVICE
-    public static final String LOGIN = "/login/user?login={login}&password={password}";
-    public static final String LOGIN_WITH_FACEBOOK = "/login/facebook?facebookLogin={facebookLogin}";
-    public static final String LOGIN_VERIFY_EXISTING_USER = "/login/verifyExistingUser?login={login}";
+    public static final String LOGIN = JSON_SERVER_URL + "/login/user?login={login}&password={password}";
+    public static final String LOGIN_WITH_FACEBOOK = JSON_SERVER_URL + "/login/facebook?facebookLogin={facebookLogin}";
+    public static final String LOGIN_VERIFY_EXISTING_USER = JSON_SERVER_URL + "/login/verifyExistingUser?login={login}";
 
     // PROFESSIONAL SERVICE
-    public static final String PROFESSIONAL_FIND = "/professional/find?id={id}";
-    public static final String PROFESSIONAL_FIND_ALL = "/professional/findAll";
-    public static final String PROFESSIONAL_FIND_CONTACTS_BY_CUSTOMER_ID = "/professional/findProfessionalContactsByCustomerId?customerId={customerId}";
-    public static final String PROFESSIONAL_SAVE = "/professional/save";
+    public static final String PROFESSIONAL_FIND = JSON_SERVER_URL + "/professional/find?id={id}";
+    public static final String PROFESSIONAL_FIND_ALL = JSON_SERVER_URL + "/professional/findAll";
+    public static final String PROFESSIONAL_FIND_CONTACTS_BY_CUSTOMER_ID = JSON_SERVER_URL + "/professional/findProfessionalContactsByCustomerId?customerId={customerId}";
+    public static final String PROFESSIONAL_SAVE = JSON_SERVER_URL + "/professional/save";
 
     // SCHEDULING SERVICE
-    public static final String SCHEDULING_FIND_ALL_BY_CUSTOMER_ID = "/scheduling/findAllByCustomerId?customerId={customerId}";
-    public static final String SCHEDULING_FIND_ALL_BY_PROFESSIONAL_ID = "/scheduling/findAllByProfessionalId?professionalId={professionalId}";
-    public static final String SCHEDULING_SAVE = "/scheduling/save";
+    public static final String SCHEDULING_FIND_ALL_BY_CUSTOMER_ID = JSON_SERVER_URL + "/scheduling/findAllByCustomerId?customerId={customerId}";
+    public static final String SCHEDULING_FIND_ALL_BY_PROFESSIONAL_ID = JSON_SERVER_URL + "/scheduling/findAllByProfessionalId?professionalId={professionalId}";
+    public static final String SCHEDULING_SAVE = JSON_SERVER_URL + "/scheduling/save";
 
     // SERVICE SERVICE
-    public static final String SERVICE_FIND_ALL_BY_PROFESSIONAL_ID = "/service/findAllByProfessionalId?professionalId={professionalId}";
-    public static final String SERVICE_SAVE = "/service/save";
+    public static final String SERVICE_FIND_ALL_BY_PROFESSIONAL_ID = JSON_SERVER_URL + "/service/findAllByProfessionalId?professionalId={professionalId}";
+    public static final String SERVICE_SAVE = JSON_SERVER_URL + "/service/save";
 }

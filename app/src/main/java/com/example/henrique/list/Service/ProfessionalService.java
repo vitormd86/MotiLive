@@ -1,50 +1,148 @@
 package com.example.henrique.list.Service;
 
+import android.os.AsyncTask;
+
+import com.example.henrique.list.Utilidade_Publica.ServiceException;
+
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import br.com.motiserver.dto.ProfessionalDTO;
+import br.com.motiserver.dto.WrapperDTO;
 
 public class ProfessionalService {
-
-    public ProfessionalDTO find(Long id) {
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-        Map<String, Object> vars = new HashMap<String, Object>();
-        vars.put("id", id);
-        ProfessionalDTO professionalDTO = restTemplate.getForObject(URLConstants.JSON_SERVER_URL +
-            URLConstants.PROFESSIONAL_FIND, ProfessionalDTO.class, vars);
-        return professionalDTO;
+    /*********************
+     *****  METHODS  *****
+     *********************/
+    public ProfessionalDTO find(Long id) throws ServiceException {
+        WrapperDTO<ProfessionalDTO> wrapperDTO = null;
+        try {
+            wrapperDTO = new Find().execute(id).get();
+        } catch (Exception e) {
+            throw new ServiceException(e);
+        }
+        if (wrapperDTO.getException() != null) {
+            throw new ServiceException(wrapperDTO.getException());
+        } else {
+            return wrapperDTO.getObject();
+        }
     }
 
-    public List<ProfessionalDTO> findAll() {
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-        List<ProfessionalDTO> list = restTemplate.getForObject(URLConstants.JSON_SERVER_URL +
-            URLConstants.PROFESSIONAL_FIND_ALL, new ArrayList<ProfessionalDTO>().getClass());
-        return list;
+    public List<ProfessionalDTO> findAll() throws ServiceException {
+        WrapperDTO<List<ProfessionalDTO>> wrapperDTO = null;
+        try {
+            wrapperDTO = new FindAll().execute().get();
+        } catch (Exception e) {
+            throw new ServiceException(e);
+        }
+        if (wrapperDTO.getException() != null) {
+            throw new ServiceException(wrapperDTO.getException());
+        } else {
+            return wrapperDTO.getObject();
+        }
     }
 
-    public void findProfessionalContactsByCustomerId(Long customerId) {
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-        Map<String, Object> vars = new HashMap<String, Object>();
-        vars.put("customerId", customerId);
-        List<ProfessionalDTO> list = restTemplate.getForObject(URLConstants.JSON_SERVER_URL +
-            URLConstants.PROFESSIONAL_FIND_CONTACTS_BY_CUSTOMER_ID, new ArrayList<ProfessionalDTO>().getClass(), vars);
+    public List<ProfessionalDTO> findProfessionalContactsByCustomerId(Long customerId) throws ServiceException {
+        WrapperDTO<List<ProfessionalDTO>> wrapperDTO = null;
+        try {
+            wrapperDTO = new FindProfessionalContactsByCustomerId().execute(customerId).get();
+        } catch (Exception e) {
+            throw new ServiceException(e);
+        }
+        if (wrapperDTO.getException() != null) {
+            throw new ServiceException(wrapperDTO.getException());
+        } else {
+            return wrapperDTO.getObject();
+        }
     }
 
-    public ProfessionalDTO save(ProfessionalDTO professionalDTO) {
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-        professionalDTO = restTemplate.postForObject(URLConstants.JSON_SERVER_URL +
-            URLConstants.PROFESSIONAL_SAVE, professionalDTO, ProfessionalDTO.class);
-        return professionalDTO;
+    public ProfessionalDTO save(ProfessionalDTO professionalDTO) throws ServiceException {
+        WrapperDTO<ProfessionalDTO> wrapperDTO = null;
+        try {
+            wrapperDTO = new Save().execute(professionalDTO).get();
+        } catch (Exception e) {
+            throw new ServiceException(e);
+        }
+        if (wrapperDTO.getException() != null) {
+            throw new ServiceException(wrapperDTO.getException());
+        } else {
+            return wrapperDTO.getObject();
+        }
+    }
+
+    /***************************
+     *****  INNER CLASSES  *****
+     ***************************/
+    private class Find extends AsyncTask<Long, Void, WrapperDTO<ProfessionalDTO>> {
+        @Override
+        protected WrapperDTO<ProfessionalDTO> doInBackground(Long... id) {
+            // PREPARE
+            RestTemplate restTemplate = new RestTemplate();
+            restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            Map<String, Object> vars = new HashMap<String, Object>();
+            vars.put("id", id[0]);
+            ParameterizedTypeReference<WrapperDTO<ProfessionalDTO>> responseType = new ParameterizedTypeReference<WrapperDTO<ProfessionalDTO>>(){};
+
+            // EXECUTE
+            ResponseEntity<WrapperDTO<ProfessionalDTO>> response = (ResponseEntity<WrapperDTO<ProfessionalDTO>>) restTemplate
+                    .exchange(URLConstants.PROFESSIONAL_FIND, HttpMethod.GET, null, responseType, vars);
+            return response.getBody();
+        }
+    }
+
+    private class FindAll extends AsyncTask<Void, Void, WrapperDTO<List<ProfessionalDTO>>> {
+        @Override
+        protected WrapperDTO<List<ProfessionalDTO>> doInBackground(Void... params) {
+            // PREPARE
+            RestTemplate restTemplate = new RestTemplate();
+            restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            ParameterizedTypeReference<WrapperDTO<List<ProfessionalDTO>>> responseType = new ParameterizedTypeReference<WrapperDTO<List<ProfessionalDTO>>>(){};
+
+            // EXECUTE
+            ResponseEntity<WrapperDTO<List<ProfessionalDTO>>> response = (ResponseEntity<WrapperDTO<List<ProfessionalDTO>>>) restTemplate
+                    .exchange(URLConstants.PROFESSIONAL_FIND_ALL, HttpMethod.GET, null, responseType);
+            return response.getBody();
+        }
+    }
+
+    private class FindProfessionalContactsByCustomerId extends AsyncTask<Long, Void, WrapperDTO<List<ProfessionalDTO>>> {
+        @Override
+        protected WrapperDTO<List<ProfessionalDTO>> doInBackground(Long... customerId) {
+            // PREPARE
+            RestTemplate restTemplate = new RestTemplate();
+            restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            Map<String, Object> vars = new HashMap<String, Object>();
+            vars.put("customerId", customerId[0]);
+            ParameterizedTypeReference<WrapperDTO<List<ProfessionalDTO>>> responseType = new ParameterizedTypeReference<WrapperDTO<List<ProfessionalDTO>>>(){};
+
+            // EXECUTE
+            ResponseEntity<WrapperDTO<List<ProfessionalDTO>>> response = (ResponseEntity<WrapperDTO<List<ProfessionalDTO>>>) restTemplate
+                    .exchange(URLConstants.PROFESSIONAL_FIND_CONTACTS_BY_CUSTOMER_ID, HttpMethod.GET, null, responseType, vars);
+            return response.getBody();
+        }
+    }
+
+    private class Save extends AsyncTask<ProfessionalDTO, Void, WrapperDTO<ProfessionalDTO>> {
+        @Override
+        protected WrapperDTO<ProfessionalDTO> doInBackground(ProfessionalDTO... professionalDTO) {
+            // PREPARE
+            RestTemplate restTemplate = new RestTemplate();
+            restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            HttpEntity<ProfessionalDTO> httpEntity = new HttpEntity<ProfessionalDTO>(professionalDTO[0]);
+            ParameterizedTypeReference<WrapperDTO<ProfessionalDTO>> responseType = new ParameterizedTypeReference<WrapperDTO<ProfessionalDTO>>(){};
+
+            // EXECUTE
+            ResponseEntity<WrapperDTO<ProfessionalDTO>> response = (ResponseEntity<WrapperDTO<ProfessionalDTO>>) restTemplate
+                    .exchange(URLConstants.PROFESSIONAL_SAVE, HttpMethod.POST, httpEntity, responseType);
+            return response.getBody();
+        }
     }
 }
