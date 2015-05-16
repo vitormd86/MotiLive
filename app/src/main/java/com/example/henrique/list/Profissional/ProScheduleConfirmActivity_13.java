@@ -27,7 +27,6 @@ import java.util.TimeZone;
  */
 public class ProScheduleConfirmActivity_13 extends ActionBarActivity {
     String clientName;
-    int nextScreen; //Esta variavel determina a tela q deve voltar
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +52,6 @@ public class ProScheduleConfirmActivity_13 extends ActionBarActivity {
         int selectedMinutes = extras.getInt("selectedMinutes");
         long totalTime = extras.getLong("totalTime");
         double totalPrice = extras.getDouble("totalPrice");
-        nextScreen = extras.getInt("nextScreen");
 
 
         //inicia objetos de layout
@@ -129,11 +127,14 @@ public class ProScheduleConfirmActivity_13 extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Admininstra cliques da ActionBar
         switch (item.getItemId()) {
+            case R.id.homeAsUp:
+                Toast.makeText(this, "Voltou", Toast.LENGTH_SHORT).show();
+                this.finish();
+                return true;
             case R.id.confirmButton:
                 Intent confirmIntent = new Intent(this, ProDrawerMenu_15.class);
                 confirmIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 //todo verificar se existe o agendamento. se existir alterar dados, se nao existir incluir novo no BD
-                confirmIntent.putExtra("nextScreen", nextScreen);
                 Toast.makeText(this, "Cliente adicionado", Toast.LENGTH_SHORT).show();
                 startActivity(confirmIntent);
                 return true;
@@ -163,7 +164,6 @@ public class ProScheduleConfirmActivity_13 extends ActionBarActivity {
 
                 Intent cancelIntent = new Intent(getBaseContext(), ProDrawerMenu_15.class);
                 cancelIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                cancelIntent.putExtra("nextScreen", nextScreen);
                 startActivity(cancelIntent);
                 Toast.makeText(getBaseContext(), "Cancelado", Toast.LENGTH_SHORT).show();
             }

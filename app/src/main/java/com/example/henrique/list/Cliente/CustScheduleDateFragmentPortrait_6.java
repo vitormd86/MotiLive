@@ -80,7 +80,7 @@ public class CustScheduleDateFragmentPortrait_6 extends Fragment {
 
         //inicializa calendario apontando datas finais, iniciais e modo de selecao
         screenCalendar.init(initDate.getTime(), endDate.getTime())
-                .inMode(CalendarPickerView.SelectionMode.SINGLE);
+                .inMode(CalendarPickerView.SelectionMode.SINGLE).withSelectedDate(initDate.getTime());
 
     }
 
