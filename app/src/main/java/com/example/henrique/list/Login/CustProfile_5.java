@@ -320,7 +320,7 @@ public class CustProfile_5 extends ActionBarActivity {
             // executa requisição JSON
             try {
                 CustomerService customerService = new CustomerService();
-                customerService.save(customerDTO);
+                customerDTO = customerService.save(customerDTO);
 
                 if (customerDTO == null) {
                     System.out.println("=== DEU ERRO E O CLIENTE RETORNO NULLO");
