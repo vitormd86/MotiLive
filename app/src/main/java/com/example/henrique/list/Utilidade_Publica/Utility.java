@@ -127,7 +127,8 @@ public class Utility {
                 return false;
             }
             else{
-                String STREET_NAME = "^[_A-Za-z\\+]{3,15}+((\\s[_A-Za-z]+)*)$";
+//                String STREET_NAME = "^[_A-Za-z\\+]{3,15}+((\\s[_A-Za-z]+)*)$";
+                String STREET_NAME ="[\\p{L}]+";
 
                 Pattern pattern = Pattern.compile(STREET_NAME);
                 Matcher matcher = pattern.matcher(rua);

@@ -2,39 +2,38 @@ package com.example.henrique.list.Login;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.henrique.list.Adapters.ProfessionalAdapter;
-import com.example.henrique.list.Cliente.CustDrawerMenu_10;
 import com.example.henrique.list.R;
-import com.example.henrique.list.Service.CustomerService;
+import com.example.henrique.list.Service.ProfessionService;
 import com.example.henrique.list.Service.ProfessionalService;
-import com.example.henrique.list.Service.URLConstants;
+import com.example.henrique.list.Utilidade_Publica.ServiceException;
 import com.example.henrique.list.Utilidade_Publica.Utility;
 
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
-
 import java.util.Calendar;
+import java.util.List;
 
 import br.com.motiserver.constants.Gender;
 import br.com.motiserver.constants.Status;
+import br.com.motiserver.constants.UF;
 import br.com.motiserver.dto.ProfessionDTO;
 import br.com.motiserver.dto.ProfessionalDTO;
 
+
+//TODO IsEDiting
 /**
  * Created by Massaru on 03/04/2015.
  */
@@ -82,8 +81,8 @@ public class ProProfile_5 extends ActionBarActivity {
     EditText ruaET;
     EditText bairroET;
     EditText cidadeET;
-    EditText estadoET;
-    EditText profissaoET;
+    Spinner estadoSP;
+    Spinner profissaoSP;
 
     //Inicializacao dos EditTexts Nao Obrigatorios
     EditText complementoET;
@@ -106,7 +105,7 @@ public class ProProfile_5 extends ActionBarActivity {
     String rua;
     String bairro;
     String cidade;
-    String estado;
+    UF estado;
     String profissao;
 
     @Override
@@ -129,8 +128,6 @@ public class ProProfile_5 extends ActionBarActivity {
             ruaET.setText(savedInstanceState.getString(RUA_CTE));
             bairroET.setText(savedInstanceState.getString(BAIRRO_CTE));
             cidadeET.setText(savedInstanceState.getString(CIDADE_CTE));
-            estadoET.setText(savedInstanceState.getString(ESTADO_CTE));
-            profissaoET.setText(savedInstanceState.getString(PROFISSIONAL_CTE));
 //            opcaoEscolhidaGenero = savedInstanceState.(GENERO_CTE)
 //            if(opcaoEscolhidaGenero == Gender.FEMALE)
         }
@@ -154,8 +151,24 @@ public class ProProfile_5 extends ActionBarActivity {
         ruaET = (EditText) findViewById(R.id.RuaProET_5);
         bairroET = (EditText) findViewById(R.id.bairroProET_5);
         cidadeET = (EditText) findViewById(R.id.cidadeProET_5);
-        estadoET = (EditText) findViewById(R.id.estadoProET_5);
-        profissaoET = (EditText) findViewById(R.id.profissaoProET_5);
+        estadoSP = (Spinner) findViewById(R.id.estadoProSP_5);
+        profissaoSP = (Spinner) findViewById(R.id.profissaoProSP_5);
+
+        ProfessionService professionService  = new ProfessionService();
+        List<ProfessionDTO> professions = null;
+        try {
+            professions = professionService.findAll();
+
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
+        ArrayAdapter<ProfessionDTO> professionAdapter = new  ArrayAdapter<ProfessionDTO>(this, android.R.layout.simple_spinner_item , professions );
+        professionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        profissaoSP.setAdapter(professionAdapter);
+
+        ArrayAdapter<UF> stateAdapter = new  ArrayAdapter<UF>(this, android.R.layout.simple_spinner_item , UF.values() );
+        stateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        estadoSP.setAdapter(stateAdapter);
 
         // campos nao obrigatorios
         complementoET = (EditText) findViewById(R.id.complementoProET_5);
@@ -243,15 +256,6 @@ public class ProProfile_5 extends ActionBarActivity {
                 CEPET.setError(null);
         }
 
-        profissao = profissaoET.getText().toString();
-        if (!Utility.isValidProfissao(profissao)) {
-            profissaoET.setError("A profissao aceita letras somente");
-            executaJSON = false;
-        }else{
-            if(profissaoET.getError() != null)
-                profissaoET.setError(null);
-        }
-
         numero = numeroET.getText().toString();
         if (!Utility.isValidNumero(numero)) {
             numeroET.setError("O número não");
@@ -287,14 +291,14 @@ public class ProProfile_5 extends ActionBarActivity {
             if(cidadeET.getError() != null)
                 cidadeET.setError(null);
         }
-        estado = estadoET.getText().toString();
-        if (!Utility.isValidEstado(estado)) {
-            estadoET.setError("O estado não pode conter números.");
-            executaJSON = false;
-        }else{
-            if(estadoET.getError() != null)
-                estadoET.setError(null);
-        }
+//        estado = estadoET.getText().toString();
+//        if (!Utility.isValidEstado(estado)) {
+//            estadoET.setError("O estado não pode conter números.");
+//            executaJSON = false;
+//        }else{
+//            if(estadoET.getError() != null)
+//                estadoET.setError(null);
+//        }
 
         if (!Utility.isValidNascimento(chosenDate)) {
             Toast.makeText(getApplicationContext(), "Por favor,escolha sua data de nascimento ", Toast.LENGTH_SHORT).show();
@@ -321,10 +325,12 @@ public class ProProfile_5 extends ActionBarActivity {
             professionalDTO.setAddressCity(cidade);
             professionalDTO.setAddressNumber(numero);
             professionalDTO.setAddressZipCode(cep);
+            estado = (UF) estadoSP.getSelectedItem();
+            professionalDTO.setAddressState(estado);
             professionalDTO.setGender(opcaoEscolhidaGenero);
             professionalDTO.setUpdateDate(dg);
-
-            ProfessionDTO professionDTO = new ProfessionDTO(); //Inicializa o objeto profissao
+            //profession DTO
+            ProfessionDTO professionDTO =(ProfessionDTO) profissaoSP.getSelectedItem();
             professionalDTO.setProfession(professionDTO);
             professionalDTO.setRegistry("1234225");  //TODO colocar um campo na tela
             //campos nao obrigatorios
@@ -436,7 +442,8 @@ public class ProProfile_5 extends ActionBarActivity {
         outState.putString(CEP_CTE, cep);
         outState.putString(NUMERO_CTE, numero);
         outState.putString(CIDADE_CTE, cidade);
-        outState.putString(ESTADO_CTE, estado);
     }
+
+
 
 }

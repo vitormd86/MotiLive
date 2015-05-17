@@ -9,10 +9,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +29,7 @@ import br.com.motiserver.constants.Gender;
 import br.com.motiserver.constants.Status;
 import br.com.motiserver.constants.UF;
 import br.com.motiserver.dto.CustomerDTO;
+//TODO IsEDiting
 
 /**
  * Created by Massaru on 03/04/2015.
@@ -73,7 +76,7 @@ public class CustProfile_5 extends ActionBarActivity {
     EditText ruaET;
     EditText bairroET;
     EditText cidadeET;
-    EditText estadoET;
+    Spinner estadoSP;
 
     //Inicializacao dos EditTexts Nao Obrigatorios
     EditText complementoET;
@@ -96,7 +99,7 @@ public class CustProfile_5 extends ActionBarActivity {
     String rua;
     String bairro;
     String cidade;
-    String estado;
+    UF estado;
 
     Utility utility ;
 
@@ -121,7 +124,6 @@ public class CustProfile_5 extends ActionBarActivity {
              ruaET.setText(savedInstanceState.getString(RUA_CTE));
              bairroET.setText(savedInstanceState.getString(BAIRRO_CTE));
              cidadeET.setText(savedInstanceState.getString(CIDADE_CTE));
-             estadoET.setText(savedInstanceState.getString(ESTADO_CTE));
 //            opcaoEscolhidaGenero = savedInstanceState.(GENERO_CTE)
 //            if(opcaoEscolhidaGenero == Gender.FEMALE)
         }
@@ -143,11 +145,15 @@ public class CustProfile_5 extends ActionBarActivity {
         ruaET = (EditText) findViewById(R.id.RuaProET_5);
         bairroET = (EditText) findViewById(R.id.bairroProET_5);
         cidadeET = (EditText) findViewById(R.id.cidadeProET_5);
-        estadoET = (EditText) findViewById(R.id.estadoProET_5);
+        estadoSP = (Spinner) findViewById(R.id.estadoProSP_5);
 
         // Botoes nao obrigatorios
         complementoET = (EditText) findViewById(R.id.complementoProET_5);
         imageButton = (ImageButton) findViewById(R.id.ImageButtonPro_5);
+
+        ArrayAdapter<UF> stateAdapter = new  ArrayAdapter<UF>(this, android.R.layout.simple_spinner_item , UF.values() );
+        stateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        estadoSP.setAdapter(stateAdapter);
 
        // Objetos
         customerDTO = new CustomerDTO();
@@ -188,6 +194,8 @@ public class CustProfile_5 extends ActionBarActivity {
 
         customerDTO = new CustomerDTO();
         executaJSON = true;
+
+        estado = (UF) estadoSP.getSelectedItem();
 
         //validacoes dos campos
 
@@ -266,14 +274,7 @@ public class CustProfile_5 extends ActionBarActivity {
             if(cidadeET.getError() != null)
                 cidadeET.setError(null);
         }
-        estado = estadoET.getText().toString();
-        if (!Utility.isValidEstado(estado)) {
-            estadoET.setError("O estado não pode conter números.");
-            executaJSON = false;
-        }else{
-            if(estadoET.getError() != null)
-                estadoET.setError(null);
-        }
+
 
         if (!Utility.isValidNascimento(chosenDate)) {
             Toast.makeText(getApplicationContext(), "Por favor,escolha sua data de nascimento ", Toast.LENGTH_SHORT).show();
@@ -300,7 +301,7 @@ public class CustProfile_5 extends ActionBarActivity {
             customerDTO.setAddressCity(cidade);
             customerDTO.setAddressNumber(numero);
             customerDTO.setAddressZipCode(cep);
-            customerDTO.setAddressState(UF.SAO_PAULO);
+            customerDTO.setAddressState(estado);
             customerDTO.setGender(opcaoEscolhidaGenero);
             customerDTO.setUpdateDate(dg);
 
@@ -404,9 +405,7 @@ public class CustProfile_5 extends ActionBarActivity {
         }
     };
 
-
-
-// em caso de restauração
+    // em caso de restauração
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(NOME_CTE, nome);
@@ -415,7 +414,6 @@ public class CustProfile_5 extends ActionBarActivity {
         outState.putString(CEP_CTE, cep);
         outState.putString(NUMERO_CTE, numero);
         outState.putString(CIDADE_CTE, cidade);
-        outState.putString(ESTADO_CTE, estado);
     }
 
     }

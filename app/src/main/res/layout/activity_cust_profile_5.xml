@@ -175,17 +175,14 @@
             android:maxLength="40"
             android:inputType="text" />
 
-        <EditText
+        <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Estado"
-
             android:layout_below="@+id/bairroProET_5"
             android:layout_alignLeft="@+id/bairroProET_5"
             android:layout_alignStart="@+id/bairroProET_5"
-            android:id="@+id/estadoProET_5"
-            android:maxLength="2"
-            android:inputType="text" />
+            android:id="@+id/estadoProSP_5"
+            />
 
         <RadioGroup
             android:layout_width="wrap_content"
