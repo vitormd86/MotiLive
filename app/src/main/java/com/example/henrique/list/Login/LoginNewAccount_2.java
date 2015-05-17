@@ -8,10 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.henrique.list.R;
-import com.example.henrique.list.Utilidade_Publica.Utility;
 
 
 
@@ -111,7 +109,7 @@ public class LoginNewAccount_2 extends Activity {
                     }
                     // Else display error message
                     else{
-                        errorMsg.setText(obj.getString("error_msg"));
+                        errorMsgTV.setText(obj.getString("error_msg"));
                         Toast.makeText(getApplicationContext(), obj.getString("error_msg"), Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {

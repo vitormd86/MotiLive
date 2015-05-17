@@ -2,8 +2,9 @@
 <resources>
 
     <!--Login Process -->
-    <string name="hintEmail">Digite seu e-mail</string>
+    <string name="hintLogin">Digite seu login</string>
     <string name="hintPassword">Digite sua senha</string>
+    <string name="hintEmail">Digite seu e-mail</string>
     <string name="descriptionLogo">Logo Moti</string>
     <string name="buttonLogin">Entrar</string>
     <string name="buttonSignUp">Criar Conta</string>
