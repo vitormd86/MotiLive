@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--Globals-->
+    <string name="buttonCancel">Cancelar</string>
+
     <!--Login Process -->
     <string name="hintLogin">Digite seu login</string>
     <string name="hintPassword">Digite sua senha</string>
+    <string name="hintConfirmPassword">Confirme sua senha</string>
+    <string name="hintShowPassword">Mostrar Senha</string>
     <string name="hintEmail">Digite seu e-mail</string>
     <string name="descriptionLogo">Logo Moti</string>
     <string name="buttonLogin">Entrar</string>
     <string name="buttonSignUp">Criar Conta</string>
+
+
 
     <!--Outros -->
     <string name="app_name">List</string>
@@ -31,7 +38,6 @@
     <string name="name">Name</string>
     <string name="email">Email</string>
     <string name="pwd">Password</string>
-    <string name="btnRegister">Register</string>
     <string name="action_refresh">action_refresh</string>
     <string name="action_help">action_help</string>
 

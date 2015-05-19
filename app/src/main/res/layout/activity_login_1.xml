@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_betweenElements_small"
-        android:inputType="textEmailAddress"
+        android:inputType="text"
         android:hint="@string/hintLogin" />
 
     <EditText
@@ -34,14 +34,13 @@
 
     <TextView
         style="@style/TextAlert"
-        android:layout_marginBottom="@dimen/margin_betweenElements_small"
-        android:id="@+id/login_error" />
+        android:id="@+id/login_error"
+        android:layout_marginBottom="@dimen/margin_betweenElements_small" />
 
     <Button
         style="@style/LoginButton"
         android:id="@+id/buttonCustLoginLogar"
-        android:text="@string/buttonLogin"
-        android:onClick="loginUser" />
+        android:text="@string/buttonLogin"/>
 
 
     <RelativeLayout
@@ -52,8 +51,7 @@
             style="@style/SignUpButton"
             android:id="@+id/buttonCustLoginCriarConta"
             android:layout_marginBottom="@dimen/margin_betweenElements_small"
-            android:text="@string/buttonSignUp"
-            android:onClick="navigatetoRegisterActivity" />
+            android:text="@string/buttonSignUp"/>
     </RelativeLayout>
 
 </LinearLayout>

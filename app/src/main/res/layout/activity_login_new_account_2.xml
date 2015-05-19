@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="5dip"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/margin_app"
     android:focusable="true"
-    android:focusableInTouchMode="true">
-
-    <!-- View Title Label -->
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/imageLogoSmall"
@@ -16,82 +14,55 @@
         android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="@dimen/margin_betweenElements_medium"
-        android:src="@drawable/img_logo_small"
-        android:contentDescription="@string/descriptionLogo"/>
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/name" />
-    <!-- Name TextField -->
+        android:contentDescription="@string/descriptionLogo"
+        android:src="@drawable/img_logo_small" />
 
     <EditText
         android:id="@+id/loginNewAccountName"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter your Name" />
-
-    <!-- Email Label -->
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/email" />
-    <!-- Email TextField -->
+        android:layout_marginBottom="@dimen/margin_betweenElements_medium"
+        android:hint="@string/hintLogin"
+        android:inputType="text" />
 
     <EditText
-        android:id="@+id/loginNewAccountEmail"
-        android:layout_width="fill_parent"
+        android:id="@+id/loginNewAccountPassword"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter your Email ID"
-        android:inputType="textEmailAddress" />
-
-    <!-- Password Label -->
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dip"
-        android:text="@string/pwd" />
-    <!-- Password TextField -->
-
-    <EditText
-        android:id="@+id/loginNewAccountSenha"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter Password"
+        android:fontFamily="sans-serif"
+        android:hint="@string/hintPassword"
         android:inputType="textPassword" />
 
-    <!-- Error message -->
+    <EditText
+        android:id="@+id/loginNewAccountConfirmPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:hint="@string/hintConfirmPassword"
+        android:inputType="textPassword" />
+
+    <CheckBox
+        android:id="@+id/cbShowPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/hintShowPassword"/>
 
     <TextView
         android:id="@+id/register_error"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="10dip"
-        android:textColor="#e30000"
-        android:textStyle="bold" />
+        style="@style/TextAlert"
+        android:layout_marginBottom="@dimen/margin_betweenElements_small" />
 
     <Button
+        style="@style/LoginButton"
         android:id="@+id/buttonloginNewAccount"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dip"
-        android:background="#27ae60"
-        android:onClick="registerUser"
-        android:text="@string/btnRegister"
-        android:textColor="#fff" />
+        android:text="@string/buttonSignUp" />
 
-    <!-- Link to Login Screen -->
-
-    <Button
-        android:id="@+id/btnCancelarTela2"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dip"
-        android:background="@null"
-        android:onClick="navigatetoLoginActivity"
-        android:text="Cancelar"
-        android:textColor="#228b22"
-        android:textStyle="bold" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button
+            style="@style/SignUpButton"
+            android:id="@+id/buttonCancel"
+            android:text="@string/buttonCancel"/>
+    </RelativeLayout>
 </LinearLayout>
