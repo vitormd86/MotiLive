@@ -39,24 +39,24 @@ import br.com.motiserver.dto.ProfessionalDTO;
  */
 public class ProProfile_5 extends ActionBarActivity {
 
-    //Constants
+//    //Constants
     static final int DATE_DIALOG_ID = 999;
-    private static final String NOME_CTE = "NOME_CTE";
-    private static final String CELULAR_CTE = "CELULAR_CTE";
-    private static final String EMAIL_CTE = "EMAIL_CTE";
-    private static final String CEP_CTE = "CEP_CTE";
-    private static final String NUMERO_CTE = "NUMERO_CTE";
-    private static final String RUA_CTE = "RUA_CTE";
-    private static final String BAIRRO_CTE = "BAIRRO_CTE";
-    private static final String CIDADE_CTE = "CIDADE_CTE";
-    private static final String ESTADO_CTE = "ESTADO_CTE";
-    private static final String PROFISSIONAL_CTE = "PROFISSIONAL_CTE";
-
-
-    //TODO: fazer recuperacao de data e Genero
-
-    private static final String GENERO_CTE = "GENERO_CTE";
-    private static final String DATA_CTE = "DATA_CTE";
+//    private static final String NOME_CTE = "NOME_CTE";
+//    private static final String CELULAR_CTE = "CELULAR_CTE";
+//    private static final String EMAIL_CTE = "EMAIL_CTE";
+//    private static final String CEP_CTE = "CEP_CTE";
+//    private static final String NUMERO_CTE = "NUMERO_CTE";
+//    private static final String RUA_CTE = "RUA_CTE";
+//    private static final String BAIRRO_CTE = "BAIRRO_CTE";
+//    private static final String CIDADE_CTE = "CIDADE_CTE";
+//    private static final String ESTADO_CTE = "ESTADO_CTE";
+//    private static final String PROFISSIONAL_CTE = "PROFISSIONAL_CTE";
+//
+//
+//    //TODO: fazer recuperacao de data e Genero
+//
+//    private static final String GENERO_CTE = "GENERO_CTE";
+//    private static final String DATA_CTE = "DATA_CTE";
 
     //TextViews
     TextView dataEscolhidaTV;
@@ -120,14 +120,14 @@ public class ProProfile_5 extends ActionBarActivity {
 
         }else{
             //significa que o APP esta restaurando
-            nomeET.setText(savedInstanceState.getString(NOME_CTE));
-            emailET.setText(savedInstanceState.getString(EMAIL_CTE));
-            celularET.setText(savedInstanceState.getString(CELULAR_CTE));
-            CEPET.setText(savedInstanceState.getString(CEP_CTE));
-            numeroET.setText(savedInstanceState.getString(NUMERO_CTE));
-            ruaET.setText(savedInstanceState.getString(RUA_CTE));
-            bairroET.setText(savedInstanceState.getString(BAIRRO_CTE));
-            cidadeET.setText(savedInstanceState.getString(CIDADE_CTE));
+//            nomeET.setText(savedInstanceState.getString(NOME_CTE));
+//            emailET.setText(savedInstanceState.getString(EMAIL_CTE));
+//            celularET.setText(savedInstanceState.getString(CELULAR_CTE));
+//            CEPET.setText(savedInstanceState.getString(CEP_CTE));
+//            numeroET.setText(savedInstanceState.getString(NUMERO_CTE));
+//            ruaET.setText(savedInstanceState.getString(RUA_CTE));
+//            bairroET.setText(savedInstanceState.getString(BAIRRO_CTE));
+//            cidadeET.setText(savedInstanceState.getString(CIDADE_CTE));
 //            opcaoEscolhidaGenero = savedInstanceState.(GENERO_CTE)
 //            if(opcaoEscolhidaGenero == Gender.FEMALE)
         }
@@ -150,7 +150,7 @@ public class ProProfile_5 extends ActionBarActivity {
         numeroET = (EditText) findViewById(R.id.numeroProET_5);
         ruaET = (EditText) findViewById(R.id.RuaProET_5);
         bairroET = (EditText) findViewById(R.id.bairroProET_5);
-        cidadeET = (EditText) findViewById(R.id.cidadeProET_5);
+        cidadeET = (EditText) findViewById(R.id.cidadeProSP_5);
         estadoSP = (Spinner) findViewById(R.id.estadoProSP_5);
         profissaoSP = (Spinner) findViewById(R.id.profissaoProSP_5);
 
@@ -266,7 +266,7 @@ public class ProProfile_5 extends ActionBarActivity {
         }
 
         rua = ruaET.getText().toString();
-        if (!Utility.isValidRua(rua)) {
+        if (!Utility.isValidTextWithSpace(rua)) {
             ruaET.setError("A rua não pode conter números.");
             executaJSON = false;
         }else{
@@ -291,14 +291,6 @@ public class ProProfile_5 extends ActionBarActivity {
             if(cidadeET.getError() != null)
                 cidadeET.setError(null);
         }
-//        estado = estadoET.getText().toString();
-//        if (!Utility.isValidEstado(estado)) {
-//            estadoET.setError("O estado não pode conter números.");
-//            executaJSON = false;
-//        }else{
-//            if(estadoET.getError() != null)
-//                estadoET.setError(null);
-//        }
 
         if (!Utility.isValidNascimento(chosenDate)) {
             Toast.makeText(getApplicationContext(), "Por favor,escolha sua data de nascimento ", Toast.LENGTH_SHORT).show();
@@ -434,15 +426,15 @@ public class ProProfile_5 extends ActionBarActivity {
 
 
     // em caso de restauracao
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString(NOME_CTE, nome);
-        outState.putString(EMAIL_CTE, email);
-        outState.putString(CELULAR_CTE, celular);
-        outState.putString(CEP_CTE, cep);
-        outState.putString(NUMERO_CTE, numero);
-        outState.putString(CIDADE_CTE, cidade);
-    }
+//    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//        outState.putString(NOME_CTE, nome);
+//        outState.putString(EMAIL_CTE, email);
+//        outState.putString(CELULAR_CTE, celular);
+//        outState.putString(CEP_CTE, cep);
+//        outState.putString(NUMERO_CTE, numero);
+//        outState.putString(CIDADE_CTE, cidade);
+//    }
 
 
 

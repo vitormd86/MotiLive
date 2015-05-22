@@ -12,6 +12,14 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.henrique.list.R;
+import com.example.henrique.list.Service.ServiceService;
+import com.example.henrique.list.Utilidade_Publica.ServiceException;
+import com.example.henrique.list.Utilidade_Publica.Utility;
+
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.ParseException;
 
 import br.com.motiserver.dto.ServiceDTO;
 
@@ -19,12 +27,20 @@ import br.com.motiserver.dto.ServiceDTO;
  * Created by Cristor on 01/05/2015.
  */
 public class ProServiceNewActivity_6 extends ActionBarActivity {
-
+    //EditText
     EditText serviceNameET, serviceDescriptionET, sessionValueET;
+    String serviceName, serviceDescription, sessionValueString;
+    BigDecimal  sessionValue;
+    //Spinners
     Spinner sessionHoursSP, sessionMinutesSP;
-    ServiceDTO serviceDTO;
+    String sessionHours, sessionMinutes;
 
+    //Seriazables
+    ServiceDTO serviceDTO;
+    //booleans
     Boolean isEditing;
+    boolean executaJSON;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +54,7 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         initViews();
         initSpinnerAdapters();
 
+
         //configurando BackNavigation button
         if(isEditing){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -46,12 +63,16 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         }
     }
 
+
+
     private void initViews(){
-        sessionHoursSP = (Spinner) findViewById(R.id.sessionHours);
-        sessionMinutesSP = (Spinner) findViewById(R.id.sessionMinutes);
-        serviceNameET = (EditText) findViewById(R.id.serviceName);
-        serviceDescriptionET = (EditText) findViewById(R.id.serviceDescription);
-        sessionValueET = (EditText) findViewById(R.id.sessionValue);
+        //init Spinners
+        sessionHoursSP =        (Spinner) findViewById(R.id.sessionHoursProSP_6);
+        sessionMinutesSP =      (Spinner) findViewById(R.id.sessionMinutesProSP_6);
+        //init Edit Texts
+        serviceNameET =         (EditText) findViewById(R.id.serviceNameETPro_6);
+        serviceDescriptionET =  (EditText) findViewById(R.id.serviceDescriptionProET_6);
+        sessionValueET =        (EditText) findViewById(R.id.sessionValueProET_6);
 
         if (isEditing){
             Bundle extras = getIntent().getExtras();
@@ -94,15 +115,35 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         // Admininstra cliques da ActionBar
         switch (item.getItemId()) {
             case R.id.confirmButton:
+                executaJSON = true;
                 if(isEditingService()){
-                    //todo deve alterar servico selecionado no banco
+                    //todo   agora quem vai tratar  edição e adição é o proprio back... soh precisamos da isEditing para sabermos como vamos tratar a tela
+
                 } else {
                     //todo deve adicionar servico no banco
+                    initVariables();
+                    if(validatefields()){
+                        ServiceService serviceservice = new ServiceService();
+                        if (executaJSON) {
+                            serviceDTO.setName(serviceName);
+                            serviceDTO.setDescription(serviceDescription);
+                            serviceDTO.setValue(sessionValue);
+                            try {
+                                serviceDTO = serviceservice.save(serviceDTO);
+                                System.out.println("Salvou");
+                                startActivity(intent);
+                            } catch (ServiceException e) {
+                                e.printStackTrace();
+                                System.out.println("Não Salvou");
+                            }
+                        } else {
+                            System.out.println("");
+                        }
+                    }
+
+
                     intent.putExtra("service", serviceNameET.getText().toString());
                 }
-                Toast.makeText(this, serviceNameET.getText().toString(), Toast.LENGTH_SHORT).show();
-                startActivity(intent);
-                finish();
                 return true;
             case R.id.deleteButton:
                 //todo deve apagar servico escolhido do banco
@@ -113,5 +154,58 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void initVariables() {
+
+        //inicializando BigDecimal
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setGroupingSeparator(',');
+        symbols.setDecimalSeparator('.');
+        String pattern = "#,##0.00";
+        DecimalFormat decimalFormat = new DecimalFormat(pattern, symbols);
+        decimalFormat.setParseBigDecimal(true);
+
+        serviceName = serviceNameET.getText().toString();
+        serviceDescription = serviceDescriptionET.getText().toString();
+        sessionValueString = sessionValueET.getText().toString();
+        try {
+            sessionValue = (BigDecimal) decimalFormat.parse(sessionValueString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private boolean validatefields() {
+
+        if (!Utility.isValidTextWithSpace(serviceName)) {
+            serviceNameET.setError("O nome não pode conter numeros");
+            executaJSON = false;
+        }else{
+            if(serviceNameET.getError() != null)
+                serviceNameET.setError(null);
+        }
+
+        if (!Utility.isValidTextWithSpace(serviceDescription)) {
+            serviceDescriptionET.setError("A descrição pode conter qualquer coisa!");
+            executaJSON = false;
+        }else{
+            if(serviceDescriptionET.getError() != null)
+                serviceDescriptionET.setError(null);
+        }
+
+        if (!Utility.isValidBigDecimal(sessionValueString)) {
+            sessionValueET.setError("A session Value só pode conter números ");
+            executaJSON = false;
+        }else{
+            if(sessionValueET.getError() != null)
+                sessionValueET.setError(null);
+        }
+        if(executaJSON)
+            return true;
+        else
+            return false;
     }
 }

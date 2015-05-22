@@ -167,7 +167,7 @@
             android:layout_height="wrap_content"
             android:hint="Cidade"
 
-            android:id="@+id/cidadeProET_5"
+            android:id="@+id/cidadeProSP_5"
             android:layout_below="@+id/complementoProET_5"
             android:layout_alignLeft="@+id/complementoProET_5"
             android:layout_alignStart="@+id/complementoProET_5"

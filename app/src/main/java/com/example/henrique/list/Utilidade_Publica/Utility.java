@@ -3,6 +3,7 @@ package com.example.henrique.list.Utilidade_Publica;
 /**
  * Created by htamashiro on 3/20/15.
  */
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -118,12 +119,12 @@ public class Utility {
                 return matcher.matches();            }
         }
     }
-    public static boolean isValidRua(String rua) {
-        if (rua.equals("")) {
+    public static boolean isValidTextWithSpace(String text) {
+        if (text.equals("")) {
             return false;
         }
         else{
-            if(rua.length() > 60){
+            if(text.length() > 60){
                 return false;
             }
             else{
@@ -131,12 +132,12 @@ public class Utility {
                 String STREET_NAME ="[\\p{L}]+";
 
                 Pattern pattern = Pattern.compile(STREET_NAME);
-                Matcher matcher = pattern.matcher(rua);
+                Matcher matcher = pattern.matcher(text);
                 return matcher.matches();             }
         }
 
     }
-    public static boolean isValidProfissao(String profissao) {
+    public static boolean isValidprofissao(String profissao) {
         if (profissao.equals("")) {
             return false;
         }
@@ -153,6 +154,24 @@ public class Utility {
             }
         }
     }
+
+    public static boolean isValidBigDecimal(String text) {
+        if (text.equals("")) {
+            return false;
+        }
+        else{
+            if(text.length() > 10){
+                return false;
+            }
+            else {
+                BigDecimal bd = new BigDecimal(text);
+                return bd.toPlainString().matches("\\d+(\\.0*)?");
+            }
+
+        }
+
+    }
+
     public static boolean isValidNascimento(Calendar chosenDate){
         if(chosenDate==null){
             return false;
