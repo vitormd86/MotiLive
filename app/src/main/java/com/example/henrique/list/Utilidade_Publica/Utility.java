@@ -14,6 +14,15 @@ import br.com.motiserver.constants.Gender;
  *
  */
 public class Utility {
+
+    public static boolean isValid(String value) {
+        if (value != null && !value.trim().equals("")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static boolean isValidName(String nome) {
 
         if (nome.equals("")) {
