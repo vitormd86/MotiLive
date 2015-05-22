@@ -8,9 +8,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.henrique.list.Cliente.CustDrawerMenu_10;
+import com.example.henrique.list.Profissional.ProDrawerMenu_15;
 import com.example.henrique.list.R;
+import com.example.henrique.list.Service.CustomerService;
+import com.example.henrique.list.Service.LoginService;
+import com.example.henrique.list.Service.ProfessionalService;
+import com.example.henrique.list.Utilidade_Publica.ServiceException;
+import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
+import com.example.henrique.list.Utilidade_Publica.Utility;
+
+import br.com.motiserver.constants.PersonType;
+import br.com.motiserver.dto.CustomerDTO;
+import br.com.motiserver.dto.PersonDTO;
+import br.com.motiserver.dto.ProfessionalDTO;
 
 /**
  * Created by htamashiro on 3/16/15.
@@ -18,8 +31,12 @@ import com.example.henrique.list.R;
 public class Login_1 extends Activity {
 
     TextView errorMsgTV;
-    EditText emailET, pwdET;
+    EditText userET, pwdET;
     Button createAccountBT, loginBT;
+
+    CustomerService customerService = new CustomerService();
+    LoginService loginService = new LoginService();
+    ProfessionalService professionalService = new ProfessionalService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +51,7 @@ public class Login_1 extends Activity {
     private void initViews(){
         //inicia as views
         errorMsgTV = (TextView)findViewById(R.id.login_error);
-        emailET = (EditText)findViewById(R.id.custLoginNome);
+        userET = (EditText)findViewById(R.id.custLoginNome);
         pwdET = (EditText)findViewById(R.id.custLoginSenha);
         createAccountBT = (Button) findViewById(R.id.buttonCustLoginCriarConta);
         loginBT = (Button) findViewById(R.id.buttonCustLoginLogar);
@@ -45,12 +62,51 @@ public class Login_1 extends Activity {
         loginBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //todo validação de campos
-                //todo verificar se é profissional ou cliente e encaminhar para a atividade equivalente
-                Intent loginIntent = new Intent(Login_1.this, CustDrawerMenu_10.class);
-                startActivity(loginIntent);
+            executeLogin();
             }
         });
+    }
+
+    private void executeLogin() {
+        boolean executeJson = true;
+
+        String user = userET.getText().toString();
+        if (!Utility.isValid(user)) {
+            userET.setError("Preencha o login do usuário!");
+            executeJson = false;
+        }
+
+        String password = pwdET.getText().toString();
+        if (!Utility.isValid(password)) {
+            pwdET.setError("Preencha o password do usuário!");
+            executeJson = false;
+        }
+
+        if (executeJson) {
+            try {
+
+                PersonDTO personDTO = loginService.login(user, password);
+
+                // IF SERVICE RETURNS NULL, NOTIFY THAT USER OR PASSWORD IS WRONG
+                if (personDTO == null) {
+                    Toast.makeText(getApplicationContext(), "Login ou senha inválido!", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (personDTO.getType().equals(PersonType.CUSTOMER)) {
+                        CustomerDTO customerDTO = customerService.find(personDTO.getId());
+                        Intent loginIntent = new Intent(Login_1.this, CustDrawerMenu_10.class);
+                        loginIntent.putExtra(SessionAttributes.CUSTOMER, customerDTO);
+                        startActivity(loginIntent);
+                    } else {
+                        ProfessionalDTO professionalDTO = professionalService.find(personDTO.getId());
+                        Intent loginIntent = new Intent(Login_1.this, ProDrawerMenu_15.class);
+                        loginIntent.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
+                        startActivity(loginIntent);
+                    }
+                }
+            } catch (ServiceException ex) {
+                Toast.makeText(getApplicationContext(), "Ocorreu um erro interno. Favor contactar o administrador!", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private void setSignInButtonListener(){
