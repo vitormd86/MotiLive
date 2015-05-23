@@ -121,7 +121,6 @@ public class CustProfile_5 extends ActionBarActivity {
         //Inicializa Adapters
         initSpinnerAdapters();
        // Objetos
-        Serializable s = getIntent().getSerializableExtra(SessionAttributes.CUSTOMER);
         customerDTO = (CustomerDTO) getIntent().getSerializableExtra(SessionAttributes.CUSTOMER);
         customerService = new CustomerService();
 //        Booleans
