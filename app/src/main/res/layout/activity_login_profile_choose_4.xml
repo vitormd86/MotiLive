@@ -1,51 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/margin_app"
     android:orientation="vertical"
-    android:backgroundTint="#FFFFFF"
-        android:weightSum="1">
+    android:weightSum="3">
 
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical"
-        android:padding="10dip"
-        >
-
-        <TextView
-            android:id="@+id/chooseYourProfileTV_4"
-            android:layout_width="fill_parent"
+    <TextView
+        style="@style/TextTitle"
+        android:id="@+id/chooseYourProfileTV_4"
+        android:layout_weight="1"
+        android:text="@string/chooseYourProfile"/>
+        <Button
+            android:id="@+id/clienteBTN_4"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/chooseYourProfileTV_4"
-            android:layout_marginTop="40dp"
-            android:textSize="25sp"
-            android:textStyle="bold"
-
-            />
-
-         <Button
-             android:id="@+id/clienteBTN_4"
-             android:layout_width="fill_parent"
-             android:layout_height="wrap_content"
-             android:layout_marginTop="60dp"
-             android:background="#E91E63"
-             android:text="@string/clienteBTN_4"
-             android:textColor="#fff"
-             />
+            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/margin_betweenElements_medium"
+            android:text="@string/buttonBeClient"
+            android:textColor="@color/white"
+            android:background="@color/pink"/>
         <Button
             android:id="@+id/profissionalBTN_4"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:background="#2980b9"
-            android:textColor="#fff"
-            android:text="@string/profissionalBTN_4"
-
-            />
-
-    </LinearLayout>
-
-
-
-</ScrollView>
+            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/margin_betweenElements_big"
+            android:text="@string/buttonBeProfessional"
+            android:textColor="@color/white"
+            android:background="@color/Blue" />
+</LinearLayout>

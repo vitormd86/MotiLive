@@ -15,45 +15,54 @@ import com.example.henrique.list.R;
  */
 public class LoginProfileChoose_4 extends Activity {
 
-    Button EscolheCliente;
-    Button EscolheProfissional;
+    Button clientChooseBT, professionalChooseBT;
 
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_profile_choose_4);
 
+        initViews();
+        setClientChooseListener();
+        setProfessionalChooseListener();
+    }
 
-        EscolheCliente = (Button) findViewById(R.id.clienteBTN_1);
-        EscolheProfissional = (Button) findViewById(R.id.profissionalBTN_1);
-        EscolheCliente.setOnClickListener(new View.OnClickListener() {
+    private void initViews(){
+        clientChooseBT = (Button) findViewById(R.id.clienteBTN_4);
+        professionalChooseBT = (Button) findViewById(R.id.profissionalBTN_4);
+    }
+    
+    private void setClientChooseListener(){
+        clientChooseBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateToClient(v);
+                executeJson(false);
+                Intent toCustProfileIntent = new Intent(getApplicationContext(),CustProfile_5.class);
+                toCustProfileIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(toCustProfileIntent);
             }
         });
-
-
-
-        EscolheProfissional.setOnClickListener(new View.OnClickListener() {
+    }
+    
+    private void setProfessionalChooseListener(){
+        professionalChooseBT.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { navigateToProfissional(v);            }
+            public void onClick(View v) {
+                executeJson(true);
+                Intent toProProfileIntent = new Intent(getApplicationContext(),ProProfile_5.class);
+                toProProfileIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(toProProfileIntent);
+            }
         });
-
-
     }
 
-    //metodo de navegacao paraprimeira tela profissional
-    public void navigateToProfissional(View view){
-        Intent loginIntent = new Intent(getApplicationContext(),ProDrawerMenu_15.class);
-        loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(loginIntent);
-    }
+    private void executeJson(boolean isProfessional){
+        //0 = customer and 1 = profissional.
+        if (isProfessional){
+            //todo adicionar ao BD, o tipo PROFESSIONAL
 
-    //metodo de navegacao para primeira tela cliente
-    public void navigateToClient(View view){
-        Intent escolheuProfissional = new Intent(getApplicationContext(),CustDrawerMenu_10.class);
-        escolheuProfissional.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(escolheuProfissional);
+        } else {
+            //todo adicionar ao BD, o tipo CLIENTE
+        }
     }
 }

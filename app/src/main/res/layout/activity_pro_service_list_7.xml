@@ -21,6 +21,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:background="@drawable/floating_button_shadow"
-        android:src="@drawable/floating_button_plus"/>
+        android:background="@drawable/button_floating_shadow"
+        android:src="@drawable/button_floating_plus"/>
 </RelativeLayout>

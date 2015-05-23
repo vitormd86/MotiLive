@@ -13,7 +13,9 @@
     <string name="descriptionLogo">Logo Moti</string>
     <string name="buttonLogin">Entrar</string>
     <string name="buttonSignUp">Criar Conta</string>
-
+    <string name="buttonBeClient">Sou cliente e quero agendar serviços</string>
+    <string name="buttonBeProfessional">Sou profissional prestador de serviços</string>
+    <string name="chooseYourProfile">Escolha seu Perfil</string>
 
 
     <!--Outros -->
@@ -43,9 +45,7 @@
 
     <!-- Tela 4  -->
 
-    <string name="chooseYourProfileTV_4">Escolha seu Perfil</string>
-    <string name="clienteBTN_4">Eu quero agendar um serviço</string>
-    <string name="profissionalBTN_4">Sou profissional Prestador de serviço</string>
+
 
     <!-- Tela 5 Profissional  -->
 
