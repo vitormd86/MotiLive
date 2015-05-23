@@ -18,7 +18,7 @@ import java.util.Map;
 import br.com.motiserver.dto.ProfessionalDTO;
 import br.com.motiserver.dto.WrapperDTO;
 
-public class ProfessionalService {
+public class ProfessionalService extends GenericService {
     /*********************
      *****  METHODS  *****
      *********************/

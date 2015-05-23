@@ -18,7 +18,7 @@ import br.com.motiserver.dto.WrapperDTO;
 /**
  * Created by michael on 16/05/2015.
  */
-public class ProfessionService {
+public class ProfessionService extends GenericService {
     /*********************
      *****  METHODS  *****
      *********************/

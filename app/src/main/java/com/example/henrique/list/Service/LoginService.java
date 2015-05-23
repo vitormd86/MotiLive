@@ -16,7 +16,7 @@ import java.util.Map;
 import br.com.motiserver.dto.PersonDTO;
 import br.com.motiserver.dto.WrapperDTO;
 
-public class LoginService {
+public class LoginService extends GenericService {
     /*********************
      *****  METHODS  *****
      *********************/

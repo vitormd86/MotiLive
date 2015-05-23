@@ -18,7 +18,7 @@ import java.util.Map;
 import br.com.motiserver.dto.SchedulingDTO;
 import br.com.motiserver.dto.WrapperDTO;
 
-public class SchedulingService {
+public class SchedulingService extends GenericService {
     /*********************
      *****  METHODS  *****
      *********************/

@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +19,7 @@ import java.util.Map;
 import br.com.motiserver.dto.DailyScheduleDTO;
 import br.com.motiserver.dto.WrapperDTO;
 
-public class DailyScheduleService {
+public class DailyScheduleService extends GenericService {
     /*********************
      *****  METHODS  *****
      *********************/
@@ -26,6 +27,34 @@ public class DailyScheduleService {
         WrapperDTO<List<DailyScheduleDTO>> wrapperDTO = null;
         try {
             wrapperDTO = new FindAllByProfessionalId().execute(professionalId).get();
+        } catch (Exception e) {
+            throw new ServiceException(e);
+        }
+        if (wrapperDTO.getErrorMessage() != null) {
+            throw new ServiceException(wrapperDTO.getErrorMessage());
+        } else {
+            return wrapperDTO.getObject();
+        }
+    }
+
+    public DailyScheduleDTO findByProfessionalIdAndDate(Long professionalId, Calendar date) throws ServiceException {
+        WrapperDTO<DailyScheduleDTO> wrapperDTO = null;
+        try {
+            wrapperDTO = new FindByProfessionalIdAndDate().execute(professionalId, date).get();
+        } catch (Exception e) {
+            throw new ServiceException(e);
+        }
+        if (wrapperDTO.getErrorMessage() != null) {
+            throw new ServiceException(wrapperDTO.getErrorMessage());
+        } else {
+            return wrapperDTO.getObject();
+        }
+    }
+
+    public List<DailyScheduleDTO> findAllByProfessionalIdAndPeriod(Long professionalId, Calendar initialDate, Calendar finalDate) throws ServiceException {
+        WrapperDTO<List<DailyScheduleDTO>> wrapperDTO = null;
+        try {
+            wrapperDTO = new FindAllByProfessionalIdAndPeriod().execute(professionalId, initialDate, finalDate).get();
         } catch (Exception e) {
             throw new ServiceException(e);
         }
@@ -80,6 +109,46 @@ public class DailyScheduleService {
             // EXECUTE
             ResponseEntity<WrapperDTO<List<DailyScheduleDTO>>> response = (ResponseEntity<WrapperDTO<List<DailyScheduleDTO>>>) restTemplate
                     .exchange(URLConstants.DAILY_SCHEDULE_FIND_ALL_BY_PROFESSIONAL_ID, HttpMethod.GET, null, responseType, vars);
+            return response.getBody();
+        }
+    }
+
+    private class FindByProfessionalIdAndDate extends AsyncTask<Object, Void, WrapperDTO<DailyScheduleDTO>> {
+        @Override
+        protected WrapperDTO<DailyScheduleDTO> doInBackground(Object... params) {
+            // PREPARE
+            RestTemplate restTemplate = new RestTemplate();
+            restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            Map<String, Object> vars = new HashMap<String, Object>();
+            vars.put("professionalId", (Long) params[0]);
+            Calendar date = (Calendar) params [1];
+            vars.put("date", convertCalendarToString(date));
+            ParameterizedTypeReference<WrapperDTO<DailyScheduleDTO>> responseType = new ParameterizedTypeReference<WrapperDTO<DailyScheduleDTO>>(){};
+
+            // EXECUTE
+            ResponseEntity<WrapperDTO<DailyScheduleDTO>> response = (ResponseEntity<WrapperDTO<DailyScheduleDTO>>) restTemplate
+                    .exchange(URLConstants.DAILY_SCHEDULE_FIND_FIND_BY_PROFESSIONAL_ID_AND_DATE, HttpMethod.GET, null, responseType, vars);
+            return response.getBody();
+        }
+    }
+
+    private class FindAllByProfessionalIdAndPeriod extends AsyncTask<Object, Void, WrapperDTO<List<DailyScheduleDTO>>> {
+        @Override
+        protected WrapperDTO<List<DailyScheduleDTO>> doInBackground(Object... params) {
+            // PREPARE
+            RestTemplate restTemplate = new RestTemplate();
+            restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            Map<String, Object> vars = new HashMap<String, Object>();
+            vars.put("professionalId",  (Long) params[0]);
+            Calendar initialDate = (Calendar) params [1];
+            vars.put("initialDate", convertCalendarToString(initialDate));
+            Calendar finalDate = (Calendar) params [2];
+            vars.put("finalDate", convertCalendarToString(finalDate));
+            ParameterizedTypeReference<WrapperDTO<List<DailyScheduleDTO>>> responseType = new ParameterizedTypeReference<WrapperDTO<List<DailyScheduleDTO>>>(){};
+
+            // EXECUTE
+            ResponseEntity<WrapperDTO<List<DailyScheduleDTO>>> response = (ResponseEntity<WrapperDTO<List<DailyScheduleDTO>>>) restTemplate
+                    .exchange(URLConstants.DAILY_SCHEDULE_FIND_ALL_BY_PROFESSIONAL_ID_AND_PERIOD, HttpMethod.GET, null, responseType, vars);
             return response.getBody();
         }
     }

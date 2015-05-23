@@ -16,6 +16,8 @@ public class URLConstants {
 
     // DAILY SCHEDULE SERVICE
     public static final String DAILY_SCHEDULE_FIND_ALL_BY_PROFESSIONAL_ID = JSON_SERVER_URL + "/dailySchedule/findAllByProfessionalId?professionalId={professionalId}";
+    public static final String DAILY_SCHEDULE_FIND_FIND_BY_PROFESSIONAL_ID_AND_DATE = JSON_SERVER_URL + "/dailySchedule/findByProfessionalIdAndDate?professionalId={professionalId}&date={date}";
+    public static final String DAILY_SCHEDULE_FIND_ALL_BY_PROFESSIONAL_ID_AND_PERIOD = JSON_SERVER_URL + "/dailySchedule/findAllByProfessionalIdAndPeriod?professionalId={professionalId}&initialDate={initialDate}&finalDate={finalDate}";
     public static final String DAILY_SCHEDULE_SAVE = JSON_SERVER_URL + "/dailySchedule/save";
     public static final String DAILY_SCHEDULE_SAVE_ALL = JSON_SERVER_URL + "/dailySchedule/saveAll";
 

@@ -18,7 +18,7 @@ import java.util.Map;
 import br.com.motiserver.dto.CustomerDTO;
 import br.com.motiserver.dto.WrapperDTO;
 
-public class CustomerService {
+public class CustomerService extends GenericService {
     /*********************
      *****  METHODS  *****
      *********************/
