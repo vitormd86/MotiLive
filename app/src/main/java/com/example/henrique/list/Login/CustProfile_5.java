@@ -21,8 +21,10 @@ import android.widget.Toast;
 import com.example.henrique.list.Cliente.CustDrawerMenu_10;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Service.CustomerService;
+import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 import com.example.henrique.list.Utilidade_Publica.Utility;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import br.com.motiserver.constants.Gender;
@@ -53,6 +55,8 @@ public class CustProfile_5 extends ActionBarActivity {
 //    private static final String GENERO_CTE = "GENERO_CTE";
 //    private static final String DATA_CTE = "DATA_CTE";
 
+    private CustomerService customerService;
+
     //TextViews
     TextView dataEscolhidaTV;
 
@@ -62,7 +66,6 @@ public class CustProfile_5 extends ActionBarActivity {
     private int day;
 
     //Inicializacao dos EditTexts Obrigatorios
-
     Calendar chosenDate;//TODO arrumar direito
     Calendar dg = Calendar.getInstance();
     Gender opcaoEscolhidaGenero;
@@ -118,7 +121,9 @@ public class CustProfile_5 extends ActionBarActivity {
         //Inicializa Adapters
         initSpinnerAdapters();
        // Objetos
-        customerDTO = new CustomerDTO();
+        Serializable s = getIntent().getSerializableExtra(SessionAttributes.CUSTOMER);
+        customerDTO = (CustomerDTO) getIntent().getSerializableExtra(SessionAttributes.CUSTOMER);
+        customerService = new CustomerService();
 //        Booleans
         executaJSON = true;
         addListenerOnButton();
@@ -272,9 +277,7 @@ public class CustProfile_5 extends ActionBarActivity {
 
             // executa requisição JSON
             try {
-                CustomerService customerService = new CustomerService();
                 customerDTO = customerService.save(customerDTO);
-
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("Falha ao executar JSON");

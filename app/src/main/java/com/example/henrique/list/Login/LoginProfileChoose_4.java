@@ -9,22 +9,33 @@ import android.widget.Button;
 import com.example.henrique.list.Cliente.CustDrawerMenu_10;
 import com.example.henrique.list.Profissional.ProDrawerMenu_15;
 import com.example.henrique.list.R;
+import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
+
+import br.com.motiserver.dto.CustomerDTO;
+import br.com.motiserver.dto.ProfessionalDTO;
 
 /**
  * Created by htamashiro on 3/17/15.
  */
 public class LoginProfileChoose_4 extends Activity {
 
-    Button clientChooseBT, professionalChooseBT;
+    private Button clientChooseBT, professionalChooseBT;
+    private String login, password;
 
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_profile_choose_4);
 
+        retrieveAttributes();
         initViews();
         setClientChooseListener();
         setProfessionalChooseListener();
+    }
+
+    private void retrieveAttributes() {
+        login    = getIntent().getStringExtra(SessionAttributes.LOGIN);
+        password = getIntent().getStringExtra(SessionAttributes.PASSWORD);
     }
 
     private void initViews(){
@@ -36,10 +47,13 @@ public class LoginProfileChoose_4 extends Activity {
         clientChooseBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                executeJson(false);
-                Intent toCustProfileIntent = new Intent(getApplicationContext(),CustProfile_5.class);
-                toCustProfileIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(toCustProfileIntent);
+                Intent intent = new Intent(getApplicationContext(),CustProfile_5.class);
+                CustomerDTO customerDTO = new CustomerDTO();
+                customerDTO.setLogin(login);
+                customerDTO.setPassword(password);
+                intent.putExtra(SessionAttributes.CUSTOMER, customerDTO);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
     }
@@ -48,21 +62,14 @@ public class LoginProfileChoose_4 extends Activity {
         professionalChooseBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                executeJson(true);
-                Intent toProProfileIntent = new Intent(getApplicationContext(),ProProfile_5.class);
-                toProProfileIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(toProProfileIntent);
+                Intent intent = new Intent(getApplicationContext(),ProProfile_5.class);
+                ProfessionalDTO professionalDTO = new ProfessionalDTO();
+                professionalDTO.setLogin(login);
+                professionalDTO.setPassword(password);
+                intent.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
-    }
-
-    private void executeJson(boolean isProfessional){
-        //0 = customer and 1 = profissional.
-        if (isProfessional){
-            //todo adicionar ao BD, o tipo PROFESSIONAL
-
-        } else {
-            //todo adicionar ao BD, o tipo CLIENTE
-        }
     }
 }
