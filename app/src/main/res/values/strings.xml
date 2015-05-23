@@ -10,13 +10,13 @@
     <string name="hintConfirmPassword">Confirme sua senha</string>
     <string name="hintShowPassword">Mostrar Senha</string>
     <string name="hintEmail">Digite seu e-mail</string>
+    <string name="hintName">Nome completo</string>
     <string name="descriptionLogo">Logo Moti</string>
     <string name="buttonLogin">Entrar</string>
     <string name="buttonSignUp">Criar Conta</string>
-    <string name="buttonBeClient">Sou cliente e quero agendar serviços</string>
-    <string name="buttonBeProfessional">Sou profissional prestador de serviços</string>
+    <string name="buttonBeClient">Sou cliente e quero&#10;agendar serviços</string>
+    <string name="buttonBeProfessional">Sou profissional&#10;prestador de serviços</string>
     <string name="chooseYourProfile">Escolha seu Perfil</string>
-
 
     <!--Outros -->
     <string name="app_name">List</string>
