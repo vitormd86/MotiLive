@@ -184,7 +184,7 @@ public class ProScheduleFirstActivity_11 extends ActionBarActivity {
         }
 
         rua = ruaET.getText().toString();
-        if (!Utility.isValidRua(rua)) {
+        if (!Utility.isValidTextWithSpace(rua)) {
             ruaET.setError("A rua n�o pode conter n�meros.");
             executaJSON = false;
         }else{

@@ -36,22 +36,22 @@ import br.com.motiserver.dto.CustomerDTO;
  */
 public class CustProfile_5 extends ActionBarActivity {
 
-    //Constants
+//    //Constants
     static final int DATE_DIALOG_ID = 999;
-    private static final String NOME_CTE = "NOME_CTE";
-    private static final String CELULAR_CTE = "CELULAR_CTE";
-    private static final String EMAIL_CTE = "EMAIL_CTE";
-    private static final String CEP_CTE = "CEP_CTE";
-    private static final String NUMERO_CTE = "NUMERO_CTE";
-    private static final String RUA_CTE = "RUA_CTE";
-    private static final String BAIRRO_CTE = "BAIRRO_CTE";
-    private static final String CIDADE_CTE = "CIDADE_CTE";
-    private static final String ESTADO_CTE = "ESTADO_CTE";
-
-    //TODO: fazer recuperaçao de data e Genero
-
-    private static final String GENERO_CTE = "GENERO_CTE";
-    private static final String DATA_CTE = "DATA_CTE";
+//    private static final String NOME_CTE = "NOME_CTE";
+//    private static final String CELULAR_CTE = "CELULAR_CTE";
+//    private static final String EMAIL_CTE = "EMAIL_CTE";
+//    private static final String CEP_CTE = "CEP_CTE";
+//    private static final String NUMERO_CTE = "NUMERO_CTE";
+//    private static final String RUA_CTE = "RUA_CTE";
+//    private static final String BAIRRO_CTE = "BAIRRO_CTE";
+//    private static final String CIDADE_CTE = "CIDADE_CTE";
+//    private static final String ESTADO_CTE = "ESTADO_CTE";
+//
+//    //TODO: fazer recuperaçao de data e Genero
+//
+//    private static final String GENERO_CTE = "GENERO_CTE";
+//    private static final String DATA_CTE = "DATA_CTE";
 
     //TextViews
     TextView dataEscolhidaTV;
@@ -75,7 +75,7 @@ public class CustProfile_5 extends ActionBarActivity {
     EditText numeroET;
     EditText ruaET;
     EditText bairroET;
-    EditText cidadeET;
+    Spinner cidadeSP;
     Spinner estadoSP;
 
     //Inicializacao dos EditTexts Nao Obrigatorios
@@ -109,58 +109,18 @@ public class CustProfile_5 extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cust_profile_5);
 
-        //Verificando se está iniciando ou restaurando
-        if ( savedInstanceState == null)
-        {
-            //significa que o APP está iniciando
-
-        }else{
-            //significa que o APP está restaurando
-             nomeET.setText(savedInstanceState.getString(NOME_CTE));
-             emailET.setText(savedInstanceState.getString(EMAIL_CTE));
-             celularET.setText(savedInstanceState.getString(CELULAR_CTE));
-             CEPET.setText(savedInstanceState.getString(CEP_CTE));
-             numeroET.setText(savedInstanceState.getString(NUMERO_CTE));
-             ruaET.setText(savedInstanceState.getString(RUA_CTE));
-             bairroET.setText(savedInstanceState.getString(BAIRRO_CTE));
-             cidadeET.setText(savedInstanceState.getString(CIDADE_CTE));
-//            opcaoEscolhidaGenero = savedInstanceState.(GENERO_CTE)
-//            if(opcaoEscolhidaGenero == Gender.FEMALE)
-        }
-
         //Habilitando BackNavigation button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         //inflando as views
 
         //campos obrigatórios
-        nomeET = (EditText) findViewById(R.id.NomeET_Pro_5);
-        dataEscolhidaTV = (TextView) findViewById(R.id.dataEscolhidaProTV_5);
-        masculinoRB = (RadioButton) findViewById(R.id.masculinoProRB_5);
-        femininoRB = (RadioButton) findViewById(R.id.femininoProRB_5);
-        celularET = (EditText) findViewById(R.id.celularProET_5);
-        emailET = (EditText) findViewById(R.id.emailProET_5);
-        CEPET = (EditText) findViewById(R.id.CEPProET_5);
-        numeroET = (EditText) findViewById(R.id.numeroProET_5);
-        ruaET = (EditText) findViewById(R.id.RuaProET_5);
-        bairroET = (EditText) findViewById(R.id.bairroProET_5);
-        cidadeET = (EditText) findViewById(R.id.cidadeProET_5);
-        estadoSP = (Spinner) findViewById(R.id.estadoProSP_5);
-
-        // Botoes nao obrigatorios
-        complementoET = (EditText) findViewById(R.id.complementoProET_5);
-        imageButton = (ImageButton) findViewById(R.id.ImageButtonPro_5);
-
-        ArrayAdapter<UF> stateAdapter = new  ArrayAdapter<UF>(this, android.R.layout.simple_spinner_item , UF.values() );
-        stateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        estadoSP.setAdapter(stateAdapter);
-
+        initViews();
+        //Inicializa Adapters
+        initSpinnerAdapters();
        // Objetos
         customerDTO = new CustomerDTO();
-
 //        Booleans
         executaJSON = true;
-
         addListenerOnButton();
 
     }
@@ -196,6 +156,8 @@ public class CustProfile_5 extends ActionBarActivity {
         executaJSON = true;
 
         estado = (UF) estadoSP.getSelectedItem();
+        cidade = (String) cidadeSP.getSelectedItem();
+
 
         //validacoes dos campos
 
@@ -249,7 +211,7 @@ public class CustProfile_5 extends ActionBarActivity {
         }
 
         rua = ruaET.getText().toString();
-        if (!Utility.isValidRua(rua)) {
+        if (!Utility.isValidTextWithSpace(rua)) {
             ruaET.setError("A rua não pode conter números.");
             executaJSON = false;
         }else{
@@ -265,16 +227,6 @@ public class CustProfile_5 extends ActionBarActivity {
             if(bairroET.getError() != null)
                 bairroET.setError(null);
         }
-
-        cidade = cidadeET.getText().toString();
-        if (!Utility.isValidCidade(cidade)) {
-            cidadeET.setError("A cidade não pode conter números.");
-            executaJSON = false;
-        }else{
-            if(cidadeET.getError() != null)
-                cidadeET.setError(null);
-        }
-
 
         if (!Utility.isValidNascimento(chosenDate)) {
             Toast.makeText(getApplicationContext(), "Por favor,escolha sua data de nascimento ", Toast.LENGTH_SHORT).show();
@@ -323,16 +275,16 @@ public class CustProfile_5 extends ActionBarActivity {
                 CustomerService customerService = new CustomerService();
                 customerDTO = customerService.save(customerDTO);
 
-                if (customerDTO == null) {
-                    System.out.println("=== DEU ERRO E O CLIENTE RETORNO NULLO");
-                } else {
-                    System.out.println("=== DEU CERTO E O CLIENTE RETORNOU COM SUCESSO " + customerDTO.getName());  //TODO verificar se o back adiciona o id no objeto de retorno
-                    Intent i = new Intent(CustProfile_5.this, CustDrawerMenu_10.class); //TODO modificar para tela inicial
-                    startActivity(i);
-                                                        }
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("Falha ao executar JSON");
+            }
+            if (customerDTO == null) {
+                System.out.println("=== DEU ERRO E O CLIENTE RETORNO NULLO");
+            } else {
+                System.out.println("=== DEU CERTO E O CLIENTE RETORNOU COM SUCESSO " + customerDTO.getName());  //TODO verificar se o back adiciona o id no objeto de retorno
+                Intent i = new Intent(CustProfile_5.this, CustDrawerMenu_10.class); //TODO ver como podemos colocar isso no ONPOSEXECUTE
+                startActivity(i);
             }
 
         } else {
@@ -405,15 +357,44 @@ public class CustProfile_5 extends ActionBarActivity {
         }
     };
 
-    // em caso de restauração
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString(NOME_CTE, nome);
-        outState.putString(EMAIL_CTE, email);
-        outState.putString(CELULAR_CTE, celular);
-        outState.putString(CEP_CTE, cep);
-        outState.putString(NUMERO_CTE, numero);
-        outState.putString(CIDADE_CTE, cidade);
+    private void initSpinnerAdapters() {
+        ArrayAdapter<CharSequence> cityAdapter = ArrayAdapter.createFromResource(this, R.array.cidades , android.R.layout.simple_spinner_item );
+        cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        cidadeSP.setAdapter(cityAdapter);
+
+        ArrayAdapter<UF> stateAdapter = new  ArrayAdapter<UF>(this, android.R.layout.simple_spinner_item , UF.values() );
+        stateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        estadoSP.setAdapter(stateAdapter);
     }
+
+    private void initViews(){
+        nomeET = (EditText) findViewById(R.id.NomeET_Pro_5);
+        dataEscolhidaTV = (TextView) findViewById(R.id.dataEscolhidaProTV_5);
+        masculinoRB = (RadioButton) findViewById(R.id.masculinoProRB_5);
+        femininoRB = (RadioButton) findViewById(R.id.femininoProRB_5);
+        celularET = (EditText) findViewById(R.id.celularProET_5);
+        emailET = (EditText) findViewById(R.id.emailProET_5);
+        CEPET = (EditText) findViewById(R.id.CEPProET_5);
+        numeroET = (EditText) findViewById(R.id.numeroProET_5);
+        ruaET = (EditText) findViewById(R.id.RuaProET_5);
+        bairroET = (EditText) findViewById(R.id.bairroProET_5);
+        cidadeSP = (Spinner) findViewById(R.id.cidadeProSP_5);
+        estadoSP = (Spinner) findViewById(R.id.estadoProSP_5);
+
+        // Botoes nao obrigatorios
+        complementoET = (EditText) findViewById(R.id.complementoProET_5);
+        imageButton = (ImageButton) findViewById(R.id.ImageButtonPro_5);
+    }
+
+        // em caso de restauração
+//    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//        outState.putString(NOME_CTE, nome);
+//        outState.putString(EMAIL_CTE, email);
+//        outState.putString(CELULAR_CTE, celular);
+//        outState.putString(CEP_CTE, cep);
+//        outState.putString(NUMERO_CTE, numero);
+//        outState.putString(CIDADE_CTE, cidade);
+//    }
 
     }

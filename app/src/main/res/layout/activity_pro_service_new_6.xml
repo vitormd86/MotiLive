@@ -5,23 +5,23 @@
     android:orientation="vertical">
 
     <EditText
-        android:id="@+id/serviceName"
+        android:id="@+id/serviceNameETPro_6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
-        android:text="Nome do Serviço" />
+        android:hint="Nome do Serviço" />
     <TextView
-        android:id="@+id/serviceDescriptionTitle"
+        android:id="@+id/serviceDescriptionTitleProTV_6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Descrição do serviço:"/>
     <EditText
-        android:id="@+id/serviceDescription"
+        android:id="@+id/serviceDescriptionProET_6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="descreva aqui o serviço"/>
+        android:hint="descreva aqui o serviço"/>
     <TextView
-        android:id="@+id/sessionTimeTitle"
+        android:id="@+id/sessionTimeTitleProTV_6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tempo da sessão"/>
@@ -30,12 +30,12 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Spinner
-            android:id="@+id/sessionHours"
+            android:id="@+id/sessionHoursProSP_6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
         <Spinner
-            android:id="@+id/sessionMinutes"
+            android:id="@+id/sessionMinutesProSP_6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
@@ -49,7 +49,7 @@
             android:layout_weight="1"/>
     </LinearLayout>
     <TextView
-        android:id="@+id/sessionValueTitle"
+        android:id="@+id/sessionValueTitleProTV_6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Valor da sessão"/>
@@ -58,18 +58,19 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical">
         <TextView
-            android:id="@+id/currency"
+            android:id="@+id/currencyProTV_6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
             android:textColor="@color/black"
             android:text="R$"/>
         <EditText
-            android:id="@+id/sessionValue"
+            android:id="@+id/sessionValueProET_6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:text="00,00"/>
+            android:hint="00,00"
+            android:inputType="number" />
     </LinearLayout>
 
 

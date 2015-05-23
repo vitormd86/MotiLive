@@ -25,7 +25,7 @@ public class ServicesNameAdapter extends ArrayAdapter <String> {
 
 
         String services = getItem(position);
-        TextView textView = (TextView) theView.findViewById(R.id.serviceName);
+        TextView textView = (TextView) theView.findViewById(R.id.serviceNameETPro_6);
         textView.setText(services);
 
         return theView;

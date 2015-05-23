@@ -24,7 +24,7 @@ public class MyAdapterServicesPro extends ArrayAdapter<String>{
         LayoutInflater theInflator = LayoutInflater.from(getContext());
         convertView = theInflator.inflate(R.layout.view_professional_services, parent, false);
 
-        TextView serviceName = (TextView) convertView.findViewById(R.id.serviceName);
+        TextView serviceName = (TextView) convertView.findViewById(R.id.serviceNameETPro_6);
         String service = getItem(position);
         serviceName.setText(service);
 
