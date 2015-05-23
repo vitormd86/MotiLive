@@ -21,6 +21,7 @@ import com.example.henrique.list.R;
 import com.example.henrique.list.Service.ProfessionService;
 import com.example.henrique.list.Service.ProfessionalService;
 import com.example.henrique.list.Utilidade_Publica.ServiceException;
+import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 import com.example.henrique.list.Utilidade_Publica.Utility;
 
 import java.util.Calendar;
@@ -57,6 +58,9 @@ public class ProProfile_5 extends ActionBarActivity {
 //
 //    private static final String GENERO_CTE = "GENERO_CTE";
 //    private static final String DATA_CTE = "DATA_CTE";
+
+    private ProfessionalService professionalService;
+    private ProfessionService professionService;
 
     //TextViews
     TextView dataEscolhidaTV;
@@ -139,7 +143,7 @@ public class ProProfile_5 extends ActionBarActivity {
         inflando as views
 */
 
-        //campos obrigatórios
+        //campos obrigatï¿½rios
         nomeET = (EditText) findViewById(R.id.NomeET_Pro_5);
         dataEscolhidaTV = (TextView) findViewById(R.id.dataEscolhidaProTV_5);
         masculinoRB = (RadioButton) findViewById(R.id.masculinoProRB_5);
@@ -154,9 +158,9 @@ public class ProProfile_5 extends ActionBarActivity {
         estadoSP = (Spinner) findViewById(R.id.estadoProSP_5);
         profissaoSP = (Spinner) findViewById(R.id.profissaoProSP_5);
 
-        ProfessionService professionService  = new ProfessionService();
         List<ProfessionDTO> professions = null;
         try {
+            professionService = new ProfessionService();
             professions = professionService.findAll();
 
         } catch (ServiceException e) {
@@ -175,7 +179,8 @@ public class ProProfile_5 extends ActionBarActivity {
         imageButton = (ImageButton) findViewById(R.id.ImageButtonPro_5);
 
         // Objetos
-        professionalDTO = new ProfessionalDTO();
+        professionalService = new ProfessionalService();
+        professionalDTO = (ProfessionalDTO) getIntent().getSerializableExtra(SessionAttributes.PROFESSIONAL);
 
 //        Booleans
         executaJSON = true;
@@ -239,7 +244,7 @@ public class ProProfile_5 extends ActionBarActivity {
 
         celular = celularET.getText().toString();
         if (!Utility.isValidCelular(celular)) {
-            celularET.setError("O celular precisa conter 9 dígitos.");
+            celularET.setError("O celular precisa conter 9 dï¿½gitos.");
             executaJSON = false;
         }
         else{
@@ -249,7 +254,7 @@ public class ProProfile_5 extends ActionBarActivity {
 
         cep = CEPET.getText().toString();
         if (!Utility.isValidCEP(cep)) {
-            CEPET.setError("O CEP precisa conter 8 dígitos.");
+            CEPET.setError("O CEP precisa conter 8 dï¿½gitos.");
             executaJSON = false;
         }else{
             if(CEPET.getError() != null)
@@ -258,7 +263,7 @@ public class ProProfile_5 extends ActionBarActivity {
 
         numero = numeroET.getText().toString();
         if (!Utility.isValidNumero(numero)) {
-            numeroET.setError("O número não");
+            numeroET.setError("O nï¿½mero nï¿½o");
             executaJSON = false;
         }else{
             if(numeroET.getError() != null)
@@ -267,7 +272,7 @@ public class ProProfile_5 extends ActionBarActivity {
 
         rua = ruaET.getText().toString();
         if (!Utility.isValidTextWithSpace(rua)) {
-            ruaET.setError("A rua não pode conter números.");
+            ruaET.setError("A rua nï¿½o pode conter nï¿½meros.");
             executaJSON = false;
         }else{
             if(ruaET.getError() != null)
@@ -276,7 +281,7 @@ public class ProProfile_5 extends ActionBarActivity {
 
         bairro = bairroET.getText().toString();
         if (!Utility.isValidBairro(bairro)) {
-            bairroET.setError("O bairro não pode conter números.");
+            bairroET.setError("O bairro nï¿½o pode conter nï¿½meros.");
             executaJSON = false;
         }else{
             if(bairroET.getError() != null)
@@ -285,7 +290,7 @@ public class ProProfile_5 extends ActionBarActivity {
 
         cidade = cidadeET.getText().toString();
         if (!Utility.isValidCidade(cidade)) {
-            cidadeET.setError("A cidade não pode conter números.");
+            cidadeET.setError("A cidade nï¿½o pode conter nï¿½meros.");
             executaJSON = false;
         }else{
             if(cidadeET.getError() != null)
@@ -338,7 +343,7 @@ public class ProProfile_5 extends ActionBarActivity {
             professionalDTO.setGoogleLogin("NaoEssencial");
             professionalDTO.setPassword("definirNaTelaLogin");
 
-            // executa requisição JSON
+            // executa requisiï¿½ï¿½o JSON
             try {
                 ProfessionalService professionalService = new ProfessionalService();
                 professionalDTO =professionalService.save(professionalDTO);
@@ -354,7 +359,7 @@ public class ProProfile_5 extends ActionBarActivity {
             }
 
         } else {
-            Toast.makeText(getApplicationContext(), "Por favor, preencha todos os campos obrigatórios", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Por favor, preencha todos os campos obrigatï¿½rios", Toast.LENGTH_SHORT).show();
         }
     }
 

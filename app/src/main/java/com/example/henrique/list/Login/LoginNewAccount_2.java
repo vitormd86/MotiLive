@@ -12,8 +12,12 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.henrique.list.R;
+import com.example.henrique.list.Service.LoginService;
+import com.example.henrique.list.Utilidade_Publica.ServiceException;
+import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 import com.example.henrique.list.Utilidade_Publica.Utility;
 
 /**
@@ -23,12 +27,16 @@ import com.example.henrique.list.Utilidade_Publica.Utility;
  */
 public class LoginNewAccount_2 extends Activity {
 
-    EditText nameET, passwordET, confirmPasswordET;
-    CheckBox showPasswordCB;
-    Button createAccountBT, cancelBT;
+    private EditText nameET, passwordET, confirmPasswordET;
+    private CheckBox showPasswordCB;
+    private Button createAccountBT, cancelBT;
+
+    private LoginService loginService;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_new_account_2);
+        this.loginService = new LoginService();
 
         initViews();
         setCreateAccountButtonListener();
@@ -43,7 +51,6 @@ public class LoginNewAccount_2 extends Activity {
         showPasswordCB = (CheckBox) findViewById(R.id.cbShowPassword);
         createAccountBT = (Button) findViewById(R.id.buttonloginNewAccount);
         cancelBT = (Button) findViewById(R.id.buttonCancel);
-
     }
 
     private void setCreateAccountButtonListener(){
@@ -51,9 +58,7 @@ public class LoginNewAccount_2 extends Activity {
             @Override
             public void onClick(View v) {
                 if(executeSignUp()){
-                    executeJSON();
-                    Intent createAccountIntent = new Intent(LoginNewAccount_2.this, LoginProfileChoose_4.class);
-                    startActivity(createAccountIntent);
+                    executeLoginNewAccount();
                 }
             }
         });
@@ -106,16 +111,35 @@ public class LoginNewAccount_2 extends Activity {
             confirmPasswordET.setError("Os campos de senha devem ser idênticos.");
             isExecutable = false;
         }
+        if(Utility.isValid(confirmPasswordET.getText().toString()) && confirmPasswordET.getText().length() < 6){
+            passwordET.setError("A senha deve possuir pelo menos 6 caracteres.");
+            confirmPasswordET.setError("A senha deve possuir pelo menos 6 caracteres.");
+            isExecutable = false;
+        }
         return isExecutable;
     }
 
-    private void executeJSON(){
-        String sLogin, sPassword;
+    private void executeLoginNewAccount(){
+        String sLogin  = nameET.getText().toString();
+        String sPassword = passwordET.getText().toString();
 
-        sLogin = nameET.getText().toString();
-        sPassword = passwordET.getText().toString();
-        //todo verificar se o nome de usuario esta disponivel no banco
-        //todo criar o novo usuario no banco
+        // VERIFY IF IS EXISTING USER
+        Boolean isExistingUser = null;
+        try {
+            isExistingUser = loginService.verifyExistingUser(sLogin);
+        } catch (ServiceException ex) {
+            Toast.makeText(getApplicationContext(), "Ocorreu um erro interno. Favor contactar o administrador!", Toast.LENGTH_SHORT).show();
+        }
 
+        if (isExistingUser != null) {
+            if (isExistingUser) {
+                nameET.setError("O login informado já está cadastrado.");
+            } else {
+                Intent createAccountIntent = new Intent(LoginNewAccount_2.this, LoginProfileChoose_4.class);
+                createAccountIntent.putExtra(SessionAttributes.LOGIN, sLogin);
+                createAccountIntent.putExtra(SessionAttributes.PASSWORD, sPassword);
+                startActivity(createAccountIntent);
+            }
+        }
     }
 }
