@@ -1,204 +1,216 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:padding="@dimen/margin_app">
+    android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/linear1"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_betweenElements_small"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            >
+            android:layout_margin="@dimen/margin_app">
 
-            <ImageButton
-                android:id="@+id/ImageButtonPro_5"
-                style="@style/ImagePhoto" />
+            <LinearLayout
+                android:id="@+id/linear1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_betweenElements_small"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/ImageButtonPro_5"
+                    style="@style/ImagePhoto"
+                    android:contentDescription="@string/description_photo" />
+
+                <EditText
+                    android:id="@+id/NomeET_Pro_5"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hintName"
+                    android:inputType="text"
+                    android:maxLength="@integer/textMaxSize_fullname" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/ic_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/linear1"
+                android:contentDescription="@string/description_icDate"
+                android:src="@drawable/ic_form_date" />
 
             <EditText
-                android:id="@+id/NomeET_Pro_5"
+                android:id="@+id/dataEscolhidaProTV_5"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hintName"
+                android:layout_below="@id/linear1"
+                android:layout_marginBottom="@dimen/margin_betweenElements_small"
+                android:layout_toRightOf="@id/ic_date"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:hint="@string/hintBirthDate" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/dataEscolhidaProTV_5"
+                android:layout_below="@id/dataEscolhidaProTV_5"
+                android:layout_marginBottom="@dimen/margin_betweenElements_small"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <RadioButton
+                    android:id="@+id/masculinoProRB_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="@string/genderMale" />
+
+                <RadioButton
+                    android:id="@+id/femininoProRB_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="@string/genderFemale" />
+            </RadioGroup>
+
+            <ImageView
+                android:id="@+id/ic_phoneNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/radioGroup"
+                android:contentDescription="@string/description_icCellPhoneNumber"
+                android:src="@drawable/ic_form_phone" />
+
+            <EditText
+                android:id="@+id/celularProET_5"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/radioGroup"
+                android:layout_below="@id/radioGroup"
+                android:layout_marginBottom="@dimen/margin_betweenElements_small"
+                android:hint="@string/hintCellPhoneNumber"
+                android:inputType="phone"
+                android:maxLength="@integer/textMaxSize_cellphone" />
+
+            <ImageView
+                android:id="@+id/ic_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/celularProET_5"
+                android:contentDescription="@string/description_icEmail"
+                android:src="@drawable/ic_form_email" />
+
+            <EditText
+                android:id="@+id/emailProET_5"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/celularProET_5"
+                android:layout_below="@id/celularProET_5"
+                android:layout_marginBottom="@dimen/margin_betweenElements_medium"
+                android:hint="@string/hintEmail"
+                android:inputType="textWebEmailAddress"
+                android:maxLength="@integer/textMaxSize_email" />
+
+            <ImageView
+                android:id="@+id/ic_profession"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/emailProET_5"
+                android:contentDescription="@string/description_icProfession"
+                android:src="@drawable/ic_form_profession" />
+
+            <Spinner
+                android:id="@+id/profissaoProSP_5"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/emailProET_5"
+                android:layout_below="@+id/emailProET_5"
+                android:layout_marginBottom="@dimen/margin_betweenElements_medium" />
+
+            <ImageView
+                android:id="@+id/ic_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/profissaoProSP_5"
+                android:contentDescription="@string/description_icLocation"
+                android:src="@drawable/ic_form_location" />
+
+            <EditText
+                android:id="@+id/CEPProET_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/profissaoProSP_5"
+                android:layout_below="@id/profissaoProSP_5"
+                android:hint="@string/hintCEP"
+                android:inputType="number"
+                android:maxLength="@integer/textMaxSize_CEP" />
+
+            <EditText
+                android:id="@+id/AddressProET_5"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/CEPProET_5"
+                android:layout_below="@id/CEPProET_5"
+                android:hint="@string/hintAddress"
                 android:inputType="text"
-                android:maxLength="@integer/textMaxSize_fullname" />
-        </LinearLayout>
+                android:maxLength="@integer/textMaxSize_Address" />
 
-        <ImageView
-            android:id="@+id/ic_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/linear1"
-            android:contentDescription="@string/description_icDate"
-            android:src="@drawable/ic_form_date" />
-
-        <EditText
-            android:id="@+id/dataEscolhidaProTV_5"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_betweenElements_small"
-            android:layout_below="@id/linear1"
-            android:layout_toRightOf="@id/ic_date"
-            android:hint="@string/hintBirthDate" />
-
-        <RadioGroup
-            android:id="@+id/radioGroup"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_betweenElements_small"
-            android:layout_alignLeft="@id/dataEscolhidaProTV_5"
-            android:layout_below="@id/dataEscolhidaProTV_5"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-            <RadioButton
-                android:id="@+id/masculinoProRB_5"
+            <EditText
+                android:id="@+id/numeroProET_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="onRadioButtonClicked"
-                android:text="@string/genderMale" />
+                android:layout_alignLeft="@id/AddressProET_5"
+                android:layout_below="@+id/AddressProET_5"
+                android:hint="@string/hintAddressNumber"
+                android:inputType="number"
+                android:maxLength="@integer/textMaxSize_AddressNumber" />
 
-            <RadioButton
-                android:id="@+id/femininoProRB_5"
+            <EditText
+                android:id="@+id/complementoProET_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="onRadioButtonClicked"
-                android:text="@string/genderFemale" />
-        </RadioGroup>
+                android:layout_below="@id/AddressProET_5"
+                android:layout_toRightOf="@id/numeroProET_5"
+                android:hint="@string/hintAddressComplement"
+                android:inputType="text"
+                android:maxLength="@integer/textMaxSize_AddressComplement" />
 
-        <ImageView
-            android:id="@+id/ic_phoneNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/radioGroup"
-            android:contentDescription="@string/description_icCellPhoneNumber"
-            android:src="@drawable/ic_form_phone" />
+            <EditText
+                android:id="@+id/bairroProET_5"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/AddressProET_5"
+                android:layout_toRightOf="@id/complementoProET_5"
+                android:hint="@string/hintAddressDistrict"
+                android:inputType="text"
+                android:maxLength="@integer/textMaxSize_AddresDistrict" />
 
-        <EditText
-            android:id="@+id/celularProET_5"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_betweenElements_small"
-            android:layout_alignLeft="@id/radioGroup"
-            android:layout_below="@id/radioGroup"
-            android:hint="@string/hintCellPhoneNumber"
-            android:inputType="phone"
-            android:maxLength="@integer/textMaxSize_cellphone" />
+            <Spinner
+                android:id="@+id/estadoProSP_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/numeroProET_5" />
 
-        <ImageView
-            android:id="@+id/ic_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/celularProET_5"
-            android:contentDescription="@string/description_icEmail"
-            android:src="@drawable/ic_form_email" />
-
-        <EditText
-            android:id="@+id/emailProET_5"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_betweenElements_medium"
-            android:layout_alignLeft="@id/celularProET_5"
-            android:layout_below="@id/celularProET_5"
-            android:hint="@string/hintEmail"
-            android:inputType="textWebEmailAddress"
-            android:maxLength="@integer/textMaxSize_email" />
-        <ImageView
-            android:id="@+id/ic_profession"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/emailProET_5"
-            android:contentDescription="@string/description_icProfession"
-            android:src="@drawable/ic_form_profession" />
-        <Spinner
-            android:id="@+id/profissaoProSP_5"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_betweenElements_medium"
-            android:layout_alignLeft="@+id/emailProET_5"
-            android:layout_below="@+id/emailProET_5" />
-        <ImageView
-            android:id="@+id/ic_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/profissaoProSP_5"
-            android:contentDescription="@string/description_icLocation"
-            android:src="@drawable/ic_form_location" />
-        <EditText
-            android:id="@+id/CEPProET_5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/profissaoProSP_5"
-            android:layout_below="@id/profissaoProSP_5"
-            android:hint="@string/hintCEP"
-            android:inputType="number"
-            android:maxLength="@integer/textMaxSize_CEP" />
-
-        <EditText
-            android:id="@+id/AddressProET_5"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/CEPProET_5"
-            android:layout_below="@id/CEPProET_5"
-            android:hint="@string/hintAddress"
-            android:inputType="text"
-            android:maxLength="@integer/textMaxSize_Address" />
-
-        <EditText
-            android:id="@+id/numeroProET_5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/AddressProET_5"
-            android:layout_alignLeft="@id/AddressProET_5"
-            android:hint="@string/hintAddressNumber"
-            android:maxLength="@integer/textMaxSize_AddressNumber"
-            android:inputType="number"/>
-
-        <EditText
-            android:id="@+id/complementoProET_5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/AddressProET_5"
-            android:layout_toRightOf="@id/numeroProET_5"
-            android:hint="@string/hintAddressComplement"
-            android:maxLength="@integer/textMaxSize_AddressComplement"
-            android:inputType="text"/>
-
-        <EditText
-            android:id="@+id/bairroProET_5"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/AddressProET_5"
-            android:layout_toRightOf="@id/complementoProET_5"
-            android:hint="@string/hintAddressDistrict"
-            android:maxLength="@integer/textMaxSize_AddresDistrict"
-            android:inputType="text"/>
-        <Spinner
-            android:id="@+id/estadoProSP_5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/numeroProET_5"
-            android:layout_alignParentRight="true"/>
-        <EditText
-            android:id="@+id/cidadeProSP_5"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/numeroProET_5"
-            android:layout_alignLeft="@id/numeroProET_5"
-            android:layout_toLeftOf="@id/estadoProSP_5"
-            android:hint="@string/hintAddressCity"
-            android:maxLength="@integer/textMaxSize_AddreCity"
-            android:inputType="text" />
+            <EditText
+                android:id="@+id/cidadeProSP_5"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/numeroProET_5"
+                android:layout_below="@id/numeroProET_5"
+                android:layout_toLeftOf="@id/estadoProSP_5"
+                android:hint="@string/hintAddressCity"
+                android:inputType="text"
+                android:maxLength="@integer/textMaxSize_AddreCity" />
 
 
-    </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
 </ScrollView>

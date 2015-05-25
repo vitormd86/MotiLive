@@ -29,6 +29,7 @@
 
     <!-- Image Descriptions-->
     <string name="descriptionLogo">Logo Moti</string>
+    <string name="description_photo">Foto do usuário</string>
     <string name="description_icDate">Ícone de data</string>
     <string name="description_icCellPhoneNumber">Ícone de número de celular</string>
     <string name="description_icEmail">Ícone de email</string>
