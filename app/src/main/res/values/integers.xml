@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="textMaxSize_fullname">60</integer>
+    <integer name="textMaxSize_email">60</integer>
+    <integer name="textMaxSize_cellphone">9</integer>
+    <integer name="textMaxSize_CEP">8</integer>
+    <integer name="textMaxSize_Address">40</integer>
+    <integer name="textMaxSize_AddressNumber">6</integer>
+    <integer name="textMaxSize_AddressComplement">20</integer>
+    <integer name="textMaxSize_AddresDistrict">40</integer>
+    <integer name="textMaxSize_AddreCity">40</integer>
+</resources>

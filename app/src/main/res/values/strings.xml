@@ -2,6 +2,8 @@
 <resources>
 
     <!--Globals-->
+    <string name="genderMale">Masculino</string>
+    <string name="genderFemale">Feminino</string>
     <string name="buttonCancel">Cancelar</string>
 
     <!--Login Process -->
@@ -9,15 +11,30 @@
     <string name="hintPassword">Digite sua senha</string>
     <string name="hintConfirmPassword">Confirme sua senha</string>
     <string name="hintShowPassword">Mostrar Senha</string>
+    <string name="hintName">Nome completo</string>
+    <string name="hintBirthDate">Data de nascimento</string>
+    <string name="hintCellPhoneNumber">Digite seu celular</string>
     <string name="hintEmail">Digite seu e-mail</string>
-    <string name="descriptionLogo">Logo Moti</string>
+    <string name="hintCEP">CEP&#160;&#160;&#160;&#160;&#160;</string>
+    <string name="hintAddress">Digite seu endereço</string>
+    <string name="hintAddressNumber">Nº&#160;&#160;&#160;</string>
+    <string name="hintAddressComplement">Compl.&#160;&#160;&#160;&#160;</string>
+    <string name="hintAddressDistrict">Bairro</string>
+    <string name="hintAddressCity">Cidade</string>
     <string name="buttonLogin">Entrar</string>
     <string name="buttonSignUp">Criar Conta</string>
-    <string name="buttonBeClient">Sou cliente e quero agendar serviços</string>
-    <string name="buttonBeProfessional">Sou profissional prestador de serviços</string>
+    <string name="buttonBeClient">Sou cliente e quero&#10;agendar serviços</string>
+    <string name="buttonBeProfessional">Sou profissional&#10;prestador de serviços</string>
     <string name="chooseYourProfile">Escolha seu Perfil</string>
 
-
+    <!-- Image Descriptions-->
+    <string name="descriptionLogo">Logo Moti</string>
+    <string name="description_photo">Foto do usuário</string>
+    <string name="description_icDate">Ícone de data</string>
+    <string name="description_icCellPhoneNumber">Ícone de número de celular</string>
+    <string name="description_icEmail">Ícone de email</string>
+    <string name="description_icProfession">Ícone de profissão</string>
+    <string name="description_icLocation">Ícone de localização</string>
     <!--Outros -->
     <string name="app_name">List</string>
     <string name="facebook_app_id">456445487839463</string>

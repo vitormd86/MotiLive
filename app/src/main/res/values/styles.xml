@@ -27,7 +27,6 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/white</item>
-
     </style>
     <style name="LoginButton" parent="ButtonBig">
         <item name="android:background">@drawable/button_rounded_borders_1</item>
@@ -36,6 +35,16 @@
         <item name="android:background">@drawable/button_rounded_borders_2</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_alignParentBottom">true</item>
+    </style>
+
+    <!-- Image Styles -->
+    <style name="ImagePhoto">
+        <item name="android:layout_width">@dimen/img_photo</item>
+        <item name="android:layout_height">@dimen/img_photo</item>
+        <item name="android:layout_margin">@dimen/margin_photo</item>
+        <item name="android:src">@drawable/button_photo</item>
+        <item name="android:background">@drawable/hide</item>
+        <item name="android:scaleType">fitCenter</item>
     </style>
 
     <!-- Calendar Styles-->
