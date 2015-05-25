@@ -3,14 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <!--este primeiro linearlayout serve para alinhar o scrollbar da scroolview-->
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_app">
+            android:padding="@dimen/margin_app">
 
             <LinearLayout
                 android:id="@+id/linear1"
@@ -132,7 +130,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/emailProET_5"
                 android:layout_below="@+id/emailProET_5"
-                android:layout_marginBottom="@dimen/margin_betweenElements_medium" />
+                android:layout_marginBottom="@dimen/margin_betweenElements_big" />
 
             <ImageView
                 android:id="@+id/ic_location"
@@ -212,5 +210,4 @@
 
 
         </RelativeLayout>
-    </LinearLayout>
 </ScrollView>
