@@ -46,6 +46,8 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
     //booleans
     Boolean isEditing;
     boolean executaJSON;
+    //Service
+    private ProfessionalService professionalService;
 
 
     @Override
@@ -57,8 +59,14 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         isEditing = isEditingService();
 
         try {
-            ProfessionalService professionalService = new ProfessionalService();
-            professionalDTO = professionalService.find((long) 46);
+            professionalService = new ProfessionalService();
+            professionalDTO = professionalService.find((long) 63); //TODO depois.. recuperar id da tela anterior.
+            if (professionalDTO ==null)
+            {
+                System.out.println("Professional ta vindo nulo!");
+            }else{
+                System.out.println(professionalDTO.getAddressNumber());
+            }
             System.out.println("Profissional recuperado com sucesso");
         } catch (ServiceException e) {
             e.printStackTrace();
@@ -85,7 +93,7 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         switch (item.getItemId()) {
             case R.id.confirmButton:
                 executaJSON = true;
-                ServiceDTO serviceDTO = new ServiceDTO();
+                serviceDTO = new ServiceDTO();
                 if (isEditingService()) {
                     //todo   agora quem vai tratar  edição e adição é o proprio back... soh precisamos da isEditing para sabermos como vamos tratar a tela
 
@@ -100,6 +108,9 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
                         serviceDTO.setValue(sessionValue);
                         serviceDTO.setTime(calendar);
                         serviceDTO.setProfessional(professionalDTO);
+                        System.out.println(professionalDTO.getId());
+                        System.out.println("População OK");
+
                         try {
                             ServiceService serviceservice = new ServiceService();
                             serviceDTO = serviceservice.save(serviceDTO);

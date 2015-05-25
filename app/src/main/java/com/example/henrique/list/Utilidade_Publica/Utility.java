@@ -138,7 +138,7 @@ public class Utility {
             }
             else{
 
-                String TEXT = "^[_A-Za-z\\+]{3,15}+((\\s[_A-Za-z]+)*)$";
+                String TEXT = "^[_A-Za-zà-úÀ-Ú\\+]{3,15}+((\\s[_A-Za-zà-úÀ-Ú]+)*)$";
                 Pattern pattern = Pattern.compile(TEXT);
                 Matcher matcher = pattern.matcher(text);
                 return matcher.matches();             }

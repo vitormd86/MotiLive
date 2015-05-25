@@ -38,8 +38,6 @@ public class ProServiceListActivity_7 extends ActionBarActivity{
         //desabilitando BackNavigation button
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
-
-
         initViews();
         setSelectServiceListener();
         setAddServiceListener();
