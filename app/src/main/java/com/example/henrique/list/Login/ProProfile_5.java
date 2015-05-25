@@ -152,7 +152,7 @@ public class ProProfile_5 extends ActionBarActivity {
         emailET = (EditText) findViewById(R.id.emailProET_5);
         CEPET = (EditText) findViewById(R.id.CEPProET_5);
         numeroET = (EditText) findViewById(R.id.numeroProET_5);
-        ruaET = (EditText) findViewById(R.id.RuaProET_5);
+        ruaET = (EditText) findViewById(R.id.AddressProET_5);
         bairroET = (EditText) findViewById(R.id.bairroProET_5);
         cidadeET = (EditText) findViewById(R.id.cidadeProSP_5);
         estadoSP = (Spinner) findViewById(R.id.estadoProSP_5);

@@ -107,8 +107,8 @@
 
             android:id="@+id/CEPProET_5"
             android:layout_below="@+id/localAtendimentoProTV_5"
-            android:layout_alignLeft="@+id/RuaProET_5"
-            android:layout_alignStart="@+id/RuaProET_5"
+            android:layout_alignLeft="@+id/AddressProET_5"
+            android:layout_alignStart="@+id/AddressProET_5"
             android:maxLength="8"
             android:inputType="number"
             />
@@ -119,7 +119,7 @@
             android:hint="Número"
 
             android:id="@+id/numeroProET_5"
-            android:layout_above="@+id/RuaProET_5"
+            android:layout_above="@+id/AddressProET_5"
             android:layout_toRightOf="@+id/CEPProET_5"
             android:layout_toEndOf="@+id/CEPProET_5"
             android:maxLength="10"
@@ -130,7 +130,7 @@
             android:layout_height="wrap_content"
             android:hint="Digite sua rua"
 
-            android:id="@+id/RuaProET_5"
+            android:id="@+id/AddressProET_5"
             android:layout_below="@+id/CEPProET_5"
             android:layout_alignLeft="@+id/celularProET_5"
             android:layout_alignStart="@+id/celularProET_5"
@@ -143,9 +143,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Complemento"
-            android:layout_below="@+id/RuaProET_5"
-            android:layout_alignLeft="@+id/RuaProET_5"
-            android:layout_alignStart="@+id/RuaProET_5"
+            android:layout_below="@+id/AddressProET_5"
+            android:layout_alignLeft="@+id/AddressProET_5"
+            android:layout_alignStart="@+id/AddressProET_5"
             android:id="@+id/complementoProET_5"
             android:maxLength="20"
             android:inputType="text" />
@@ -156,7 +156,7 @@
             android:hint="Bairro"
 
             android:id="@+id/bairroProET_5"
-            android:layout_below="@+id/RuaProET_5"
+            android:layout_below="@+id/AddressProET_5"
             android:layout_toRightOf="@+id/CEPProET_5"
             android:maxLength="40"
             android:inputType="text" />
