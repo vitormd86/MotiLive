@@ -1,5 +1,6 @@
 package com.example.henrique.list.Cliente;
 
+import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,16 +10,22 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.henrique.list.Adapters.ProfessionalAdapter;
 import com.example.henrique.list.R;
+import com.example.henrique.list.Service.ProfessionalService;
 import com.example.henrique.list.Utilidade_Publica.Calendar.CalendarPickerView;
+import com.example.henrique.list.Utilidade_Publica.ServiceException;
+import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import br.com.motiserver.dto.CustomerDTO;
+import br.com.motiserver.dto.ProfessionalDTO;
 
 /**
  * Created by Henrique on 12/02/2015.
@@ -28,36 +35,34 @@ import br.com.motiserver.dto.CustomerDTO;
 /*Tela de selecao de data e profissional para o agendamento*/
 public class CustScheduleDateFragmentPortrait_6 extends Fragment {
 
-    View v;
-    ListView professionalLV;
-    String[] favoriteProfessionals;
+    private CustomerDTO customerDTO;
+    private ListView professionalLV;
+    private List<ProfessionalDTO> favoriteProfessionals;
+    private ProfessionalService professionalService;
 
-
-    CalendarPickerView screenCalendar;
-    Calendar initDate, endDate;
+    private CalendarPickerView screenCalendar;
+    private Calendar initDate, endDate;
+    private View v;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
 
         v = inflater.inflate(R.layout.fragment_cust_schedule_date_6_p, parent, false);
 
-        favoriteProfessionals = new String[]{"Leandro Massaru Kubota", "Ivo Issao Tobioka",
-                "Michel SantaGuida", "Henrique Tamashiro", "Vitor Mendes", "Professional 6", "Professional 7"};
+        customerDTO = (CustomerDTO) getActivity().getIntent().getSerializableExtra(SessionAttributes.CUSTOMER);
+        professionalService = new ProfessionalService();
+        try {
+            favoriteProfessionals = professionalService.findProfessionalContactsByCustomerId(customerDTO.getId());
+        } catch(ServiceException ex) {
+            Toast.makeText(parent.getContext(), "Ocorreu um erro interno. Favor contactar o administrador!", Toast.LENGTH_SHORT).show();
+        }
 
         initViews();
         initCalendar();
 
-
-        //TODO: colocar o objeto q vem la de traz do login
-
         //supondo q personDTO já exista por causa do login.
         long teste = 50;
 
-
-        CustomerDTO customerDTO = new CustomerDTO();
-        //customerDTO.setCustomerId(teste);
-
         setProfessionalListener();
-
         return v;
     }
 
@@ -68,7 +73,6 @@ public class CustScheduleDateFragmentPortrait_6 extends Fragment {
         professionalAdapter = new ProfessionalAdapter(v.getContext(), favoriteProfessionals);
 
         professionalLV.setAdapter(professionalAdapter);// seleciona o adaptador... no caso  "professionalAdapter" q eh do tipo myAdapter
-
     }
 
 
