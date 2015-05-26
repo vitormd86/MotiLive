@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.henrique.list.Adapters.MyAdapterServicesPro;
 import com.example.henrique.list.R;
@@ -22,12 +21,15 @@ import java.util.ArrayList;
  * Created by Cristor on 5/9/15.
  */
 public class ProServiceListActivity_7 extends ActionBarActivity{
-
+    //Buttons
     ImageButton addServiceBT;
+    //ListViews
     ListView servicesLV;
-
+    //Adapters
     ArrayAdapter myServiceAdapter;
+    //Arrays
     ArrayList<String> servicesList;
+
     Bundle extras;
 
     @Override
@@ -48,7 +50,7 @@ public class ProServiceListActivity_7 extends ActionBarActivity{
         servicesList = new ArrayList<>();
 
         //inicia componentes da tela
-        addServiceBT = (ImageButton) findViewById(R.id.addService);
+        addServiceBT = (ImageButton) findViewById(R.id.addServiceProBTN_7);
         servicesLV = (ListView) findViewById(R.id.serviceListProLV_7);
         myServiceAdapter = new MyAdapterServicesPro(getApplicationContext(), servicesList);
         servicesLV.setAdapter(myServiceAdapter);

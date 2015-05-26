@@ -16,7 +16,7 @@
         <!-- esta lista vai mostrar todos servicos do profissional-->
     </ListView>
     <ImageButton
-        android:id="@+id/addService"
+        android:id="@+id/addServiceProBTN_7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

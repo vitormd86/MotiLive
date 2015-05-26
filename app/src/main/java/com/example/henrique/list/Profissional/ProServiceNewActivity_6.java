@@ -30,6 +30,7 @@ import br.com.motiserver.dto.ServiceDTO;
  * Created by Cristor on 01/05/2015.
  */
 public class ProServiceNewActivity_6 extends ActionBarActivity {
+
     //EditText
     EditText serviceNameET, serviceDescriptionET, sessionValueET;
     String serviceName, serviceDescription, sessionValueString;
@@ -109,7 +110,7 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
                         serviceDTO.setTime(calendar);
                         serviceDTO.setProfessional(professionalDTO);
                         System.out.println(professionalDTO.getId());
-                        System.out.println("População OK");
+                        System.out.println("filling serviceDTO OK");
 
                         try {
                             ServiceService serviceservice = new ServiceService();
@@ -121,7 +122,7 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
                             System.out.println("Não Salvou");
                         }
                     }else{
-                        System.out.println("Falha na validlação fields");
+                        System.out.println("Falha na validação fields");
                     }
                     intent.putExtra("service", serviceNameET.getText().toString());
                 }
@@ -152,6 +153,7 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
     private void initVariables() {
 
         //inicializando BigDecimal
+
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();
         symbols.setGroupingSeparator(',');
         symbols.setDecimalSeparator('.');
@@ -160,6 +162,7 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         decimalFormat.setParseBigDecimal(true);
 
         //pegando os dados do Edit Texts
+
         serviceName = serviceNameET.getText().toString();
         serviceDescription = serviceDescriptionET.getText().toString();
         sessionValueString = sessionValueET.getText().toString();
@@ -181,7 +184,6 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR, sessionHoursInt );
         calendar.set(Calendar.MINUTE,sessionMinutesInt );
-
 
         try {
             sessionValue = (BigDecimal) decimalFormat.parse(sessionValueString);
@@ -226,6 +228,7 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
     }
 
     private void initSpinnerAdapters() {
+
         ArrayAdapter<CharSequence> hourAdapter = ArrayAdapter.createFromResource(this, R.array.hours, R.layout.view_spinner_text_hour);
         hourAdapter.setDropDownViewResource(R.layout.view_spinner_dropdown_hour);
         sessionHoursSP.setAdapter(hourAdapter);
