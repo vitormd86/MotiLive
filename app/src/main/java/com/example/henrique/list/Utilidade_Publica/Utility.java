@@ -16,6 +16,8 @@ import br.com.motiserver.constants.Gender;
  */
 public class Utility {
 
+    private String errorString;
+
     public static boolean isValid(String value) {
         if (value != null && !value.trim().equals("")) {
             return true;
@@ -51,24 +53,27 @@ public class Utility {
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
-    public static boolean isValidCelular(String celular) {
-        if (celular.equals("") || celular.length() > 9) {
+    public static boolean isValidPrefix(String prefix) {
+        if (prefix.length() != 2) {
             return false;
-        }else  if(celular.length()==9)
-        {
+        }else {
             return true;
         }
-        return false;
+    }
+    public static boolean isValidCelular(String celular) {
+        if (celular.length() != 9) {
+            return false;
+        }else  {
+            return true;
+        }
 
     }
     public static boolean isValidCEP(String cep) {
-        if (cep.equals("") || cep.length() > 8 ) {
+        if (cep.length() != 8 ) {
             return false;
-        }
-        else if(cep.length()==8){
+        }else {
             return true;
         }
-        return false;
     }
     public static boolean isValidNumero(String numero) {
         if (numero.equals("") || numero.length() > 9) {
@@ -138,7 +143,7 @@ public class Utility {
             }
             else{
 
-                String TEXT = "^[_A-Za-zà-úÀ-Ú\\+]{3,15}+((\\s[_A-Za-zà-úÀ-Ú]+)*)$";
+                String TEXT = "^[_A-Za-zï¿½-ï¿½ï¿½-ï¿½\\+]{3,15}+((\\s[_A-Za-zï¿½-ï¿½ï¿½-ï¿½]+)*)$";
                 Pattern pattern = Pattern.compile(TEXT);
                 Matcher matcher = pattern.matcher(text);
                 return matcher.matches();             }
@@ -196,4 +201,5 @@ public class Utility {
             return true;
         }
     }
+
 }
