@@ -69,9 +69,7 @@ public class ProProfile_5 extends ActionBarActivity {
 
 
     // inteiros
-    private int year;
-    private int month;
-    private int day;
+
 
     //Inicializacao dos EditTexts Obrigatorios
 
@@ -355,8 +353,6 @@ public class ProProfile_5 extends ActionBarActivity {
                 System.out.println("Falha ao executar JSON");
             }
 
-        } else {
-            Toast.makeText(getApplicationContext(), "Por favor, preencha todos os campos obrigat�rios", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -405,13 +401,11 @@ public class ProProfile_5 extends ActionBarActivity {
         // when dialog box is closed, below method will be called.
         public void onDateSet(DatePicker view, int selectedYear,
                               int selectedMonth, int selectedDay) {
-            year = selectedYear;
-            month = selectedMonth;
-            day = selectedDay;
+
             // coloca o resultado dentro de uma variavel do tipo date
-            onScreenCal.set(Calendar.YEAR, year);
-            onScreenCal.set(Calendar.MONTH, month);
-            onScreenCal.set(Calendar.DAY_OF_MONTH, day);
+            onScreenCal.set(Calendar.YEAR, selectedYear);
+            onScreenCal.set(Calendar.MONTH, selectedMonth);
+            onScreenCal.set(Calendar.DAY_OF_MONTH, selectedDay);
             choosenDateCal = onScreenCal;
             // coloca data selecionada dentro do TextView correspondente
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
