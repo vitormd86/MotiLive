@@ -220,6 +220,7 @@
                 android:id="@+id/estadoProSP_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:minWidth="@dimen/minWidthUF"
                 android:layout_alignParentRight="true"
                 android:layout_below="@id/numeroProET_5" />
 

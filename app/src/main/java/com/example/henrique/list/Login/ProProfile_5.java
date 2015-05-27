@@ -27,6 +27,7 @@ import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 import com.example.henrique.list.Utilidade_Publica.Utility;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -65,10 +66,8 @@ public class ProProfile_5 extends ActionBarActivity {
     private ProfessionalService professionalService;
     private ProfessionService professionService;
 
-    //TextViews
-
-
-    // inteiros
+    ArrayAdapter<String> professionAdapter;
+    ArrayAdapter<String> stateAdapter;
 
 
     //Inicializacao dos EditTexts Obrigatorios
@@ -165,21 +164,8 @@ public class ProProfile_5 extends ActionBarActivity {
         estadoSP = (Spinner) findViewById(R.id.estadoProSP_5);
         profissaoSP = (Spinner) findViewById(R.id.profissaoProSP_5);
 
-        List<ProfessionDTO> professions = null;
-        try {
-            professionService = new ProfessionService();
-            professions = professionService.findAll();
+        setSpinnerItems();
 
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
-        ArrayAdapter<ProfessionDTO> professionAdapter = new  ArrayAdapter<>(this, android.R.layout.simple_spinner_item , professions );
-        professionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        profissaoSP.setAdapter(professionAdapter);
-
-        ArrayAdapter<UF> stateAdapter = new  ArrayAdapter<>(this, android.R.layout.simple_spinner_item , UF.values() );
-        stateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        estadoSP.setAdapter(stateAdapter);
 
         // campos nao obrigatorios
         complementoET = (EditText) findViewById(R.id.complementoProET_5);
@@ -292,7 +278,6 @@ public class ProProfile_5 extends ActionBarActivity {
             if(dataEscolhidaET.getError() != null)
                 dataEscolhidaET.setError(null);
         }
-
         if (!Utility.isValidSexo(opcaoEscolhidaGenero)) {
             masculinoRB.setTextColor(Color.RED);
             femininoRB.setTextColor(Color.RED);
@@ -302,6 +287,16 @@ public class ProProfile_5 extends ActionBarActivity {
             femininoRB.setTextColor(getResources().getColor(R.color.black));
         }
 
+        if(profissaoSP.getSelectedItemPosition() == professionAdapter.getCount() - 1){
+            TextView professionHint = (TextView) profissaoSP.getSelectedView().findViewById(android.R.id.text1);
+            professionHint.setTextColor(Color.RED);
+            executaJSON = false;
+        }
+        if(estadoSP.getSelectedItemPosition() == stateAdapter.getCount() - 1){
+            TextView stateHint = (TextView) estadoSP.getSelectedView().findViewById(android.R.id.text1);
+            stateHint.setTextColor(Color.RED);
+            executaJSON = false;
+        }
 
         if (executaJSON) {
 
@@ -426,6 +421,44 @@ public class ProProfile_5 extends ActionBarActivity {
 //        outState.putString(NUMERO_CTE, numero);
 //        outState.putString(CIDADE_CTE, cidade);
 //    }
+
+    private void setSpinnerItems(){
+        List<ProfessionDTO> professions;
+        ArrayList<String> professionSpinnerItens = new ArrayList<>();
+        ArrayList<String> stateSpinnerItens = new ArrayList<>();
+        try {
+            professionService = new ProfessionService();
+            professions = professionService.findAll();
+            //todo subistituir por um SERVICE que me traga uma lista de nomes dos DTOs
+            for (ProfessionDTO profession : professions){
+                professionSpinnerItens.add(profession.getName());
+            }
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
+
+        for (UF state : UF.values()){
+            stateSpinnerItens.add(state.getCode());
+        }
+
+        //adicionando hint aos spinners
+        professionSpinnerItens.add("Selecione uma profissão");
+        stateSpinnerItens.add("UF");
+
+        //configurando spinners
+        professionAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item ,professionSpinnerItens);
+        professionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        profissaoSP.setAdapter(professionAdapter);
+        profissaoSP.setSelection(professionAdapter.getCount() - 1);
+
+
+        stateAdapter = new  ArrayAdapter<>(this, android.R.layout.simple_spinner_item , stateSpinnerItens);
+        stateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        estadoSP.setAdapter(stateAdapter);
+        estadoSP.setSelection(stateAdapter.getCount() - 1);
+
+
+    }
 
     //aqui inicializamos os botoes da action bar
     @Override
