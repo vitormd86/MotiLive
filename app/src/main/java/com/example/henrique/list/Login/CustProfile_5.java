@@ -269,10 +269,8 @@ public class CustProfile_5 extends ActionBarActivity {
             customerDTO.setStatus(Status.TRUE);
             customerDTO.setCpfCnpj("nulo");
             customerDTO.setPhoneCode("11");
-            customerDTO.setLogin("definirNaTelaLogin");
             customerDTO.setFacebookLogin("NaoEssencial");
             customerDTO.setGoogleLogin("NaoEssencial");
-            customerDTO.setPassword("definirNaTelaLogin");
 
             // executa requisição JSON
             try {
@@ -285,8 +283,9 @@ public class CustProfile_5 extends ActionBarActivity {
                 System.out.println("=== DEU ERRO E O CLIENTE RETORNO NULLO");
             } else {
                 System.out.println("=== DEU CERTO E O CLIENTE RETORNOU COM SUCESSO " + customerDTO.getName());  //TODO verificar se o back adiciona o id no objeto de retorno
-                Intent i = new Intent(CustProfile_5.this, CustDrawerMenu_10.class); //TODO ver como podemos colocar isso no ONPOSEXECUTE
-                startActivity(i);
+                Intent intent = new Intent(CustProfile_5.this, CustDrawerMenu_10.class);
+                intent.putExtra(SessionAttributes.CUSTOMER, customerDTO);
+                startActivity(intent);
             }
 
         } else {
