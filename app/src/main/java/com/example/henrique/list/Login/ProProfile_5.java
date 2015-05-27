@@ -2,6 +2,8 @@ package com.example.henrique.list.Login;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -24,6 +26,7 @@ import com.example.henrique.list.Utilidade_Publica.ServiceException;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 import com.example.henrique.list.Utilidade_Publica.Utility;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -63,22 +66,24 @@ public class ProProfile_5 extends ActionBarActivity {
     private ProfessionService professionService;
 
     //TextViews
-    TextView dataEscolhidaTV;
+
 
     // inteiros
-    private int year;
-    private int month;
-    private int day;
+
 
     //Inicializacao dos EditTexts Obrigatorios
 
-    Calendar chosenDate;//TODO arrumar direito
+
+    Calendar choosenDateCal;
+    Calendar onScreenCal = Calendar.getInstance();
     Calendar dg = Calendar.getInstance();
     Gender opcaoEscolhidaGenero;
     RadioButton masculinoRB;
     RadioButton femininoRB;
     EditText nomeET;
+    EditText dataEscolhidaET;
     EditText celularET;
+    EditText prefixET;
     EditText emailET;
     EditText CEPET;
     EditText numeroET;
@@ -103,6 +108,7 @@ public class ProProfile_5 extends ActionBarActivity {
     //    armazenadores
     String nome;
     String email;
+    String prefix;
     String celular;
     String cep;
     String numero;
@@ -118,11 +124,11 @@ public class ProProfile_5 extends ActionBarActivity {
         setContentView(R.layout.activity_pro_profile_5);
 
         //Verificando se esta iniciando ou restaurando
-        if ( savedInstanceState == null)
-        {
+        //if ( savedInstanceState == null)
+        //{
             //significa que o APP esta iniciando
 
-        }else{
+        //}else{
             //significa que o APP esta restaurando
 //            nomeET.setText(savedInstanceState.getString(NOME_CTE));
 //            emailET.setText(savedInstanceState.getString(EMAIL_CTE));
@@ -134,7 +140,7 @@ public class ProProfile_5 extends ActionBarActivity {
 //            cidadeET.setText(savedInstanceState.getString(CIDADE_CTE));
 //            opcaoEscolhidaGenero = savedInstanceState.(GENERO_CTE)
 //            if(opcaoEscolhidaGenero == Gender.FEMALE)
-        }
+        //}
 
         //Habilitando BackNavigation button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -145,10 +151,11 @@ public class ProProfile_5 extends ActionBarActivity {
 
         //campos obrigat�rios
         nomeET = (EditText) findViewById(R.id.NomeET_Pro_5);
-        dataEscolhidaTV = (TextView) findViewById(R.id.dataEscolhidaProTV_5);
+        dataEscolhidaET = (EditText) findViewById(R.id.dataEscolhidaProTV_5);
         masculinoRB = (RadioButton) findViewById(R.id.masculinoProRB_5);
         femininoRB = (RadioButton) findViewById(R.id.femininoProRB_5);
         celularET = (EditText) findViewById(R.id.celularProET_5);
+        prefixET = (EditText) findViewById(R.id.prefixProET_5);
         emailET = (EditText) findViewById(R.id.emailProET_5);
         CEPET = (EditText) findViewById(R.id.CEPProET_5);
         numeroET = (EditText) findViewById(R.id.numeroProET_5);
@@ -166,11 +173,11 @@ public class ProProfile_5 extends ActionBarActivity {
         } catch (ServiceException e) {
             e.printStackTrace();
         }
-        ArrayAdapter<ProfessionDTO> professionAdapter = new  ArrayAdapter<ProfessionDTO>(this, android.R.layout.simple_spinner_item , professions );
+        ArrayAdapter<ProfessionDTO> professionAdapter = new  ArrayAdapter<>(this, android.R.layout.simple_spinner_item , professions );
         professionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         profissaoSP.setAdapter(professionAdapter);
 
-        ArrayAdapter<UF> stateAdapter = new  ArrayAdapter<UF>(this, android.R.layout.simple_spinner_item , UF.values() );
+        ArrayAdapter<UF> stateAdapter = new  ArrayAdapter<>(this, android.R.layout.simple_spinner_item , UF.values() );
         stateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         estadoSP.setAdapter(stateAdapter);
 
@@ -185,33 +192,10 @@ public class ProProfile_5 extends ActionBarActivity {
 //        Booleans
         executaJSON = true;
 
-        addListenerOnButton();
+        addDateListenerButton();
 
     }
 
-    //aqui inicializamos os botoes da action bar
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_confirm, menu);
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    // On selecting action bar icons
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Take appropriate action for each action item click
-        switch (item.getItemId()) {
-            case R.id.confirmButton:
-                // location found
-                confirmRegistration();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 
 
     private void confirmRegistration() {
@@ -223,7 +207,7 @@ public class ProProfile_5 extends ActionBarActivity {
 
         nome = nomeET.getText().toString();
         if (!Utility.isValidName(nome)) {
-            nomeET.setError("O nome precisa conter no Minimo 3 letras");
+            nomeET.setError("O nome precisa conter no mínimo 3 letras e conter caracteres válidos");
             executaJSON = false;
 
         }else{
@@ -240,6 +224,10 @@ public class ProProfile_5 extends ActionBarActivity {
         else{
             if(emailET.getError() != null)
                 emailET.setError(null);
+        }
+        prefix = prefixET.getText().toString();
+        if(!Utility.isValidPrefix(prefix)){
+            prefixET.setError("O prefixo precisa conter 2 digitos");
         }
 
         celular = celularET.getText().toString();
@@ -263,7 +251,7 @@ public class ProProfile_5 extends ActionBarActivity {
 
         numero = numeroET.getText().toString();
         if (!Utility.isValidNumero(numero)) {
-            numeroET.setError("O n�mero n�o");
+            numeroET.setError("O n�mero não e válido");
             executaJSON = false;
         }else{
             if(numeroET.getError() != null)
@@ -297,15 +285,21 @@ public class ProProfile_5 extends ActionBarActivity {
                 cidadeET.setError(null);
         }
 
-        if (!Utility.isValidNascimento(chosenDate)) {
-            Toast.makeText(getApplicationContext(), "Por favor,escolha sua data de nascimento ", Toast.LENGTH_SHORT).show();
+        if (!Utility.isValidNascimento(choosenDateCal)) {
+            dataEscolhidaET.setError("Selecione a data de nascimento");
             executaJSON = false;
-
+        }else{
+            if(dataEscolhidaET.getError() != null)
+                dataEscolhidaET.setError(null);
         }
-        if (!Utility.isValidSexo(opcaoEscolhidaGenero)) {
-            Toast.makeText(getApplicationContext(), "Por favor,por favor escolha seu genero ", Toast.LENGTH_SHORT).show();
-            executaJSON = false;
 
+        if (!Utility.isValidSexo(opcaoEscolhidaGenero)) {
+            masculinoRB.setTextColor(Color.RED);
+            femininoRB.setTextColor(Color.RED);
+            executaJSON = false;
+        }else{
+            masculinoRB.setTextColor(getResources().getColor(R.color.black));
+            femininoRB.setTextColor(getResources().getColor(R.color.black));
         }
 
 
@@ -315,7 +309,8 @@ public class ProProfile_5 extends ActionBarActivity {
 
             professionalDTO.setName(nome);
             professionalDTO.setEmail(email);
-            professionalDTO.setBirthDate(chosenDate);
+            professionalDTO.setBirthDate(onScreenCal);
+            professionalDTO.setPhoneCode(prefix);
             professionalDTO.setPhoneNumber(celular);
             professionalDTO.setAddressStreet(rua);
             professionalDTO.setAddressDistrict(bairro);
@@ -358,13 +353,10 @@ public class ProProfile_5 extends ActionBarActivity {
                 System.out.println("Falha ao executar JSON");
             }
 
-        } else {
-            Toast.makeText(getApplicationContext(), "Por favor, preencha todos os campos obrigat�rios", Toast.LENGTH_SHORT).show();
         }
     }
 
     //gerencia a manipulacao de Radio Buttons
-
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
@@ -382,10 +374,8 @@ public class ProProfile_5 extends ActionBarActivity {
     }
 
     //Metodos Relacionados ao Date Picker
-
-    public void addListenerOnButton() {
-        dataEscolhidaTV = (TextView) findViewById(R.id.dataEscolhidaProTV_5);
-        dataEscolhidaTV.setOnClickListener(new View.OnClickListener() {
+    public void addDateListenerButton() {
+        dataEscolhidaET.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -400,7 +390,7 @@ public class ProProfile_5 extends ActionBarActivity {
             case DATE_DIALOG_ID:
                 // set date picker as current date
                 return new DatePickerDialog(this, datePickerListener,
-                        year, month, day);
+                        onScreenCal.get(Calendar.YEAR), onScreenCal.get(Calendar.MONTH), onScreenCal.get(Calendar.DAY_OF_MONTH));
         }
         return null;
     }
@@ -411,20 +401,16 @@ public class ProProfile_5 extends ActionBarActivity {
         // when dialog box is closed, below method will be called.
         public void onDateSet(DatePicker view, int selectedYear,
                               int selectedMonth, int selectedDay) {
-            year = selectedYear;
-            month = selectedMonth;
-            day = selectedDay;
-            // coloca o resultado dentro de uma variavel do tipo date
-            Calendar myCal = Calendar.getInstance();
-            myCal.set(Calendar.YEAR, year);
-            myCal.set(Calendar.MONTH, month);
-            myCal.set(Calendar.DAY_OF_MONTH, day);
-            chosenDate = myCal;
 
+            // coloca o resultado dentro de uma variavel do tipo date
+            onScreenCal.set(Calendar.YEAR, selectedYear);
+            onScreenCal.set(Calendar.MONTH, selectedMonth);
+            onScreenCal.set(Calendar.DAY_OF_MONTH, selectedDay);
+            choosenDateCal = onScreenCal;
             // coloca data selecionada dentro do TextView correspondente
-            dataEscolhidaTV.setText(new StringBuilder().append(month + 1)
-                    .append("-").append(day).append("-").append(year)
-                    .append(" "));
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            String sDate = sdf.format(onScreenCal.getTime());
+            dataEscolhidaET.setText(sDate);
         }
     };
 
@@ -441,6 +427,29 @@ public class ProProfile_5 extends ActionBarActivity {
 //        outState.putString(CIDADE_CTE, cidade);
 //    }
 
+    //aqui inicializamos os botoes da action bar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_confirm, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    // On selecting action bar icons
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Take appropriate action for each action item click
+        switch (item.getItemId()) {
+            case R.id.confirmButton:
+                // location found
+                confirmRegistration();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 
 }

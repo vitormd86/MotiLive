@@ -14,6 +14,9 @@
     <string name="hintName">Nome completo</string>
     <string name="hintBirthDate">Data de nascimento</string>
     <string name="hintCellPhoneNumber">Digite seu celular</string>
+    <string name="hintCellPhonePrefixNumber">**</string>
+    <string name="hintCellPhonePrefixStart">(&#160;</string>
+    <string name="hintCellPhonePrefixEnd">&#160;)&#160;&#160;</string>
     <string name="hintEmail">Digite seu e-mail</string>
     <string name="hintCEP">CEP&#160;&#160;&#160;&#160;&#160;</string>
     <string name="hintAddress">Digite seu endereço</string>
