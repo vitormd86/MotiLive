@@ -15,6 +15,7 @@ import com.example.henrique.list.R;
 import com.example.henrique.list.Service.ProfessionalService;
 import com.example.henrique.list.Service.ServiceService;
 import com.example.henrique.list.Utilidade_Publica.ServiceException;
+import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 import com.example.henrique.list.Utilidade_Publica.Utility;
 
 import java.math.BigDecimal;
@@ -48,6 +49,9 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
     boolean executaJSON;
     //Service
     private ProfessionalService professionalService;
+    //Bundle
+    String sProfessional_id;
+
 
 
     @Override
@@ -115,7 +119,11 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
                             ServiceService serviceservice = new ServiceService();
                             serviceDTO = serviceservice.save(serviceDTO);
                             System.out.println("Salvou");
+                            sProfessional_id = professionalDTO.getId().toString();
                             startActivity(intent);
+                            Intent createAccountIntent = new Intent(ProServiceNewActivity_6.this, ProServiceListActivity_7.class);
+                            createAccountIntent.putExtra(SessionAttributes.PROFESSIONAL_ID, sProfessional_id);
+                            startActivity(createAccountIntent);
                         } catch (ServiceException e) {
                             e.printStackTrace();
                             System.out.println("Não Salvou");
