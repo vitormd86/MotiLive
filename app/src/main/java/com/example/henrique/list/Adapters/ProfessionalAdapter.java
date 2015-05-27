@@ -10,12 +10,16 @@ import android.widget.TextView;
 
 import com.example.henrique.list.R;
 
+import java.util.List;
+
+import br.com.motiserver.dto.ProfessionalDTO;
+
 /**
  * Created by Henrique on 06/02/2015.
  */
 //Adaptador ele joga as  a imagem e um EditText dentro de uma lista
-public class ProfessionalAdapter extends ArrayAdapter<String> {
-    public ProfessionalAdapter(Context context, String[] values) {
+public class ProfessionalAdapter extends ArrayAdapter<ProfessionalDTO> {
+    public ProfessionalAdapter(Context context, List<ProfessionalDTO> values) {
         super(context, R.layout.view_person, values);
     }
 
@@ -24,10 +28,9 @@ public class ProfessionalAdapter extends ArrayAdapter<String> {
         LayoutInflater theInflator = LayoutInflater.from(getContext());
         View theView = theInflator.inflate(R.layout.view_person, parent, false);
 
-        String profissionais = getItem(position);
+        ProfessionalDTO professionalDTO = getItem(position);
         TextView textView = (TextView) theView.findViewById(R.id.textView1);
-
-        textView.setText(profissionais);
+        textView.setText(professionalDTO.getName());
         ImageView theImageView =  (ImageView) theView.findViewById(R.id.imageView1);
         theImageView.setImageResource(R.drawable.hide);
 

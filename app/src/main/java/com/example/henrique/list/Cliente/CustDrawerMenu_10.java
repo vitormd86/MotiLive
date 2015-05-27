@@ -1,6 +1,5 @@
 package com.example.henrique.list.Cliente;
 
-
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,14 +19,19 @@ import android.widget.TextView;
 import com.example.henrique.list.Adapters.MyAdapterDrawerOptions;
 import com.example.henrique.list.Beans.DrawerMenuItem;
 import com.example.henrique.list.R;
+import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
+
+import br.com.motiserver.dto.CustomerDTO;
 
 /*Atividade que configura o drawer e o frame layout que recebe os fragments*/
 public class CustDrawerMenu_10 extends ActionBarActivity {
-    DrawerLayout mDrawerLayout;
-    CharSequence mTitle;
-    ActionBarDrawerToggle mDrawerToggle;
-    ListView listOptions;
 
+    private ActionBarDrawerToggle mDrawerToggle;
+    private CharSequence mTitle;
+    private DrawerLayout mDrawerLayout;
+    private ListView listOptions;
+
+    private CustomerDTO customerDTO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +48,11 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
                       /* nav drawer icon to replace 'Up' caret */
                 R.string.drawer_open,  /* "open drawer" description */
                 R.string.drawer_close  /* "close drawer" description */
-        ) {
-
-
-            /**
+        ) { /**
              * Called when a drawer has settled in a completely closed state.
              */
             public void onDrawerClosed(View view) {
             }
-
             /**
              * Called when a drawer has settled in a completely open state.
              */
@@ -60,6 +60,8 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
             }
         };
 
+        // retrieve customer
+        customerDTO = (CustomerDTO) getIntent().getSerializableExtra(SessionAttributes.CUSTOMER);
 
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);

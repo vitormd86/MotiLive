@@ -10,30 +10,43 @@ import android.widget.AdapterView;
 import android.widget.CalendarView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.henrique.list.Adapters.ProfessionalAdapter;
 import com.example.henrique.list.Cliente.CustScheduleHourActivity_7;
 import com.example.henrique.list.R;
+import com.example.henrique.list.Service.ProfessionalService;
+import com.example.henrique.list.Utilidade_Publica.ServiceException;
+import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
+import br.com.motiserver.dto.CustomerDTO;
+import br.com.motiserver.dto.ProfessionalDTO;
 
 /*Tela de selecao de data e profissional para o agendamento*/
 public class CustScheduleDateFragmentLandscape_6 extends Fragment  {
 
+    private CustomerDTO customerDTO;
+    private List<ProfessionalDTO> favoriteProfessionals;
+    private ProfessionalService professionalService;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-
-
 
         View v = inflater.inflate(R.layout.fragment_cust_schedule_date_l, parent, false);
 
         ListView theListView = (ListView) v.findViewById(R.id.ListView); // inicializa a List View do fragment inflado
         final CalendarView myCalendarView = (CalendarView) v.findViewById(R.id.calendarView); // inicializa a Calendar View do fragment inflado
 
-
-        String[] favoriteProfessionals;// aqui eu inicializo o array de opcoes
-        favoriteProfessionals = new String[]{"Leandro Massaru Kubota", "Ivo Issao Tobioka",
-                "Michel SantaGuida", "Henrique Tamashiro"};
+        customerDTO = (CustomerDTO) getActivity().getIntent().getSerializableExtra(SessionAttributes.CUSTOMER);
+        professionalService = new ProfessionalService();
+        try {
+            favoriteProfessionals = professionalService.findProfessionalContactsByCustomerId(customerDTO.getId());
+        } catch(ServiceException ex) {
+            Toast.makeText(parent.getContext(), "Ocorreu um erro interno. Favor contactar o administrador!", Toast.LENGTH_SHORT).show();
+        }
 
         ListAdapter theAdapter; //inicializa o adaptador de array, pra encaixar o array na lista
         theAdapter = new ProfessionalAdapter(v.getContext(), favoriteProfessionals);
