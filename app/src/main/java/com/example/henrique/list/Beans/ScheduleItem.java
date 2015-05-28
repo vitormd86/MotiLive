@@ -5,15 +5,20 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ScheduleItem {
+    int listPosition;
     Date scheduleDate;
-    Time scheduleInicialTime;
-    Time scheduleFinalTime;
-    Time scheduleDuration;
-    Time scheduleLeftTime;
+    Date scheduleInicialTime;
+    Date scheduleFinalTime;
+    Date scheduleLeftTime;
     String personName;
     boolean isSection; //0 para ITEM e 1 para SECTION
 
 
+    public int getListPosition(){return listPosition;}
+
+    public void setListPosition(int listPosition){
+        this.listPosition = listPosition;
+    }
     public Date getScheduleDate() {
         return scheduleDate;
     }
@@ -26,7 +31,7 @@ public class ScheduleItem {
         return contertTime(scheduleInicialTime);
     }
 
-    public void setScheduleInicialTime(Time scheduleInicialTime) {
+    public void setScheduleInicialTime(Date scheduleInicialTime) {
         this.scheduleInicialTime = scheduleInicialTime;
     }
 
@@ -34,17 +39,8 @@ public class ScheduleItem {
         return contertTime(scheduleFinalTime);
     }
 
-    public void setScheduleFinalTime(Time scheduleFinalTime) {
+    public void setScheduleFinalTime(Date scheduleFinalTime) {
         this.scheduleFinalTime = scheduleFinalTime;
-    }
-
-    public String getScheduleDuration() {
-        SimpleDateFormat df = new SimpleDateFormat("HH'h e 'mm'min'");
-        return df.format(scheduleDuration);
-    }
-
-    public void setScheduleDuration(Time scheduleDuration) {
-        this.scheduleDuration = scheduleDuration;
     }
 
     public String getScheduleLeftTime() {
@@ -62,9 +58,9 @@ public class ScheduleItem {
     public void setPersonName(String personName) {
         this.personName = personName;
     }
-    private String contertTime(Time time){
+    private String contertTime(Date dateTime){
         SimpleDateFormat df = new SimpleDateFormat("HH:mm");
-        return df.format(time);
+        return df.format(dateTime);
     }
 
     public boolean isSection() {
