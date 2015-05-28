@@ -50,6 +50,20 @@ public class SchedulingService extends GenericService {
         }
     }
 
+    public List<SchedulingDTO> findUpcomingSchedulingByCustomerId(Long customerId) throws ServiceException {
+        WrapperDTO<List<SchedulingDTO>> wrapperDTO = null;
+        try {
+            wrapperDTO = new FindUpcomingSchedulingByCustomerId().execute(customerId).get();
+        } catch (Exception e) {
+            throw new ServiceException(e);
+        }
+        if (wrapperDTO.getErrorMessage() != null) {
+            throw new ServiceException(wrapperDTO.getErrorMessage());
+        } else {
+            return wrapperDTO.getObject();
+        }
+    }
+
     public SchedulingDTO save(SchedulingDTO schedulingDTO) throws ServiceException {
         WrapperDTO<SchedulingDTO> wrapperDTO = null;
         try {
@@ -97,6 +111,23 @@ public class SchedulingService extends GenericService {
             // EXECUTE
             ResponseEntity<WrapperDTO<List<SchedulingDTO>>> response = (ResponseEntity<WrapperDTO<List<SchedulingDTO>>>) restTemplate
                     .exchange(URLConstants.SCHEDULING_FIND_ALL_BY_PROFESSIONAL_ID, HttpMethod.GET, null, responseType, vars);
+            return response.getBody();
+        }
+    }
+
+    private class FindUpcomingSchedulingByCustomerId extends AsyncTask<Long, Void, WrapperDTO<List<SchedulingDTO>>> {
+        @Override
+        protected WrapperDTO<List<SchedulingDTO>> doInBackground(Long... customerId) {
+            // PREPARE
+            RestTemplate restTemplate = new RestTemplate();
+            restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            Map<String, Object> vars = new HashMap<String, Object>();
+            vars.put("customerId", customerId[0]);
+            ParameterizedTypeReference<WrapperDTO<List<SchedulingDTO>>> responseType = new ParameterizedTypeReference<WrapperDTO<List<SchedulingDTO>>>(){};
+
+            // EXECUTE
+            ResponseEntity<WrapperDTO<List<SchedulingDTO>>> response = (ResponseEntity<WrapperDTO<List<SchedulingDTO>>>) restTemplate
+                    .exchange(URLConstants.SCHEDULING_FIND_UPCOMING_SCHEDULING_BY_CUSTOMER_ID, HttpMethod.GET, null, responseType, vars);
             return response.getBody();
         }
     }
