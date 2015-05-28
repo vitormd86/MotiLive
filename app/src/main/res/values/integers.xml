@@ -3,6 +3,7 @@
     <integer name="textMaxSize_fullname">60</integer>
     <integer name="textMaxSize_email">60</integer>
     <integer name="textMaxSize_cellphone">9</integer>
+    <integer name="textMaxSize_cellphonePrefix">2</integer>
     <integer name="textMaxSize_CEP">8</integer>
     <integer name="textMaxSize_Address">40</integer>
     <integer name="textMaxSize_AddressNumber">6</integer>

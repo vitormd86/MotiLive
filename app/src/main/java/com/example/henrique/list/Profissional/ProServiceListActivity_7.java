@@ -11,12 +11,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.example.henrique.list.Adapters.MyAdapterServicesPro;
+import com.example.henrique.list.Adapters.MyAdapterServicesPro_7;
 import com.example.henrique.list.R;
+import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 
 import java.util.ArrayList;
+
+import br.com.motiserver.dto.ProfessionalDTO;
+import br.com.motiserver.dto.ServiceDTO;
 
 /**
  * Created by Cristor on 5/9/15.
@@ -25,18 +28,22 @@ public class ProServiceListActivity_7 extends ActionBarActivity{
 
     ImageButton addServiceBT;
     ListView servicesLV;
+    ProfessionalDTO professionalDTO = (ProfessionalDTO) getIntent().getSerializableExtra(SessionAttributes.PROFESSIONAL_ID);
+    int idProfessional;
 
     ArrayAdapter myServiceAdapter;
-    ArrayList<String> servicesList;
+    ArrayList<ServiceDTO> servicesList;
     Bundle extras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pro_service_list_7);
-
         //desabilitando BackNavigation button
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        //obtem o id_professional atravẽs da session
+        idProfessional = (Integer) Integer.parseInt(SessionAttributes.PROFESSIONAL_ID);
+        professionalDTO.setId((long) idProfessional);
 
         initViews();
         setSelectServiceListener();
@@ -48,9 +55,9 @@ public class ProServiceListActivity_7 extends ActionBarActivity{
         servicesList = new ArrayList<>();
 
         //inicia componentes da tela
-        addServiceBT = (ImageButton) findViewById(R.id.addService);
+        addServiceBT = (ImageButton) findViewById(R.id.addServiceProBTN_7);
         servicesLV = (ListView) findViewById(R.id.serviceListProLV_7);
-        myServiceAdapter = new MyAdapterServicesPro(getApplicationContext(), servicesList);
+        myServiceAdapter = new MyAdapterServicesPro_7(getApplicationContext(), servicesList);
         servicesLV.setAdapter(myServiceAdapter);
     }
 
@@ -83,7 +90,7 @@ public class ProServiceListActivity_7 extends ActionBarActivity{
         extras = getIntent().getExtras();
         if(extras != null) {
             //recuperando dados da tela anterior
-            servicesList.add(extras.getString("service"));
+            //servicesList.add(extras.getString("service"));
         }
 
         //atualiza dados da listView

@@ -16,6 +16,8 @@
     <dimen name="img_choose_height">120dp</dimen>
     <dimen name="img_photo">60dp</dimen>
 
+    <!-- Medidas mínimas de campos -->
+    <dimen name="minWidthUF">60dp</dimen>
 
 
 
