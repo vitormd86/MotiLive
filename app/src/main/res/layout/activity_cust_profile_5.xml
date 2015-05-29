@@ -1,218 +1,219 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:fillViewport="true"
-        android:padding="20dip">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_app">
 
+        <LinearLayout
+            android:id="@+id/linear1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_betweenElements_small"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-        <ImageButton
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:id="@+id/ImageButtonPro_5"
-            android:src="@drawable/hide"
-            android:layout_marginLeft="34dp"
-            android:layout_marginStart="34dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="27dp" />
+            <ImageButton
+                android:id="@+id/ImageButtonCust_5"
+                style="@style/ImagePhoto"
+                android:background="@drawable/hide"
+                android:contentDescription="@string/description_photo" />
 
+            <EditText
+                android:id="@+id/NomeET_Cust_5"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hintName"
+                android:inputType="text"
+                android:maxLength="@integer/textMaxSize_fullname" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ic_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linear1"
+            android:contentDescription="@string/description_icDate"
+            android:src="@drawable/ic_form_date" />
         <EditText
+            android:id="@+id/dataEscolhidaCustTV_5"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/NomeET_Pro_5"
-            android:hint="Seu Nome Completo"
-
-            android:layout_above="@+id/nascimentoProTV_5"
-            android:layout_toRightOf="@+id/nascimentoProTV_5"
-            android:maxLength="60"
-            android:inputType="text" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nascimento"
-            android:id="@+id/nascimentoProTV_5"
-            android:layout_marginTop="28dp"
-            android:layout_below="@+id/ImageButtonPro_5"
-            android:layout_alignLeft="@+id/ImageButtonPro_5"
-            android:layout_alignStart="@+id/ImageButtonPro_5" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Data escolhida"
-            android:onClick="showDatePickerDialog"
-            android:textSize="20sp"
-            android:id="@+id/dataEscolhidaProTV_5"
-            android:layout_below="@id/nascimentoProTV_5"
-            android:layout_alignLeft="@+id/nascimentoProTV_5"
-            android:layout_alignStart="@+id/nascimentoProTV_5" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sexo"
-            android:id="@+id/sexoProTV_5"
-            android:layout_below="@+id/dataEscolhidaProTV_5"
-            android:layout_alignLeft="@+id/dataEscolhidaProTV_5"
-            android:layout_alignStart="@+id/dataEscolhidaProTV_5" />
-
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="Digite seu Celular"
-
-            android:id="@+id/celularProET_5"
-            android:layout_below="@+id/emailProET_5"
-            android:layout_toRightOf="@+id/sexoProTV_5"
-            android:layout_alignRight="@+id/emailProET_5"
-            android:layout_alignEnd="@+id/emailProET_5"
-            android:inputType="phone"
-            android:maxLength="9"/>
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="Digite seu e-mail"
-
-            android:id="@+id/emailProET_5"
-            android:layout_below="@+id/radioGroup"
-            android:layout_toRightOf="@+id/sexoProTV_5"
-
-            android:inputType="textWebEmailAddress"
-            android:maxLength="60"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Local de Atendimento"
-            android:id="@+id/localAtendimentoProTV_5"
-            android:layout_below="@+id/celularProET_5"
-            android:layout_alignLeft="@+id/sexoProTV_5"
-            android:layout_alignStart="@+id/sexoProTV_5" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Digite seu CEP"
-
-            android:id="@+id/CEPProET_5"
-            android:layout_below="@+id/localAtendimentoProTV_5"
-            android:layout_alignLeft="@+id/AddressProET_5"
-            android:layout_alignStart="@+id/AddressProET_5"
-            android:maxLength="8"
-            android:inputType="number"
-            />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Número"
-
-            android:id="@+id/numeroProET_5"
-            android:layout_above="@+id/AddressProET_5"
-            android:layout_toRightOf="@+id/CEPProET_5"
-            android:layout_toEndOf="@+id/CEPProET_5"
-            android:maxLength="10"
-            android:inputType="number" />
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="Digite sua rua"
-
-            android:id="@+id/AddressProET_5"
-            android:layout_below="@+id/CEPProET_5"
-            android:layout_alignLeft="@+id/celularProET_5"
-            android:layout_alignStart="@+id/celularProET_5"
-            android:layout_alignRight="@+id/celularProET_5"
-            android:layout_alignEnd="@+id/celularProET_5"
-            android:maxLength="40"
-            android:inputType="text" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Complemento"
-            android:layout_below="@+id/AddressProET_5"
-            android:layout_alignLeft="@+id/AddressProET_5"
-            android:layout_alignStart="@+id/AddressProET_5"
-            android:id="@+id/complementoProET_5"
-            android:maxLength="20"
-            android:inputType="text" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Bairro"
-
-            android:id="@+id/bairroProET_5"
-            android:layout_below="@+id/AddressProET_5"
-            android:layout_toRightOf="@+id/CEPProET_5"
-            android:maxLength="40"
-            android:inputType="text" />
-
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:id="@+id/cidadeProSP_5"
-            android:layout_below="@+id/complementoProET_5"
-            android:layout_alignLeft="@+id/complementoProET_5"
-            android:layout_alignStart="@+id/complementoProET_5"
-            android:layout_alignRight="@+id/complementoProET_5"
-            android:layout_alignEnd="@+id/complementoProET_5"
-     />
-
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/bairroProET_5"
-            android:layout_alignLeft="@+id/bairroProET_5"
-            android:layout_alignStart="@+id/bairroProET_5"
-            android:id="@+id/estadoProSP_5"
-            />
-
+            android:layout_marginBottom="@dimen/margin_betweenElements_small"
+            android:layout_below="@id/linear1"
+            android:layout_toRightOf="@id/ic_date"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:hint="@string/hintBirthDate" />
         <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/dataEscolhidaCustTV_5"
+            android:layout_below="@id/dataEscolhidaCustTV_5"
+            android:layout_marginBottom="@dimen/margin_betweenElements_small"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <RadioButton
+                android:id="@+id/masculinoCustRB_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/genderMale"/>
+
+            <RadioButton
+                android:id="@+id/femininoCustRB_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/genderFemale" />
+        </RadioGroup>
+
+        <ImageView
+            android:id="@+id/ic_phoneNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_alignRight="@+id/numeroProET_5"
-            android:layout_alignEnd="@+id/numeroProET_5"
-            android:layout_below="@+id/sexoProTV_5"
-            android:layout_alignLeft="@+id/sexoProTV_5"
-            android:layout_alignStart="@+id/sexoProTV_5"
-            android:id="@+id/radioGroup">
+            android:layout_below="@id/radioGroup"
+            android:contentDescription="@string/description_icCellPhoneNumber"
+            android:src="@drawable/ic_form_phone" />
+        <TextView
+            android:id="@+id/prefixStartCustTV_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/radioGroup"
+            android:layout_below="@id/radioGroup"
+            android:text="@string/hintCellPhonePrefixStart"
+            android:textSize="@dimen/textSize_big"/>
+        <EditText
+            android:id="@+id/prefixCustET_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/radioGroup"
+            android:layout_toRightOf="@id/prefixStartCustTV_5"
+            android:hint="@string/hintCellPhonePrefixNumber"
+            android:inputType="phone"
+            android:maxLength="@integer/textMaxSize_cellphonePrefix" />
+        <TextView
+            android:id="@+id/prefixEndCustTV_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/radioGroup"
+            android:layout_toRightOf="@id/prefixCustET_5"
+            android:text="@string/hintCellPhonePrefixEnd"
+            android:textSize="@dimen/textSize_big"/>
+        <EditText
+            android:id="@+id/celularCustET_5"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/prefixEndCustTV_5"
+            android:layout_below="@id/radioGroup"
+            android:layout_marginBottom="@dimen/margin_betweenElements_small"
+            android:hint="@string/hintCellPhoneNumber"
+            android:inputType="phone"
+            android:maxLength="@integer/textMaxSize_cellphone" />
+        <ImageView
+            android:id="@+id/ic_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/celularCustET_5"
+            android:contentDescription="@string/description_icEmail"
+            android:src="@drawable/ic_form_email" />
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Masculino"
-                android:id="@+id/masculinoProRB_5"
-                android:layout_below="@+id/sexoProTV_5"
-                android:layout_alignLeft="@+id/sexoProTV_5"
-                android:layout_alignStart="@+id/sexoProTV_5"
-                android:onClick="onRadioButtonClicked"/>
+        <EditText
+            android:id="@+id/emailCustET_5"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/prefixStartCustTV_5"
+            android:layout_below="@id/celularCustET_5"
+            android:layout_marginBottom="@dimen/margin_betweenElements_medium"
+            android:hint="@string/hintEmail"
+            android:inputType="textWebEmailAddress"
+            android:maxLength="@integer/textMaxSize_email" />
+        <ImageView
+            android:id="@+id/ic_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/emailCustET_5"
+            android:contentDescription="@string/description_icLocation"
+            android:src="@drawable/ic_form_location" />
+        <EditText
+            android:id="@+id/CEPCustET_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/emailCustET_5"
+            android:layout_below="@id/emailCustET_5"
+            android:hint="@string/hintCEP"
+            android:inputType="number"
+            android:maxLength="@integer/textMaxSize_CEP"/>
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Feminino"
-                android:id="@+id/femininoProRB_5"
-                android:layout_alignTop="@+id/masculinoProRB_5"
-                android:layout_alignRight="@+id/numeroProET_5"
-                android:layout_alignEnd="@+id/numeroProET_5"
-                android:onClick="onRadioButtonClicked"/>
-        </RadioGroup>
+        <EditText
+            android:id="@+id/AddressCustET_5"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/CEPCustET_5"
+            android:layout_below="@id/CEPCustET_5"
+            android:hint="@string/hintAddress"
+            android:inputType="text"
+            android:maxLength="@integer/textMaxSize_Address" />
+
+        <EditText
+            android:id="@+id/numeroCustET_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/AddressCustET_5"
+            android:layout_below="@+id/AddressCustET_5"
+            android:hint="@string/hintAddressNumber"
+            android:inputType="number"
+            android:maxLength="@integer/textMaxSize_AddressNumber" />
+
+        <EditText
+            android:id="@+id/complementoCustET_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/AddressCustET_5"
+            android:layout_toRightOf="@id/numeroCustET_5"
+            android:hint="@string/hintAddressComplement"
+            android:inputType="text"
+            android:maxLength="@integer/textMaxSize_AddressComplement" />
+
+        <EditText
+            android:id="@+id/bairroCustET_5"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/AddressCustET_5"
+            android:layout_toRightOf="@id/complementoCustET_5"
+            android:hint="@string/hintAddressDistrict"
+            android:inputType="text"
+            android:maxLength="@integer/textMaxSize_AddresDistrict" />
+
+        <Spinner
+            android:id="@+id/estadoCustSP_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="@dimen/minWidthUF"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/numeroCustET_5" />
+
+        <EditText
+            android:id="@+id/cidadeCustSP_5"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/numeroCustET_5"
+            android:layout_below="@id/numeroCustET_5"
+            android:layout_toLeftOf="@id/estadoCustSP_5"
+            android:hint="@string/hintAddressCity"
+            android:inputType="text"
+            android:maxLength="@integer/textMaxSize_AddreCity" />
+
+
+
 
 
     </RelativeLayout>
