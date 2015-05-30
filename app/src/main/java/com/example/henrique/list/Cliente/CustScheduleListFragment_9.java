@@ -11,11 +11,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.henrique.list.Adapters.ScheduleAdapter;
 import com.example.henrique.list.Beans.ScheduleItem;
-import com.example.henrique.list.Profissional.ProScheduleDateFragment_10;
 import com.example.henrique.list.R;
+import com.example.henrique.list.Service.SchedulingService;
 import com.example.henrique.list.Utilidade_Publica.PinnedSectionListView;
 
 import java.text.SimpleDateFormat;
@@ -23,6 +24,9 @@ import java.util.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+
+import br.com.motiserver.dto.SchedulingDTO;
 
 public class CustScheduleListFragment_9 extends Fragment {
 
@@ -32,6 +36,9 @@ public class CustScheduleListFragment_9 extends Fragment {
     PinnedSectionListView listSchedules;
     ImageButton addScheduleBT;
 
+    long customerID = 2; //todo recuperar ID do usuario atual
+    List<SchedulingDTO> schedules;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +46,15 @@ public class CustScheduleListFragment_9 extends Fragment {
         fa = super.getActivity();
         v = inflater.inflate(R.layout.fragment_cust_schedule_list_9, container, false);
 
+
+        initScheduleList();
+        setListSchedulesListener();
+        setAddServiceListener();
+
+        return v;
+    }
+
+    private void initScheduleList(){
         ArrayList<ScheduleItem> scheduleItems = initScheduleItems();
 
         listSchedules = (PinnedSectionListView) v.findViewById(R.id.pinnedListSchedules);
@@ -47,20 +63,21 @@ public class CustScheduleListFragment_9 extends Fragment {
 
         listSchedules.initShadow(false);
         listSchedules.setAdapter(schedulesAdapter);
-        setListSchedulesListener();
-        setAddServiceListener();
-
-        return v;
     }
-
     public ArrayList<ScheduleItem> initScheduleItems(){
         //inicia instancias de agendamento e itens a serem apresentados na lista
-        //todo aqui deve ser gerada um vetor de AGENDAMENTO e de seus respectivos nomes de PROFISSIONAIS, para poder resgatar todos os dados
-        String[] favoriteProfessionals = new String[]{"Leandro Massaru", "Ivo Issao Tobioka",
-            "Michel SantaGuida", "Henrique Tamashiro", "Vitor Mendes", "Professional 6", "Professional 7", "Leandro Massaru", "Ivo Issao Tobioka",
-            "Michel SantaGuida", "Henrique Tamashiro", "Vitor Mendes", "Professional 6", "Professional 7", "Leandro Massaru", "Ivo Issao Tobioka",
-            "Michel SantaGuida", "Henrique Tamashiro", "Vitor Mendes", "Professional 6", "Professional 7"};
+
+        //verifica valores no banco
+
+        SchedulingService scheduleService = new SchedulingService();
         ArrayList<ScheduleItem> items = new ArrayList<>();
+
+        try{
+            schedules = scheduleService.findUpcomingSchedulingByCustomerId(customerID);
+        } catch (Exception e){
+            schedules = null;
+            Toast.makeText(getActivity(), "Ocorreu um erro interno. Favor contactar o administrador!", Toast.LENGTH_SHORT).show();
+        }
 
         //recebe data atual e configura no calendario
         Date pinnedMenuDate = new Date();
@@ -69,29 +86,29 @@ public class CustScheduleListFragment_9 extends Fragment {
         cal.setTime(pinnedMenuDate);
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 
-
-
         //inicia proximos itens de agendamento, e verifica se a data é a mesma. caso contrario gera outo item SECTION
-        for (int i = 0; i < favoriteProfessionals.length; i++){
+        for (int i = 0; i < schedules.size(); i++){
             ScheduleItem item = new ScheduleItem();
 
             //inicializa valores da view a partir dos agendamentos buscado no BD
-            item.setPersonName(favoriteProfessionals[i]);
-            //todo receber data do vetor de agendamento
-            item.setScheduleDate(new Date());
+            item.setListPosition(i);
+            item.setPersonName(schedules.get(i).getDailySchedule().getProfessional().getName());
+            item.setScheduleDate(schedules.get(i).getDailySchedule().getDate().getTime());
+            item.setScheduleInicialTime(schedules.get(i).getStartTime().getTime());
+            item.setScheduleFinalTime(schedules.get(i).getEndTime().getTime());
             cal2.setTime(item.getScheduleDate());
             item.setSection(false);
             try {
-                item.setScheduleInicialTime(new Time(sdf.parse("08:00").getTime()));
-                item.setScheduleFinalTime(new Time(sdf.parse("08:15").getTime()));
-                item.setScheduleDuration(new Time(sdf.parse("00:15").getTime()));
+                //todo falta calcular o left time
                 item.setScheduleLeftTime(new Time(sdf.parse("01:10").getTime()));
             } catch (Exception e) {
                 throw new RuntimeException(e.getMessage());
             }
 
             //Verifica se o item é o primeiro da lista, ou se há diferenca de DIA para criar uma SECTION
-            if (i == 0 || cal.get(Calendar.DAY_OF_MONTH) != cal2.get(Calendar.DAY_OF_MONTH)){
+            if (i == 0 || cal.get(Calendar.DAY_OF_MONTH) != cal2.get(Calendar.DAY_OF_MONTH)
+                    || cal.get(Calendar.MONTH) != cal2.get(Calendar.MONTH)
+                    || cal.get(Calendar.YEAR) != cal2.get(Calendar.YEAR)){
                 ScheduleItem sectionItem = new ScheduleItem();
                 sectionItem.setSection(true);
                 sectionItem.setScheduleDate(item.getScheduleDate());
@@ -109,19 +126,20 @@ public class CustScheduleListFragment_9 extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //todo deve passar nesta intent os dados do agendamento selecionados
                 ScheduleItem selectedItem = (ScheduleItem) listSchedules.getItemAtPosition(position);
+                SchedulingDTO selectedSchedule = schedules.get(selectedItem.getListPosition());
                 if(!selectedItem.isSection()) {
                     Intent intent = new Intent(getActivity(), CustScheduleConfirmActivity_8.class);
-                    intent.putExtra("professionalName", selectedItem.getPersonName());
-                    intent.putExtra("street", "Av da Liberdade");
-                    intent.putExtra("number", "444");
-                    intent.putExtra("cep", "01501-001");
-                    intent.putExtra("complement", "Casa 2");
-                    intent.putExtra("district", "Liberdade");
-                    intent.putExtra("city", "São Paulo");
-                    intent.putExtra("state", "SP");
-                    intent.putExtra("profession", "Sem dados");
-                    intent.putExtra("selectedServices", new ArrayList<String>());
-                    intent.putExtra("sDate", "Sem dados");
+                    intent.putExtra("professionalName", selectedSchedule.getDailySchedule().getProfessional().getName());
+                    intent.putExtra("street", selectedSchedule.getAddressStreet());
+                    intent.putExtra("number", selectedSchedule.getAddressNumber());
+                    intent.putExtra("cep", selectedSchedule.getAddressZipCode());
+                    intent.putExtra("complement", selectedSchedule.getAddressComplement());
+                    intent.putExtra("district", selectedSchedule.getAddressDistrict());
+                    intent.putExtra("city", selectedSchedule.getAddressCity());
+                    intent.putExtra("state", selectedSchedule.getAddressState().getCode());
+                    intent.putExtra("profession", selectedSchedule.getDailySchedule().getProfessional().getProfession());
+                    intent.putExtra("selectedServices", new ArrayList<String>()); //todo buscar todos agendamentos do servico
+                    intent.putExtra("sDate", "Sem dados"); //todo tranformar os dados da data em int e strings para proxima tela
                     intent.putExtra("selectedHour", 0);
                     intent.putExtra("selectedMinutes", 0);
                     intent.putExtra("totalTime", 0);

@@ -2,7 +2,6 @@ package com.example.henrique.list.Login;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -17,7 +16,6 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.henrique.list.R;
 import com.example.henrique.list.Service.ProfessionService;
@@ -39,12 +37,13 @@ import br.com.motiserver.dto.ProfessionalDTO;
 
 
 //TODO IsEDiting
+
 /**
  * Created by Massaru on 03/04/2015.
  */
 public class ProProfile_5 extends ActionBarActivity {
 
-//    //Constants
+    //    //Constants
     static final int DATE_DIALOG_ID = 999;
 //    private static final String NOME_CTE = "NOME_CTE";
 //    private static final String CELULAR_CTE = "CELULAR_CTE";
@@ -63,7 +62,6 @@ public class ProProfile_5 extends ActionBarActivity {
 //    private static final String GENERO_CTE = "GENERO_CTE";
 //    private static final String DATA_CTE = "DATA_CTE";
 
-    private ProfessionalService professionalService;
     private ProfessionService professionService;
 
     ArrayAdapter<String> professionAdapter;
@@ -73,14 +71,14 @@ public class ProProfile_5 extends ActionBarActivity {
     //Inicializacao dos EditTexts Obrigatorios
 
 
-    Calendar choosenDateCal;
+    Calendar chosenDateCal;
     Calendar onScreenCal = Calendar.getInstance();
     Calendar dg = Calendar.getInstance();
     Gender opcaoEscolhidaGenero;
     RadioButton masculinoRB;
     RadioButton femininoRB;
     EditText nomeET;
-    EditText dataEscolhidaET;
+    EditText dateET;
     EditText celularET;
     EditText prefixET;
     EditText emailET;
@@ -102,7 +100,7 @@ public class ProProfile_5 extends ActionBarActivity {
     ProfessionalDTO professionalDTO;
 
     //boolean
-    boolean executaJSON;
+    boolean isAllValidate;
 
     //    armazenadores
     String nome;
@@ -125,10 +123,10 @@ public class ProProfile_5 extends ActionBarActivity {
         //Verificando se esta iniciando ou restaurando
         //if ( savedInstanceState == null)
         //{
-            //significa que o APP esta iniciando
+        //significa que o APP esta iniciando
 
         //}else{
-            //significa que o APP esta restaurando
+        //significa que o APP esta restaurando
 //            nomeET.setText(savedInstanceState.getString(NOME_CTE));
 //            emailET.setText(savedInstanceState.getString(EMAIL_CTE));
 //            celularET.setText(savedInstanceState.getString(CELULAR_CTE));
@@ -150,7 +148,7 @@ public class ProProfile_5 extends ActionBarActivity {
 
         //campos obrigat�rios
         nomeET = (EditText) findViewById(R.id.NomeET_Pro_5);
-        dataEscolhidaET = (EditText) findViewById(R.id.dataEscolhidaProTV_5);
+        dateET = (EditText) findViewById(R.id.dataEscolhidaProTV_5);
         masculinoRB = (RadioButton) findViewById(R.id.masculinoProRB_5);
         femininoRB = (RadioButton) findViewById(R.id.femininoProRB_5);
         celularET = (EditText) findViewById(R.id.celularProET_5);
@@ -172,32 +170,27 @@ public class ProProfile_5 extends ActionBarActivity {
         imageButton = (ImageButton) findViewById(R.id.ImageButtonPro_5);
 
         // Objetos
-        professionalService = new ProfessionalService();
-        professionalDTO = (ProfessionalDTO) getIntent().getSerializableExtra(SessionAttributes.PROFESSIONAL);
 
-//        Booleans
-        executaJSON = true;
+        professionalDTO = (ProfessionalDTO) getIntent().getSerializableExtra(SessionAttributes.PROFESSIONAL);
 
         addDateListenerButton();
 
     }
 
 
+    private boolean validateFields() {
+        //retorna verdadeiro se todos campos forem validos
 
-    private void confirmRegistration() {
-
-        professionalDTO = new ProfessionalDTO();
-        executaJSON = true;
+        isAllValidate = true;
 
         //validacoes dos campos
-
         nome = nomeET.getText().toString();
         if (!Utility.isValidName(nome)) {
             nomeET.setError("O nome precisa conter no mínimo 3 letras e conter caracteres válidos");
-            executaJSON = false;
+            isAllValidate = false;
 
-        }else{
-            if(nomeET.getError() != null)
+        } else {
+            if (nomeET.getError() != null)
                 nomeET.setError(null);
         }
 
@@ -205,150 +198,154 @@ public class ProProfile_5 extends ActionBarActivity {
         email = emailET.getText().toString();
         if (!Utility.isValidEmail(email)) {
             emailET.setError("Email invalido");
-            executaJSON = false;
-        }
-        else{
-            if(emailET.getError() != null)
+            isAllValidate = false;
+        } else {
+            if (emailET.getError() != null)
                 emailET.setError(null);
         }
         prefix = prefixET.getText().toString();
-        if(!Utility.isValidPrefix(prefix)){
+        if (!Utility.isValidPrefix(prefix)) {
             prefixET.setError("O prefixo precisa conter 2 digitos");
+            isAllValidate = false;
         }
 
         celular = celularET.getText().toString();
         if (!Utility.isValidCelular(celular)) {
             celularET.setError("O celular precisa conter 9 d�gitos.");
-            executaJSON = false;
-        }
-        else{
-            if(celularET.getError() != null)
+            isAllValidate = false;
+        } else {
+            if (celularET.getError() != null)
                 celularET.setError(null);
         }
 
         cep = CEPET.getText().toString();
         if (!Utility.isValidCEP(cep)) {
             CEPET.setError("O CEP precisa conter 8 d�gitos.");
-            executaJSON = false;
-        }else{
-            if(CEPET.getError() != null)
+            isAllValidate = false;
+        } else {
+            if (CEPET.getError() != null)
                 CEPET.setError(null);
         }
 
         numero = numeroET.getText().toString();
         if (!Utility.isValidNumero(numero)) {
-            numeroET.setError("O n�mero não e válido");
-            executaJSON = false;
-        }else{
-            if(numeroET.getError() != null)
+            numeroET.setError("O n�mero não é válido");
+            isAllValidate = false;
+        } else {
+            if (numeroET.getError() != null)
                 numeroET.setError(null);
         }
 
         rua = ruaET.getText().toString();
         if (!Utility.isValidTextWithSpace(rua)) {
+            //todo rua pode conter digitos sim
             ruaET.setError("A rua n�o pode conter n�meros.");
-            executaJSON = false;
-        }else{
-            if(ruaET.getError() != null)
+            isAllValidate = false;
+        } else {
+            if (ruaET.getError() != null)
                 ruaET.setError(null);
         }
 
         bairro = bairroET.getText().toString();
         if (!Utility.isValidBairro(bairro)) {
+            //todo bairro pode conter digitos sim
             bairroET.setError("O bairro n�o pode conter n�meros.");
-            executaJSON = false;
-        }else{
-            if(bairroET.getError() != null)
+            isAllValidate = false;
+        } else {
+            if (bairroET.getError() != null)
                 bairroET.setError(null);
         }
 
         cidade = cidadeET.getText().toString();
         if (!Utility.isValidCidade(cidade)) {
             cidadeET.setError("A cidade n�o pode conter n�meros.");
-            executaJSON = false;
-        }else{
-            if(cidadeET.getError() != null)
+            isAllValidate = false;
+        } else {
+            if (cidadeET.getError() != null)
                 cidadeET.setError(null);
         }
 
-        if (!Utility.isValidNascimento(choosenDateCal)) {
-            dataEscolhidaET.setError("Selecione a data de nascimento");
-            executaJSON = false;
-        }else{
-            if(dataEscolhidaET.getError() != null)
-                dataEscolhidaET.setError(null);
+        if (!Utility.isValidNascimento(chosenDateCal)) {
+            dateET.setError("Selecione a data de nascimento");
+            isAllValidate = false;
+        } else {
+            if (dateET.getError() != null)
+                dateET.setError(null);
         }
+
         if (!Utility.isValidSexo(opcaoEscolhidaGenero)) {
             masculinoRB.setTextColor(Color.RED);
             femininoRB.setTextColor(Color.RED);
-            executaJSON = false;
-        }else{
+            isAllValidate = false;
+        } else {
             masculinoRB.setTextColor(getResources().getColor(R.color.black));
             femininoRB.setTextColor(getResources().getColor(R.color.black));
         }
 
-        if(profissaoSP.getSelectedItemPosition() == professionAdapter.getCount() - 1){
+        if (profissaoSP.getSelectedItemPosition() == professionAdapter.getCount() - 1) {
             TextView professionHint = (TextView) profissaoSP.getSelectedView().findViewById(android.R.id.text1);
             professionHint.setTextColor(Color.RED);
-            executaJSON = false;
+            isAllValidate = false;
         }
-        if(estadoSP.getSelectedItemPosition() == stateAdapter.getCount() - 1){
+        if (estadoSP.getSelectedItemPosition() == stateAdapter.getCount() - 1) {
             TextView stateHint = (TextView) estadoSP.getSelectedView().findViewById(android.R.id.text1);
             stateHint.setTextColor(Color.RED);
-            executaJSON = false;
+            isAllValidate = false;
         }
+        return isAllValidate;
+    }
 
-        if (executaJSON) {
+    public void executeJSON() {
+        //executa JSON
+        professionalDTO = new ProfessionalDTO();
+        estado = UF.getEnumFromValue((String) estadoSP.getSelectedItem());
+        //campos obrigatorios ao MVP
 
-            //campos obrigatorios ao MVP
+        professionalDTO.setName(nome);
+        professionalDTO.setEmail(email);
+        professionalDTO.setBirthDate(onScreenCal);
+        professionalDTO.setPhoneCode(prefix);
+        professionalDTO.setPhoneNumber(celular);
+        professionalDTO.setAddressStreet(rua);
+        professionalDTO.setAddressDistrict(bairro);
+        professionalDTO.setAddressCity(cidade);
+        professionalDTO.setAddressNumber(numero);
+        professionalDTO.setAddressZipCode(cep);
+        professionalDTO.setAddressState(estado);
+        professionalDTO.setGender(opcaoEscolhidaGenero);
+        professionalDTO.setUpdateDate(dg);
+        //profession DTO
+        ProfessionDTO professionDTO = (ProfessionDTO) profissaoSP.getSelectedItem();
+        professionalDTO.setProfession(professionDTO);
+        professionalDTO.setRegistry("1234225");  //TODO colocar um campo na tela
+        //campos nao obrigatorios
 
-            professionalDTO.setName(nome);
-            professionalDTO.setEmail(email);
-            professionalDTO.setBirthDate(onScreenCal);
-            professionalDTO.setPhoneCode(prefix);
-            professionalDTO.setPhoneNumber(celular);
-            professionalDTO.setAddressStreet(rua);
-            professionalDTO.setAddressDistrict(bairro);
-            professionalDTO.setAddressCity(cidade);
-            professionalDTO.setAddressNumber(numero);
-            professionalDTO.setAddressZipCode(cep);
-            estado = (UF) estadoSP.getSelectedItem();
-            professionalDTO.setAddressState(estado);
-            professionalDTO.setGender(opcaoEscolhidaGenero);
-            professionalDTO.setUpdateDate(dg);
-            //profession DTO
-            ProfessionDTO professionDTO =(ProfessionDTO) profissaoSP.getSelectedItem();
-            professionalDTO.setProfession(professionDTO);
-            professionalDTO.setRegistry("1234225");  //TODO colocar um campo na tela
-            //campos nao obrigatorios
+        professionalDTO.setAddressComplement(complementoET.getText().toString());
 
-            professionalDTO.setAddressComplement(complementoET.getText().toString());
+        // campos nao essenciais ao MVP
+        professionalDTO.setStatus(Status.TRUE);
+        professionalDTO.setCpfCnpj("nulo");
+        professionalDTO.setPhoneCode("11");
+        professionalDTO.setLogin("definirNaTelaLogin");
+        professionalDTO.setFacebookLogin("NaoEssencial");
+        professionalDTO.setGoogleLogin("NaoEssencial");
+        professionalDTO.setPassword("definirNaTelaLogin");
 
-            // campos nao essenciais ao MVP
-            professionalDTO.setStatus(Status.TRUE);
-            professionalDTO.setCpfCnpj("nulo");
-            professionalDTO.setPhoneCode("11");
-            professionalDTO.setLogin("definirNaTelaLogin");
-            professionalDTO.setFacebookLogin("NaoEssencial");
-            professionalDTO.setGoogleLogin("NaoEssencial");
-            professionalDTO.setPassword("definirNaTelaLogin");
+        // executa requisi��o JSON
+        try {
+            ProfessionalService professionalService = new ProfessionalService();
+            professionalDTO = professionalService.save(professionalDTO);
+            if (professionalDTO == null) {
+                System.out.println("=== DEU ERRO E O PROFISSIONAl RETORNO NULLO");
+            } else {
+                System.out.println("=== DEU CERTO E O PROFISSIONAl RETORNOU COM SUCESSO " + professionalDTO.getName());  //TODO verificar se o back adiciona o id no objeto de retorno
 
-            // executa requisi��o JSON
-            try {
-                ProfessionalService professionalService = new ProfessionalService();
-                professionalDTO =professionalService.save(professionalDTO);
-                if (professionalDTO == null) {
-                    System.out.println("=== DEU ERRO E O PROFISSIONAl RETORNO NULLO");
-                } else {
-                    System.out.println("=== DEU CERTO E O PROFISSIONAl RETORNOU COM SUCESSO " + professionalDTO.getName());  //TODO verificar se o back adiciona o id no objeto de retorno
-
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("Falha ao executar JSON");
             }
-
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Falha ao executar JSON");
         }
+
     }
 
     //gerencia a manipulacao de Radio Buttons
@@ -370,7 +367,7 @@ public class ProProfile_5 extends ActionBarActivity {
 
     //Metodos Relacionados ao Date Picker
     public void addDateListenerButton() {
-        dataEscolhidaET.setOnClickListener(new View.OnClickListener() {
+        dateET.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -401,14 +398,13 @@ public class ProProfile_5 extends ActionBarActivity {
             onScreenCal.set(Calendar.YEAR, selectedYear);
             onScreenCal.set(Calendar.MONTH, selectedMonth);
             onScreenCal.set(Calendar.DAY_OF_MONTH, selectedDay);
-            choosenDateCal = onScreenCal;
+            chosenDateCal = onScreenCal;
             // coloca data selecionada dentro do TextView correspondente
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             String sDate = sdf.format(onScreenCal.getTime());
-            dataEscolhidaET.setText(sDate);
+            dateET.setText(sDate);
         }
     };
-
 
 
     // em caso de restauracao
@@ -422,22 +418,23 @@ public class ProProfile_5 extends ActionBarActivity {
 //        outState.putString(CIDADE_CTE, cidade);
 //    }
 
-    private void setSpinnerItems(){
+    //configura spinners da tela
+    private void setSpinnerItems() {
         List<ProfessionDTO> professions;
         ArrayList<String> professionSpinnerItens = new ArrayList<>();
         ArrayList<String> stateSpinnerItens = new ArrayList<>();
         try {
             professionService = new ProfessionService();
             professions = professionService.findAll();
-            //todo subistituir por um SERVICE que me traga uma lista de nomes dos DTOs
-            for (ProfessionDTO profession : professions){
+            //todo subistituir por um SERVICE que me traga uma lista de nomes dos DTOs (em strings)
+            for (ProfessionDTO profession : professions) {
                 professionSpinnerItens.add(profession.getName());
             }
         } catch (ServiceException e) {
             e.printStackTrace();
         }
 
-        for (UF state : UF.values()){
+        for (UF state : UF.values()) {
             stateSpinnerItens.add(state.getCode());
         }
 
@@ -446,18 +443,16 @@ public class ProProfile_5 extends ActionBarActivity {
         stateSpinnerItens.add("UF");
 
         //configurando spinners
-        professionAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item ,professionSpinnerItens);
+        professionAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, professionSpinnerItens);
         professionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         profissaoSP.setAdapter(professionAdapter);
         profissaoSP.setSelection(professionAdapter.getCount() - 1);
 
 
-        stateAdapter = new  ArrayAdapter<>(this, android.R.layout.simple_spinner_item , stateSpinnerItens);
+        stateAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, stateSpinnerItens);
         stateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         estadoSP.setAdapter(stateAdapter);
         estadoSP.setSelection(stateAdapter.getCount() - 1);
-
-
     }
 
     //aqui inicializamos os botoes da action bar
@@ -476,8 +471,9 @@ public class ProProfile_5 extends ActionBarActivity {
         // Take appropriate action for each action item click
         switch (item.getItemId()) {
             case R.id.confirmButton:
-                // location found
-                confirmRegistration();
+                if (validateFields()) {
+                    executeJSON();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
