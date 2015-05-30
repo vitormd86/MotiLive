@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Service.ProfessionalService;
 import com.example.henrique.list.Service.ServiceService;
+import com.example.henrique.list.Utilidade_Publica.Globals;
 import com.example.henrique.list.Utilidade_Publica.ServiceException;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 import com.example.henrique.list.Utilidade_Publica.Utility;
@@ -27,10 +28,9 @@ import java.util.Calendar;
 import br.com.motiserver.dto.ProfessionalDTO;
 import br.com.motiserver.dto.ServiceDTO;
 
-/**
- * Created by Cristor on 01/05/2015.
- */
+
 public class ProServiceNewActivity_6 extends ActionBarActivity {
+
     //EditText
     EditText serviceNameET, serviceDescriptionET, sessionValueET;
     String serviceName, serviceDescription, sessionValueString;
@@ -45,7 +45,7 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
     ServiceDTO serviceDTO;
     ProfessionalDTO professionalDTO;
     //booleans
-    Boolean isEditing;
+    boolean isEditing;
     boolean executaJSON;
     //Service
     private ProfessionalService professionalService;
@@ -61,7 +61,6 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
 
         //verifica se esta no modo de edicao ou de novo servico
         isEditing = isEditingService();
-
         try {
             professionalService = new ProfessionalService();
             professionalDTO = professionalService.find((long) 63); //TODO depois.. recuperar id da tela anterior.
@@ -83,6 +82,15 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         //configurando BackNavigation button
         if (isEditing) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            try {
+                serviceDTO = Globals.service;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            serviceDescriptionET.setText(serviceDTO.getDescription());
+            serviceNameET.setText(serviceDTO.getName());
+            System.out.println(serviceDTO.getName());
+            sessionValueET.setText(serviceDTO.getValue().toString());
         } else {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }
@@ -97,12 +105,8 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         switch (item.getItemId()) {
             case R.id.confirmButton:
                 executaJSON = true;
-                serviceDTO = new ServiceDTO();
                 if (isEditingService()) {
                     //todo   agora quem vai tratar  edição e adição é o proprio back... soh precisamos da isEditing para sabermos como vamos tratar a tela
-
-                } else {
-                    //todo deve adicionar servico no banco
                     initVariables();
                     System.out.println("InitVariables OK");
                     if (validatefields()) {
@@ -113,14 +117,17 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
                         serviceDTO.setTime(calendar);
                         serviceDTO.setProfessional(professionalDTO);
                         System.out.println(professionalDTO.getId());
-                        System.out.println("População OK");
+                        System.out.println("filling serviceDTO OK");
 
                         try {
                             ServiceService serviceservice = new ServiceService();
+                            System.out.println("id do serviço recuperada da tela 7");
+                            System.out.println(serviceDTO.getId());
                             serviceDTO = serviceservice.save(serviceDTO);
                             System.out.println("Salvou");
+
                             sProfessional_id = professionalDTO.getId().toString();
-                            startActivity(intent);
+                            System.out.println(sProfessional_id);
                             Intent createAccountIntent = new Intent(ProServiceNewActivity_6.this, ProServiceListActivity_7.class);
                             createAccountIntent.putExtra(SessionAttributes.PROFESSIONAL_ID, sProfessional_id);
                             startActivity(createAccountIntent);
@@ -129,7 +136,41 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
                             System.out.println("Não Salvou");
                         }
                     }else{
-                        System.out.println("Falha na validlação fields");
+                        System.out.println("Falha na validação fields");
+                    }
+                    intent.putExtra("service", serviceNameET.getText().toString());
+
+                } else {
+                    //todo deve adicionar servico no banco
+                    serviceDTO = new ServiceDTO();
+                    initVariables();
+                    System.out.println("InitVariables OK");
+                    if (validatefields()) {
+                        System.out.println("validateFields OK");
+                        serviceDTO.setName(serviceName);
+                        serviceDTO.setDescription(serviceDescription);
+                        serviceDTO.setValue(sessionValue);
+                        serviceDTO.setTime(calendar);
+                        serviceDTO.setProfessional(professionalDTO);
+                        System.out.println(professionalDTO.getId());
+                        System.out.println("filling serviceDTO OK");
+
+                        try {
+                            ServiceService serviceservice = new ServiceService();
+                            serviceDTO = serviceservice.save(serviceDTO);
+                            System.out.println("Salvou");
+
+                            sProfessional_id = professionalDTO.getId().toString();
+                            System.out.println(sProfessional_id);
+                            Intent createAccountIntent = new Intent(ProServiceNewActivity_6.this, ProServiceListActivity_7.class);
+                            createAccountIntent.putExtra(SessionAttributes.PROFESSIONAL_ID, sProfessional_id);
+                            startActivity(createAccountIntent);
+                        } catch (ServiceException e) {
+                            e.printStackTrace();
+                            System.out.println("Não Salvou");
+                        }
+                    }else{
+                        System.out.println("Falha na validação fields");
                     }
                     intent.putExtra("service", serviceNameET.getText().toString());
                 }
@@ -160,6 +201,7 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
     private void initVariables() {
 
         //inicializando BigDecimal
+
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();
         symbols.setGroupingSeparator(',');
         symbols.setDecimalSeparator('.');
@@ -168,6 +210,7 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         decimalFormat.setParseBigDecimal(true);
 
         //pegando os dados do Edit Texts
+
         serviceName = serviceNameET.getText().toString();
         serviceDescription = serviceDescriptionET.getText().toString();
         sessionValueString = sessionValueET.getText().toString();
@@ -178,8 +221,8 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         sessionMinutes = sessionMinutesSP.getSelectedItem().toString();
 
         try {
-            sessionHoursInt =(Integer) Integer.parseInt(sessionHours);
-            sessionMinutesInt = (Integer) Integer.parseInt(sessionMinutes);
+            sessionHoursInt = Integer.parseInt(sessionHours);
+            sessionMinutesInt = Integer.parseInt(sessionMinutes);
             System.out.println("Conseguiu fazer parsing dos Ints ");
 
         } catch (NumberFormatException e) {
@@ -188,8 +231,9 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
 
         calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR, sessionHoursInt );
-        calendar.set(Calendar.MINUTE,sessionMinutesInt );
-
+        System.out.println(sessionHoursInt);
+        calendar.set(Calendar.MINUTE, sessionMinutesInt);
+        System.out.println(sessionMinutesInt);
 
         try {
             sessionValue = (BigDecimal) decimalFormat.parse(sessionValueString);
@@ -234,6 +278,7 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
     }
 
     private void initSpinnerAdapters() {
+
         ArrayAdapter<CharSequence> hourAdapter = ArrayAdapter.createFromResource(this, R.array.hours, R.layout.view_spinner_text_hour);
         hourAdapter.setDropDownViewResource(R.layout.view_spinner_dropdown_hour);
         sessionHoursSP.setAdapter(hourAdapter);
@@ -247,6 +292,7 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         boolean isEditing = false;
         if (getIntent().getBooleanExtra("isEditing", false)) {
             isEditing = true;
+            return true;
         }
         return isEditing;
     }
@@ -260,9 +306,5 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         serviceDescriptionET = (EditText) findViewById(R.id.serviceDescriptionProET_6);
         sessionValueET = (EditText) findViewById(R.id.sessionValueProET_6);
 
-        if (isEditing) {
-            Bundle extras = getIntent().getExtras();
-            serviceNameET.setText(extras.getString("service"));
-        }
     }
 }

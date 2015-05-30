@@ -140,8 +140,8 @@
         <item>20</item><item>21</item><item>22</item><item>23</item>
     </string-array>
     <string-array name="minutes">
-        <item>:00</item><item>:05</item><item>:10</item><item>:15</item><item>:20</item><item>:25</item>
-        <item>:30</item><item>:35</item><item>:40</item><item>:45</item><item>:50</item><item>:55</item>
+        <item>00</item><item>05</item><item>10</item><item>15</item><item>20</item><item>25</item>
+        <item>30</item><item>35</item><item>40</item><item>45</item><item>50</item><item>55</item>
     </string-array>
     <string-array name="cidades">
         <item>São Paulo</item><item>Guarulhos</item><item>São Bernardo</item><item>São Caetano</item><item>Santo André</item><item>Mauá</item>
