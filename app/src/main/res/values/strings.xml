@@ -24,11 +24,13 @@
     <string name="hintAddressComplement">Compl.&#160;&#160;&#160;&#160;</string>
     <string name="hintAddressDistrict">Bairro</string>
     <string name="hintAddressCity">Cidade</string>
+    <string name="hintScheduleName">Nome do expediente</string>
     <string name="buttonLogin">Entrar</string>
     <string name="buttonSignUp">Criar Conta</string>
     <string name="buttonBeClient">Sou cliente e quero&#10;agendar serviços</string>
     <string name="buttonBeProfessional">Sou profissional&#10;prestador de serviços</string>
     <string name="chooseYourProfile">Escolha seu Perfil</string>
+    <string name="scheduleAppointmentTitle">Horário de expediente:</string>
 
     <!-- Image Descriptions-->
     <string name="descriptionLogo">Logo Moti</string>
@@ -38,6 +40,8 @@
     <string name="description_icEmail">Ícone de email</string>
     <string name="description_icProfession">Ícone de profissão</string>
     <string name="description_icLocation">Ícone de localização</string>
+
+
     <!--Outros -->
     <string name="app_name">List</string>
     <string name="facebook_app_id">456445487839463</string>

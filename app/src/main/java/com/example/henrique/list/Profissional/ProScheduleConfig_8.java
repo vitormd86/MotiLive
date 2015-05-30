@@ -59,10 +59,10 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
 
     private void initViews(){
         //este metodo inicializa as views
-        expedientStartHourSP = (Spinner) findViewById(R.id.expedientStartHour);
-        expedientStartMinutesSP = (Spinner) findViewById(R.id.expedientStartMinutes);
-        expedientEndHourSP = (Spinner) findViewById(R.id.expedientEndHour);
-        expedientEndMinutesSP = (Spinner) findViewById(R.id.expedientEndMinutes);
+        expedientStartHourSP = (Spinner) findViewById(R.id.expedientStartHourSP_pro8);
+        expedientStartMinutesSP = (Spinner) findViewById(R.id.expedientStartMinutesSP_pro8);
+        expedientEndHourSP = (Spinner) findViewById(R.id.expedientEndHourSP_pro8);
+        expedientEndMinutesSP = (Spinner) findViewById(R.id.expedientEndMinutesSP_pro8);
         breakStartHourSP = (Spinner) findViewById(R.id.breakTimeStartHour);
         breakStartMinutesSP = (Spinner) findViewById(R.id.breakTimeStartMinutes);
         breakEndHourSP = (Spinner) findViewById(R.id.breakTimeEndHour);
@@ -101,7 +101,7 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
         intervalBetweenHour.setSelection(0);
 
         //adapter de array de minutos
-        ArrayAdapter<CharSequence> minutesAdapter = ArrayAdapter.createFromResource(this, R.array.minutes, android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> minutesAdapter = ArrayAdapter.createFromResource(this, R.array.minutes, android.R.layout.simple_spinner_item);
         minutesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         expedientStartMinutesSP.setAdapter(minutesAdapter);
         expedientEndMinutesSP.setAdapter(minutesAdapter);

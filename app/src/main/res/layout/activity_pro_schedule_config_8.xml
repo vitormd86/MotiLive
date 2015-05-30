@@ -3,48 +3,54 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="@dimen/margin_app"
     android:orientation="vertical">
 
         <EditText
-            android:id="@+id/scheduleName"
+            android:id="@+id/scheduleNameET_pro8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:text="Nome do expediente" />
+            android:hint="@string/hintScheduleName" />
         <TextView
-            android:id="@+id/scheduleAppointmentTitle"
+            android:id="@+id/scheduleAppointmentTitleTV_pro8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Horário de Expediente:"/>
+            android:text="@string/scheduleAppointmentTitle"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <Spinner
-                android:id="@+id/expedientStartHour"
+                android:id="@+id/expedientStartHourSP_pro8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@color/lightGray"
                 android:dropDownVerticalOffset="1dp"/>
             <Spinner
-                android:id="@+id/expedientStartMinutes"
+                android:id="@+id/expedientStartMinutesSP_pro8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/lightGray"
                 android:layout_weight="1"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
+
                 android:text="~"/>
             <Spinner
-                android:id="@+id/expedientEndHour"
+                android:id="@+id/expedientEndHourSP_pro8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/lightGray"
                 android:layout_weight="1"/>
             <Spinner
-                android:id="@+id/expedientEndMinutes"
+                android:id="@+id/expedientEndMinutesSP_pro8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/lightGray"
                 android:layout_weight="1" />
         </LinearLayout>
         <LinearLayout
@@ -86,12 +92,14 @@
                 android:id="@+id/breakTimeStartHour"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:background="@color/lightGray"/>
             <Spinner
                 android:id="@+id/breakTimeStartMinutes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:background="@color/lightGray"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -101,12 +109,14 @@
                 android:id="@+id/breakTimeEndHour"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:background="@color/lightGray"/>
             <Spinner
                 android:id="@+id/breakTimeEndMinutes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:background="@color/lightGray"/>
         </LinearLayout>
         <TextView
             android:layout_width="wrap_content"
@@ -122,12 +132,14 @@
                 android:id="@+id/intervalBetweenHour"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:background="@color/lightGray"/>
             <Spinner
                 android:id="@+id/intervalBetweenMinutes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:background="@color/lightGray"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -184,9 +196,9 @@
                 android:layout_weight="1"
                 android:layout_marginLeft="12dp"/>
 
-        </LinearLayout>
-    <!--<com.example.henrique.list.Utilidade_Publica.Calendar.CalendarPickerView-->
-        <!--android:id="@+id/calendar_view"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"/>-->
+            </LinearLayout>
+        <com.example.henrique.list.Utilidade_Publica.Calendar.CalendarPickerView
+            android:id="@+id/calendar_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 </LinearLayout>
