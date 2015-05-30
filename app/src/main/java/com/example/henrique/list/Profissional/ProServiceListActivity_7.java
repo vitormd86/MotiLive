@@ -14,6 +14,9 @@ import android.widget.ListView;
 
 import com.example.henrique.list.Adapters.MyAdapterServicesPro_7;
 import com.example.henrique.list.R;
+import com.example.henrique.list.Service.ProfessionalService;
+import com.example.henrique.list.Service.ServiceService;
+import com.example.henrique.list.Utilidade_Publica.Globals;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 
 import java.util.ArrayList;
@@ -26,14 +29,22 @@ import br.com.motiserver.dto.ServiceDTO;
  */
 public class ProServiceListActivity_7 extends ActionBarActivity{
 
+    //ImageButton
     ImageButton addServiceBT;
+    //ListView
     ListView servicesLV;
-    ProfessionalDTO professionalDTO = (ProfessionalDTO) getIntent().getSerializableExtra(SessionAttributes.PROFESSIONAL_ID);
-    int idProfessional;
+    //objects
+    ProfessionalDTO professionalDTO;
+    ServiceDTO serviceDTO;
+    //ints
+    Long idProfessional;
+    //String
+    String idProfessionalString;
 
+    //Arrays
     ArrayAdapter myServiceAdapter;
     ArrayList<ServiceDTO> servicesList;
-    Bundle extras;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +53,61 @@ public class ProServiceListActivity_7 extends ActionBarActivity{
         //desabilitando BackNavigation button
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         //obtem o id_professional atraváº½s da session
-        idProfessional = (Integer) Integer.parseInt(SessionAttributes.PROFESSIONAL_ID);
-        professionalDTO.setId((long) idProfessional);
-
+        System.out.println("Entrando na teLa 7");
+        retrieveAttributes();
         initViews();
+        try {
+            idProfessional = Long.parseLong(idProfessionalString);
+            System.out.println("parsing idProfissional OK!");
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            System.out.println("Error parsing idProfissional");
+        }
+        try {
+            ServiceService serviceService = new ServiceService();
+            servicesList = (ArrayList<ServiceDTO>) serviceService.findAllByProfessionalId(idProfessional);
+            System.out.println("Baixou os serviços");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Algum problema na recuperação da lista");
+        }
+        //todo verificar se isso eh o suficiente para inicializar a lista ou precisa de mais coisas
+        settingAdapters();
         setSelectServiceListener();
         setAddServiceListener();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        //todo deve receber todos os servicos do bd e adicionar ao vetor
+        setContentView(R.layout.activity_pro_service_list_7);
+        retrieveAttributes();
+        initViews();
+        try {
+            idProfessional = Long.parseLong(idProfessionalString);
+            System.out.println("parsing idProfissional OK!");
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            System.out.println("Error parsing idProfissional");
+        }
+        try {
+            ServiceService serviceService = new ServiceService();
+            servicesList = (ArrayList<ServiceDTO>) serviceService.findAllByProfessionalId(idProfessional);
+            System.out.println("Baixou os serviços");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Algum problema na recuperação da lista");
+        }
+        //todo verificar se isso eh o suficiente para inicializar a lista ou precisa de mais coisas
+        settingAdapters();
+        setSelectServiceListener();
+        setAddServiceListener();
+
+        //atualiza dados da listView
+        myServiceAdapter.notifyDataSetChanged();
     }
 
     private void initViews(){
@@ -57,17 +117,24 @@ public class ProServiceListActivity_7 extends ActionBarActivity{
         //inicia componentes da tela
         addServiceBT = (ImageButton) findViewById(R.id.addServiceProBTN_7);
         servicesLV = (ListView) findViewById(R.id.serviceListProLV_7);
+
+    }
+    private void settingAdapters(){
         myServiceAdapter = new MyAdapterServicesPro_7(getApplicationContext(), servicesList);
         servicesLV.setAdapter(myServiceAdapter);
     }
 
     private void setSelectServiceListener(){
         servicesLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            //todo arrumar para  receber e eenviar objetos
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String serviceToIntent = String.valueOf(parent.getItemAtPosition(position));
+                Globals.service = servicesList.get(position);
+                System.out.println("Id do serviço recuperada do banco");
+
+                System.out.println(servicesList.get(position).getId());
                 Intent intent = new Intent(ProServiceListActivity_7.this, ProServiceNewActivity_6.class);
-                intent.putExtra("service", serviceToIntent);
                 intent.putExtra("isEditing", true);
                 startActivity(intent);
             }
@@ -82,20 +149,12 @@ public class ProServiceListActivity_7 extends ActionBarActivity{
             }
         });
     }
-
-    @Override
-    protected void onResume(){
-        super.onResume();
-        //todo deve receber todos os servicos do bd e adicionar ao vetor
-        extras = getIntent().getExtras();
-        if(extras != null) {
-            //recuperando dados da tela anterior
-            //servicesList.add(extras.getString("service"));
-        }
-
-        //atualiza dados da listView
-        myServiceAdapter.notifyDataSetChanged();
+    private void retrieveAttributes() {
+        idProfessionalString    = getIntent().getStringExtra(SessionAttributes.PROFESSIONAL_ID);
+        System.out.println("retrieveAttributes OK!");
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
