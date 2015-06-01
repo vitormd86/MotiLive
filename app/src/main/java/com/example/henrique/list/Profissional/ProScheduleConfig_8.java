@@ -16,8 +16,10 @@ import com.example.henrique.list.Utilidade_Publica.Calendar.CalendarPickerView;
 import com.example.henrique.list.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Cristor on 14/04/2015.
@@ -83,11 +85,19 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
         screenCalendar = (CalendarPickerView) findViewById(R.id.calendar_view);
     }
 
+    //este metodo configura os adapters de todos spinners
     public void initSpinnersAdapters(){
-        //este metodo configura os adapters de todos spinners
-        //todo mudar o lado da setinha de dropdown. e falha de botao sim/ nao que nao muda a cor da fonte do textview
-        //adapter de array de horas
-        ArrayAdapter<CharSequence> hourAdapter = ArrayAdapter.createFromResource(this, R.array.hours, R.layout.view_spinner_text_hour);
+       //incluindo mascara nos arrays
+        List<String> hoursArray = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.hours)));
+        for (int i =0; i<hoursArray.size(); i++){
+            hoursArray.set(i, hoursArray.get(i) +" :");
+        }
+        List<String> minutesArray = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.minutes)));
+        for (int i =0; i<minutesArray.size(); i++){
+            minutesArray.set(i, " " + minutesArray.get(i));
+        }
+        //configurando adapters e spinners
+        ArrayAdapter<String> hourAdapter = new ArrayAdapter<>(this, R.layout.view_spinner_text_hour, hoursArray);
         hourAdapter.setDropDownViewResource(R.layout.view_spinner_dropdown_hour);
         expedientStartHourSP.setAdapter(hourAdapter);
         expedientStartHourSP.setSelection(8);
@@ -101,7 +111,7 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
         intervalBetweenHour.setSelection(0);
 
         //adapter de array de minutos
-        ArrayAdapter<CharSequence> minutesAdapter = ArrayAdapter.createFromResource(this, R.array.minutes, android.R.layout.simple_spinner_item);
+        ArrayAdapter<String> minutesAdapter = new ArrayAdapter<>(this, R.layout.view_spinner_text_minutes, minutesArray);
         minutesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         expedientStartMinutesSP.setAdapter(minutesAdapter);
         expedientEndMinutesSP.setAdapter(minutesAdapter);
@@ -134,7 +144,6 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId){
                     case R.id.breakTimeRadioYes:
-                        Toast.makeText(getBaseContext(), "Sim", Toast.LENGTH_SHORT).show();
                         breakStartHourSP.setEnabled(true);
                         breakStartHourSP.setClickable(true);
                         breakStartMinutesSP.setEnabled(true);
@@ -146,7 +155,6 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
 
                         break;
                     case R.id.breakTimeRadioNo:
-                        Toast.makeText(getBaseContext(), "Não", Toast.LENGTH_SHORT).show();
                         breakStartHourSP.setEnabled(false);
                         breakStartHourSP.setClickable(false);
                         breakStartMinutesSP.setEnabled(false);

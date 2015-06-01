@@ -5,6 +5,7 @@
     <dimen name="margin_betweenElements_medium">20dp</dimen>
     <dimen name="margin_betweenElements_big">30dp</dimen>
     <dimen name="margin_photo">10dp</dimen>
+    <dimen name="margin_calendar_checkBox">12dp</dimen>
 
     <!-- Dimensoes de fontes -->
     <dimen name="text_blankSpace">30dp</dimen>

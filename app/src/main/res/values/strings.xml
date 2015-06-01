@@ -5,6 +5,8 @@
     <string name="genderMale">Masculino</string>
     <string name="genderFemale">Feminino</string>
     <string name="buttonCancel">Cancelar</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
 
     <!--Login Process -->
     <string name="hintLogin">Digite seu login</string>
@@ -29,8 +31,11 @@
     <string name="buttonSignUp">Criar Conta</string>
     <string name="buttonBeClient">Sou cliente e quero&#10;agendar serviços</string>
     <string name="buttonBeProfessional">Sou profissional&#10;prestador de serviços</string>
-    <string name="chooseYourProfile">Escolha seu Perfil</string>
-    <string name="scheduleAppointmentTitle">Horário de expediente:</string>
+    <string name="textChooseYourProfile">Escolha seu Perfil</string>
+    <string name="textScheduleAppointmentTitle">Horário de expediente:</string>
+    <string name="textBreakTimeTitle">Horário de Intervalo:</string>
+    <string name="textTimeBetweenSchedulesTitle">Tempo de intervalo entre as seções:</string>
+    <string name="textBetweenHours">~</string>
 
     <!-- Image Descriptions-->
     <string name="descriptionLogo">Logo Moti</string>
