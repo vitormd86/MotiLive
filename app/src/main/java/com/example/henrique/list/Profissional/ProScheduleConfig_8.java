@@ -21,9 +21,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by Cristor on 14/04/2015.
- */
+/** Tela de configuracao de agenda do profissional */
+
 public class ProScheduleConfig_8 extends ActionBarActivity {
 
     Spinner expedientStartHourSP, expedientStartMinutesSP, expedientEndHourSP, expedientEndMinutesSP;

@@ -20,16 +20,20 @@
     <!-- Medidas mínimas de campos -->
     <dimen name="minWidthUF">60dp</dimen>
 
+    <!-- Dimensões do calendario -->
+    <dimen name="calendar_selected_padding">5dp</dimen>
+    <dimen name="calendar_day_headers_paddingbottom">4dp</dimen>
+    <dimen name="calendar_month_topmargin">16dp</dimen>
+    <dimen name="calendar_month_title_bottommargin">4dp</dimen>
+    <dimen name="calendar_text_medium">18sp</dimen>
+    <dimen name="calendar_text_small">14sp</dimen>
+
+
 
 
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
 
-    <!--calendar dimens -->
-    <dimen name="calendar_day_headers_paddingbottom">4dp</dimen>
-    <dimen name="calendar_month_topmargin">16dp</dimen>
-    <dimen name="calendar_month_title_bottommargin">4dp</dimen>
-    <dimen name="calendar_text_medium">18sp</dimen>
-    <dimen name="calendar_text_small">14sp</dimen>
+
 </resources>

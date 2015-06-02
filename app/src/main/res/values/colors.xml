@@ -20,12 +20,16 @@
 
     <!--cores do calendario-->
     <color name="calendar_active_month_bg">@color/themeGray</color>
-    <color name="calendar_bg">@color/lightGray</color>
+    <color name="calendar_bg">@color/Gray</color>
     <color name="calendar_divider">@color/themeGray</color>
+    <color name="calendar_today">@color/Gray</color>
     <color name="calendar_inactive_month_bg">@color/themeGray</color>
     <color name="calendar_selected_day_bg">@color/lightPink</color>
     <color name="calendar_highlighted_day_bg">@color/white</color> <!--????-->
     <color name="calendar_selected_range_bg">@color/lightPink</color>
+    <color name="calendar_text_month">@color/white</color>
+    <color name="calendar_text_weekDays">@color/white</color>
+    <color name="calendar_text_today">@color/Gray</color>
     <color name="calendar_text_inactive">@color/lightGray</color>
     <color name="calendar_text_active">@color/Gray</color>
     <color name="calendar_text_selected">@color/white</color>
