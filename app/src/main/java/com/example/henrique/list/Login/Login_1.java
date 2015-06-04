@@ -22,7 +22,6 @@ import com.example.henrique.list.Utilidade_Publica.Utility;
 
 import br.com.motiserver.constants.PersonType;
 import br.com.motiserver.dto.CustomerDTO;
-import br.com.motiserver.dto.PersonDTO;
 import br.com.motiserver.dto.ProfessionalDTO;
 
 /**
@@ -84,20 +83,18 @@ public class Login_1 extends Activity {
 
         if (executeJson) {
             try {
-
-                PersonDTO personDTO = loginService.login(user, password);
+                CustomerDTO customerDTO = loginService.login(user, password);
 
                 // IF SERVICE RETURNS NULL, NOTIFY THAT USER OR PASSWORD IS WRONG
-                if (personDTO == null) {
+                if (customerDTO == null) {
                     Toast.makeText(getApplicationContext(), "Login ou senha inválido!", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (personDTO.getType().equals(PersonType.CUSTOMER)) {
-                        CustomerDTO customerDTO = customerService.find(personDTO.getId());
+                    if (customerDTO.getType().equals(PersonType.CUSTOMER)) {
                         Intent loginIntent = new Intent(Login_1.this, CustDrawerMenu_10.class);
                         loginIntent.putExtra(SessionAttributes.CUSTOMER, customerDTO);
                         startActivity(loginIntent);
                     } else {
-                        ProfessionalDTO professionalDTO = professionalService.find(personDTO.getId());
+                        ProfessionalDTO professionalDTO = professionalService.find(customerDTO.getId());
                         Intent loginIntent = new Intent(Login_1.this, ProDrawerMenu_15.class);
                         loginIntent.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
                         startActivity(loginIntent);

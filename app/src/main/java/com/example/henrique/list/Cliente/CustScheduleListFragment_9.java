@@ -73,7 +73,8 @@ public class CustScheduleListFragment_9 extends Fragment {
         ArrayList<ScheduleItem> items = new ArrayList<>();
 
         try{
-            schedules = scheduleService.findUpcomingSchedulingByCustomerId(customerID);
+            // TODO
+            //schedules = scheduleService.findUpcomingSchedulingByCustomerId(customerID);
         } catch (Exception e){
             schedules = null;
             Toast.makeText(getActivity(), "Ocorreu um erro interno. Favor contactar o administrador!", Toast.LENGTH_SHORT).show();
@@ -94,8 +95,8 @@ public class CustScheduleListFragment_9 extends Fragment {
             item.setListPosition(i);
             item.setPersonName(schedules.get(i).getDailySchedule().getProfessional().getName());
             item.setScheduleDate(schedules.get(i).getDailySchedule().getDate().getTime());
-            item.setScheduleInicialTime(schedules.get(i).getStartTime().getTime());
-            item.setScheduleFinalTime(schedules.get(i).getEndTime().getTime());
+            // TODO item.setScheduleInicialTime(schedules.get(i).getStartTime().getTime());
+            // TODO item.setScheduleFinalTime(schedules.get(i).getEndTime().getTime());
             cal2.setTime(item.getScheduleDate());
             item.setSection(false);
             try {

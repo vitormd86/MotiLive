@@ -13,15 +13,15 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashMap;
 import java.util.Map;
 
-import br.com.motiserver.dto.PersonDTO;
+import br.com.motiserver.dto.CustomerDTO;
 import br.com.motiserver.dto.WrapperDTO;
 
 public class LoginService extends GenericService {
     /*********************
      *****  METHODS  *****
      *********************/
-    public PersonDTO login(String login, String password) throws ServiceException {
-        WrapperDTO<PersonDTO> wrapperDTO = null;
+    public CustomerDTO login(String login, String password) throws ServiceException {
+        WrapperDTO<CustomerDTO> wrapperDTO = null;
         try {
             wrapperDTO = new Login().execute(login, password).get();
         } catch (Exception e) {
@@ -34,8 +34,8 @@ public class LoginService extends GenericService {
         }
     }
 
-    public PersonDTO loginWithFacebook(String facebookLogin) throws ServiceException {
-        WrapperDTO<PersonDTO> wrapperDTO = null;
+    public CustomerDTO loginWithFacebook(String facebookLogin) throws ServiceException {
+        WrapperDTO<CustomerDTO> wrapperDTO = null;
         try {
             wrapperDTO = new LoginWithFacebook().execute(facebookLogin).get();
         } catch (Exception e) {
@@ -65,36 +65,36 @@ public class LoginService extends GenericService {
     /***************************
      *****  INNER CLASSES  *****
      ***************************/
-    private class Login extends AsyncTask<String, Void, WrapperDTO<PersonDTO>> {
+    private class Login extends AsyncTask<String, Void, WrapperDTO<CustomerDTO>> {
         @Override
-        protected WrapperDTO<PersonDTO> doInBackground(String... userAndPassword) {
+        protected WrapperDTO<CustomerDTO> doInBackground(String... userAndPassword) {
             // PREPARE
             RestTemplate restTemplate = new RestTemplate();
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
             Map<String, Object> vars = new HashMap<String, Object>();
             vars.put("login", userAndPassword[0]);
             vars.put("password", userAndPassword[1]);
-            ParameterizedTypeReference<WrapperDTO<PersonDTO>> responseType = new ParameterizedTypeReference<WrapperDTO<PersonDTO>>(){};
+            ParameterizedTypeReference<WrapperDTO<CustomerDTO>> responseType = new ParameterizedTypeReference<WrapperDTO<CustomerDTO>>(){};
 
             // EXECUTE
-            ResponseEntity<WrapperDTO<PersonDTO>> response = (ResponseEntity<WrapperDTO<PersonDTO>>) restTemplate
+            ResponseEntity<WrapperDTO<CustomerDTO>> response = (ResponseEntity<WrapperDTO<CustomerDTO>>) restTemplate
                     .exchange(URLConstants.LOGIN, HttpMethod.POST, null, responseType, vars);
             return response.getBody();
         }
     }
 
-    private class LoginWithFacebook extends AsyncTask<String, Void, WrapperDTO<PersonDTO>> {
+    private class LoginWithFacebook extends AsyncTask<String, Void, WrapperDTO<CustomerDTO>> {
         @Override
-        protected WrapperDTO<PersonDTO> doInBackground(String... facebookLogin) {
+        protected WrapperDTO<CustomerDTO> doInBackground(String... facebookLogin) {
             // PREPARE
             RestTemplate restTemplate = new RestTemplate();
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
             Map<String, Object> vars = new HashMap<String, Object>();
             vars.put("facebookLogin", facebookLogin[0]);
-            ParameterizedTypeReference<WrapperDTO<PersonDTO>> responseType = new ParameterizedTypeReference<WrapperDTO<PersonDTO>>(){};
+            ParameterizedTypeReference<WrapperDTO<CustomerDTO>> responseType = new ParameterizedTypeReference<WrapperDTO<CustomerDTO>>(){};
 
             // EXECUTE
-            ResponseEntity<WrapperDTO<PersonDTO>> response = (ResponseEntity<WrapperDTO<PersonDTO>>) restTemplate
+            ResponseEntity<WrapperDTO<CustomerDTO>> response = (ResponseEntity<WrapperDTO<CustomerDTO>>) restTemplate
                     .exchange(URLConstants.LOGIN_WITH_FACEBOOK, HttpMethod.POST, null, responseType, vars);
             return response.getBody();
         }

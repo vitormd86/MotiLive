@@ -36,10 +36,12 @@ public class URLConstants {
     public static final String PROFESSION_FIND_ALL = JSON_SERVER_URL + "/profession/findAll";
 
     // SCHEDULING SERVICE
-    public static final String SCHEDULING_FIND_ALL_BY_CUSTOMER_ID = JSON_SERVER_URL + "/scheduling/findAllByCustomerId?customerId={customerId}";
-    public static final String SCHEDULING_FIND_ALL_BY_PROFESSIONAL_ID = JSON_SERVER_URL + "/scheduling/findAllByProfessionalId?professionalId={professionalId}";
-    public static final String SCHEDULING_FIND_UPCOMING_SCHEDULING_BY_CUSTOMER_ID = JSON_SERVER_URL + "/scheduling/findUpcomingSchedulingByCustomerId?customerId={customerId}";
     public static final String SCHEDULING_SAVE = JSON_SERVER_URL + "/scheduling/save";
+
+    // SERVICE SCHEDULING SERVICE
+    public static final String SERVICE_SCH_FIND_ALL_BY_CUSTOMER_ID = JSON_SERVER_URL + "/serviceScheduling/findAllByCustomerId?customerId={customerId}";
+    public static final String SERVICE_SCH_FIND_ALL_BY_PROFESSIONAL_ID = JSON_SERVER_URL + "/serviceScheduling/findAllByProfessionalId?professionalId={professionalId}";
+    public static final String SERVICE_SCH_FIND_UPCOMING_SCHEDULING_BY_CUSTOMER_ID = JSON_SERVER_URL + "/serviceScheduling/findUpcomingSchedulingByCustomerId?customerId={customerId}";
 
     // SERVICE SERVICE
     public static final String SERVICE_FIND_ALL_BY_PROFESSIONAL_ID = JSON_SERVER_URL + "/service/findAllByProfessionalId?professionalId={professionalId}";
