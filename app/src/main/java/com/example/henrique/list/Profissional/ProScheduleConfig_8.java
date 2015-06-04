@@ -324,7 +324,7 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
         breakDTO.setStartTime(breakTimeStartCal);
         breakDTO.setEndTime(breakTimeEndCal);
 
-        Set<BreakDTO> breakDTOs = new LinkedHashSet<BreakDTO>();
+        Set<BreakDTO> breakDTOs = new LinkedHashSet<>();
         breakDTOs.add(breakDTO);
 
 
