@@ -7,6 +7,7 @@
     <string name="buttonCancel">Cancelar</string>
     <string name="yes">Sim</string>
     <string name="no">Não</string>
+    <string name="colon">&#160;:&#160;</string>
 
     <!--Login Process -->
     <string name="hintLogin">Digite seu login</string>

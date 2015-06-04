@@ -40,7 +40,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/transparent" />
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/colon" />
             <Spinner
                 android:id="@+id/expedientStartMinutesSP_pro8"
                 android:layout_width="match_parent"
@@ -60,7 +64,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/transparent" />
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/colon" />
             <Spinner
                 android:id="@+id/expedientEndMinutesSP_pro8"
                 android:layout_width="match_parent"
@@ -115,7 +123,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/transparent" />
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/colon" />
             <Spinner
                 android:id="@+id/breakTimeStartMinutes"
                 android:layout_width="match_parent"
@@ -135,7 +147,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/transparent" />
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/colon" />
             <Spinner
                 android:id="@+id/breakTimeEndMinutes"
                 android:layout_width="match_parent"
@@ -162,7 +178,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/transparent" />
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/colon" />
             <Spinner
                 android:id="@+id/intervalBetweenMinutes"
                 android:layout_width="match_parent"

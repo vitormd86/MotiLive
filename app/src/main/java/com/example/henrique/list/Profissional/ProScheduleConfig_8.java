@@ -13,15 +13,22 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.henrique.list.Utilidade_Publica.Calendar.CalendarPickerView;
 import com.example.henrique.list.R;
+import com.example.henrique.list.Service.DailyScheduleService;
+import com.example.henrique.list.Utilidade_Publica.Calendar.CalendarPickerView;
 import com.example.henrique.list.Utilidade_Publica.Utility;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
+
+import br.com.motiserver.constants.Status;
+import br.com.motiserver.dto.BreakDTO;
+import br.com.motiserver.dto.DailyScheduleDTO;
 
 /** Tela de configuracao de agenda do profissional */
 
@@ -29,7 +36,7 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
 
     Spinner expedientStartHourSP, expedientStartMinutesSP, expedientEndHourSP, expedientEndMinutesSP;
     Spinner breakStartHourSP, breakStartMinutesSP, breakEndHourSP, breakEndMinutesSP;
-    Spinner intervalBetweenHour, intervalBeteewMinutes;
+    Spinner intervalBetweenHourSP, intervalBetweenMinutesSP;
     EditText scheduleNameET;
     RadioGroup breakTimeRadioGroup;
     CheckBox sunCB, monCB, tueCB, wedCB, thuCB, friCB, satCB;
@@ -38,6 +45,8 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
     Calendar initDate, endDate;
 
     String scheduleName;
+
+    DailyScheduleDTO dailyScheduleDTO;
 
 
     @Override
@@ -74,8 +83,8 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
         breakStartMinutesSP = (Spinner) findViewById(R.id.breakTimeStartMinutes);
         breakEndHourSP = (Spinner) findViewById(R.id.breakTimeEndHour);
         breakEndMinutesSP = (Spinner) findViewById(R.id.breakTimeEndMinutes);
-        intervalBetweenHour = (Spinner) findViewById(R.id.intervalBetweenHour);
-        intervalBeteewMinutes = (Spinner) findViewById(R.id.intervalBetweenMinutes);
+        intervalBetweenHourSP = (Spinner) findViewById(R.id.intervalBetweenHour);
+        intervalBetweenMinutesSP = (Spinner) findViewById(R.id.intervalBetweenMinutes);
 
         sunCB = (CheckBox) findViewById(R.id.checkboxSun);
         monCB = (CheckBox) findViewById(R.id.checkboxMon);
@@ -93,16 +102,16 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
     //este metodo configura os adapters de todos spinners
     public void initSpinnersAdapters(){
        //incluindo mascara nos arrays
-        List<String> hoursArray = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.hours)));
-        for (int i =0; i<hoursArray.size(); i++){
-            hoursArray.set(i, hoursArray.get(i) +" :");
-        }
-        List<String> minutesArray = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.minutes)));
-        for (int i =0; i<minutesArray.size(); i++){
-            minutesArray.set(i, " " + minutesArray.get(i));
-        }
+//        List<String> hoursArray = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.hours)));
+//        for (int i =0; i<hoursArray.size(); i++){
+//            hoursArray.set(i, hoursArray.get(i) +" :");
+//        }
+//        List<String> minutesArray = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.minutes)));
+//        for (int i =0; i<minutesArray.size(); i++){
+//            minutesArray.set(i, " " + minutesArray.get(i));
+//        }
         //configurando adapters e spinners
-        ArrayAdapter<String> hourAdapter = new ArrayAdapter<>(this, R.layout.view_spinner_text_hour, hoursArray);
+        ArrayAdapter<String> hourAdapter = new ArrayAdapter<>(this, R.layout.view_spinner_text_hour, getResources().getStringArray(R.array.hours));
         hourAdapter.setDropDownViewResource(R.layout.view_spinner_dropdown_hour);
         expedientStartHourSP.setAdapter(hourAdapter);
         expedientStartHourSP.setSelection(8);
@@ -112,18 +121,18 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
         breakStartHourSP.setSelection(12);
         breakEndHourSP.setAdapter(hourAdapter);
         breakEndHourSP.setSelection(13);
-        intervalBetweenHour.setAdapter(hourAdapter);
-        intervalBetweenHour.setSelection(0);
+        intervalBetweenHourSP.setAdapter(hourAdapter);
+        intervalBetweenHourSP.setSelection(0);
 
         //adapter de array de minutos
-        ArrayAdapter<String> minutesAdapter = new ArrayAdapter<>(this, R.layout.view_spinner_text_minutes, minutesArray);
+        ArrayAdapter<String> minutesAdapter = new ArrayAdapter<>(this, R.layout.view_spinner_text_minutes, getResources().getStringArray(R.array.minutes));
         minutesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         expedientStartMinutesSP.setAdapter(minutesAdapter);
         expedientEndMinutesSP.setAdapter(minutesAdapter);
         breakStartMinutesSP.setAdapter(minutesAdapter);
         breakEndMinutesSP.setAdapter(minutesAdapter);
-        intervalBeteewMinutes.setAdapter(minutesAdapter);
-        intervalBeteewMinutes.setSelection(4);
+        intervalBetweenMinutesSP.setAdapter(minutesAdapter);
+        intervalBetweenMinutesSP.setSelection(4);
 
 
 
@@ -273,7 +282,6 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
                 if(isValidFields()){
                     executeJSON();
                 }
-
                 Toast.makeText(this, "Botao confirm clicado.", Toast.LENGTH_SHORT).show();
                 return true;
             default:
@@ -296,12 +304,63 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
     }
 
     private void executeJSON(){
-        Date expedientStartDate;
-        convertToDate();
+        DailyScheduleService dailyScheduleService = new DailyScheduleService();
+
+        Calendar expedientStartCal, expedientEndCal, breakTimeStartCal, breakTimeEndCal;
+        Calendar timeBetweenSession;
+        Calendar selectedDayCal = Calendar.getInstance();
+
+        expedientStartCal = convertToCalendar(expedientStartHourSP.getSelectedItem().toString(), expedientStartMinutesSP.getSelectedItem().toString());
+        expedientEndCal = convertToCalendar(expedientEndHourSP.getSelectedItem().toString(), expedientEndMinutesSP.getSelectedItem().toString());
+        breakTimeStartCal = convertToCalendar(breakStartHourSP.getSelectedItem().toString(), breakStartMinutesSP.getSelectedItem().toString());
+        breakTimeEndCal = convertToCalendar(breakEndHourSP.getSelectedItem().toString(), breakEndMinutesSP.getSelectedItem().toString());
+        timeBetweenSession = convertToCalendar(intervalBetweenHourSP.getSelectedItem().toString(), intervalBetweenMinutesSP.getSelectedItem().toString());
+
+        List<Date> selectedDates = screenCalendar.getSelectedDates();
+
+
+        //iniciando Set de BreakTimes
+        BreakDTO breakDTO = new BreakDTO();
+        breakDTO.setStartTime(breakTimeStartCal);
+        breakDTO.setEndTime(breakTimeEndCal);
+
+        Set<BreakDTO> breakDTOs = new LinkedHashSet<BreakDTO>();
+        breakDTOs.add(breakDTO);
+
+
+        for(int i = 0; i < selectedDates.size(); i++){
+            //para cada data selecionada grava um dailySchedule
+
+            //todo adicionar profissional
+            // dailyScheduleDTO.setProfessional();
+
+            selectedDayCal.setTime(selectedDates.get(i));
+            dailyScheduleDTO.setDate(selectedDayCal);
+            dailyScheduleDTO.setStartTime(expedientStartCal);
+            dailyScheduleDTO.setEndTime(expedientEndCal);
+            dailyScheduleDTO.setBreaks(breakDTOs);
+            dailyScheduleDTO.setWorkDay(Status.TRUE);
+            try {
+                dailyScheduleService.save(dailyScheduleDTO);
+            } catch (Exception e){
+                e.printStackTrace();
+                System.out.println("Erro ao gravar dados em dailySchedule");
+            }
+        }
+        //todo adicionar timebetweenSession no profissional
     }
 
-    private Date convertToDate(){
-        Date convertedDate = new Date();
-        return convertedDate;
+    private Calendar convertToCalendar(String hour, String minutes){
+
+        SimpleDateFormat sdf = new SimpleDateFormat("HHmm");
+        Calendar convertedCal = Calendar.getInstance();
+
+        try{
+            convertedCal.setTime(sdf.parse(hour + minutes));
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return convertedCal;
     }
 }
