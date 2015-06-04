@@ -8,12 +8,14 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.henrique.list.Utilidade_Publica.Calendar.CalendarPickerView;
 import com.example.henrique.list.R;
+import com.example.henrique.list.Utilidade_Publica.Utility;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,12 +30,14 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
     Spinner expedientStartHourSP, expedientStartMinutesSP, expedientEndHourSP, expedientEndMinutesSP;
     Spinner breakStartHourSP, breakStartMinutesSP, breakEndHourSP, breakEndMinutesSP;
     Spinner intervalBetweenHour, intervalBeteewMinutes;
+    EditText scheduleNameET;
     RadioGroup breakTimeRadioGroup;
     CheckBox sunCB, monCB, tueCB, wedCB, thuCB, friCB, satCB;
 
     CalendarPickerView screenCalendar;
     Calendar initDate, endDate;
 
+    String scheduleName;
 
 
     @Override
@@ -60,6 +64,8 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
 
     private void initViews(){
         //este metodo inicializa as views
+        scheduleNameET = (EditText) findViewById(R.id.scheduleNameET_pro8);
+
         expedientStartHourSP = (Spinner) findViewById(R.id.expedientStartHourSP_pro8);
         expedientStartMinutesSP = (Spinner) findViewById(R.id.expedientStartMinutesSP_pro8);
         expedientEndHourSP = (Spinner) findViewById(R.id.expedientEndHourSP_pro8);
@@ -141,7 +147,7 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
         breakTimeRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId){
+                switch (checkedId) {
                     case R.id.breakTimeRadioYes:
                         breakStartHourSP.setEnabled(true);
                         breakStartHourSP.setClickable(true);
@@ -264,11 +270,38 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
         // Admininstra cliques da ActionBar
         switch (item.getItemId()) {
             case R.id.confirmButton:
+                if(isValidFields()){
+                    executeJSON();
+                }
 
                 Toast.makeText(this, "Botao confirm clicado.", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private boolean isValidFields(){
+        boolean isAllValid = true;
+
+        scheduleName = scheduleNameET.getText().toString();
+        if(!Utility.isValid(scheduleName)){
+            scheduleNameET.setError("Digite o nome do agendamento");
+            isAllValid = false;
+        } else {
+            scheduleNameET.setError(null);
+        }
+
+        return isAllValid;
+    }
+
+    private void executeJSON(){
+        Date expedientStartDate;
+        convertToDate();
+    }
+
+    private Date convertToDate(){
+        Date convertedDate = new Date();
+        return convertedDate;
     }
 }

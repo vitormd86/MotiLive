@@ -1,5 +1,6 @@
 package com.example.henrique.list.Cliente;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.henrique.list.Adapters.MyAdapterDrawerOptions;
 import com.example.henrique.list.Beans.DrawerMenuItem;
+import com.example.henrique.list.Login.CustProfile_5;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 
@@ -111,10 +113,12 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
         CustScheduleDateFragmentPortrait_6 custScheduleDateFragment= new CustScheduleDateFragmentPortrait_6();
         CustScheduleListFragment_9 custScheduleListFragment9 = new CustScheduleListFragment_9();
         CustEditProfileFragment_11 custProfileFragment5 = new CustEditProfileFragment_11();
+        CustProfile_5 custProfile_5 = new CustProfile_5();
         DrawerMenuItem item1 = new DrawerMenuItem(custScheduleDateFragment, "Novo Agendamento");
         DrawerMenuItem item2 = new DrawerMenuItem(custScheduleListFragment9, "Consultar Agendamentos");
         DrawerMenuItem item3 = new DrawerMenuItem(custProfileFragment5, "Editar Perfil");
-        final DrawerMenuItem [] menuOptions = {item1, item2, item3};
+        DrawerMenuItem item4 = new DrawerMenuItem(custProfile_5, "Editar Perfil (Activity)");
+        final DrawerMenuItem [] menuOptions = {item1, item2, item3, item4};
 
         listOptions = (ListView) findViewById(R.id.ListView);
         //configurando adapter da listView
@@ -128,7 +132,15 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Brilha opcao do vetor selecionada, atualiza titulo, e fecha o drawer
                 listOptions.setItemChecked(position, true);
+
+                //verifica se eh activity ou fragment
+                if(menuOptions[position].isFragment()){
                 initFragment(menuOptions[position].getLinkTitle(), menuOptions[position].getLinkFragment());
+                } else if(menuOptions[position].isActivity()){
+                    Intent i = new Intent(CustDrawerMenu_10.this, menuOptions[position].getLinkActivity().getClass());
+                    startActivity(i);
+                }
+
                 mDrawerLayout.closeDrawers();
             }
         });

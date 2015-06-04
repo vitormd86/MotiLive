@@ -4,6 +4,7 @@ package com.example.henrique.list.Profissional;
  * Created by htamashiro on 3/18/15.
  */
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 
 import com.example.henrique.list.Adapters.MyAdapterDrawerOptions;
 import com.example.henrique.list.Beans.DrawerMenuItem;
+import com.example.henrique.list.Login.ProProfile_5;
 import com.example.henrique.list.R;
 
 /*Atividade que configura o drawer e o frame layout que recebe os fragments*/
@@ -75,32 +77,32 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
         setLayoutItems();
     }
 
-    public void setInicialFragment(){
+    public void setInicialFragment() {
         //verifica se existe uma intent anterior. caso exista, aponto a fragment a ser aberta.
         //caso nao exista, inicia com a tela inicial.
         Bundle extras = getIntent().getExtras();
-        if (extras != null){
+        if (extras != null) {
             int openFragment = extras.getInt("nextScreen");
-            if (openFragment == 10){
+            if (openFragment == 10) {
                 initFragment("Novo Agendamento", new ProScheduleDateFragment_10());
-            } else{
+            } else {
                 initFragment("Meus Agendamentos", new ProScheduleListFragment_14());
             }
-        }
-        else {
+        } else {
             initFragment("Meus Agendamentos", new ProScheduleListFragment_14());
         }
     }
 
-    public void initFragment(String title, Fragment fragment){
+    public void initFragment(String title, Fragment fragment) {
         //inicia um fragment dentro do frame de conteudo
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.content_frame, fragment);
         setTitle(title);
         ft.commit();
     }
+
     //Esta classe alimenta e configura o conteudo do drawer
-    public void setLayoutItems (){
+    public void setLayoutItems() {
 
         //Configurando cabecalho
         String userName = "Leandro";
@@ -117,14 +119,16 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
         ProScheduleDateFragment_10 proScheduleDateFragment_10 = new ProScheduleDateFragment_10();
         ProScheduleListFragment_14 proScheduleListFragment_14 = new ProScheduleListFragment_14();
         ProEditProfileFragment_16 proEditProfileFragment_16 = new ProEditProfileFragment_16();
+        ProProfile_5 proProfile_5 = new ProProfile_5();
         DrawerMenuItem item1 = new DrawerMenuItem(proScheduleDateFragment_10, "Novo Agendamento");
         DrawerMenuItem item2 = new DrawerMenuItem(proScheduleListFragment_14, "Consultar Agendamentos");
         DrawerMenuItem item3 = new DrawerMenuItem(proEditProfileFragment_16, "Editar Perfil");
-        final DrawerMenuItem [] menuOptions = {item1, item2, item3};
+        DrawerMenuItem item4 = new DrawerMenuItem(proProfile_5, "Editar Perfil (Activity)");
+        final DrawerMenuItem[] menuOptions = {item1, item2, item3, item4};
 
         listOptions = (ListView) findViewById(R.id.ListView);
         //configurando adapter da listView
-        ListAdapter myAdapterDrawerOptions= new MyAdapterDrawerOptions(this, menuOptions);
+        ListAdapter myAdapterDrawerOptions = new MyAdapterDrawerOptions(this, menuOptions);
         listOptions.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         listOptions.setAdapter(myAdapterDrawerOptions);
 
@@ -134,14 +138,21 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Brilha opcao do vetor selecionada, atualiza titulo, e fecha o drawer
                 listOptions.setItemChecked(position, true);
-                initFragment(menuOptions[position].getLinkTitle(), menuOptions[position].getLinkFragment());
+
+                //verifica se eh activity ou fragment
+                if (menuOptions[position].isFragment()) {
+                    initFragment(menuOptions[position].getLinkTitle(), menuOptions[position].getLinkFragment());
+                } else if (menuOptions[position].isActivity()) {
+                    Intent i = new Intent(ProDrawerMenu_15.this, menuOptions[position].getLinkActivity().getClass());
+                    startActivity(i);
+                }
                 mDrawerLayout.closeDrawers();
             }
         });
     }
 
     //esta classe recebe a posicao do item clicado no menu e determina qual fragment vai ser chamado no content_frame
-    private void selectMenuItem(int pos, DrawerMenuItem [] menuOptions){
+    private void selectMenuItem(int pos, DrawerMenuItem[] menuOptions) {
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.content_frame, menuOptions[pos].getLinkFragment()); //aponta para o fragment correspondente ao clique no vetor de fragments
@@ -178,9 +189,7 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
         int id = item.getItemId();
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
-        }
-        else
-        if (id == R.id.action_settings) {
+        } else if (id == R.id.action_settings) {
             return true;
         }
         // Handle your other action bar items...
@@ -199,7 +208,6 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
     //setTitle(mPlanetTitles[position]);
     //mDrawerLayout.closeDrawer(mDrawerList);
 //    }
-
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;

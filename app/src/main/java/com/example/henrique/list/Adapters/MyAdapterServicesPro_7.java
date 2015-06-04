@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.example.henrique.list.R;
 
 import java.math.BigDecimal;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -37,8 +36,9 @@ public class MyAdapterServicesPro_7 extends ArrayAdapter<ServiceDTO> {
         TextView sessionPrice = (TextView) convertView.findViewById(R.id.sessionPriceTVPro_7);
 
         ServiceDTO service = null;
+        service = getItem(position);
         try {
-            service = getItem(position);
+
             serviceName.setText(service.getName());
             calendar = service.getTime();
             calendar.setTimeZone(TimeZone.getTimeZone("America/Sao_Paulo"));
