@@ -20,8 +20,9 @@
             <ImageButton
                 android:id="@+id/ImageButtonCust_5"
                 style="@style/ImagePhoto"
+                android:contentDescription="@string/description_photo"
                 android:background="@drawable/hide"
-                android:contentDescription="@string/description_photo" />
+                />
 
             <EditText
                 android:id="@+id/NomeET_Cust_5"

@@ -263,11 +263,11 @@
 
     </LinearLayout>
 
-    <com.example.henrique.list.Utilidade_Publica.Calendar.CalendarPickerView
-        android:id="@+id/calendar_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        />
+    <!--<com.example.henrique.list.Utilidade_Publica.Calendar.CalendarPickerView-->
+        <!--android:id="@+id/calendar_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:focusable="false"-->
+        <!--android:focusableInTouchMode="false"-->
+        <!--/>-->
 </LinearLayout>

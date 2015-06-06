@@ -16,7 +16,7 @@ import br.com.motiserver.constants.Gender;
  */
 public class Utility {
 
-    private String errorString;
+    private static String errorString;
 
     public static boolean isValid(String value) {
         if (value != null && !value.trim().equals("")) {
@@ -109,7 +109,7 @@ public class Utility {
                 return false;
             }
             else{
-                String CITY_NAME = "^[_A-Za-z\\+]{3,15}+((\\s[_A-Za-z]+)*)$";
+                String CITY_NAME = "^[_A-Za-z0-9\\+]{3,15}+((\\s[_A-Za-z0-9]+)*)$";
 
                 Pattern pattern = Pattern.compile(CITY_NAME);
                 Matcher matcher = pattern.matcher(cidade);
@@ -126,7 +126,7 @@ public class Utility {
                 return false;
             }
             else{
-                String DISTRICT_NAME = "^[_A-Za-z\\+]{3,15}+((\\s[_A-Za-z]+)*)$";
+                String DISTRICT_NAME = "^[_A-Za-z0-9\\+]{3,15}+((\\s[_A-Za-z0-9]+)*)$";
 
                 Pattern pattern = Pattern.compile(DISTRICT_NAME);
                 Matcher matcher = pattern.matcher(bairro);
@@ -143,7 +143,7 @@ public class Utility {
             }
             else{
 
-                String TEXT = "^[_A-Za-z�-��-�\\+]{3,15}+((\\s[_A-Za-z�-��-�]+)*)$";
+                String TEXT = "^[_A-Za-z�-��-�0-9\\+]{3,15}+((\\s[_A-Za-z0-9�-��-�]+)*)$";
                 Pattern pattern = Pattern.compile(TEXT);
                 Matcher matcher = pattern.matcher(text);
                 return matcher.matches();             }
@@ -178,7 +178,7 @@ public class Utility {
             }
             else {
                 BigDecimal bd = new BigDecimal(text);
-                return bd.toPlainString().matches("\\d+(\\.0*)?");
+                return bd.toPlainString().matches("\\d+(\\.\\d*)?");
             }
 
         }

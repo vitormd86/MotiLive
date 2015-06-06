@@ -56,24 +56,7 @@ public class ProServiceListActivity_7 extends ActionBarActivity{
         System.out.println("Entrando na teLa 7");
         retrieveAttributes();
         initViews();
-        try {
-            idProfessional = Long.parseLong(idProfessionalString);
-            System.out.println("parsing idProfissional OK!");
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-            System.out.println("Error parsing idProfissional");
-        }
-        try {
-            ServiceService serviceService = new ServiceService();
-            servicesList = (ArrayList<ServiceDTO>) serviceService.findAllByProfessionalId(idProfessional);
-            System.out.println("Baixou os serviços");
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Algum problema na recuperação da lista");
-        }
-        //todo verificar se isso eh o suficiente para inicializar a lista ou precisa de mais coisas
-        settingAdapters();
         setSelectServiceListener();
         setAddServiceListener();
     }
@@ -82,9 +65,7 @@ public class ProServiceListActivity_7 extends ActionBarActivity{
     protected void onResume(){
         super.onResume();
         //todo deve receber todos os servicos do bd e adicionar ao vetor
-        setContentView(R.layout.activity_pro_service_list_7);
-        retrieveAttributes();
-        initViews();
+
         try {
             idProfessional = Long.parseLong(idProfessionalString);
             System.out.println("parsing idProfissional OK!");
@@ -101,10 +82,8 @@ public class ProServiceListActivity_7 extends ActionBarActivity{
             e.printStackTrace();
             System.out.println("Algum problema na recuperação da lista");
         }
-        //todo verificar se isso eh o suficiente para inicializar a lista ou precisa de mais coisas
+//        //todo verificar se isso eh o suficiente para inicializar a lista ou precisa de mais coisas
         settingAdapters();
-        setSelectServiceListener();
-        setAddServiceListener();
 
         //atualiza dados da listView
         myServiceAdapter.notifyDataSetChanged();

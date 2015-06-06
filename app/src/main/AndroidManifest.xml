@@ -50,7 +50,11 @@
             android:parentActivityName=".Login.LoginNewAccount_2"
             android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Login.LoginNewAccount_2" />
@@ -61,7 +65,11 @@
             android:parentActivityName=".Login.LoginNewAccount_2"
             android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Login.LoginNewAccount_2" />
@@ -71,6 +79,7 @@
             android:label="Resumo"
             android:parentActivityName=".Cliente.CustScheduleHourActivity_7"
             android:theme="@style/AppTheme" >
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Cliente.CustScheduleHourActivity_7" />
@@ -105,16 +114,16 @@
         <activity
             android:name=".Profissional.ProScheduleConfig_8"
             android:label="Configurar Agenda"
-            android:windowSoftInputMode="stateHidden"
-            android:parentActivityName=".Profissional.ProServiceListActivity_7" >
+            android:parentActivityName=".Profissional.ProServiceListActivity_7"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Profissional.ProServiceListActivity_7" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Profissional.ProServiceListActivity_7"/>
         </activity>
         <activity
             android:name=".Profissional.ProScheduleFirstActivity_11"

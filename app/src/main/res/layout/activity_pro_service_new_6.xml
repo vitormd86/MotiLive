@@ -78,7 +78,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:hint="00,00"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal"
+
+            />
     </LinearLayout>
 
 

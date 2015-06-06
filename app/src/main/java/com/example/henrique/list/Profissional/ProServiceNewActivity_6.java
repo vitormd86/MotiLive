@@ -28,7 +28,9 @@ import java.util.Calendar;
 import br.com.motiserver.dto.ProfessionalDTO;
 import br.com.motiserver.dto.ServiceDTO;
 
-
+/**
+ * Created by Cristor on 01/05/2015.
+ */
 public class ProServiceNewActivity_6 extends ActionBarActivity {
 
     //EditText
@@ -105,44 +107,15 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         switch (item.getItemId()) {
             case R.id.confirmButton:
                 executaJSON = true;
+                serviceDTO = new ServiceDTO();
                 if (isEditingService()) {
                     //todo   agora quem vai tratar  edição e adição é o proprio back... soh precisamos da isEditing para sabermos como vamos tratar a tela
-                    initVariables();
-                    System.out.println("InitVariables OK");
-                    if (validatefields()) {
-                        System.out.println("validateFields OK");
-                        serviceDTO.setName(serviceName);
-                        serviceDTO.setDescription(serviceDescription);
-                        serviceDTO.setValue(sessionValue);
-                        serviceDTO.setTime(calendar);
-                        serviceDTO.setProfessional(professionalDTO);
-                        System.out.println(professionalDTO.getId());
-                        System.out.println("filling serviceDTO OK");
 
-                        try {
-                            ServiceService serviceservice = new ServiceService();
-                            System.out.println("id do serviço recuperada da tela 7");
-                            System.out.println(serviceDTO.getId());
-                            serviceDTO = serviceservice.save(serviceDTO);
-                            System.out.println("Salvou");
-
-                            sProfessional_id = professionalDTO.getId().toString();
-                            System.out.println(sProfessional_id);
-                            Intent createAccountIntent = new Intent(ProServiceNewActivity_6.this, ProServiceListActivity_7.class);
-                            createAccountIntent.putExtra(SessionAttributes.PROFESSIONAL_ID, sProfessional_id);
-                            startActivity(createAccountIntent);
-                        } catch (ServiceException e) {
-                            e.printStackTrace();
-                            System.out.println("Não Salvou");
-                        }
-                    }else{
-                        System.out.println("Falha na validação fields");
-                    }
-                    intent.putExtra("service", serviceNameET.getText().toString());
 
                 } else {
                     //todo deve adicionar servico no banco
                     serviceDTO = new ServiceDTO();
+
                     initVariables();
                     System.out.println("InitVariables OK");
                     if (validatefields()) {
@@ -221,8 +194,8 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         sessionMinutes = sessionMinutesSP.getSelectedItem().toString();
 
         try {
-            sessionHoursInt = Integer.parseInt(sessionHours);
-            sessionMinutesInt = Integer.parseInt(sessionMinutes);
+            sessionHoursInt =(Integer) Integer.parseInt(sessionHours);
+            sessionMinutesInt = (Integer) Integer.parseInt(sessionMinutes);
             System.out.println("Conseguiu fazer parsing dos Ints ");
 
         } catch (NumberFormatException e) {
@@ -291,7 +264,6 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
     private boolean isEditingService() {
         boolean isEditing = false;
         if (getIntent().getBooleanExtra("isEditing", false)) {
-            isEditing = true;
             return true;
         }
         return isEditing;

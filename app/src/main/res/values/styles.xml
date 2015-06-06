@@ -42,7 +42,7 @@
         <item name="android:layout_width">@dimen/img_photo</item>
         <item name="android:layout_height">@dimen/img_photo</item>
         <item name="android:layout_margin">@dimen/margin_photo</item>
-        <item name="android:src">@drawable/button_photo</item>
+        <!--<item name="android:src">@drawable/button_photo</item>  VERIFICAR PROBLEMA DE INFLATING EM OUTROS DEVICES-->
         <item name="android:scaleType">fitCenter</item>
     </style>
 
