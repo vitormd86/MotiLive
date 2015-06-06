@@ -36,7 +36,7 @@ public class CustScheduleListFragment_9 extends Fragment {
     PinnedSectionListView listSchedules;
     ImageButton addScheduleBT;
 
-    long customerID = 2; //todo recuperar ID do usuario atual
+    long customerID = 10; //todo recuperar ID do usuario atual
     List<SchedulingDTO> schedules;
 
     @Override
@@ -74,9 +74,9 @@ public class CustScheduleListFragment_9 extends Fragment {
 
         try{
             // TODO
-            //schedules = scheduleService.findUpcomingSchedulingByCustomerId(customerID);
+            schedules = scheduleService.findUpcomingSchedulingByCustomerId(customerID);
         } catch (Exception e){
-            schedules = null;
+            schedules = new ArrayList<>();
             Toast.makeText(getActivity(), "Ocorreu um erro interno. Favor contactar o administrador!", Toast.LENGTH_SHORT).show();
         }
 
