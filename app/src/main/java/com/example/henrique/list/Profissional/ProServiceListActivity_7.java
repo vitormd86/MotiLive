@@ -14,7 +14,6 @@ import android.widget.ListView;
 
 import com.example.henrique.list.Adapters.MyAdapterServicesPro_7;
 import com.example.henrique.list.R;
-import com.example.henrique.list.Service.ProfessionalService;
 import com.example.henrique.list.Service.ServiceService;
 import com.example.henrique.list.Utilidade_Publica.Globals;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
@@ -76,11 +75,11 @@ public class ProServiceListActivity_7 extends ActionBarActivity{
         try {
             ServiceService serviceService = new ServiceService();
             servicesList = (ArrayList<ServiceDTO>) serviceService.findAllByProfessionalId(idProfessional);
-            System.out.println("Baixou os serviços");
+            System.out.println("Baixou os serviï¿½os");
 
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Algum problema na recuperação da lista");
+            System.out.println("Algum problema na recuperaï¿½ï¿½o da lista");
         }
 //        //todo verificar se isso eh o suficiente para inicializar a lista ou precisa de mais coisas
         settingAdapters();
@@ -110,7 +109,7 @@ public class ProServiceListActivity_7 extends ActionBarActivity{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String serviceToIntent = String.valueOf(parent.getItemAtPosition(position));
                 Globals.service = servicesList.get(position);
-                System.out.println("Id do serviço recuperada do banco");
+                System.out.println("Id do serviï¿½o recuperada do banco");
 
                 System.out.println(servicesList.get(position).getId());
                 Intent intent = new Intent(ProServiceListActivity_7.this, ProServiceNewActivity_6.class);
@@ -148,6 +147,7 @@ public class ProServiceListActivity_7 extends ActionBarActivity{
         switch (item.getItemId()) {
             case R.id.confirmButton:
                 Intent intent = new Intent(ProServiceListActivity_7.this, ProScheduleConfig_8.class);
+                intent.putExtra(SessionAttributes.PROFESSIONAL_ID, idProfessionalString);
                 startActivity(intent);
                 return true;
             default:

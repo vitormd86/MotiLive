@@ -9,6 +9,7 @@
 
     <!-- Dimensoes de fontes -->
     <dimen name="text_blankSpace">30dp</dimen>
+    <dimen name="textSize_small">16sp</dimen>
     <dimen name="textSize_medium">18sp</dimen>
     <dimen name="textSize_big">25sp</dimen>
 

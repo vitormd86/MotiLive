@@ -2,86 +2,144 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="@dimen/margin_app"
     android:orientation="vertical">
 
     <EditText
         android:id="@+id/serviceNameETPro_6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_betweenElements_medium"
         android:inputType="text"
-        android:hint="Nome do Serviço" />
-    <TextView
-        android:id="@+id/serviceDescriptionTitleProTV_6"
+        android:hint="@string/hintServiceName" />
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Descrição do serviço:"/>
-    <EditText
-        android:id="@+id/serviceDescriptionProET_6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="descreva aqui o serviço"/>
-    <TextView
-        android:id="@+id/sessionTimeTitleProTV_6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tempo da sessão"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <Spinner
-            android:id="@+id/sessionHoursProSP_6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-        <TextView
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ic_serviceDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Horas"/>
-        <Spinner
-            android:id="@+id/sessionMinutesProSP_6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_alignTop="@+id/serviceDescriptionTitleProTV_6"
+            android:layout_alignBottom="@+id/serviceDescriptionProET_6"
+            android:contentDescription="@string/description_icServiceDescription"
+            android:src="@drawable/ic_form_serv_desc"/>
+
         <TextView
+            android:id="@+id/serviceDescriptionTitleProTV_6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Minutos"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-    </LinearLayout>
-    <TextView
-        android:id="@+id/sessionValueTitleProTV_6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Valor da sessão"/>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical">
-        <TextView
-            android:id="@+id/currencyProTV_6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:textColor="@color/black"
-            android:text="R$"/>
+            android:layout_toRightOf="@id/ic_serviceDescription"
+            android:text="@string/textServiceDescription"/>
+
         <EditText
-            android:id="@+id/sessionValueProET_6"
+            style="@style/ServiceDescription"
+            android:id="@+id/serviceDescriptionProET_6"
+            android:layout_marginBottom="@dimen/margin_betweenElements_medium"
+            android:layout_toRightOf="@id/ic_serviceDescription"
+            android:layout_below="@id/serviceDescriptionTitleProTV_6"
+            android:hint="@string/hintServiceDescription"/>
+        <ImageView
+            android:id="@+id/ic_serviceTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:hint="00,00"
-            android:inputType="numberDecimal"
+            android:layout_below="@id/serviceDescriptionProET_6"
+            android:layout_alignBottom="@+id/linearTime"
+            android:contentDescription="@string/description_icServiceTime"
+            android:src="@drawable/ic_form_serv_time"/>
+        <TextView
+            android:id="@+id/sessionTimeTitleProTV_6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/ic_serviceTime"
+            android:layout_below="@id/serviceDescriptionProET_6"
+            android:text="@string/textServiceTime"/>
+        <LinearLayout
+            android:id="@+id/linearTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_betweenElements_medium"
+            android:layout_below="@id/sessionTimeTitleProTV_6"
+            android:layout_toRightOf="@id/ic_serviceTime"
+            android:orientation="horizontal"
+            android:weightSum="4">
+            <Spinner
+                android:id="@+id/sessionHoursProSP_6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:layout_weight="1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/colon"/>
+            <Spinner
+                android:id="@+id/sessionMinutesProSP_6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:layout_weight="1"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/ic_servicePrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linearTime"
+            android:layout_alignBottom="@+id/linearPrice"
+            android:contentDescription="@string/description_icServicePrice"
+            android:src="@drawable/ic_form_serv_price"/>
+        <TextView
+            android:id="@+id/sessionValueTitleProTV_6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linearTime"
+            android:layout_toRightOf="@id/ic_serviceTime"
+            android:text="@string/textServicePrice"/>
+        <LinearLayout
+            android:id="@+id/linearPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sessionValueTitleProTV_6"
+            android:layout_toRightOf="@id/ic_serviceTime"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:weightSum="4">
+            <TextView
+                android:id="@+id/currencyProTV_6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
 
-            />
-    </LinearLayout>
-
+                android:textSize="@dimen/textSize_medium"
+                android:textColor="@color/black"
+                android:text="@string/currency"/>
+            <EditText
+                android:id="@+id/sessionValueProET_6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="5dp"
+                android:hint="@string/hintCurrency"
+                android:inputType="numberDecimal"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

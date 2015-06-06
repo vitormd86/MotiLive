@@ -1,5 +1,6 @@
 package com.example.henrique.list.Profissional;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -15,7 +16,9 @@ import android.widget.Toast;
 
 import com.example.henrique.list.R;
 import com.example.henrique.list.Service.DailyScheduleService;
+import com.example.henrique.list.Service.ProfessionalService;
 import com.example.henrique.list.Utilidade_Publica.Calendar.CalendarPickerView;
+import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 import com.example.henrique.list.Utilidade_Publica.Utility;
 
 import java.text.SimpleDateFormat;
@@ -29,6 +32,7 @@ import java.util.Set;
 import br.com.motiserver.constants.Status;
 import br.com.motiserver.dto.BreakDTO;
 import br.com.motiserver.dto.DailyScheduleDTO;
+import br.com.motiserver.dto.ProfessionalDTO;
 
 /** Tela de configuracao de agenda do profissional */
 
@@ -43,10 +47,13 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
 
     CalendarPickerView screenCalendar;
     Calendar initDate, endDate;
+    List<Date> selectedDates;
 
     String scheduleName;
+    Long idProfessional;
 
-    DailyScheduleDTO dailyScheduleDTO;
+
+    ProfessionalDTO professionalDTO;
 
 
     @Override
@@ -60,6 +67,7 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
 
         //configurando views do layout
         initViews();
+        retrievingAttributes();
         //configurando calendario
         initCalendar();
         //configurando adapters dos spinners
@@ -97,6 +105,26 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
         breakTimeRadioGroup = (RadioGroup) findViewById(R.id.breakTimeRadioGroup);
 
         screenCalendar = (CalendarPickerView) findViewById(R.id.calendar_view);
+    }
+
+    private void retrievingAttributes(){
+        //todo receber professionalDTO inteiro no lugar da ID (pela intent)
+        //String idProfessionalString = getIntent().getStringExtra(SessionAttributes.PROFESSIONAL_ID);
+        ProfessionalService professionalService = new ProfessionalService();
+
+        try {
+        //    idProfessional = Long.parseLong(idProfessionalString);
+            idProfessional = new Long(6);
+        } catch (NumberFormatException e) {
+        //    e.printStackTrace();
+            System.out.println("Error parsing idProfissional");
+        }
+        try {
+            professionalDTO = professionalService.find(idProfessional);
+        } catch (Exception e){
+            e.printStackTrace();
+            System.out.println("Error findind professional with id " + idProfessional.toString());
+        }
     }
 
     //este metodo configura os adapters de todos spinners
@@ -166,8 +194,8 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
                         breakEndHourSP.setClickable(true);
                         breakEndMinutesSP.setEnabled(true);
                         breakEndMinutesSP.setClickable(true);
-
                         break;
+
                     case R.id.breakTimeRadioNo:
                         breakStartHourSP.setEnabled(false);
                         breakStartHourSP.setClickable(false);
@@ -281,8 +309,12 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
             case R.id.confirmButton:
                 if(isValidFields()){
                     executeJSON();
+
+                    Intent intentToDrawer = new Intent(ProScheduleConfig_8.this, ProDrawerMenu_15.class);
+                    intentToDrawer.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
+                    startActivity(intentToDrawer);
+                    this.finish();
                 }
-                Toast.makeText(this, "Botao confirm clicado.", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -300,41 +332,47 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
             scheduleNameET.setError(null);
         }
 
+        selectedDates = screenCalendar.getSelectedDates();
+        if(selectedDates == null | selectedDates.isEmpty()){
+            isAllValid = false;
+            Toast.makeText(this, "Escolha os dias de atendimento.", Toast.LENGTH_LONG).show();
+        }
         return isAllValid;
     }
 
     private void executeJSON(){
         DailyScheduleService dailyScheduleService = new DailyScheduleService();
+        DailyScheduleDTO dailyScheduleDTO = new DailyScheduleDTO();
 
         Calendar expedientStartCal, expedientEndCal, breakTimeStartCal, breakTimeEndCal;
         Calendar timeBetweenSession;
         Calendar selectedDayCal = Calendar.getInstance();
 
+        //convertendo valores de spinners em Calendars
         expedientStartCal = convertToCalendar(expedientStartHourSP.getSelectedItem().toString(), expedientStartMinutesSP.getSelectedItem().toString());
         expedientEndCal = convertToCalendar(expedientEndHourSP.getSelectedItem().toString(), expedientEndMinutesSP.getSelectedItem().toString());
         breakTimeStartCal = convertToCalendar(breakStartHourSP.getSelectedItem().toString(), breakStartMinutesSP.getSelectedItem().toString());
         breakTimeEndCal = convertToCalendar(breakEndHourSP.getSelectedItem().toString(), breakEndMinutesSP.getSelectedItem().toString());
         timeBetweenSession = convertToCalendar(intervalBetweenHourSP.getSelectedItem().toString(), intervalBetweenMinutesSP.getSelectedItem().toString());
 
-        List<Date> selectedDates = screenCalendar.getSelectedDates();
-
-
         //iniciando Set de BreakTimes
-        BreakDTO breakDTO = new BreakDTO();
-        breakDTO.setStartTime(breakTimeStartCal);
-        breakDTO.setEndTime(breakTimeEndCal);
-
         Set<BreakDTO> breakDTOs = new LinkedHashSet<>();
-        breakDTOs.add(breakDTO);
 
+        if(breakTimeRadioGroup.getCheckedRadioButtonId() == R.id.breakTimeRadioYes){
+            //verifica se o radio esta selecionado como SIM para armazenar o BreakTime
+            BreakDTO breakDTO = new BreakDTO();
+            breakDTO.setStartTime(breakTimeStartCal);
+            breakDTO.setEndTime(breakTimeEndCal);
+            breakDTOs.add(breakDTO);
+        }
+
+        //incluindo timeBetweenSession no profissional
+        professionalDTO.setSessionInterval(timeBetweenSession);
 
         for(int i = 0; i < selectedDates.size(); i++){
-            //para cada data selecionada grava um dailySchedule
-
-            //todo adicionar profissional
-            // dailyScheduleDTO.setProfessional();
-
+            //adiciona um dailySchedule para cada dia selecionado
             selectedDayCal.setTime(selectedDates.get(i));
+            dailyScheduleDTO.setProfessional(professionalDTO);
             dailyScheduleDTO.setDate(selectedDayCal);
             dailyScheduleDTO.setStartTime(expedientStartCal);
             dailyScheduleDTO.setEndTime(expedientEndCal);
@@ -347,7 +385,7 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
                 System.out.println("Erro ao gravar dados em dailySchedule");
             }
         }
-        //todo adicionar timebetweenSession no profissional
+
     }
 
     private Calendar convertToCalendar(String hour, String minutes){
