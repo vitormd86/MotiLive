@@ -61,10 +61,10 @@ public class Utility {
         }
     }
     public static boolean isValidCelular(String celular) {
-        if (celular.length() != 9) {
-            return false;
-        }else  {
+        if (celular.length() == 9 || celular.length() == 8) {
             return true;
+        }else  {
+            return false;
         }
 
     }
@@ -143,7 +143,7 @@ public class Utility {
             }
             else{
 
-                String TEXT = "^[_A-Za-z�-��-�0-9\\+]{3,15}+((\\s[_A-Za-z0-9�-��-�]+)*)$";
+                String TEXT = "^[\\._A-Za-z�-��-�0-9\\+]{3,15}+((\\s[\\._A-Za-z0-9�-��-�]+)*)$";
                 Pattern pattern = Pattern.compile(TEXT);
                 Matcher matcher = pattern.matcher(text);
                 return matcher.matches();             }

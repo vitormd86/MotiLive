@@ -98,6 +98,8 @@ public class CustProfile_5 extends ActionBarActivity {
         customerDTO = (CustomerDTO) getIntent().getSerializableExtra(SessionAttributes.CUSTOMER);
 
         initViews();
+        setSpinnerItems();
+
         customerDTO = new CustomerDTO();
         //variavle de teste
         try {
@@ -130,26 +132,31 @@ public class CustProfile_5 extends ActionBarActivity {
                 // coloca data selecionada dentro do TextView correspondente
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 String sDate = sdf.format(resumeCal.getTime());
+                chosenDateCal = resumeCal;
                 dataET.setText(sDate);
                 nomeET.setText(customerDTO.getName());
                 prefixET.setText(customerDTO.getPhoneCode());
                 celularET.setText(customerDTO.getPhoneNumber());
-                emailET.setText(customerDTO.getAddressZipCode());
+                emailET.setText(customerDTO.getEmail());
                 numeroET.setText(customerDTO.getAddressNumber());
                 ruaET.setText(customerDTO.getAddressStreet());
                 bairroET.setText(customerDTO.getAddressDistrict());
                 cidadeET.setText(customerDTO.getAddressCity());
+                CEPET.setText(customerDTO.getAddressZipCode());
                 if(customerDTO.getGender()== Gender.FEMALE)
                 {
                     femininoRB.toggle();
+                    opcaoEscolhidaGenero = Gender.FEMALE;
                 }else{
                     masculinoRB.toggle();
+                    opcaoEscolhidaGenero = Gender.MALE;
                 }
+
+                estadoSP.setSelection(stateAdapter.getPosition(customerDTO.getAddressState().toString()));
             }
         } else {
             System.out.println("id veio vazio");
         }
-        setSpinnerItems();
         addDateListenerButton();
         addPhotoListenerButton();
     }
@@ -443,7 +450,9 @@ public class CustProfile_5 extends ActionBarActivity {
 
     public void executeJSON() {
         //executa o JSON
-        customerDTO = new CustomerDTO();
+        if(!isEditing){
+            customerDTO = new CustomerDTO();
+        }
         CustomerService customerService = new CustomerService();
         estado = UF.getEnumFromValue((String) estadoSP.getSelectedItem());
         //campos obrigatorios ao MVP
@@ -469,7 +478,6 @@ public class CustProfile_5 extends ActionBarActivity {
         // campos nao essenciais ao MVP
         customerDTO.setStatus(Status.TRUE);
         customerDTO.setCpfCnpj("nulo");
-        customerDTO.setPhoneCode("11");
         customerDTO.setFacebookLogin("NaoEssencial");
         customerDTO.setGoogleLogin("NaoEssencial");
 
@@ -485,8 +493,13 @@ public class CustProfile_5 extends ActionBarActivity {
         } else {
             System.out.println("=== DEU CERTO E O CLIENTE RETORNOU COM SUCESSO " + customerDTO.getName());  //TODO verificar se o back adiciona o id no objeto de retorno
             Intent intent = new Intent(CustProfile_5.this, CustDrawerMenu_10.class);
-            intent.putExtra(SessionAttributes.CUSTOMER, customerDTO);
+//            intent.putExtra(SessionAttributes.CUSTOMER, customerDTO);
+
+            Bundle mBundle = new Bundle();
+            mBundle.putSerializable(SessionAttributes.CUSTOMER, customerDTO);
+            intent.putExtras(mBundle);
             startActivity(intent);
+            //TODO nao esquecer de usar finish()
         }
     }
     private boolean isEditingService() {
