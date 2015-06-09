@@ -137,6 +137,11 @@
             android:name=".Profissional.ProServiceListActivity_7"
             android:label="Meus Serviços"
             android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Profissional.ProServiceNewActivity_6"
