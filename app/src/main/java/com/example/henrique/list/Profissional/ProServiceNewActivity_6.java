@@ -14,7 +14,6 @@ import android.widget.Toast;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Service.ProfessionalService;
 import com.example.henrique.list.Service.ServiceService;
-import com.example.henrique.list.Utilidade_Publica.Globals;
 import com.example.henrique.list.Utilidade_Publica.ServiceException;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 import com.example.henrique.list.Utilidade_Publica.Utility;
@@ -28,9 +27,7 @@ import java.util.Calendar;
 import br.com.motiserver.dto.ProfessionalDTO;
 import br.com.motiserver.dto.ServiceDTO;
 
-/**
- * Created by Cristor on 01/05/2015.
- */
+
 public class ProServiceNewActivity_6 extends ActionBarActivity {
 
     //EditText
@@ -63,18 +60,21 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
 
         //verifica se esta no modo de edicao ou de novo servico
         isEditing = isEditingService();
-        try {
-            professionalService = new ProfessionalService();
-            professionalDTO = professionalService.find((long) 63); //TODO depois.. recuperar id da tela anterior.
-            if (professionalDTO ==null)
-            {
-                System.out.println("Professional ta vindo nulo!");
-            }else{
-                System.out.println(professionalDTO.getAddressNumber());
+        if (!isEditing) {
+            try {
+                professionalService = new ProfessionalService();
+                professionalDTO = professionalService.find((long) 6); //TODO depois.. recuperar id da tela anterior.
+                if (professionalDTO == null)
+                {
+                    System.out.println("Professional ta vindo nulo!");
+                }else{
+                    System.out.println(professionalDTO.getAddressNumber());
+                    System.out.println("Profissional recuperado com sucesso");
+
+                }
+            } catch (ServiceException e) {
+                e.printStackTrace();
             }
-            System.out.println("Profissional recuperado com sucesso");
-        } catch (ServiceException e) {
-            e.printStackTrace();
         }
 
         //inicializa componentes da tela
@@ -85,7 +85,7 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         if (isEditing) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             try {
-                serviceDTO = Globals.service;
+                serviceDTO = (ServiceDTO) getIntent().getSerializableExtra(SessionAttributes.SERVICE);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -123,9 +123,13 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
                         serviceDTO.setName(serviceName);
                         serviceDTO.setDescription(serviceDescription);
                         serviceDTO.setValue(sessionValue);
-                        serviceDTO.setTime(calendar);
+                        System.out.println(serviceDTO.getValue());
+                        try {
+                            serviceDTO.setTime(calendar);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
                         serviceDTO.setProfessional(professionalDTO);
-                        System.out.println(professionalDTO.getId());
                         System.out.println("filling serviceDTO OK");
 
                         try {
@@ -194,8 +198,8 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         sessionMinutes = sessionMinutesSP.getSelectedItem().toString();
 
         try {
-            sessionHoursInt =(Integer) Integer.parseInt(sessionHours);
-            sessionMinutesInt = (Integer) Integer.parseInt(sessionMinutes);
+            sessionHoursInt = Integer.parseInt(sessionHours);
+            sessionMinutesInt = Integer.parseInt(sessionMinutes);
             System.out.println("Conseguiu fazer parsing dos Ints ");
 
         } catch (NumberFormatException e) {
@@ -244,10 +248,7 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         }
         System.out.println("Passou validação Big Decimal");
 
-        if (executaJSON)
-            return true;
-        else
-            return false;
+        return executaJSON;
     }
 
     private void initSpinnerAdapters() {
@@ -263,10 +264,8 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
 
     private boolean isEditingService() {
         boolean isEditing = false;
-        if (getIntent().getBooleanExtra("isEditing", false)) {
-            return true;
-        }
-        return isEditing;
+        return getIntent().getBooleanExtra("isEditing", false)|| false;
+
     }
 
     private void initViews() {

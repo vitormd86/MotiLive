@@ -1,8 +1,6 @@
 package com.example.henrique.list.Mapeamento_de_Classes;
 
-/**
- * Created by htamashiro on 2/21/15.
- */
+
 public class Profissional {
     private int id_pessoa;
     private int id_profissao;

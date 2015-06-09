@@ -2,9 +2,7 @@ package com.example.henrique.list.Mapeamento_de_Classes;
 
 import java.sql.Time;
 
-/**
- * Created by htamashiro on 2/21/15.
- */
+
 public class Intervalo {
     private Time horario_inicial;
     private Time horario_final;

@@ -1,8 +1,6 @@
 package com.example.henrique.list.Utilidade_Publica;
 
-/**
- * Created by michael on 14/05/2015.
- */
+
 public class ServiceException extends Exception {
 
     public ServiceException() {

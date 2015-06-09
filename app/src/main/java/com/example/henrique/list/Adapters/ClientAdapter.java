@@ -10,9 +10,7 @@ import android.widget.TextView;
 
 import com.example.henrique.list.R;
 
-/**
- * Created by Massaru on 04/04/2015.
- */
+
 public class ClientAdapter extends ArrayAdapter<String>{
     public ClientAdapter(Context context, String[] values) {
         super(context, R.layout.view_person, values);

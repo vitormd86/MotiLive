@@ -22,9 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.TimeZone;
 
-/**
- * Created by Cristor on 25/03/2015.
- */
+
 public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
     String professionalName;
 

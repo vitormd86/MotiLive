@@ -11,9 +11,7 @@ import com.example.henrique.list.R;
 
 import java.util.ArrayList;
 
-/**
- * Created by Cristor on 24/03/2015.
- */
+
 public class ServicesNameAdapter extends ArrayAdapter <String> {
     public ServicesNameAdapter (Context context, ArrayList<String> values) {
         super(context, R.layout.view_services_name, values);

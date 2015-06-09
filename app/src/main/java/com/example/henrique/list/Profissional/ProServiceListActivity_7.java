@@ -14,9 +14,7 @@ import android.widget.ListView;
 
 import com.example.henrique.list.Adapters.MyAdapterServicesPro_7;
 import com.example.henrique.list.R;
-import com.example.henrique.list.Service.ProfessionalService;
 import com.example.henrique.list.Service.ServiceService;
-import com.example.henrique.list.Utilidade_Publica.Globals;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 
 import java.util.ArrayList;
@@ -24,9 +22,7 @@ import java.util.ArrayList;
 import br.com.motiserver.dto.ProfessionalDTO;
 import br.com.motiserver.dto.ServiceDTO;
 
-/**
- * Created by Cristor on 5/9/15.
- */
+
 public class ProServiceListActivity_7 extends ActionBarActivity{
 
     //ImageButton
@@ -109,13 +105,15 @@ public class ProServiceListActivity_7 extends ActionBarActivity{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String serviceToIntent = String.valueOf(parent.getItemAtPosition(position));
-                Globals.service = servicesList.get(position);
-                System.out.println("Id do serviço recuperada do banco");
 
-                System.out.println(servicesList.get(position).getId());
+                System.out.println("Id do serviço recuperada do banco");
                 Intent intent = new Intent(ProServiceListActivity_7.this, ProServiceNewActivity_6.class);
+                Bundle mBundle = new Bundle();
+                mBundle.putSerializable(SessionAttributes.SERVICE, servicesList.get(position));
+                intent.putExtras(mBundle);
                 intent.putExtra("isEditing", true);
                 startActivity(intent);
+
             }
         });
     }

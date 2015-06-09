@@ -1,13 +1,10 @@
 package com.example.henrique.list.Utilidade_Publica;
 
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 
-/**
- * Created by Vitor on 21/02/2015.
- */
+
 
 /*Redimensiona qualquer view com uma animacao de movimento para qualquer largura*/
 public class ResizeAnimation extends Animation {

@@ -58,7 +58,11 @@ public class MyAdapterServicesPro_7 extends ArrayAdapter<ServiceDTO> {
                 e.printStackTrace();
                 System.out.println("getValue returned 0");
             }
-            sessionPrice.setText("R$"+ price.toString());
+            if (price!=null){
+                sessionPrice.setText("R$"+ price.toString());
+            }else{
+                System.out.println("price veio null");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

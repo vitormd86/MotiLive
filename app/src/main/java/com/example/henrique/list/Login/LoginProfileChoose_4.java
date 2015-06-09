@@ -6,17 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.henrique.list.Cliente.CustDrawerMenu_10;
-import com.example.henrique.list.Profissional.ProDrawerMenu_15;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 
 import br.com.motiserver.dto.CustomerDTO;
 import br.com.motiserver.dto.ProfessionalDTO;
 
-/**
- * Created by htamashiro on 3/17/15.
- */
+
 public class LoginProfileChoose_4 extends Activity {
 
     private Button clientChooseBT, professionalChooseBT;

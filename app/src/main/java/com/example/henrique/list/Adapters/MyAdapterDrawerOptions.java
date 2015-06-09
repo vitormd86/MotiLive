@@ -10,9 +10,7 @@ import android.widget.TextView;
 import com.example.henrique.list.Beans.DrawerMenuItem;
 import com.example.henrique.list.R;
 
-/**
- * Created by Cristor on 26/02/2015.
- */
+
 public class MyAdapterDrawerOptions extends ArrayAdapter<DrawerMenuItem> {
     public MyAdapterDrawerOptions(Context context, DrawerMenuItem[] clients) {
         super(context, R.layout.view_drawer_options, clients);

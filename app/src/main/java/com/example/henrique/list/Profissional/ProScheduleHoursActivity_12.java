@@ -21,9 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.TimeZone;
 
-/**
- * Created by Cristor on 3/21/15.
- */
+
 public class ProScheduleHoursActivity_12 extends ActionBarActivity {
 
     ArrayList<Integer> freeHours = new ArrayList<>();

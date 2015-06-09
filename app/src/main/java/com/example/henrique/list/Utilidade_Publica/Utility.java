@@ -1,8 +1,6 @@
 package com.example.henrique.list.Utilidade_Publica;
 
-/**
- * Created by htamashiro on 3/20/15.
- */
+
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.regex.Matcher;

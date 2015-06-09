@@ -21,9 +21,7 @@ import java.util.Date;
 
 import br.com.motiserver.dto.CustomerDTO;
 
-/**
- * Created by htamashiro on 3/21/15.
- */
+
 public class ProScheduleDateFragment_10 extends Fragment {
 
     View v;

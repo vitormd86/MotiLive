@@ -15,7 +15,6 @@ import android.widget.ImageButton;
 
 import com.example.henrique.list.Adapters.ScheduleAdapter;
 import com.example.henrique.list.Beans.ScheduleItem;
-import com.example.henrique.list.Cliente.CustScheduleConfirmActivity_8;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Utilidade_Publica.PinnedSectionListView;
 
@@ -25,9 +24,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-/**
- * Created by htamashiro on 3/21/15.
- */
+
 public class ProScheduleListFragment_14 extends Fragment {
 
     private View v;

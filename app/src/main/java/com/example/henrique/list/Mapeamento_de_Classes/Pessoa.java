@@ -2,9 +2,7 @@ package com.example.henrique.list.Mapeamento_de_Classes;
 
 import java.sql.Date;
 
-/**
- * Created by htamashiro on 2/21/15.
- */
+
 public class Pessoa {
     private int id;
     private String nome;

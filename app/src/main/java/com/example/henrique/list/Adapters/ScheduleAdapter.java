@@ -15,9 +15,7 @@ import com.example.henrique.list.R;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-/**
- * Created by Henrique on 06/02/2015.
- */
+
 /*Adaptador com mais de um TIPO de view.... ITEM e SECTION. Ele gera diferentes funcionalidade parqa cada tipo de view*/
 public class ScheduleAdapter extends ArrayAdapter<ScheduleItem> implements PinnedSectionListAdapter{
 

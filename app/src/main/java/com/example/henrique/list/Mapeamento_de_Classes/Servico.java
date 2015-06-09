@@ -2,9 +2,7 @@ package com.example.henrique.list.Mapeamento_de_Classes;
 
 import java.sql.Time;
 
-/**
- * Created by htamashiro on 2/21/15.
- */
+
 public class Servico {
     private  int id_profissional;
     private int id;

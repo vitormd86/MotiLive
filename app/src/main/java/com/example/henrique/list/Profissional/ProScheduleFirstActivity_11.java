@@ -17,9 +17,7 @@ import br.com.motiserver.constants.Status;
 import br.com.motiserver.dto.ProfessionalDTO;
 //TODO IsEDiting
 
-/**
- * Created by Cristor on 08/04/2015.
- */
+
 public class ProScheduleFirstActivity_11 extends ActionBarActivity {
 
     int nextScreen;

@@ -17,9 +17,7 @@ import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
-/**
- * Created by Massaru on 17/02/2015.
- */
+
 public class MyAdapterServicesSchedule extends ArrayAdapter<Servico> {
     public MyAdapterServicesSchedule(Context context, Servico[] clients) {
         super(context, R.layout.view_schedule_service_type, clients);

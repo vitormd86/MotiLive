@@ -14,9 +14,7 @@ import java.util.List;
 
 import br.com.motiserver.dto.ProfessionalDTO;
 
-/**
- * Created by Henrique on 06/02/2015.
- */
+
 //Adaptador ele joga as  a imagem e um EditText dentro de uma lista
 public class ProfessionalAdapter extends ArrayAdapter<ProfessionalDTO> {
     public ProfessionalAdapter(Context context, List<ProfessionalDTO> values) {

@@ -7,9 +7,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.Toast;
 
-/**
- * Created by Henrique on 07/02/2015.
- */
+
 
 // Isso eu creiri pra faz uns testes no menu... depois vamos tirar isso.
 public class myDialogFragment extends DialogFragment {

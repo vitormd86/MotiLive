@@ -25,7 +25,6 @@ import android.widget.TextView;
 import com.example.henrique.list.Cliente.CustDrawerMenu_10;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Service.CustomerService;
-import com.example.henrique.list.Service.ProfessionalService;
 import com.example.henrique.list.Utilidade_Publica.ServiceException;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 import com.example.henrique.list.Utilidade_Publica.Utility;
@@ -40,9 +39,7 @@ import br.com.motiserver.constants.UF;
 import br.com.motiserver.dto.CustomerDTO;
 //TODO IsEDiting
 
-/**
- * Created by Massaru on 03/04/2015.
- */
+
 public class CustProfile_5 extends ActionBarActivity {
 
     //    //Constants
@@ -126,7 +123,7 @@ public class CustProfile_5 extends ActionBarActivity {
                     System.out.println("Erro ao executor customerService");
                 }
 
-                Calendar resumeCal = Calendar.getInstance();
+                Calendar resumeCal ;
                 resumeCal = customerDTO.getBirthDate();
 
                 // coloca data selecionada dentro do TextView correspondente
@@ -504,10 +501,7 @@ public class CustProfile_5 extends ActionBarActivity {
     }
     private boolean isEditingService() {
         boolean isEditing = false;
-        if (getIntent().getBooleanExtra("isEditing", false)) {
-            return true;
-        }
-        return isEditing;
+        return getIntent().getBooleanExtra("isEditing", false)|| false;
     }
 
 

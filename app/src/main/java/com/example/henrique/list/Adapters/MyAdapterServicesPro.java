@@ -11,9 +11,7 @@ import com.example.henrique.list.R;
 
 import java.util.ArrayList;
 
-/**
- * Created by Cristor on 5/9/15.
- */
+
 public class MyAdapterServicesPro extends ArrayAdapter<String>{
 
     public MyAdapterServicesPro(Context context, ArrayList<String> services) {

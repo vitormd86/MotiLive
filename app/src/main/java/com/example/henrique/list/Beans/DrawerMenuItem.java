@@ -3,9 +3,7 @@ package com.example.henrique.list.Beans;
 import android.app.Activity;
 import android.support.v4.app.Fragment;
 
-/**
- * Created by Massaru on 28/02/2015.
- */
+
 /*Esta classe serve para sincronizar os items e seus respectivos fragments do Drawer*/
 public class DrawerMenuItem {
 
@@ -42,11 +40,7 @@ public class DrawerMenuItem {
 
     public void setLinkActivity(Activity linkActivity) { this.linkActivity = linkActivity; }
     public boolean isFragment(){
-        if (linkFragment != null){
-            return true;
-        } else {
-            return false;
-        }
+        return linkFragment != null;
     }
     public boolean isActivity(){
         if (linkActivity != null){

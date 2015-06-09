@@ -1,7 +1,5 @@
 package com.example.henrique.list.Utilidade_Publica;
 
-import android.app.Service;
-
 import br.com.motiserver.dto.ServiceDTO;
 
 

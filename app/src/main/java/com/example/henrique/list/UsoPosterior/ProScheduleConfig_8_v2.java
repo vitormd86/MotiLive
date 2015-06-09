@@ -1,25 +1,8 @@
 package com.example.henrique.list.UsoPosterior;
 
-import android.app.TimePickerDialog;
-import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.RadioGroup;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
-import com.example.henrique.list.R;
-import com.example.henrique.list.Utilidade_Publica.Calendar.CalendarPickerView;
 
-import java.util.Calendar;
-
-/**
- * Created by Cristor on 14/04/2015.
- */
 public class ProScheduleConfig_8_v2 extends ActionBarActivity {
 /*
     EditText expedientStartET, expedientEndET, breakStartET, breakEndET;

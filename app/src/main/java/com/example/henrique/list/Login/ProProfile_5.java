@@ -22,6 +22,7 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.henrique.list.Profissional.ProDrawerMenu_15;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Service.ProfessionService;
 import com.example.henrique.list.Service.ProfessionalService;
@@ -43,23 +44,12 @@ import br.com.motiserver.dto.ProfessionalDTO;
 
 //TODO IsEDiting
 
-/**
- * Created by Massaru on 03/04/2015.
- */
+
 public class ProProfile_5 extends ActionBarActivity {
 
     //    //Constants
     static final int DATE_DIALOG_ID = 999;
-//    private static final String NOME_CTE = "NOME_CTE";
-//    private static final String CELULAR_CTE = "CELULAR_CTE";
-//    private static final String EMAIL_CTE = "EMAIL_CTE";
-//    private static final String CEP_CTE = "CEP_CTE";
-//    private static final String NUMERO_CTE = "NUMERO_CTE";
-//    private static final String RUA_CTE = "RUA_CTE";
-//    private static final String BAIRRO_CTE = "BAIRRO_CTE";
-//    private static final String CIDADE_CTE = "CIDADE_CTE";
-//    private static final String ESTADO_CTE = "ESTADO_CTE";
-//    private static final String PROFISSIONAL_CTE = "PROFISSIONAL_CTE";
+
 //
 //
 //    //TODO: fazer recuperacao de data e Genero
@@ -105,6 +95,7 @@ public class ProProfile_5 extends ActionBarActivity {
     String cidade;
     UF estado;
     String profissao;
+    boolean isEditing;
 
     //requestCodes
     private static final int SELECT_PHOTO = 100;
@@ -115,33 +106,81 @@ public class ProProfile_5 extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pro_profile_5);
 
-        //Verificando se esta iniciando ou restaurando
-        //if ( savedInstanceState == null)
-        //{
-        //significa que o APP esta iniciando
-
-        //}else{
-        //significa que o APP esta restaurando
-//            nomeET.setText(savedInstanceState.getString(NOME_CTE));
-//            emailET.setText(savedInstanceState.getString(EMAIL_CTE));
-//            celularET.setText(savedInstanceState.getString(CELULAR_CTE));
-//            CEPET.setText(savedInstanceState.getString(CEP_CTE));
-//            numeroET.setText(savedInstanceState.getString(NUMERO_CTE));
-//            ruaET.setText(savedInstanceState.getString(RUA_CTE));
-//            bairroET.setText(savedInstanceState.getString(BAIRRO_CTE));
-//            cidadeET.setText(savedInstanceState.getString(CIDADE_CTE));
-//            opcaoEscolhidaGenero = savedInstanceState.(GENERO_CTE)
-//            if(opcaoEscolhidaGenero == Gender.FEMALE)
-        //}
-
         //Habilitando BackNavigation button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        isEditing = isEditingService();
+        isEditing = true; // somente para teste
+        if(isEditing){
+            professionalDTO = new ProfessionalDTO();
+//            professionalDTO = (ProfessionalDTO) getIntent().getSerializableExtra(SessionAttributes.PROFESSIONAL);
+        }else{
+            professionalDTO = new ProfessionalDTO();
+        }
+
         // Objetos
-        professionalDTO = (ProfessionalDTO) getIntent().getSerializableExtra(SessionAttributes.PROFESSIONAL);
 
         initViews();
         setSpinnerItems();
+
+        //variavle de teste
+        try {
+            professionalDTO.setId((long) 6);
+            System.out.println("Parsing Id OK!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("setId está vazia");
+        }
+        if (professionalDTO.getId()!=null) {
+            if(isEditing){
+                try {
+                    ProfessionalService professionalService;
+                    professionalService = new ProfessionalService();
+
+                    professionalDTO = professionalService.find(professionalDTO.getId()); //TODO depois.. recuperar id da Session.customer.
+                    if (professionalDTO == null)
+                    {
+                        System.out.println("Professional ta vindo nulo!");
+                    }else{
+                        System.out.println("Professional recuperado com sucesso");
+                    }
+                } catch (ServiceException e) {
+                    e.printStackTrace();
+                    System.out.println("Erro ao executor professionalService");
+                }
+
+                Calendar resumeCal ;
+                resumeCal = professionalDTO.getBirthDate();
+
+                // coloca data selecionada dentro do TextView correspondente
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                String sDate = sdf.format(resumeCal.getTime());
+                chosenDateCal = resumeCal;
+                dateET.setText(sDate);
+                nomeET.setText(professionalDTO.getName());
+                prefixET.setText(professionalDTO.getPhoneCode());
+                celularET.setText(professionalDTO.getPhoneNumber());
+                emailET.setText(professionalDTO.getEmail());
+                numeroET.setText(professionalDTO.getAddressNumber());
+                ruaET.setText(professionalDTO.getAddressStreet());
+                bairroET.setText(professionalDTO.getAddressDistrict());
+                cidadeET.setText(professionalDTO.getAddressCity());
+                CEPET.setText(professionalDTO.getAddressZipCode());
+                if(professionalDTO.getGender()== Gender.FEMALE)
+                {
+                    femininoRB.toggle();
+                    opcaoEscolhidaGenero = Gender.FEMALE;
+                }else{
+                    masculinoRB.toggle();
+                    opcaoEscolhidaGenero = Gender.MALE;
+                }
+
+                estadoSP.setSelection(stateAdapter.getPosition(professionalDTO.getAddressState().toString()));
+                profissaoSP.setSelection(stateAdapter.getPosition(professionalDTO.getProfession().toString()));
+            }
+        } else {
+            System.out.println("id veio vazio");
+        }
         addDateListenerButton();
         addPhotoListenerButton();
 
@@ -427,7 +466,7 @@ public class ProProfile_5 extends ActionBarActivity {
         }
 
         cidade = cidadeET.getText().toString();
-        if (!Utility.isValidCidade(cidade)) {
+        if (!Utility.isValidTextWithSpace(cidade)) {
             cidadeET.setError("A cidade n�o pode conter n�meros.");
             isAllValidate = false;
         } else {
@@ -467,7 +506,10 @@ public class ProProfile_5 extends ActionBarActivity {
 
     public void executeJSON() {
         //executa JSON
-        professionalDTO = new ProfessionalDTO();
+        if(!isEditing){
+            professionalDTO = new ProfessionalDTO();
+        }
+        ProfessionalService professionalService = new ProfessionalService();
         estado = UF.getEnumFromValue((String) estadoSP.getSelectedItem());
 
         //campos obrigatorios ao MVP
@@ -496,7 +538,6 @@ public class ProProfile_5 extends ActionBarActivity {
         // campos nao essenciais ao MVP
         professionalDTO.setStatus(Status.TRUE);
         professionalDTO.setCpfCnpj("nulo");
-        professionalDTO.setPhoneCode("11");
         professionalDTO.setLogin("definirNaTelaLogin");
         professionalDTO.setFacebookLogin("NaoEssencial");
         professionalDTO.setGoogleLogin("NaoEssencial");
@@ -504,32 +545,27 @@ public class ProProfile_5 extends ActionBarActivity {
 
         // executa requisi��o JSON
         try {
-            ProfessionalService professionalService = new ProfessionalService();
             professionalDTO = professionalService.save(professionalDTO);
             if (professionalDTO == null) {
                 System.out.println("=== DEU ERRO E O PROFISSIONAl RETORNO NULLO");
             } else {
                 System.out.println("=== DEU CERTO E O PROFISSIONAl RETORNOU COM SUCESSO " + professionalDTO.getName());  //TODO verificar se o back adiciona o id no objeto de retorno
+                Intent intent = new Intent(ProProfile_5.this, ProDrawerMenu_15.class);
+                Bundle mBundle = new Bundle();
+                mBundle.putSerializable(SessionAttributes.PROFESSIONAL, professionalDTO);
+                intent.putExtras(mBundle);
+                startActivity(intent);
 
             }
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Falha ao executar JSON");
         }
+    }
+    private boolean isEditingService() {
+        boolean isEditing = false;
+        return getIntent().getBooleanExtra("isEditing", false)|| false;
 
     }
-
-
-    // em caso de restauracao
-//    protected void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        outState.putString(NOME_CTE, nome);
-//        outState.putString(EMAIL_CTE, email);
-//        outState.putString(CELULAR_CTE, celular);
-//        outState.putString(CEP_CTE, cep);
-//        outState.putString(NUMERO_CTE, numero);
-//        outState.putString(CIDADE_CTE, cidade);
-//    }
-
 
 }

@@ -12,9 +12,7 @@ import com.example.henrique.list.R;
 
 import java.util.ArrayList;
 
-/**
- * Created by Massaru on 17/02/2015.
- */
+
 public class MyAdapterFreeTime extends ArrayAdapter<Integer> {
     int numberOfFreeHours;
     ListView thisListView;

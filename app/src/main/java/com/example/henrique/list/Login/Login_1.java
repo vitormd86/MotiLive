@@ -24,9 +24,7 @@ import br.com.motiserver.constants.PersonType;
 import br.com.motiserver.dto.CustomerDTO;
 import br.com.motiserver.dto.ProfessionalDTO;
 
-/**
- * Created by htamashiro on 3/16/15.
- */
+
 public class Login_1 extends Activity {
 
     TextView errorMsgTV;

@@ -10,9 +10,7 @@ import android.widget.EditText;
 
 import com.example.henrique.list.R;
 
-/**
- * Created by htamashiro on 3/21/15.
- */
+
 public class ProEditProfileFragment_16 extends Fragment{
 
     EditText nomeCompletoET;

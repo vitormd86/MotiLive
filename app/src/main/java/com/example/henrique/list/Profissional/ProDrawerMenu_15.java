@@ -1,8 +1,6 @@
 package com.example.henrique.list.Profissional;
 
-/**
- * Created by htamashiro on 3/18/15.
- */
+
 
 import android.content.Intent;
 import android.content.res.Configuration;
