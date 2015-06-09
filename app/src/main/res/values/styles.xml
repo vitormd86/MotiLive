@@ -21,6 +21,19 @@
         <item name="android:textSize">@dimen/textSize_big</item>
         <item name="android:textColor">@color/lightBlack</item>
     </style>
+    <style name="ServiceDescription">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">150dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:textSize">@dimen/textSize_small</item>
+        <item name="android:gravity">top</item>
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:maxLines">7</item>
+        <item name="android:lines">7</item>
+        <item name="android:scrollbarAlwaysDrawVerticalTrack">true</item>
+
+    </style>
     <!-- Buttons Styles -->
     <style name="ButtonBig">
         <item name="android:gravity">center</item>
@@ -36,6 +49,13 @@
         <item name="android:textStyle">bold</item>
         <item name="android:layout_alignParentBottom">true</item>
     </style>
+    <style name="PlusButtom">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/margin_app</item>
+        <item name="android:background">@drawable/button_floating_shadow</item>
+        <item name="android:src">@drawable/button_floating_plus</item>
+    </style>
 
     <!-- Image Styles -->
     <style name="ImagePhoto">
@@ -45,6 +65,8 @@
         <!--<item name="android:src">@drawable/button_photo</item>  VERIFICAR PROBLEMA DE INFLATING EM OUTROS DEVICES-->
         <item name="android:scaleType">fitCenter</item>
     </style>
+
+
 
     <!-- Calendar Styles-->
     <style name="CalendarTitle">

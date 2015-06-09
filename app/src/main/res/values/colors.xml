@@ -34,4 +34,7 @@
     <color name="calendar_text_active">@color/Gray</color>
     <color name="calendar_text_selected">@color/white</color>
     <color name="calendar_text_unselectable">@color/lightGray</color> <!--????-->
+
+    <!-- Cores de Fontes -->
+    <color name="text_black">@color/black</color>
 </resources>

@@ -8,6 +8,8 @@
     <string name="yes">Sim</string>
     <string name="no">Não</string>
     <string name="colon">&#160;:&#160;</string>
+    <string name="currency">R$&#160;</string>
+    <string name="hintCurrency">00,00</string>
 
     <!--Login Process -->
     <string name="hintLogin">Digite seu login</string>
@@ -28,14 +30,19 @@
     <string name="hintAddressDistrict">Bairro</string>
     <string name="hintAddressCity">Cidade</string>
     <string name="hintScheduleName">Nome do expediente</string>
+    <string name="hintServiceName">Nome do Serviço</string>
+    <string name="hintServiceDescription">Faça uma breve descrição do serviço prestado ao cliente.</string>
     <string name="buttonLogin">Entrar</string>
     <string name="buttonSignUp">Criar Conta</string>
     <string name="buttonBeClient">Sou cliente e quero&#10;agendar serviços</string>
     <string name="buttonBeProfessional">Sou profissional&#10;prestador de serviços</string>
     <string name="textChooseYourProfile">Escolha seu Perfil</string>
-    <string name="textScheduleAppointmentTitle">Horário de expediente:</string>
-    <string name="textBreakTimeTitle">Horário de Intervalo:</string>
-    <string name="textTimeBetweenSchedulesTitle">Tempo de intervalo entre as seções:</string>
+    <string name="textScheduleAppointmentTitle">Expediente:</string>
+    <string name="textServiceDescription">Descrição do serviço:</string>
+    <string name="textServiceTime">Tempo da sessão:</string>
+    <string name="textServicePrice">Valor da sessão:</string>
+    <string name="textBreakTimeTitle">Intervalo:</string>
+    <string name="textTimeBetweenSchedulesTitle">Intervalo entre agendamentos:</string>
     <string name="textBetweenHours">~</string>
 
     <!-- Image Descriptions-->
@@ -46,7 +53,9 @@
     <string name="description_icEmail">Ícone de email</string>
     <string name="description_icProfession">Ícone de profissão</string>
     <string name="description_icLocation">Ícone de localização</string>
-
+    <string name="description_icServiceDescription">Ícone de descrição de serviço</string>
+    <string name="description_icServiceTime">Ícone de tempo do serviço</string>
+    <string name="description_icServicePrice">Ícone de valor do serviço</string>
 
     <!--Outros -->
     <string name="app_name">List</string>
