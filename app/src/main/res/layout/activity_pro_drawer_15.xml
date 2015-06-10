@@ -12,51 +12,63 @@
     </FrameLayout>
 
     <LinearLayout android:id="@+id/left_drawer"
-        android:layout_width="240dp"
+        android:layout_width="320dp"
         android:layout_height="match_parent"
-
-        android:dividerHeight="0dp"
-        android:background="#ffffaf"
-        android:orientation="vertical"
         android:layout_gravity="start"
+        android:dividerHeight="0dp"
+        android:background="@color/themeGray"
+        android:orientation="vertical"
         android:choiceMode="singleChoice"
         android:divider="@android:color/transparent">
-        <RelativeLayout
 
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/margin_app"
+            android:paddingLeft="@dimen/margin_app"
+            android:background="@color/Gray">
             <!-- este trecho (RelativeLayout) organiza a visualizacao do titulo,
             ou seja, os dados do profissional-->
             <ImageView
-                android:id="@+id/photo"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="15dp"
-                android:src="@drawable/hide" />
+                android:id="@+id/photoDrawer"
+                style="@style/ImagePhoto"
+                android:layout_alignParentLeft="true"
+                android:contentDescription="@string/description_photo"/>
             <TextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:padding="15dp"
-                android:textSize="15sp"
-                android:textStyle="bold"/>
+                android:layout_below="@id/photoDrawer"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textSize_medium"
+                android:textStyle="bold" />
             <TextView
                 android:id="@+id/occupation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="15dp"
-                android:padding="15dp"
-                android:textSize="15sp"
-                android:textStyle="bold"/>
+                android:layout_below="@id/name"
+                android:layout_marginBottom="@dimen/margin_betweenElements_small"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textSize_small" />
+            <ImageButton
+                android:id="@+id/ic_editProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@id/name"
+                android:layout_marginBottom="@dimen/margin_betweenElements_small"
+
+                android:contentDescription="@string/description_icEdit"
+                android:src="@drawable/ic_button_edit" />
         </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/midNightBlue" />
         <ListView
             android:id="@+id/ListView"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:divider="#444444"
             android:dividerHeight="1dp">
         </ListView>
 

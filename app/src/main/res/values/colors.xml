@@ -9,11 +9,13 @@
     <color name="lightBlack">#424242</color>
     <color name="pink">#E91E63</color>
     <color name="lightPink">#EC407A</color>
-    <color name="transparentPink">#4DEC407A</color>
+    <color name="transparentPink">#4DE91E63</color>
     <color name="midNightBlue">#2c3e50</color>
     <color name="lightMidNightBlue">#34495e</color>
+    <color name="transparentMidNightBlue">#AA34495e</color>
     <color name="Blue">#2980b9</color>
     <color name="lightBlue">#3498db</color>
+    <color name="transparentBlue">#AA2980b9</color>
     <color name="green">#27ae60</color>
     <color name="lightGreen">#2ecc71</color>
 

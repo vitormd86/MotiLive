@@ -106,7 +106,7 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
         String userName = "Leandro";
         String occupation = "Massagista";
 
-        ImageView imagePhoto = (ImageView) findViewById(R.id.photo);
+        ImageView imagePhoto = (ImageView) findViewById(R.id.photoDrawer);
         TextView textName = (TextView) findViewById(R.id.name);
         TextView textOccupation = (TextView) findViewById(R.id.occupation);
 
@@ -118,10 +118,11 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
         ProScheduleListFragment_14 proScheduleListFragment_14 = new ProScheduleListFragment_14();
         ProEditProfileFragment_16 proEditProfileFragment_16 = new ProEditProfileFragment_16();
         ProProfile_5 proProfile_5 = new ProProfile_5();
-        DrawerMenuItem item1 = new DrawerMenuItem(proScheduleDateFragment_10, "Novo Agendamento");
-        DrawerMenuItem item2 = new DrawerMenuItem(proScheduleListFragment_14, "Consultar Agendamentos");
-        DrawerMenuItem item3 = new DrawerMenuItem(proEditProfileFragment_16, "Editar Perfil");
-        DrawerMenuItem item4 = new DrawerMenuItem(proProfile_5, "Editar Perfil (Activity)");
+        //todo apontar para os icones corretos
+        DrawerMenuItem item1 = new DrawerMenuItem(proScheduleDateFragment_10, "Novo Agendamento", R.drawable.ic_form_email);
+        DrawerMenuItem item2 = new DrawerMenuItem(proScheduleListFragment_14, "Consultar Agendamentos", R.drawable.ic_form_email);
+        DrawerMenuItem item3 = new DrawerMenuItem(proEditProfileFragment_16, "Editar Perfil", R.drawable.ic_form_email);
+        DrawerMenuItem item4 = new DrawerMenuItem(proProfile_5, "Editar Perfil (Activity)", R.drawable.ic_form_email);
         final DrawerMenuItem[] menuOptions = {item1, item2, item3, item4};
 
         listOptions = (ListView) findViewById(R.id.ListView);

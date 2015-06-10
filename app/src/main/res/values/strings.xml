@@ -56,6 +56,8 @@
     <string name="description_icServiceDescription">Ícone de descrição de serviço</string>
     <string name="description_icServiceTime">Ícone de tempo do serviço</string>
     <string name="description_icServicePrice">Ícone de valor do serviço</string>
+    <string name="description_icEdit">Ícone de edição</string>
+    <string name="description_icDrawer">Ícone de seleção do drawer</string>
 
     <!--Outros -->
     <string name="app_name">List</string>

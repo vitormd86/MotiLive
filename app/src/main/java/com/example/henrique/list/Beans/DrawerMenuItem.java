@@ -1,6 +1,7 @@
 package com.example.henrique.list.Beans;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 
 
@@ -12,16 +13,20 @@ public class DrawerMenuItem {
     private Fragment linkFragment;
     private String linkTitle;
 
-    public DrawerMenuItem(Fragment f, String s) {
+    private int resID;
+
+    public DrawerMenuItem(Fragment f, String s, int iconResID) {
         linkActivity = null;
         linkFragment = f;
         linkTitle = s;
+        resID = iconResID;
     }
 
-    public DrawerMenuItem(Activity a, String s) {
+    public DrawerMenuItem(Activity a, String s, int iconResID) {
         linkActivity = a;
         linkFragment = null;
         linkTitle = s;
+        resID = iconResID;
     }
 
     public Fragment getLinkFragment() {return linkFragment;}
@@ -48,5 +53,13 @@ public class DrawerMenuItem {
         } else {
             return false;
         }
+    }
+
+    public int getResID() {
+        return resID;
+    }
+
+    public void setResID(int resID) {
+        this.resID = resID;
     }
 }

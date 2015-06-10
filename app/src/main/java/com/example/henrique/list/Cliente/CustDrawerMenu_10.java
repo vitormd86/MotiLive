@@ -103,21 +103,25 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
 
         //Configurando cabecalho
         String userName = "Leandro (Cliente)";
+        String userEmail = "Faltapreencher@email.com";
 
-        ImageView imagePhoto = (ImageView) findViewById(R.id.photo);
-        TextView textName = (TextView) findViewById(R.id.name);
+        ImageView imagePhoto = (ImageView) findViewById(R.id.photoDrawer);
+        TextView nameTV = (TextView) findViewById(R.id.name);
+        TextView emailTV = (TextView) findViewById(R.id.email_cust10);
 
-        textName.setText(userName);
+        nameTV.setText(userName);
+        emailTV.setText(userEmail);
 
         //configurando listview (menu de opcoes)
         CustScheduleDateFragmentPortrait_6 custScheduleDateFragment= new CustScheduleDateFragmentPortrait_6();
         CustScheduleListFragment_9 custScheduleListFragment9 = new CustScheduleListFragment_9();
         CustEditProfileFragment_11 custProfileFragment5 = new CustEditProfileFragment_11();
         CustProfile_5 custProfile_5 = new CustProfile_5();
-        DrawerMenuItem item1 = new DrawerMenuItem(custScheduleDateFragment, "Novo Agendamento");
-        DrawerMenuItem item2 = new DrawerMenuItem(custScheduleListFragment9, "Consultar Agendamentos");
-        DrawerMenuItem item3 = new DrawerMenuItem(custProfileFragment5, "Editar Perfil");
-        DrawerMenuItem item4 = new DrawerMenuItem(custProfile_5, "Editar Perfil (Activity)");
+        //todo apontar para os icones corretos
+        DrawerMenuItem item1 = new DrawerMenuItem(custScheduleDateFragment, "Novo Agendamento", R.drawable.ic_form_email);
+        DrawerMenuItem item2 = new DrawerMenuItem(custScheduleListFragment9, "Consultar Agendamentos", R.drawable.ic_form_email);
+        DrawerMenuItem item3 = new DrawerMenuItem(custProfileFragment5, "Editar Perfil", R.drawable.ic_form_email);
+        DrawerMenuItem item4 = new DrawerMenuItem(custProfile_5, "Editar Perfil (Activity)", R.drawable.ic_form_email);
         final DrawerMenuItem [] menuOptions = {item1, item2, item3, item4};
 
         listOptions = (ListView) findViewById(R.id.ListView);
