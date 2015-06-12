@@ -2,6 +2,7 @@
 <resources>
 
     <!--Globals-->
+    <string name="app_name">Moti</string>
     <string name="genderMale">Masculino</string>
     <string name="genderFemale">Feminino</string>
     <string name="buttonCancel">Cancelar</string>
@@ -59,8 +60,11 @@
     <string name="description_icEdit">Ícone de edição</string>
     <string name="description_icDrawer">Ícone de seleção do drawer</string>
 
+    <!-- Strings do Drawer-->
+    <string name="drawer_close">Close</string>
+    <string name="drawer_open">Open</string>
+
     <!--Outros -->
-    <string name="app_name">List</string>
     <string name="facebook_app_id">456445487839463</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -70,8 +74,7 @@
     <string name="calling_activity_message">The calling activity was</string>
     <string name="title_activity_hour_consult">HourConsult</string>
     <string name="title_activity_drawer_text">DrawerText</string>
-    <string name="drawer_close">Close</string>
-    <string name="drawer_open">Open</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_test">TestActivity</string>
     <string name="title_activity_login">Login</string>

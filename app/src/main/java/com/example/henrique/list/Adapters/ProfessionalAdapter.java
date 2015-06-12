@@ -30,7 +30,7 @@ public class ProfessionalAdapter extends ArrayAdapter<ProfessionalDTO> {
         TextView textView = (TextView) theView.findViewById(R.id.textView1);
         textView.setText(professionalDTO.getName());
         ImageView theImageView =  (ImageView) theView.findViewById(R.id.imageView1);
-        theImageView.setImageResource(R.drawable.hide);
+        theImageView.setImageResource(R.drawable.img_photo_default);
 
         return theView;
 

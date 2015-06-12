@@ -16,7 +16,7 @@
             android:layout_height="40dp"
             android:layout_marginTop="8dp"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/hide" />
+            android:src="@drawable/img_photo_default" />
 
         <TextView
             android:id="@+id/professionalName"

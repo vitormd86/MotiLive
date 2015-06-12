@@ -18,7 +18,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="15dp"
         android:layout_alignParentRight="true"
-        android:src="@drawable/hide"/>
+        android:src="@drawable/img_photo_default"/>
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"

@@ -51,7 +51,7 @@ public class MyAdapterClients extends ArrayAdapter<String> {
         name.setText(clients);
         status.setText("STATUS");
         hour.setText("HORARIO");
-        clientPhoto.setImageResource(R.drawable.hide);
+        clientPhoto.setImageResource(R.drawable.img_photo_default);
         // colocando listener no botao do menu
         menuButton1.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -13,7 +13,7 @@
         android:layout_marginRight="3dp"
         android:layout_marginTop="3dp"
         android:layout_marginBottom="10dp"
-        android:src="@drawable/hide"/>
+        android:src="@drawable/img_photo_default"/>
     <TextView
         android:id="@+id/textScheduleTitle"
         android:layout_width="wrap_content"

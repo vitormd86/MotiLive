@@ -16,7 +16,7 @@
             android:layout_width="50dp"
             android:layout_height="60dp"
             android:id="@+id/ImageButtonPro_11"
-            android:src="@drawable/hide"
+            android:src="@drawable/img_photo_default"
             android:layout_marginTop="31dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"

@@ -265,7 +265,6 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
     private boolean isEditingService() {
         boolean isEditing = false;
         return getIntent().getBooleanExtra("isEditing", false)|| false;
-
     }
 
     private void initViews() {

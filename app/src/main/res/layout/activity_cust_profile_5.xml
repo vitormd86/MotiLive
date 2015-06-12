@@ -21,7 +21,7 @@
                 android:id="@+id/ImageButtonCust_5"
                 style="@style/ImagePhoto"
                 android:contentDescription="@string/description_photo"
-                android:background="@drawable/hide"
+                android:background="@drawable/img_photo_default"
                 />
 
             <EditText

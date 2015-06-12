@@ -65,7 +65,7 @@
         <item name="android:layout_marginBottom">@dimen/margin_photo</item>
         <item name="android:layout_marginRight">@dimen/margin_photo</item>
         <!--<item name="android:src">@drawable/button_photo</item>  VERIFICAR PROBLEMA DE INFLATING EM OUTROS DEVICES-->
-        <item name="android:background">@drawable/hide</item>
+        <item name="android:background">@drawable/img_photo_default</item>
         <item name="android:scaleType">fitCenter</item>
     </style>
 
