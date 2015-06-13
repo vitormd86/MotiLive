@@ -33,10 +33,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import br.com.motiserver.constants.Gender;
-import br.com.motiserver.constants.Status;
-import br.com.motiserver.constants.UF;
 import br.com.motiserver.dto.CustomerDTO;
+import br.com.motiserver.util.constants.Gender;
+import br.com.motiserver.util.constants.Status;
+import br.com.motiserver.util.constants.UF;
 //TODO IsEDiting
 
 

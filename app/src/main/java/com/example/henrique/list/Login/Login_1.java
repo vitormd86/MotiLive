@@ -20,9 +20,9 @@ import com.example.henrique.list.Utilidade_Publica.ServiceException;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 import com.example.henrique.list.Utilidade_Publica.Utility;
 
-import br.com.motiserver.constants.PersonType;
 import br.com.motiserver.dto.CustomerDTO;
 import br.com.motiserver.dto.ProfessionalDTO;
+import br.com.motiserver.util.constants.PersonType;
 
 
 public class Login_1 extends Activity {
