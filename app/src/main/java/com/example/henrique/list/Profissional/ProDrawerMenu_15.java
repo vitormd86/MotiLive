@@ -46,7 +46,6 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
         setContentView(R.layout.activity_pro_drawer_15);
 
         retrieveAttributes();
-
         setInicialFragment();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -144,14 +143,12 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
 
         textName.setText(userName);
         textOccupation.setText(occupation);
-        addEditButtonListener();
 
         //configurando itens que serao incluso no drawer (menu de opcoes)
         ProScheduleDateFragment_10 proScheduleDateFragment_10 = new ProScheduleDateFragment_10();
         ProScheduleListFragment_14 proScheduleListFragment_14 = new ProScheduleListFragment_14();
         ProServiceListActivity_7 proServiceListActivity_7 = new ProServiceListActivity_7();
         ProScheduleConfig_8 proScheduleConfig_8 = new ProScheduleConfig_8();
-        //todo apontar para os icones corretos
 
         DrawerMenuItem item1 = new DrawerMenuItem(proScheduleListFragment_14, "Consultar Agendamentos", R.drawable.ic_drawer_consult_schedule);
         DrawerMenuItem item2 = new DrawerMenuItem(proScheduleDateFragment_10, "Novo Agendamento", R.drawable.ic_drawer_new_schedule);
@@ -165,16 +162,17 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
         listOptions.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         listOptions.setAdapter(myAdapterDrawerOptions);
 
+        //criando listeners
         addListViewListener(menuOptions);
         addEditButtonListener();
     }
 
     private void addEditButtonListener(){
+        //listener do botao de editprofile
         editProfileBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent toEditProfileIntent = new Intent(ProDrawerMenu_15.this, ProProfile_5.class);
-                //todo acrescentar isEditing no bundle qdo precisar
                 startActivity(toEditProfileIntent);
             }
         });

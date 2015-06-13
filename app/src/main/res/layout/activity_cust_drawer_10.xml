@@ -32,16 +32,16 @@
             <!-- este trecho (RelativeLayout) organiza a visualizacao do titulo,
             ou seja, os dados do profissional-->
             <ImageView
-                android:id="@+id/photoDrawer"
+                android:id="@+id/photoDrawer_cust10"
                 style="@style/ImagePhoto"
                 android:layout_alignParentLeft="true"
                 android:contentDescription="@string/description_photo" />
 
             <TextView
-                android:id="@+id/name"
+                android:id="@+id/name_cust10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/photoDrawer"
+                android:layout_below="@id/photoDrawer_cust10"
                 android:textColor="@color/white"
                 android:textSize="@dimen/textSize_medium"
                 android:textStyle="bold" />
@@ -50,17 +50,17 @@
                 android:id="@+id/email_cust10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/name"
+                android:layout_below="@id/name_cust10"
                 android:layout_marginBottom="@dimen/margin_betweenElements_small"
                 android:textColor="@color/white"
                 android:textSize="@dimen/textSize_small" />
 
             <ImageButton
-                android:id="@+id/ic_editProfile"
+                android:id="@+id/ic_editProfile_cust10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_alignTop="@id/name"
+                android:layout_alignTop="@id/name_cust10"
                 android:layout_marginBottom="@dimen/margin_betweenElements_small"
                 android:background="@color/transparent"
                 android:contentDescription="@string/description_icEdit"
@@ -73,7 +73,7 @@
             android:background="@color/pink" />
 
         <ListView
-            android:id="@+id/ListView"
+            android:id="@+id/listView_cust10"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:dividerHeight="1dp"/>
