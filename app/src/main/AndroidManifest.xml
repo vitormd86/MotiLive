@@ -161,6 +161,11 @@
         <activity
             android:name=".Login.LoginProfileChoose_4"
             android:label="Tela Inicial do nosso APP" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Profissional.ProDrawerMenu_15"

@@ -60,7 +60,6 @@ public class CustProfile_5 extends ActionBarActivity {
     //booleans
     boolean isEditing;
 
-
     //objetos
     CustomerDTO customerDTO;
 
@@ -84,76 +83,74 @@ public class CustProfile_5 extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cust_profile_5);
-
+        //verifica se está editando
         isEditing = isEditingService();
-        isEditing = true; // somente para teste
+        System.out.println(isEditing);
 
         //Habilitando BackNavigation button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        // Recuperando Usuario
-        customerDTO = (CustomerDTO) getIntent().getSerializableExtra(SessionAttributes.CUSTOMER);
-
         initViews();
         setSpinnerItems();
 
-        customerDTO = new CustomerDTO();
+        // Recuperando Usuario
+
+        if (isEditing) {
+            retrieveAttributes();
+            try {
+                CustomerService customerService;
+                customerService = new CustomerService();
+
+                customerDTO = customerService.find(customerDTO.getId()); //TODO depois.. recuperar id da Session.customer.
+                if (customerDTO == null) {
+                    System.out.println("Customer ta vindo nulo!");
+                } else {
+                    System.out.println("Customer recuperado com sucesso");
+                }
+            } catch (ServiceException e) {
+                e.printStackTrace();
+                System.out.println("Erro ao executor customerService");
+            }
+
+            Calendar resumeCal;
+            resumeCal = customerDTO.getBirthDate();
+
+            // coloca data selecionada dentro do TextView correspondente
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            String sDate = sdf.format(resumeCal.getTime());
+            chosenDateCal = resumeCal;
+            dataET.setText(sDate);
+            nomeET.setText(customerDTO.getName());
+            prefixET.setText(customerDTO.getPhoneCode());
+            celularET.setText(customerDTO.getPhoneNumber());
+            emailET.setText(customerDTO.getEmail());
+            numeroET.setText(customerDTO.getAddressNumber());
+            ruaET.setText(customerDTO.getAddressStreet());
+            bairroET.setText(customerDTO.getAddressDistrict());
+            cidadeET.setText(customerDTO.getAddressCity());
+            CEPET.setText(customerDTO.getAddressZipCode());
+            if (customerDTO.getGender() == Gender.FEMALE) {
+                femininoRB.toggle();
+                opcaoEscolhidaGenero = Gender.FEMALE;
+            } else {
+                masculinoRB.toggle();
+                opcaoEscolhidaGenero = Gender.MALE;
+            }
+            estadoSP.setSelection(stateAdapter.getPosition(customerDTO.getAddressState().toString()));
+
+        } else {
+            customerDTO = new CustomerDTO();
+            retrieveAttributes();
+            System.out.println(customerDTO.getLogin());
+
+        }
         //variavle de teste
-        try {
+/*        try {
             customerDTO.setId((long) 1);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("setId está vazia");
-        }
-        if (customerDTO.getId()!=null) {
-            if(isEditing){
-                try {
-                    CustomerService customerService;
-                    customerService = new CustomerService();
+        }*/
 
-                    customerDTO = customerService.find(customerDTO.getId()); //TODO depois.. recuperar id da Session.customer.
-                    if (customerDTO == null)
-                    {
-                        System.out.println("Customer ta vindo nulo!");
-                    }else{
-                        System.out.println("Customer recuperado com sucesso");
-                    }
-                } catch (ServiceException e) {
-                    e.printStackTrace();
-                    System.out.println("Erro ao executor customerService");
-                }
-
-                Calendar resumeCal ;
-                resumeCal = customerDTO.getBirthDate();
-
-                // coloca data selecionada dentro do TextView correspondente
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                String sDate = sdf.format(resumeCal.getTime());
-                chosenDateCal = resumeCal;
-                dataET.setText(sDate);
-                nomeET.setText(customerDTO.getName());
-                prefixET.setText(customerDTO.getPhoneCode());
-                celularET.setText(customerDTO.getPhoneNumber());
-                emailET.setText(customerDTO.getEmail());
-                numeroET.setText(customerDTO.getAddressNumber());
-                ruaET.setText(customerDTO.getAddressStreet());
-                bairroET.setText(customerDTO.getAddressDistrict());
-                cidadeET.setText(customerDTO.getAddressCity());
-                CEPET.setText(customerDTO.getAddressZipCode());
-                if(customerDTO.getGender()== Gender.FEMALE)
-                {
-                    femininoRB.toggle();
-                    opcaoEscolhidaGenero = Gender.FEMALE;
-                }else{
-                    masculinoRB.toggle();
-                    opcaoEscolhidaGenero = Gender.MALE;
-                }
-
-                estadoSP.setSelection(stateAdapter.getPosition(customerDTO.getAddressState().toString()));
-            }
-        } else {
-            System.out.println("id veio vazio");
-        }
         addDateListenerButton();
         addPhotoListenerButton();
     }
@@ -447,9 +444,9 @@ public class CustProfile_5 extends ActionBarActivity {
 
     public void executeJSON() {
         //executa o JSON
-        if(!isEditing){
+/*        if(!isEditing){
             customerDTO = new CustomerDTO();
-        }
+        }*/
         CustomerService customerService = new CustomerService();
         estado = UF.getEnumFromValue((String) estadoSP.getSelectedItem());
         //campos obrigatorios ao MVP
@@ -500,20 +497,14 @@ public class CustProfile_5 extends ActionBarActivity {
         }
     }
     private boolean isEditingService() {
-        boolean isEditing = false;
-        return getIntent().getBooleanExtra("isEditing", false)|| false;
+
+        return getIntent().getBooleanExtra("isEditing", true);
     }
 
+    private void retrieveAttributes() {
+        customerDTO = (CustomerDTO) getIntent().getSerializableExtra(SessionAttributes.CUSTOMER);
 
-    // em caso de restauração
-//    protected void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        outState.putString(NOME_CTE, nome);
-//        outState.putString(EMAIL_CTE, email);
-//        outState.putString(CELULAR_CTE, celular);
-//        outState.putString(CEP_CTE, cep);
-//        outState.putString(NUMERO_CTE, numero);
-//        outState.putString(CIDADE_CTE, cidade);
-//    }
+    }
+
 
 }

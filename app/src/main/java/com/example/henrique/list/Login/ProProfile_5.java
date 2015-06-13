@@ -538,10 +538,8 @@ public class ProProfile_5 extends ActionBarActivity {
         // campos nao essenciais ao MVP
         professionalDTO.setStatus(Status.TRUE);
         professionalDTO.setCpfCnpj("nulo");
-        professionalDTO.setLogin("definirNaTelaLogin");
         professionalDTO.setFacebookLogin("NaoEssencial");
         professionalDTO.setGoogleLogin("NaoEssencial");
-        professionalDTO.setPassword("definirNaTelaLogin");
 
         // executa requisi��o JSON
         try {
@@ -564,7 +562,7 @@ public class ProProfile_5 extends ActionBarActivity {
     }
     private boolean isEditingService() {
         boolean isEditing = false;
-        return getIntent().getBooleanExtra("isEditing", false)|| false;
+        return getIntent().getBooleanExtra("isEditing", false);
 
     }
 
