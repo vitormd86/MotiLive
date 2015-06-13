@@ -29,10 +29,10 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import br.com.motiserver.constants.Status;
 import br.com.motiserver.dto.BreakDTO;
 import br.com.motiserver.dto.DailyScheduleDTO;
 import br.com.motiserver.dto.ProfessionalDTO;
+import br.com.motiserver.util.constants.Status;
 
 /** Tela de configuracao de agenda do profissional */
 

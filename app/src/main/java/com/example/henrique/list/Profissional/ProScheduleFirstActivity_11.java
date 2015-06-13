@@ -13,8 +13,8 @@ import android.widget.Toast;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Utilidade_Publica.Utility;
 
-import br.com.motiserver.constants.Status;
 import br.com.motiserver.dto.ProfessionalDTO;
+import br.com.motiserver.util.constants.Status;
 //TODO IsEDiting
 
 
