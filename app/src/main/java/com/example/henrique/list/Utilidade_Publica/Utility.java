@@ -6,7 +6,8 @@ import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import br.com.motiserver.constants.Gender;
+import br.com.motiserver.util.constants.Gender;
+
 
 /**
  * Class which has Utility methods

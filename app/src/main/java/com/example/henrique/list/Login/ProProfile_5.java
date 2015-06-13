@@ -35,11 +35,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import br.com.motiserver.constants.Gender;
-import br.com.motiserver.constants.Status;
-import br.com.motiserver.constants.UF;
 import br.com.motiserver.dto.ProfessionDTO;
 import br.com.motiserver.dto.ProfessionalDTO;
+import br.com.motiserver.util.constants.Gender;
+import br.com.motiserver.util.constants.Status;
+import br.com.motiserver.util.constants.UF;
 
 
 //TODO IsEDiting
