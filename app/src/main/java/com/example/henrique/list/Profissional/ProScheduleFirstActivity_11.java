@@ -11,7 +11,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.henrique.list.R;
-import com.example.henrique.list.Utilidade_Publica.Utility;
+import com.example.henrique.list.Utilidade_Publica.DataValidatorUtil;
 
 import br.com.motiserver.dto.ProfessionalDTO;
 import br.com.motiserver.util.constants.Status;
@@ -154,7 +154,7 @@ public class ProScheduleFirstActivity_11 extends ActionBarActivity {
         //validacoes dos campos
 
         nome = nomeET.getText().toString();
-        if (!Utility.isValidName(nome)) {
+        if (!DataValidatorUtil.isValidName(nome)) {
             nomeET.setError("O nome precisa conter no Minimo 3 letras");
             executaJSON = false;
 
@@ -164,7 +164,7 @@ public class ProScheduleFirstActivity_11 extends ActionBarActivity {
         }
 
         cep = CEPET.getText().toString();
-        if (!Utility.isValidCEP(cep)) {
+        if (!DataValidatorUtil.isValidCEP(cep)) {
             CEPET.setError("O CEP precisa conter 8 d�gitos.");
             executaJSON = false;
         }else{
@@ -173,7 +173,7 @@ public class ProScheduleFirstActivity_11 extends ActionBarActivity {
         }
 
         numero = numeroET.getText().toString();
-        if (!Utility.isValidNumero(numero)) {
+        if (!DataValidatorUtil.isValidNumero(numero)) {
             numeroET.setError("O n�mero n�o");
             executaJSON = false;
         }else{
@@ -182,7 +182,7 @@ public class ProScheduleFirstActivity_11 extends ActionBarActivity {
         }
 
         rua = ruaET.getText().toString();
-        if (!Utility.isValidTextWithSpace(rua)) {
+        if (!DataValidatorUtil.isValidTextWithSpace(rua)) {
             ruaET.setError("A rua n�o pode conter n�meros.");
             executaJSON = false;
         }else{
@@ -191,7 +191,7 @@ public class ProScheduleFirstActivity_11 extends ActionBarActivity {
         }
 
         bairro = bairroET.getText().toString();
-        if (!Utility.isValidBairro(bairro)) {
+        if (!DataValidatorUtil.isValidBairro(bairro)) {
             bairroET.setError("O bairro n�o pode conter n�meros.");
             executaJSON = false;
         }else{
@@ -200,7 +200,7 @@ public class ProScheduleFirstActivity_11 extends ActionBarActivity {
         }
 
         cidade = cidadeET.getText().toString();
-        if (!Utility.isValidCidade(cidade)) {
+        if (!DataValidatorUtil.isValidCidade(cidade)) {
             cidadeET.setError("A cidade n�o pode conter n�meros.");
             executaJSON = false;
         }else{
@@ -208,7 +208,7 @@ public class ProScheduleFirstActivity_11 extends ActionBarActivity {
                 cidadeET.setError(null);
         }
         estado = estadoET.getText().toString();
-        if (!Utility.isValidEstado(estado)) {
+        if (!DataValidatorUtil.isValidEstado(estado)) {
             estadoET.setError("O estado n�o pode conter n�meros.");
             executaJSON = false;
         }else{

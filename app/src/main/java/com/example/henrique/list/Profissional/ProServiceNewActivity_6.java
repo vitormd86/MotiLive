@@ -16,7 +16,7 @@ import com.example.henrique.list.Service.ProfessionalService;
 import com.example.henrique.list.Service.ServiceService;
 import com.example.henrique.list.Utilidade_Publica.ServiceException;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
-import com.example.henrique.list.Utilidade_Publica.Utility;
+import com.example.henrique.list.Utilidade_Publica.DataValidatorUtil;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -223,7 +223,7 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
 
     private boolean validatefields() {
         System.out.println("Entrou em validdate fields");
-        if (!Utility.isValidTextWithSpace(serviceName)) {
+        if (!DataValidatorUtil.isValidTextWithSpace(serviceName)) {
             serviceNameET.setError("O nome não pode conter numeros");
             executaJSON = false;
         } else {
@@ -231,7 +231,7 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
                 serviceNameET.setError(null);
         }
 
-        if (!Utility.isValidTextWithSpace(serviceDescription)) {
+        if (!DataValidatorUtil.isValidTextWithSpace(serviceDescription)) {
             serviceDescriptionET.setError("A descrição pode conter qualquer coisa!");
             executaJSON = false;
         } else {
@@ -239,7 +239,7 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
                 serviceDescriptionET.setError(null);
         }
 
-        if (!Utility.isValidBigDecimal(sessionValueString)) {
+        if (!DataValidatorUtil.isValidBigDecimal(sessionValueString)) {
             sessionValueET.setError("A session Value só pode conter números ");
             executaJSON = false;
         } else {

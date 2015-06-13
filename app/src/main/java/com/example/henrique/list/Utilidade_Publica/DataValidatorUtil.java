@@ -13,7 +13,7 @@ import br.com.motiserver.util.constants.Gender;
  * Class which has Utility methods
  *
  */
-public class Utility {
+public class DataValidatorUtil {
 
     private static String errorString;
 

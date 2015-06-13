@@ -36,7 +36,7 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
     private ListView listOptions;
     private ImageButton editProfileBT;
 
-    Bundle extras;
+    Bundle extras = new Bundle();
     private CustomerDTO customerDTO;
 
     @Override
@@ -47,10 +47,6 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
         retrieveAttributes();
         setInicialFragment();
 
-
-
-
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
@@ -60,9 +56,12 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
 
     private void retrieveAttributes(){
         //recupera dados do da Intent e do BD
-        extras = getIntent().getExtras();
+
         customerDTO = new CustomerDTO();
 
+        if(getIntent().getExtras() != null){
+            extras = getIntent().getExtras();
+        }
 
         //todo-vitor o professionalDTO deve vir na intent, e nao do servico;
         // retrieve customer
@@ -81,8 +80,9 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
     public void setInicialFragment(){
         //verifica se existe uma intent anterior. caso exista, aponto a fragment a ser aberta.
         //caso nao exista, inicia com a tela inicial.
-        Bundle extras = getIntent().getExtras();
-        if (extras != null){
+
+        if (getIntent().getExtras() != null){
+            extras = getIntent().getExtras();
             int openFragment = extras.getInt("nextScreen");
             if (openFragment == 6){
                 initFragment("Novo Agendamento", new CustScheduleDateFragmentPortrait_6());
@@ -123,6 +123,10 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
     public void initFragment(String title, Fragment fragment){
         //inicia um fragment dentro do frame de conteudo
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+
+        extras.putSerializable(SessionAttributes.CUSTOMER, customerDTO);
+        fragment.setArguments(extras);
+
         ft.replace(R.id.content_frame, fragment);
         setTitle(title);
         ft.commit();
@@ -187,6 +191,7 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
                     initFragment(menuOptions[position].getLinkTitle(), menuOptions[position].getLinkFragment());
                 } else if(menuOptions[position].isActivity()){
                     Intent i = new Intent(CustDrawerMenu_10.this, menuOptions[position].getLinkActivity().getClass());
+                    i.putExtra(SessionAttributes.CUSTOMER, customerDTO);
                     startActivity(i);
                 }
 

@@ -18,7 +18,7 @@ import com.example.henrique.list.Service.LoginService;
 import com.example.henrique.list.Service.ProfessionalService;
 import com.example.henrique.list.Utilidade_Publica.ServiceException;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
-import com.example.henrique.list.Utilidade_Publica.Utility;
+import com.example.henrique.list.Utilidade_Publica.DataValidatorUtil;
 
 import br.com.motiserver.dto.CustomerDTO;
 import br.com.motiserver.dto.ProfessionalDTO;
@@ -68,13 +68,13 @@ public class Login_1 extends Activity {
         boolean executeJson = true;
 
         String user = userET.getText().toString();
-        if (!Utility.isValid(user)) {
+        if (!DataValidatorUtil.isValid(user)) {
             userET.setError("Preencha o login do usuário!");
             executeJson = false;
         }
 
         String password = pwdET.getText().toString();
-        if (!Utility.isValid(password)) {
+        if (!DataValidatorUtil.isValid(password)) {
             pwdET.setError("Preencha o password do usuário!");
             executeJson = false;
         }

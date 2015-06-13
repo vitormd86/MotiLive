@@ -28,7 +28,7 @@ import com.example.henrique.list.Service.ProfessionService;
 import com.example.henrique.list.Service.ProfessionalService;
 import com.example.henrique.list.Utilidade_Publica.ServiceException;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
-import com.example.henrique.list.Utilidade_Publica.Utility;
+import com.example.henrique.list.Utilidade_Publica.DataValidatorUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -394,7 +394,7 @@ public class ProProfile_5 extends ActionBarActivity {
 
         //validacoes dos campos
         nome = nomeET.getText().toString();
-        if (!Utility.isValidName(nome)) {
+        if (!DataValidatorUtil.isValidName(nome)) {
             nomeET.setError("O nome precisa conter no mínimo 3 letras e conter caracteres válidos");
             isAllValidate = false;
 
@@ -405,7 +405,7 @@ public class ProProfile_5 extends ActionBarActivity {
 
 
         email = emailET.getText().toString();
-        if (!Utility.isValidEmail(email)) {
+        if (!DataValidatorUtil.isValidEmail(email)) {
             emailET.setError("Email invalido");
             isAllValidate = false;
         } else {
@@ -413,13 +413,13 @@ public class ProProfile_5 extends ActionBarActivity {
                 emailET.setError(null);
         }
         prefix = prefixET.getText().toString();
-        if (!Utility.isValidPrefix(prefix)) {
+        if (!DataValidatorUtil.isValidPrefix(prefix)) {
             prefixET.setError("O prefixo precisa conter 2 digitos");
             isAllValidate = false;
         }
 
         celular = celularET.getText().toString();
-        if (!Utility.isValidCelular(celular)) {
+        if (!DataValidatorUtil.isValidCelular(celular)) {
             celularET.setError("O celular precisa conter 9 d�gitos.");
             isAllValidate = false;
         } else {
@@ -428,7 +428,7 @@ public class ProProfile_5 extends ActionBarActivity {
         }
 
         cep = CEPET.getText().toString();
-        if (!Utility.isValidCEP(cep)) {
+        if (!DataValidatorUtil.isValidCEP(cep)) {
             CEPET.setError("O CEP precisa conter 8 d�gitos.");
             isAllValidate = false;
         } else {
@@ -437,7 +437,7 @@ public class ProProfile_5 extends ActionBarActivity {
         }
 
         numero = numeroET.getText().toString();
-        if (!Utility.isValidNumero(numero)) {
+        if (!DataValidatorUtil.isValidNumero(numero)) {
             numeroET.setError("O n�mero não é válido");
             isAllValidate = false;
         } else {
@@ -446,7 +446,7 @@ public class ProProfile_5 extends ActionBarActivity {
         }
 
         rua = ruaET.getText().toString();
-        if (!Utility.isValidTextWithSpace(rua)) {
+        if (!DataValidatorUtil.isValidTextWithSpace(rua)) {
             //todo rua pode conter digitos sim
             ruaET.setError("A rua n�o pode conter n�meros.");
             isAllValidate = false;
@@ -456,7 +456,7 @@ public class ProProfile_5 extends ActionBarActivity {
         }
 
         bairro = bairroET.getText().toString();
-        if (!Utility.isValidBairro(bairro)) {
+        if (!DataValidatorUtil.isValidBairro(bairro)) {
             //todo bairro pode conter digitos sim
             bairroET.setError("O bairro n�o pode conter n�meros.");
             isAllValidate = false;
@@ -466,7 +466,7 @@ public class ProProfile_5 extends ActionBarActivity {
         }
 
         cidade = cidadeET.getText().toString();
-        if (!Utility.isValidTextWithSpace(cidade)) {
+        if (!DataValidatorUtil.isValidTextWithSpace(cidade)) {
             cidadeET.setError("A cidade n�o pode conter n�meros.");
             isAllValidate = false;
         } else {
@@ -474,7 +474,7 @@ public class ProProfile_5 extends ActionBarActivity {
                 cidadeET.setError(null);
         }
 
-        if (!Utility.isValidNascimento(chosenDateCal)) {
+        if (!DataValidatorUtil.isValidNascimento(chosenDateCal)) {
             dateET.setError("Selecione a data de nascimento");
             isAllValidate = false;
         } else {
@@ -482,7 +482,7 @@ public class ProProfile_5 extends ActionBarActivity {
                 dateET.setError(null);
         }
 
-        if (!Utility.isValidSexo(opcaoEscolhidaGenero)) {
+        if (!DataValidatorUtil.isValidSexo(opcaoEscolhidaGenero)) {
             masculinoRB.setTextColor(Color.RED);
             femininoRB.setTextColor(Color.RED);
             isAllValidate = false;

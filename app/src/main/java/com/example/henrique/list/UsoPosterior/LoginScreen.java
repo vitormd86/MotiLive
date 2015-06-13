@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.henrique.list.Login.LoginSignUpFacebook_3;
 import com.example.henrique.list.R;
 
 public class LoginScreen extends FragmentActivity {

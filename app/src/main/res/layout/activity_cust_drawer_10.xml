@@ -22,7 +22,6 @@
 
         <!---->
         <RelativeLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingRight="@dimen/margin_app"
@@ -32,8 +31,8 @@
             <!-- este trecho (RelativeLayout) organiza a visualizacao do titulo,
             ou seja, os dados do profissional-->
             <ImageView
-                android:id="@+id/photoDrawer_cust10"
                 style="@style/ImagePhoto"
+                android:id="@+id/photoDrawer_cust10"
                 android:layout_alignParentLeft="true"
                 android:contentDescription="@string/description_photo" />
 

@@ -38,6 +38,7 @@ public class CustScheduleDateFragmentPortrait_6 extends Fragment {
     private ListView professionalLV;
     private List<ProfessionalDTO> favoriteProfessionals;
     private ProfessionalService professionalService;
+    private Bundle extras;
 
     private CalendarPickerView screenCalendar;
     private Calendar initDate, endDate;
@@ -47,22 +48,28 @@ public class CustScheduleDateFragmentPortrait_6 extends Fragment {
 
         v = inflater.inflate(R.layout.fragment_cust_schedule_date_6_p, parent, false);
 
-        customerDTO = (CustomerDTO) getActivity().getIntent().getSerializableExtra(SessionAttributes.CUSTOMER);
-        professionalService = new ProfessionalService();
-        try {
-            favoriteProfessionals = professionalService.findProfessionalContactsByCustomerId(customerDTO.getId());
-        } catch(ServiceException ex) {
-            Toast.makeText(parent.getContext(), "Ocorreu um erro interno. Favor contactar o administrador!", Toast.LENGTH_SHORT).show();
-        }
+        retriveAttributes();
 
         initViews();
         initCalendar();
 
-        //supondo q personDTO já exista por causa do login.
-        long teste = 50;
-
         setProfessionalListener();
         return v;
+    }
+
+    public void retriveAttributes(){
+        extras = this.getArguments();
+        customerDTO = (CustomerDTO) extras.getSerializable(SessionAttributes.CUSTOMER);
+
+        if (customerDTO != null){
+            professionalService = new ProfessionalService();
+            try {
+                favoriteProfessionals = professionalService.findProfessionalContactsByCustomerId(customerDTO.getId());
+            } catch(ServiceException ex) {
+                System.out.println("Falha ao buscar os contatos.");
+            }
+        }
+
     }
 
     private void initViews(){
@@ -114,10 +121,7 @@ public class CustScheduleDateFragmentPortrait_6 extends Fragment {
         sDate = sdf.format(new Date(calendar.getSelectedDate().getTime()));
         return sDate;
     }
-    public void recoverListProfessionals(View view)
-    {
-        //RequestParams params = new RequestParams();
-       // params.put("id_customer", customerDTO);
-    }
+
+    //este metodo recuoera os dados da intebt abterior e do bd
 
 }

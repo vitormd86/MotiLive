@@ -19,7 +19,7 @@ import com.example.henrique.list.Service.DailyScheduleService;
 import com.example.henrique.list.Service.ProfessionalService;
 import com.example.henrique.list.Utilidade_Publica.Calendar.CalendarPickerView;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
-import com.example.henrique.list.Utilidade_Publica.Utility;
+import com.example.henrique.list.Utilidade_Publica.DataValidatorUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -325,7 +325,7 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
         boolean isAllValid = true;
 
         scheduleName = scheduleNameET.getText().toString();
-        if(!Utility.isValid(scheduleName)){
+        if(!DataValidatorUtil.isValid(scheduleName)){
             scheduleNameET.setError("Digite o nome do agendamento");
             isAllValid = false;
         } else {

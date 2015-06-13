@@ -16,7 +16,7 @@ import com.example.henrique.list.R;
 import com.example.henrique.list.Service.LoginService;
 import com.example.henrique.list.Utilidade_Publica.ServiceException;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
-import com.example.henrique.list.Utilidade_Publica.Utility;
+import com.example.henrique.list.Utilidade_Publica.DataValidatorUtil;
 
 /**
  * Created by htamashiro on 3/17/15.
@@ -88,19 +88,19 @@ public class LoginNewAccount_2 extends Activity {
     private boolean executeSignUp(){
         //este metodo verifica se os campos estao corretos e responde se o login pode ser criado ou nao
         boolean isExecutable = true;
-        if (!Utility.isValidName(nameET.getText().toString())){
+        if (!DataValidatorUtil.isValidName(nameET.getText().toString())){
             nameET.setError("Campo de login contém caracteres inválidos.");
             isExecutable = false;
         }
-        if (!Utility.isValid(nameET.getText().toString())){
+        if (!DataValidatorUtil.isValid(nameET.getText().toString())){
             nameET.setError("Preencha o login do usuário.");
             isExecutable = false;
         }
-        if (!Utility.isValid(passwordET.getText().toString())){
+        if (!DataValidatorUtil.isValid(passwordET.getText().toString())){
             passwordET.setError("Preeencha a senha para o seu login.");
             isExecutable = false;
         }
-        if (!Utility.isValid(confirmPasswordET.getText().toString())){
+        if (!DataValidatorUtil.isValid(confirmPasswordET.getText().toString())){
             confirmPasswordET.setError("Preeencha a confirmação de senha para o seu login.");
             isExecutable = false;
         }
@@ -109,7 +109,7 @@ public class LoginNewAccount_2 extends Activity {
             confirmPasswordET.setError("Os campos de senha devem ser idênticos.");
             isExecutable = false;
         }
-        if(Utility.isValid(confirmPasswordET.getText().toString()) && confirmPasswordET.getText().length() < 6){
+        if(DataValidatorUtil.isValid(confirmPasswordET.getText().toString()) && confirmPasswordET.getText().length() < 6){
             passwordET.setError("A senha deve possuir pelo menos 6 caracteres.");
             confirmPasswordET.setError("A senha deve possuir pelo menos 6 caracteres.");
             isExecutable = false;
