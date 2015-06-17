@@ -22,13 +22,13 @@ public class MyAdapterServicesPro_7 extends ArrayAdapter<ServiceDTO> {
     ServiceDTO serviceDTO = new ServiceDTO();
 
     public MyAdapterServicesPro_7(Context context, ArrayList<ServiceDTO> services) {
-        super(context, R.layout.view_services_professional, services);
+        super(context, R.layout.view_list_services_professional, services);
 
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater theInflator = LayoutInflater.from(getContext());
-        convertView = theInflator.inflate(R.layout.view_services_professional, parent, false);
+        convertView = theInflator.inflate(R.layout.view_list_services_professional, parent, false);
         Calendar calendar;
 
         TextView serviceName = (TextView) convertView.findViewById(R.id.serviceNameETPro_7);

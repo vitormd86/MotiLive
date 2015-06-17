@@ -14,12 +14,19 @@ import com.example.henrique.list.Adapters.MyAdapterFreeTime;
 import com.example.henrique.list.Adapters.MyAdapterServicesSchedule;
 import com.example.henrique.list.Mapeamento_de_Classes.Servico;
 import com.example.henrique.list.R;
+import com.example.henrique.list.Service.ServiceService;
 import com.example.henrique.list.Utilidade_Publica.ResizeAnimation;
+import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.TimeZone;
+
+import br.com.motiserver.dto.CustomerDTO;
+import br.com.motiserver.dto.ProfessionalDTO;
+import br.com.motiserver.dto.ServiceDTO;
 
 /*Tela de selecao de horas e servicos de agendamento, ao final ela gera um alerta de confirmacao*/
 public class CustScheduleHourActivity_7 extends ActionBarActivity {
@@ -28,59 +35,36 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
     ArrayList<Integer> freeMinutes = new ArrayList<>();
     ArrayList<String> selectedServicesTitles = new ArrayList<>();
     ResizeAnimation resizeAnimation;
-    boolean isHoursOpened,  isMinutesOpened;
-    String  sDate, professionalName, occupation;
+    boolean isHoursOpened, isMinutesOpened;
+    String sDate;
     String street, number, cep, complement, district, city, state;
     int freeHourMinutesWidth = 90;
     int selectedHour, selectedMinutes;
     double totalPrice;
     long totalTime;
     //iniciando variaveis que virao do banco
-    Servico [] testeS = getServicos();
+    Servico[] testeS = findServices();
     //iniciando items do layout
     TextView textProfessionalName, textProfession, textDate;
     ListView listHours, listMinutes, listServices;
     ArrayAdapter myAdapterServiceTypes, myAdapterFreeHours, myAdapterFreeMinutes;
 
+    private CustomerDTO customerDTO;
+    private ProfessionalDTO professionalDTO;
+    private List<ServiceDTO> serviceDTOList;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cust_schedule_hour_7);
 
         //Habilitando BackNavigation button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //recebe valores da fragment anterior
-        Bundle args = getIntent().getExtras();
-        professionalName = args.getString("selectedProfessional");
-        sDate = args.getString("selectedDate");
-        //deve configurar dados do profissional a partir do bd
-        occupation = "Massagista";
-        //String [] serviceTitles = {testeS[0].getNome()};
-
-        //alimentando items do layout
-        textProfessionalName = (TextView) findViewById(R.id.professionalName);
-        textProfession = (TextView) findViewById(R.id.profession);
-        textDate = (TextView) findViewById(R.id.date);
-        listHours = (ListView) findViewById(R.id.listHours);
-        listMinutes = (ListView) findViewById(R.id.listMinutes);
-        listServices = (ListView) findViewById(R.id.listServices);
-        myAdapterServiceTypes = new MyAdapterServicesSchedule(this, testeS);
-        myAdapterFreeHours = new MyAdapterFreeTime(this, freeHours, listHours);
-        myAdapterFreeMinutes = new MyAdapterFreeTime(this, freeMinutes, listMinutes);
-
-        //Configura as variaveis do cabecalho
-        textProfessionalName.setText(professionalName);
-        textProfession.setText(occupation);
-        textDate.setText(sDate);
-
-        //Configurando listas de servicos/horas/minutos livre
-        listHours.setAdapter(myAdapterFreeHours);
-        listMinutes.setAdapter(myAdapterFreeMinutes);
-        listServices.setAdapter(myAdapterServiceTypes);
-        listServices.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        //iniciando dados da tela
+        retrieveAttributes();
+        initViews();
 
         //configurando listeners das listas
         setServicesListener();
@@ -88,8 +72,54 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
         setMinutesListener();
     }
 
+    public void retrieveAttributes() {
+        //recebe valores da fragment anterior
+        Bundle extras = getIntent().getExtras();
+        customerDTO = (CustomerDTO) extras.getSerializable(SessionAttributes.CUSTOMER);
+        professionalDTO = (ProfessionalDTO) extras.getSerializable(SessionAttributes.PROFESSIONAL);
+        sDate = extras.getString("selectedDate");
+
+        //atributos vindo dos servicos do Banco
+        serviceDTOList = new ArrayList<>();
+        ServiceService serviceService = new ServiceService();
+        try {
+            serviceDTOList = (ArrayList<ServiceDTO>) serviceService.findAllByProfessionalId(professionalDTO.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Erro ao buscar servicos do profissional selecionado");
+        }
+    }
+
+    private void initViews() {
+        //alimentando items do layout
+        textProfessionalName = (TextView) findViewById(R.id.professionalName);
+        textProfession = (TextView) findViewById(R.id.profession);
+        textDate = (TextView) findViewById(R.id.date);
+        listHours = (ListView) findViewById(R.id.listHours);
+        listMinutes = (ListView) findViewById(R.id.listMinutes);
+        listServices = (ListView) findViewById(R.id.listServices);
+
+        //alimentando adapters
+        //todo-vitor alterar adpaters para receber servicos, horas, etc..
+        myAdapterServiceTypes = new MyAdapterServicesSchedule(this, testeS);
+        myAdapterFreeHours = new MyAdapterFreeTime(this, freeHours, listHours);
+        myAdapterFreeMinutes = new MyAdapterFreeTime(this, freeMinutes, listMinutes);
+
+        //Configura as variaveis do cabecalho
+        textProfessionalName.setText(professionalDTO.getName());
+        textProfession.setText(professionalDTO.getProfession().getName());
+        textDate.setText(sDate);
+
+        //Configurando listas de servicos/horas/minutos livre
+        listHours.setAdapter(myAdapterFreeHours);
+        listMinutes.setAdapter(myAdapterFreeMinutes);
+        listServices.setAdapter(myAdapterServiceTypes);
+        listServices.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+    }
+
     //metdodo provisorio que retorna os servicos
-    public Servico [] getServicos(){
+    public Servico[] findServices() {
+        //todo-vitor apagar classe servico assim q o agnedamento estiver funcionando tanto prof qt cust
         Servico s1 = new Servico();
         s1.setId(1);
         s1.setId_profissional(1);
@@ -104,7 +134,7 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
             s1.setTempo(tempo);
             s1.setTolerancia_atraso(atraso);
         } catch (Exception e) {
-        throw new RuntimeException(e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
 
         Servico s2 = new Servico();
@@ -137,12 +167,12 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
             throw new RuntimeException(e.getMessage());
         }
 
-        Servico [] s = {s1, s2, s3};
+        Servico[] s = {s1, s2, s3};
         return s;
     }
 
     //metodo q cria listener da lista de servicos
-    public void setServicesListener(){
+    public void setServicesListener() {
         listServices.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
 
@@ -169,8 +199,9 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
         });
 
     }
+
     //metodo q cria listener da lista de horas
-    public void setHoursListener (){
+    public void setHoursListener() {
         listHours.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
 
@@ -201,8 +232,9 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
             }
         });
     }
+
     //metodo q cria listener da lista de minutos
-    public void setMinutesListener(){
+    public void setMinutesListener() {
         listMinutes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
 
@@ -224,7 +256,7 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
                         totalPrice = totalPrice + s.getValor();
                     }
                 }
-                totalTime = totalTime + (TimeZone.getDefault().getOffset(totalTime)* (checkedServices.size() - 1));
+                totalTime = totalTime + (TimeZone.getDefault().getOffset(totalTime) * (checkedServices.size() - 1));
 
                 //Chama proxima tela em activity
                 initConfirmActivity();
@@ -235,12 +267,12 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
 
     }
 
-    private void initConfirmActivity(){
-        Intent intent = new Intent(this,CustScheduleConfirmActivity_8.class);
+    private void initConfirmActivity() {
+        Intent intent = new Intent(this, CustScheduleConfirmActivity_8.class);
 
         //todo deve passar na intent o vetor dos servicos selecionados
-        intent.putExtra("professionalName", professionalName);
-        intent.putExtra("profession", occupation);
+        intent.putExtra("professionalName", professionalDTO.getName());
+        intent.putExtra("profession", professionalDTO.getProfession().getName());
         intent.putExtra("street", "Av da Liberdade");
         intent.putExtra("number", "444");
         intent.putExtra("cep", "01501-001");
@@ -259,13 +291,13 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         //esse metodo eh chamado sempre q a fragment vai para BackStack (chamando outra atividade por exemplo)
         super.onStop();
         restartValues();
     }
 
-    public void restartValues(){
+    public void restartValues() {
         //reinicia valores deste fragment
         isHoursOpened = false;
         isMinutesOpened = false;

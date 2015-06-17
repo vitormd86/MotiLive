@@ -1,0 +1,31 @@
+<!-- eh o layout que vai dentro das listas -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/margin_app"
+    android:paddingRight="@dimen/margin_app">
+
+
+    <ImageView
+        android:id="@+id/photo_list_professional"
+        style="@style/ImagePhoto"
+        android:contentDescription="@string/description_photo"/>
+
+    <TextView
+        android:id="@+id/profName_list_professional"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_betweenElements_small"
+        android:layout_toRightOf="@id/photo_list_professional"
+        android:layout_alignTop="@id/photo_list_professional"
+        android:textColor="@color/black"/>
+    <TextView
+        android:id="@+id/profProfession_list_professional"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_betweenElements_extraSmall"
+        android:layout_toRightOf="@id/photo_list_professional"
+        android:layout_below="@id/profName_list_professional"/>
+
+</RelativeLayout>

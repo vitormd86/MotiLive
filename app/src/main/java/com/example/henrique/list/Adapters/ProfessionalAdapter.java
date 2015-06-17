@@ -18,21 +18,26 @@ import br.com.motiserver.dto.ProfessionalDTO;
 //Adaptador ele joga as  a imagem e um EditText dentro de uma lista
 public class ProfessionalAdapter extends ArrayAdapter<ProfessionalDTO> {
     public ProfessionalAdapter(Context context, List<ProfessionalDTO> values) {
-        super(context, R.layout.view_person, values);
+        super(context, R.layout.view_list_profssional, values);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater theInflator = LayoutInflater.from(getContext());
-        View theView = theInflator.inflate(R.layout.view_person, parent, false);
+        View v = theInflator.inflate(R.layout.view_list_profssional, parent, false);
 
         ProfessionalDTO professionalDTO = getItem(position);
-        TextView textView = (TextView) theView.findViewById(R.id.textView1);
-        textView.setText(professionalDTO.getName());
-        ImageView theImageView =  (ImageView) theView.findViewById(R.id.imageView1);
-        theImageView.setImageResource(R.drawable.img_photo_default);
 
-        return theView;
+        TextView nameTV = (TextView) v.findViewById(R.id.profName_list_professional);
+        TextView professionTV = (TextView) v.findViewById(R.id.profProfession_list_professional);
+        ImageView photoIM =  (ImageView) v.findViewById(R.id.photo_list_professional);
 
+        nameTV.setText(professionalDTO.getName());
+        professionTV.setText(professionalDTO.getProfession().getName());
+
+        //todo-vitor recebr foto do profissionalDTO e aponta-la no setImage
+        photoIM.setImageResource(R.drawable.img_photo_default);
+
+        return v;
         }
 }

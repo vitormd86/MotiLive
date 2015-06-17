@@ -8,12 +8,19 @@
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="250dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         />
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/Gray" />
     <ListView
         android:id="@+id/ListView"
         android:layout_width="fill_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:divider="@color/lightGray"
+        android:dividerHeight="1dp"/>
 
 </LinearLayout>
 

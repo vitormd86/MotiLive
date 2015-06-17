@@ -104,10 +104,13 @@ public class CustScheduleDateFragmentPortrait_6 extends Fragment {
                 //recebe dados selecionada para passar para a proxima tela
                 String selectedDate = getCalendarDate(screenCalendar);
                 String selectedProfessional = String.valueOf(parent.getItemAtPosition(position));
+                ProfessionalDTO selectedProfessionalDTO = (ProfessionalDTO) parent.getItemAtPosition(position);
 
                 //inicia chamada de agendamento de horario
                 Intent toHourIntent = new Intent(getActivity(), CustScheduleHourActivity_7.class);
-                toHourIntent.putExtra("selectedProfessional", selectedProfessional);
+
+                toHourIntent.putExtra(SessionAttributes.CUSTOMER, customerDTO);
+                toHourIntent.putExtra(SessionAttributes.PROFESSIONAL, selectedProfessionalDTO);
                 toHourIntent.putExtra("selectedDate", selectedDate);
                 startActivity(toHourIntent);
             }
