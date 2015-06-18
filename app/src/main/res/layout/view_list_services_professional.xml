@@ -3,7 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/margin_betweenElements_small">
+    android:paddingBottom="@dimen/margin_betweenElements_small"
+    android:paddingTop="@dimen/margin_betweenElements_small"
+    android:paddingLeft="@dimen/margin_app"
+    android:paddingRight="@dimen/margin_app">
 
     <TextView
         android:id="@+id/serviceNameETPro_7"

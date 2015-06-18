@@ -13,13 +13,13 @@ import com.example.henrique.list.R;
 
 public class ClientAdapter extends ArrayAdapter<String>{
     public ClientAdapter(Context context, String[] values) {
-        super(context, R.layout.view_person, values);
+        super(context, R.layout.view_list_profssional, values);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater theInflator = LayoutInflater.from(getContext());
-        View theView = theInflator.inflate(R.layout.view_person, parent, false);
+        View theView = theInflator.inflate(R.layout.view_list_profssional, parent, false);
 
         String clients = getItem(position);
         TextView textView = (TextView) theView.findViewById(R.id.textView1);

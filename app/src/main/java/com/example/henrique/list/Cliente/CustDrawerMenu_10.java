@@ -54,12 +54,12 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
         setDrawerLayoutItems();
     }
 
-    private void retrieveAttributes(){
+    private void retrieveAttributes() {
         //recupera dados do da Intent e do BD
 
         customerDTO = new CustomerDTO();
 
-        if(getIntent().getExtras() != null){
+        if (getIntent().getExtras() != null) {
             extras = getIntent().getExtras();
         }
 
@@ -77,25 +77,25 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
         }
         //todo-end
     }
-    public void setInicialFragment(){
+
+    public void setInicialFragment() {
         //verifica se existe uma intent anterior. caso exista, aponto a fragment a ser aberta.
         //caso nao exista, inicia com a tela inicial.
 
-        if (getIntent().getExtras() != null){
+        if (getIntent().getExtras() != null) {
             extras = getIntent().getExtras();
             int openFragment = extras.getInt("nextScreen");
-            if (openFragment == 6){
+            if (openFragment == 6) {
                 initFragment("Novo Agendamento", new CustScheduleDateFragmentPortrait_6());
             } else {
                 initFragment("Meus Agendamentos", new CustScheduleListFragment_9());
             }
-        }
-        else {
+        } else {
             initFragment("Meus Agendamentos", new CustScheduleListFragment_9());
         }
     }
 
-    private void initDrawer(){
+    private void initDrawer() {
         //Criacao e configuracao do menu lateral
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
@@ -105,11 +105,13 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
                       /* nav drawer icon to replace 'Up' caret */
                 R.string.drawer_open,  /* "open drawer" description */
                 R.string.drawer_close  /* "close drawer" description */
-        ) { /**
-         * Called when a drawer has settled in a completely closed state.
-         */
-        public void onDrawerClosed(View view) {
-        }
+        ) {
+            /**
+             * Called when a drawer has settled in a completely closed state.
+             */
+            public void onDrawerClosed(View view) {
+            }
+
             /**
              * Called when a drawer has settled in a completely open state.
              */
@@ -120,19 +122,24 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
-    public void initFragment(String title, Fragment fragment){
+
+    public void initFragment(String title, Fragment fragment) {
         //inicia um fragment dentro do frame de conteudo
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
-        extras.putSerializable(SessionAttributes.CUSTOMER, customerDTO);
-        fragment.setArguments(extras);
+        if (!fragment.isVisible()) {
+            //verifica se é diferente do fragment atual
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            extras.putSerializable(SessionAttributes.CUSTOMER, customerDTO);
+            fragment.setArguments(extras);
 
-        ft.replace(R.id.content_frame, fragment);
-        setTitle(title);
-        ft.commit();
+            ft.replace(R.id.content_frame, fragment);
+            setTitle(title);
+            ft.commit();
+        }
     }
+
     //Esta classe alimenta e configura o conteudo do drawer
-    public void setDrawerLayoutItems(){
+    public void setDrawerLayoutItems() {
         //configurando itens de dentro do drawer
 
         //Configurando cabecalho
@@ -150,15 +157,15 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
         emailTV.setText(userEmail);
 
         //configurando listview (menu de opcoes)
-        CustScheduleDateFragmentPortrait_6 custScheduleDateFragment= new CustScheduleDateFragmentPortrait_6();
+        CustScheduleDateFragmentPortrait_6 custScheduleDateFragment = new CustScheduleDateFragmentPortrait_6();
         CustScheduleListFragment_9 custScheduleListFragment9 = new CustScheduleListFragment_9();
 
         DrawerMenuItem item1 = new DrawerMenuItem(custScheduleListFragment9, "Consultar Agendamentos", R.drawable.ic_drawer_consult_schedule);
         DrawerMenuItem item2 = new DrawerMenuItem(custScheduleDateFragment, "Novo Agendamento", R.drawable.ic_drawer_new_schedule);
-        DrawerMenuItem [] menuOptions = {item1, item2};
+        DrawerMenuItem[] menuOptions = {item1, item2};
 
         //configurando adapter da listView
-        ListAdapter myAdapterDrawerOptions= new MyAdapterDrawerOptions(this, menuOptions);
+        ListAdapter myAdapterDrawerOptions = new MyAdapterDrawerOptions(this, menuOptions);
         listOptions.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         listOptions.setAdapter(myAdapterDrawerOptions);
 
@@ -167,7 +174,7 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
         addEditButtonListener();
     }
 
-    private void addEditButtonListener(){
+    private void addEditButtonListener() {
         //listener do botao de editprofile
         editProfileBT.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -178,7 +185,7 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
         });
     }
 
-    private void addListViewListener(final DrawerMenuItem[] menuOptions){
+    private void addListViewListener(final DrawerMenuItem[] menuOptions) {
         //configurando listeners da listview
         listOptions.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -187,9 +194,9 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
                 listOptions.setItemChecked(position, true);
 
                 //verifica se eh activity ou fragment
-                if(menuOptions[position].isFragment()){
+                if (menuOptions[position].isFragment()) {
                     initFragment(menuOptions[position].getLinkTitle(), menuOptions[position].getLinkFragment());
-                } else if(menuOptions[position].isActivity()){
+                } else if (menuOptions[position].isActivity()) {
                     Intent i = new Intent(CustDrawerMenu_10.this, menuOptions[position].getLinkActivity().getClass());
                     i.putExtra(SessionAttributes.CUSTOMER, customerDTO);
                     startActivity(i);
@@ -227,9 +234,7 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
         int id = item.getItemId();
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
-        }
-        else
-        if (id == R.id.action_settings) {
+        } else if (id == R.id.action_settings) {
             return true;
         }
         // Handle your other action bar items...
@@ -248,7 +253,6 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
     //setTitle(mPlanetTitles[position]);
     //mDrawerLayout.closeDrawer(mDrawerList);
 //    }
-
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;
