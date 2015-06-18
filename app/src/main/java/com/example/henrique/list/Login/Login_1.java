@@ -16,6 +16,7 @@ import com.example.henrique.list.R;
 import com.example.henrique.list.Service.CustomerService;
 import com.example.henrique.list.Service.LoginService;
 import com.example.henrique.list.Service.ProfessionalService;
+import com.example.henrique.list.Service.local.LocalLoginService;
 import com.example.henrique.list.Utilidade_Publica.ServiceException;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 import com.example.henrique.list.Utilidade_Publica.DataValidatorUtil;
@@ -24,7 +25,6 @@ import br.com.motiserver.dto.CustomerDTO;
 import br.com.motiserver.dto.ProfessionalDTO;
 import br.com.motiserver.util.constants.PersonType;
 
-
 public class Login_1 extends Activity {
 
     TextView errorMsgTV;
@@ -32,6 +32,7 @@ public class Login_1 extends Activity {
     Button createAccountBT, loginBT;
 
     CustomerService customerService = new CustomerService();
+    LocalLoginService localLoginService = null;
     LoginService loginService = new LoginService();
     ProfessionalService professionalService = new ProfessionalService();
 
@@ -40,9 +41,19 @@ public class Login_1 extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_1);
 
-        initViews();
-        setLoginButtonListener();
-        setSignInButtonListener();
+        localLoginService = new LocalLoginService(getApplicationContext());
+        if (!executeLocalLogin()) {
+            initViews();
+            setLoginButtonListener();
+            setSignInButtonListener();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
     private void initViews(){
@@ -64,43 +75,74 @@ public class Login_1 extends Activity {
         });
     }
 
+    private boolean executeLocalLogin() {
+        CustomerDTO customerLocal = null;
+        try {
+            customerLocal = localLoginService.login();
+            if (customerLocal != null) {
+                // CALL A LOGIN SERVICE
+                CustomerDTO customerDTO = loginService.login(customerLocal.getLogin(), customerLocal.getPassword());
+                if (customerDTO != null) {
+                    redirectToNextScreen(customerDTO);
+                    return true;
+                } else {
+                    localLoginService.logoff();
+                }
+            }
+        } catch(ServiceException ex){
+            Toast.makeText(getApplicationContext(), "Ocorreu um erro interno. Favor contactar o administrador!", Toast.LENGTH_SHORT).show();
+        }
+        return false;
+    }
+
     private void executeLogin() {
-        boolean executeJson = true;
-
         String user = userET.getText().toString();
-        if (!DataValidatorUtil.isValid(user)) {
-            userET.setError("Preencha o login do usuário!");
-            executeJson = false;
-        }
-
         String password = pwdET.getText().toString();
-        if (!DataValidatorUtil.isValid(password)) {
-            pwdET.setError("Preencha o password do usuário!");
-            executeJson = false;
-        }
-
-        if (executeJson) {
+        if (isValidLogin(user, password)) {
             try {
+                // CALL A LOGIN SERVICE
                 CustomerDTO customerDTO = loginService.login(user, password);
-
                 // IF SERVICE RETURNS NULL, NOTIFY THAT USER OR PASSWORD IS WRONG
                 if (customerDTO == null) {
                     Toast.makeText(getApplicationContext(), "Login ou senha inválido!", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (customerDTO.getType().equals(PersonType.CUSTOMER)) {
-                        Intent loginIntent = new Intent(Login_1.this, CustDrawerMenu_10.class);
-                        loginIntent.putExtra(SessionAttributes.CUSTOMER, customerDTO);
-                        startActivity(loginIntent);
-                    } else {
-                        ProfessionalDTO professionalDTO = professionalService.find(customerDTO.getId());
-                        Intent loginIntent = new Intent(Login_1.this, ProDrawerMenu_15.class);
-                        loginIntent.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
-                        startActivity(loginIntent);
-                    }
+                    //  REGISTAR LOGIN LOCALLY
+                    localLoginService.registerLogin(customerDTO);
+                    // REDIRECT TO A NEXT SCREEN
+                    redirectToNextScreen(customerDTO);
                 }
             } catch (ServiceException ex) {
                 Toast.makeText(getApplicationContext(), "Ocorreu um erro interno. Favor contactar o administrador!", Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+
+    private boolean isValidLogin(String user, String password) {
+        // VALIDATE LOGIN FIELDS
+        boolean executeJson = true;
+        if (!DataValidatorUtil.isValid(user)) {
+            userET.setError("Preencha o login do usuário!");
+            executeJson = false;
+        }
+        if (!DataValidatorUtil.isValid(password)) {
+            pwdET.setError("Preencha o password do usuário!");
+            executeJson = false;
+        }
+        return executeJson;
+    }
+
+    private void redirectToNextScreen(CustomerDTO customerDTO) throws ServiceException {
+        // REDIRECT TO CUSTOMER SCREEN
+        if (customerDTO.getType().equals(PersonType.CUSTOMER)) {
+            Intent loginIntent = new Intent(Login_1.this, CustDrawerMenu_10.class);
+            loginIntent.putExtra(SessionAttributes.CUSTOMER, customerDTO);
+            startActivity(loginIntent);
+            // REDIRECT TO PROFESSIONAL SCREEN
+        } else {
+            ProfessionalDTO professionalDTO = professionalService.find(customerDTO.getId());
+            Intent loginIntent = new Intent(Login_1.this, ProDrawerMenu_15.class);
+            loginIntent.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
+            startActivity(loginIntent);
         }
     }
 
@@ -114,12 +156,4 @@ public class Login_1 extends Activity {
             }
         });
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
 }
