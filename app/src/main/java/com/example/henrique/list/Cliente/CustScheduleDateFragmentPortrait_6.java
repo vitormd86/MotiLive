@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.henrique.list.Adapters.ProfessionalAdapter;
 import com.example.henrique.list.R;
@@ -37,11 +36,8 @@ public class CustScheduleDateFragmentPortrait_6 extends Fragment {
     private CustomerDTO customerDTO;
     private ListView professionalLV;
     private List<ProfessionalDTO> favoriteProfessionals;
-    private ProfessionalService professionalService;
-    private Bundle extras;
 
     private CalendarPickerView screenCalendar;
-    private Calendar initDate, endDate;
     private View v;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
@@ -58,11 +54,11 @@ public class CustScheduleDateFragmentPortrait_6 extends Fragment {
     }
 
     public void retriveAttributes(){
-        extras = this.getArguments();
+        Bundle extras = this.getArguments();
         customerDTO = (CustomerDTO) extras.getSerializable(SessionAttributes.CUSTOMER);
 
         if (customerDTO != null){
-            professionalService = new ProfessionalService();
+            ProfessionalService professionalService = new ProfessionalService();
             try {
                 favoriteProfessionals = professionalService.findProfessionalContactsByCustomerId(customerDTO.getId());
             } catch(ServiceException ex) {
@@ -86,8 +82,8 @@ public class CustScheduleDateFragmentPortrait_6 extends Fragment {
     //metodo q inicializa calendario
 
         //configura duas datas para limites, inicial e final
-        initDate = Calendar.getInstance();
-        endDate = Calendar.getInstance();
+        Calendar initDate = Calendar.getInstance();
+        Calendar endDate = Calendar.getInstance();
         endDate.add(Calendar.MONTH, 3);
 
         //inicializa calendario apontando datas finais, iniciais e modo de selecao
@@ -103,7 +99,6 @@ public class CustScheduleDateFragmentPortrait_6 extends Fragment {
 
                 //recebe dados selecionada para passar para a proxima tela
                 String selectedDate = getCalendarDate(screenCalendar);
-                String selectedProfessional = String.valueOf(parent.getItemAtPosition(position));
                 ProfessionalDTO selectedProfessionalDTO = (ProfessionalDTO) parent.getItemAtPosition(position);
 
                 //inicia chamada de agendamento de horario
