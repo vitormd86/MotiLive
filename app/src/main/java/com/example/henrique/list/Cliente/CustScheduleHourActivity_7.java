@@ -18,9 +18,11 @@ import com.example.henrique.list.Service.ServiceService;
 import com.example.henrique.list.Utilidade_Publica.ResizeAnimation;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 
+import java.math.BigDecimal;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -40,19 +42,18 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
     String street, number, cep, complement, district, city, state;
     int freeHourMinutesWidth = 90;
     int selectedHour, selectedMinutes;
-    double totalPrice;
+    BigDecimal totalPrice;
     long totalTime;
-    //iniciando variaveis que virao do banco
-    Servico[] testeS = findServices();
-    //iniciando items do layout
-    TextView textProfessionalName, textProfession, textDate;
-    ListView listHours, listMinutes, listServices;
-    ArrayAdapter myAdapterServiceTypes, myAdapterFreeHours, myAdapterFreeMinutes;
 
+    //Iniciando DTOs
     private CustomerDTO customerDTO;
     private ProfessionalDTO professionalDTO;
     private List<ServiceDTO> serviceDTOList;
 
+    //iniciando items do layout
+    TextView textProfessionalName, textProfession, textDate;
+    ListView listHours, listMinutes, listServices;
+    ArrayAdapter myAdapterServiceTypes, myAdapterFreeHours, myAdapterFreeMinutes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +84,7 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
         serviceDTOList = new ArrayList<>();
         ServiceService serviceService = new ServiceService();
         try {
-            serviceDTOList = (ArrayList<ServiceDTO>) serviceService.findAllByProfessionalId(professionalDTO.getId());
+            serviceDTOList = serviceService.findAllByProfessionalId(professionalDTO.getId());
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Erro ao buscar servicos do profissional selecionado");
@@ -101,7 +102,7 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
 
         //alimentando adapters
         //todo-vitor alterar adpaters para receber servicos, horas, etc..
-        myAdapterServiceTypes = new MyAdapterServicesSchedule(this, testeS);
+        myAdapterServiceTypes = new MyAdapterServicesSchedule(this, serviceDTOList);
         myAdapterFreeHours = new MyAdapterFreeTime(this, freeHours, listHours);
         myAdapterFreeMinutes = new MyAdapterFreeTime(this, freeMinutes, listMinutes);
 
@@ -117,59 +118,6 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
         listServices.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
     }
 
-    //metdodo provisorio que retorna os servicos
-    public Servico[] findServices() {
-        //todo-vitor apagar classe servico assim q o agnedamento estiver funcionando tanto prof qt cust
-        Servico s1 = new Servico();
-        s1.setId(1);
-        s1.setId_profissional(1);
-        s1.setNome("Servico 1");
-        s1.setDescricao("Servico de teste");
-        s1.setValor(20.00);
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-        sdf.setTimeZone(TimeZone.getDefault());
-        try {
-            Time tempo = new Time(sdf.parse("00:20").getTime());
-            Time atraso = new Time(sdf.parse("00:05").getTime());
-            s1.setTempo(tempo);
-            s1.setTolerancia_atraso(atraso);
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
-        }
-
-        Servico s2 = new Servico();
-        s2.setId(2);
-        s2.setId_profissional(1);
-        s2.setNome("Servico 2");
-        s2.setDescricao("Outro servico de teste");
-        s2.setValor(30.00);
-        try {
-            Time tempo = new Time(sdf.parse("00:35").getTime());
-            Time atraso = new Time(sdf.parse("00:05").getTime());
-            s2.setTempo(tempo);
-            s2.setTolerancia_atraso(atraso);
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
-        }
-
-        Servico s3 = new Servico();
-        s3.setId(3);
-        s3.setId_profissional(1);
-        s3.setNome("Servico 3");
-        s3.setDescricao("Outro servico de teste 3");
-        s3.setValor(55.00);
-        try {
-            Time tempo = new Time(sdf.parse("00:15").getTime());
-            Time atraso = new Time(sdf.parse("00:05:00").getTime());
-            s3.setTempo(tempo);
-            s3.setTolerancia_atraso(atraso);
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
-        }
-
-        Servico[] s = {s1, s2, s3};
-        return s;
-    }
 
     //metodo q cria listener da lista de servicos
     public void setServicesListener() {
@@ -243,17 +191,17 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
                 //Armazena servico/hora/servicos selecionados
                 selectedMinutes = (int) myAdapterFreeMinutes.getItem(position);
                 totalTime = 0;
-                totalPrice = 0;
+                totalPrice = new BigDecimal(0);
                 //Alimentando array de servicos selecionados
                 SparseBooleanArray checkedServices = listServices.getCheckedItemPositions();
                 //para cada item selecionado alimenta seus respectivos valores;
                 for (int i = 0; i < listServices.getAdapter().getCount(); i++) {
                     if (checkedServices.get(i)) {
-                        Servico s = (Servico) myAdapterServiceTypes.getItem(i);
-                        selectedServicesTitles.add(s.getNome());
+                        ServiceDTO s = (ServiceDTO) myAdapterServiceTypes.getItem(i);
+                        selectedServicesTitles.add(s.getName());
                         //esse valores devem ser buscados da classe Servicos armazenados no adapterServiceTypes
-                        totalTime = totalTime + s.getTempo().getTime();
-                        totalPrice = totalPrice + s.getValor();
+                        totalTime = totalTime + s.getTime().getTime().getTime();
+                        totalPrice = totalPrice.add(s.getValue());
                     }
                 }
                 totalTime = totalTime + (TimeZone.getDefault().getOffset(totalTime) * (checkedServices.size() - 1));

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 
 public class MyAdapterServicesPro extends ArrayAdapter<String>{
-
+//todo por que esta classe existe?
     public MyAdapterServicesPro(Context context, ArrayList<String> services) {
         super(context, R.layout.view_list_services_professional, services);
     }

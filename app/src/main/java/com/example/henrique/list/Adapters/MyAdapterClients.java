@@ -29,7 +29,7 @@ import java.util.ArrayList;
 public class MyAdapterClients extends ArrayAdapter<String> {
     Fragment fragment;
     public MyAdapterClients(Context context, ArrayList clients, Fragment f) {
-        super(context, R.layout.view_schedule_client, clients);
+        super(context, R.layout.view_list_schedule_client, clients);
         fragment = f;
     }
 
@@ -37,7 +37,7 @@ public class MyAdapterClients extends ArrayAdapter<String> {
     @Override
     public View getView(int position, final View convertView, ViewGroup parent) {
         LayoutInflater theInflator = LayoutInflater.from(getContext());
-        View theView = theInflator.inflate(R.layout.view_schedule_client, parent, false);
+        View theView = theInflator.inflate(R.layout.view_list_schedule_client, parent, false);
 
         final String clients = getItem(position);
         TextView name = (TextView) theView.findViewById(R.id.textView1);
@@ -47,7 +47,7 @@ public class MyAdapterClients extends ArrayAdapter<String> {
         ImageView clientPhoto =  (ImageView) theView.findViewById(R.id.imageView1);
 
 
-        //Alimentando os dados de view_schedule_client
+        //Alimentando os dados de view_list_schedule_client
         name.setText(clients);
         status.setText("STATUS");
         hour.setText("HORARIO");

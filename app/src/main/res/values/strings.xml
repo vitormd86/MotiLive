@@ -59,6 +59,7 @@
     <string name="description_icServicePrice">Ícone de valor do serviço</string>
     <string name="description_icEdit">Ícone de edição</string>
     <string name="description_icDrawer">Ícone de seleção do drawer</string>
+    <string name="description_icInfo">Ícone de informações do serviço</string>
 
     <!-- Strings do Drawer-->
     <string name="drawer_close">Close</string>

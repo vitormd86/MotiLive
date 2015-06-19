@@ -68,6 +68,11 @@
         <item name="android:background">@drawable/img_photo_default</item>
         <item name="android:scaleType">fitCenter</item>
     </style>
+    <style name="ImageButtomInfo">
+        <item name="android:layout_width">@dimen/img_infoButtom</item>
+        <item name="android:layout_height">@dimen/img_infoButtom</item>
+        <item name="android:background">@drawable/ic_button_info</item>
+    </style>
 
 
 

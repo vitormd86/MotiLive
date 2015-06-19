@@ -7,6 +7,7 @@
     <dimen name="margin_betweenElements_medium">20dp</dimen>
     <dimen name="margin_betweenElements_big">30dp</dimen>
     <dimen name="margin_photo">10dp</dimen>
+    <dimen name="margin_infoButtom">5dp</dimen>
     <dimen name="margin_calendar_checkBox">12dp</dimen>
 
     <!-- Dimensoes de fontes -->
@@ -19,6 +20,7 @@
     <dimen name="img_choose_width">250dp</dimen>
     <dimen name="img_choose_height">120dp</dimen>
     <dimen name="img_photo">60dp</dimen>
+    <dimen name="img_infoButtom">30dp</dimen>
 
     <!-- Medidas mínimas de campos -->
     <dimen name="minWidthUF">60dp</dimen>

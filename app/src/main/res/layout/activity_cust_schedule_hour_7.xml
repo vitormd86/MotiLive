@@ -73,6 +73,7 @@
         android:layout_marginTop="5sp"
         android:layout_below="@id/photo"
         android:layout_toLeftOf="@id/listHours"
+        android:background="@drawable/bg_list_schedule_service"
         android:choiceMode="multipleChoice"
         />
     <!-- esta lista vai mostrar os servicos prestados pelo profissional-->

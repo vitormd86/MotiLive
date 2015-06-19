@@ -21,6 +21,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.TimeZone;
 
+import br.com.motiserver.dto.ServiceDTO;
+
 
 public class ProScheduleHoursActivity_12 extends ActionBarActivity {
 
@@ -71,7 +73,7 @@ public class ProScheduleHoursActivity_12 extends ActionBarActivity {
         listHours = (ListView) findViewById(R.id.listHours);
         listMinutes = (ListView) findViewById(R.id.listMinutes);
         listServices = (ListView) findViewById(R.id.listServices);
-        myAdapterServiceTypes = new MyAdapterServicesSchedule(this, testeS);
+        myAdapterServiceTypes = new MyAdapterServicesSchedule(this, new ArrayList<ServiceDTO>());
         myAdapterFreeHours = new MyAdapterFreeTime(this, freeHours, listHours);
         myAdapterFreeMinutes = new MyAdapterFreeTime(this, freeMinutes, listMinutes);
 

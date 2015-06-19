@@ -12,6 +12,8 @@ import com.example.henrique.list.R;
 
 // mesma coisa que o myAdapter só que eu tirei o ImageView, pra fazer uma lista de serviços
 public class MyAdapterServices extends ArrayAdapter<String> {
+
+    //todo por que esta classe existe?
     public MyAdapterServices(Context context, String[] values) {
         super(context, R.layout.row_servicos, values);
     }
