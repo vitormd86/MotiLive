@@ -15,12 +15,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.henrique.list.Adapters.ServicesNameAdapter;
+import com.example.henrique.list.Adapters.MyAdapterServicesConfirmSchedule;
 import com.example.henrique.list.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.TimeZone;
+
+import br.com.motiserver.dto.ServiceDTO;
 
 
 public class ProScheduleConfirmActivity_13 extends ActionBarActivity {
@@ -87,7 +89,8 @@ public class ProScheduleConfirmActivity_13 extends ActionBarActivity {
         }
         finalTime = inicialTime + totalTime + TimeZone.getDefault().getOffset(inicialTime);
         //iniciando adapter de nomes de servicos
-        ArrayAdapter servicesNameAdapter = new ServicesNameAdapter(this, serviceNames);
+        //todo-vitor corrigir
+        ArrayAdapter servicesNameAdapter = new MyAdapterServicesConfirmSchedule(this, new ArrayList<ServiceDTO>());
         listServiceNames.setAdapter(servicesNameAdapter);
 
         //iniciando adapter de precos de servicos

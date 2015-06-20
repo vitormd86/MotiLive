@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="top"
     android:background="@drawable/selector_list_schedule_services">
 
     <TextView
         android:id="@+id/hour"
-        android:layout_width="100dp"
+        android:layout_width="@dimen/hoursBarWidth"
         android:layout_height="match_parent"
-        android:text="9H"
-        android:textSize="30sp"
-        android:gravity="center_vertical"
-        android:layout_weight="1"/>
+        android:layout_marginLeft="@dimen/hourBarMargin"
+        android:textSize="@dimen/textSize_small"
+        android:gravity="center_vertical"/>
 
 
 </LinearLayout>

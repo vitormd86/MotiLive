@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.henrique.list.Adapters.MyAdapterFreeTime;
+import com.example.henrique.list.Adapters.MyAdapterFreeHours;
 import com.example.henrique.list.Adapters.MyAdapterServicesSchedule;
 import com.example.henrique.list.Mapeamento_de_Classes.Servico;
 import com.example.henrique.list.R;
@@ -74,8 +74,8 @@ public class ProScheduleHoursActivity_12 extends ActionBarActivity {
         listMinutes = (ListView) findViewById(R.id.listMinutes);
         listServices = (ListView) findViewById(R.id.listServices);
         myAdapterServiceTypes = new MyAdapterServicesSchedule(this, new ArrayList<ServiceDTO>());
-        myAdapterFreeHours = new MyAdapterFreeTime(this, freeHours, listHours);
-        myAdapterFreeMinutes = new MyAdapterFreeTime(this, freeMinutes, listMinutes);
+        myAdapterFreeHours = new MyAdapterFreeHours(this, freeHours, listHours);
+        myAdapterFreeMinutes = new MyAdapterFreeHours(this, freeMinutes, listMinutes);
 
         //Configura as variaveis do cabecalho
         textClientName.setText(clientName);

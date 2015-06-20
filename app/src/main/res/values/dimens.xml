@@ -1,7 +1,6 @@
 <resources>
     <!-- Espacamento de margens de visualizações -->
     <dimen name="margin_app">16dp</dimen>
-
     <dimen name="margin_betweenElements_extraSmall">5dp</dimen>
     <dimen name="margin_betweenElements_small">10dp</dimen>
     <dimen name="margin_betweenElements_medium">20dp</dimen>
@@ -21,6 +20,11 @@
     <dimen name="img_choose_height">120dp</dimen>
     <dimen name="img_photo">60dp</dimen>
     <dimen name="img_infoButtom">30dp</dimen>
+
+    <!-- Dimensões das barras de horário-->
+    <dimen name="hoursBarWidth">100dp</dimen>
+    <dimen name="hourBarMargin">5dp</dimen>
+    <dimen name="hourBarMinutesMargin">20dp</dimen>
 
     <!-- Medidas mínimas de campos -->
     <dimen name="minWidthUF">60dp</dimen>

@@ -1,5 +1,7 @@
 package com.example.henrique.list.Cliente;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -10,50 +12,59 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.henrique.list.Adapters.MyAdapterFreeTime;
+import com.example.henrique.list.Adapters.MyAdapterFreeHours;
+import com.example.henrique.list.Adapters.MyAdapterFreeMinutes;
 import com.example.henrique.list.Adapters.MyAdapterServicesSchedule;
-import com.example.henrique.list.Mapeamento_de_Classes.Servico;
 import com.example.henrique.list.R;
+import com.example.henrique.list.Service.DailyScheduleService;
 import com.example.henrique.list.Service.ServiceService;
+import com.example.henrique.list.Utilidade_Publica.DateUtil;
 import com.example.henrique.list.Utilidade_Publica.ResizeAnimation;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 
 import java.math.BigDecimal;
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
 import java.util.TimeZone;
 
+import br.com.motiserver.dto.BreakDTO;
 import br.com.motiserver.dto.CustomerDTO;
+import br.com.motiserver.dto.DailyScheduleDTO;
 import br.com.motiserver.dto.ProfessionalDTO;
+import br.com.motiserver.dto.SchedulingDTO;
 import br.com.motiserver.dto.ServiceDTO;
 
 /*Tela de selecao de horas e servicos de agendamento, ao final ela gera um alerta de confirmacao*/
 public class CustScheduleHourActivity_7 extends ActionBarActivity {
 
-    ArrayList<Integer> freeHours = new ArrayList<>();
-    ArrayList<Integer> freeMinutes = new ArrayList<>();
+
     ArrayList<String> selectedServicesTitles = new ArrayList<>();
     ResizeAnimation resizeAnimation;
     boolean isHoursOpened, isMinutesOpened;
     String sDate;
     String street, number, cep, complement, district, city, state;
     int freeHourMinutesWidth = 90;
-    int selectedHour, selectedMinutes;
     BigDecimal totalPrice;
     long totalTime;
 
     //Iniciando DTOs
     private CustomerDTO customerDTO;
     private ProfessionalDTO professionalDTO;
-    private List<ServiceDTO> serviceDTOList;
+    private List<ServiceDTO> serviceDTOList, selectedServicesDTOList;
+    private Set<SchedulingDTO> schedulingDTOSet;
+    private Set<BreakDTO> breakDTOSet;
 
     //iniciando items do layout
     TextView textProfessionalName, textProfession, textDate;
     ListView listHours, listMinutes, listServices;
     ArrayAdapter myAdapterServiceTypes, myAdapterFreeHours, myAdapterFreeMinutes;
+
+    //variaveis de tempo
+    int selectedHour, selectedMinutes;
+    ArrayList<Integer> freeHours = new ArrayList<>();
+    ArrayList<Integer> freeMinutes = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +92,8 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
         sDate = extras.getString("selectedDate");
 
         //atributos vindo dos servicos do Banco
+
+        //lista de servicos
         serviceDTOList = new ArrayList<>();
         ServiceService serviceService = new ServiceService();
         try {
@@ -89,6 +102,24 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
             e.printStackTrace();
             System.out.println("Erro ao buscar servicos do profissional selecionado");
         }
+
+        //agendamento diario
+        DailyScheduleDTO dailyScheduleDTO = new DailyScheduleDTO();
+        DailyScheduleService dailyScheduleService = new DailyScheduleService();
+        try {
+            dailyScheduleDTO = dailyScheduleService.findByProfessionalIdAndDate
+                    (professionalDTO.getId()
+                    , DateUtil.getCalendarFromString(sDate, new SimpleDateFormat("dd/MM/yyyy")));
+        } catch (Exception e){
+            e.printStackTrace();
+            System.out.println("Erro ao buscar agendamento do profissional");
+        }
+
+        //recuperando agendamentos
+        //schedulingDTOSet = dailyScheduleDTO.getSchedules();
+        //recuperando breaks
+        //breakDTOSet = dailyScheduleDTO.getBreaks();
+
     }
 
     private void initViews() {
@@ -103,8 +134,8 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
         //alimentando adapters
         //todo-vitor alterar adpaters para receber servicos, horas, etc..
         myAdapterServiceTypes = new MyAdapterServicesSchedule(this, serviceDTOList);
-        myAdapterFreeHours = new MyAdapterFreeTime(this, freeHours, listHours);
-        myAdapterFreeMinutes = new MyAdapterFreeTime(this, freeMinutes, listMinutes);
+        myAdapterFreeHours = new MyAdapterFreeHours(this, freeHours, listHours);
+        myAdapterFreeMinutes = new MyAdapterFreeMinutes(this, freeMinutes, listMinutes);
 
         //Configura as variaveis do cabecalho
         textProfessionalName.setText(professionalDTO.getName());
@@ -127,11 +158,18 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //adicionando horas.... deve receber do banco de dados e tratar em seguida
                 freeHours.clear();
+
+                //freeHours = findFreeHours();
                 freeHours.add(1);
                 freeHours.add(2);
                 freeHours.add(3);
                 freeHours.add(4);
-                freeHours.add(5);
+                freeHours.add(5);freeHours.add(1);
+                freeHours.add(2);
+                freeHours.add(3);
+                freeHours.add(4);
+                freeHours.add(5);freeHours.add(1);
+                freeHours.add(4);
                 myAdapterFreeHours.notifyDataSetChanged();
 
                 //verifica se a listview de horas ja esta aberta
@@ -161,9 +199,13 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
                 freeMinutes.add(10);
                 freeMinutes.add(15);
                 freeMinutes.add(20);
+                freeMinutes.add(25);
                 freeMinutes.add(30);
+                freeMinutes.add(35);
                 freeMinutes.add(40);
+                freeMinutes.add(45);
                 freeMinutes.add(50);
+                freeMinutes.add(55);
                 myAdapterFreeMinutes.notifyDataSetChanged();
 
                 //Armazena hora selecionada
@@ -185,10 +227,11 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
     public void setMinutesListener() {
         listMinutes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 //Armazena servico/hora/servicos selecionados
+
+                selectedServicesDTOList = new ArrayList<>();
                 selectedMinutes = (int) myAdapterFreeMinutes.getItem(position);
                 totalTime = 0;
                 totalPrice = new BigDecimal(0);
@@ -198,7 +241,8 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
                 for (int i = 0; i < listServices.getAdapter().getCount(); i++) {
                     if (checkedServices.get(i)) {
                         ServiceDTO s = (ServiceDTO) myAdapterServiceTypes.getItem(i);
-                        selectedServicesTitles.add(s.getName());
+                        selectedServicesDTOList.add(s);
+
                         //esse valores devem ser buscados da classe Servicos armazenados no adapterServiceTypes
                         totalTime = totalTime + s.getTime().getTime().getTime();
                         totalPrice = totalPrice.add(s.getValue());
@@ -207,18 +251,33 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
                 totalTime = totalTime + (TimeZone.getDefault().getOffset(totalTime) * (checkedServices.size() - 1));
 
                 //Chama proxima tela em activity
-                initConfirmActivity();
-
+                if(isValidFields()){
+                    initConfirmActivity();
+                }
             }
         });
 
 
     }
 
+    private ArrayList<Integer> findFreeHours(){
+        return null;
+    }
+
     private void initConfirmActivity() {
         Intent intent = new Intent(this, CustScheduleConfirmActivity_8.class);
 
+
         //todo deve passar na intent o vetor dos servicos selecionados
+        intent.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
+        intent.putExtra(SessionAttributes.CUSTOMER, customerDTO);
+        intent.putExtra(SessionAttributes.SERVICE,(ArrayList) selectedServicesDTOList);
+        intent.putExtra("selectedHour", selectedHour);
+        intent.putExtra("selectedMinutes", selectedMinutes);
+        intent.putExtra("sDate", sDate);
+
+
+
         intent.putExtra("professionalName", professionalDTO.getName());
         intent.putExtra("profession", professionalDTO.getProfession().getName());
         intent.putExtra("street", "Av da Liberdade");
@@ -229,13 +288,32 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
         intent.putExtra("city", "São Paulo");
         intent.putExtra("state", "SP");
         intent.putExtra("selectedServices", selectedServicesTitles);
-        intent.putExtra("sDate", sDate);
-        intent.putExtra("selectedHour", selectedHour);
-        intent.putExtra("selectedMinutes", selectedMinutes);
         intent.putExtra("totalTime", totalTime);
         intent.putExtra("totalPrice", totalPrice);
 
         startActivity(intent);
+    }
+
+    private boolean isValidFields(){
+        //validacao dos campos
+        boolean isValid = true;
+        //verifica se tem algum servico selecionado
+        if(listServices.getCheckedItemCount() < 1){
+            AlertDialog.Builder builder = new AlertDialog.Builder(CustScheduleHourActivity_7.this);
+            AlertDialog popupAlert;
+            //Alimenta o Alert Dialog para erro de validação para usuario
+
+            builder.setMessage("Selecione pelo menos um serviço.");
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface arg0, int arg1) {
+                }
+            });
+            popupAlert = builder.create();
+            popupAlert.show();
+
+            isValid = false;
+        }
+        return isValid;
     }
 
     @Override

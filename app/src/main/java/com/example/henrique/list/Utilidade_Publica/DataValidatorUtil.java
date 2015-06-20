@@ -27,6 +27,7 @@ public class DataValidatorUtil {
 
     public static boolean isValidName(String nome) {
 
+        //todo nome nao pode conter numero, mas username sim
         if (nome.equals("")) {
 
             return false;

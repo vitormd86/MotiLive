@@ -15,16 +15,39 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.henrique.list.Adapters.ServicesNameAdapter;
+import com.example.henrique.list.Adapters.MyAdapterServicesConfirmSchedule;
 import com.example.henrique.list.R;
+import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.TimeZone;
 
+import br.com.motiserver.dto.CustomerDTO;
+import br.com.motiserver.dto.ProfessionalDTO;
+import br.com.motiserver.dto.ServiceDTO;
+
 
 public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
+
     String professionalName;
+
+    //DTOs
+    private CustomerDTO customerDTO;
+    private ProfessionalDTO professionalDTO;
+    private ArrayList<ServiceDTO> serviceDTOList;
+
+    //Views
+    ImageView imagePhoto;
+    TextView textProfessionalName, textProfession, textDate ;
+    TextView textInicialHour , textTotalTime, textFinalHour, textTotalPrice;
+    ListView listServiceNames, listServicePrices;
+    EditText streetET, numberET, cepET, complementET, districtET, cityET, stateET;
+
+    //Variveis de data e hora
+    String sDate;
+    int selectedHour, selectedMinutes;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +57,10 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         //Habilitando BackNavigation button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //recebe valores da activity anterior
+        retriveAttributes();
+        initViews();
+
         Bundle extras = getIntent().getExtras();
-        professionalName = extras.getString("professionalName");
-        String profession = extras.getString("profession");
         String street = extras.getString("street");
         String number = extras.getString("number");
         String cep = extras.getString("cep");
@@ -46,30 +69,10 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         String city = extras.getString("city");
         String state = extras.getString("state");
         ArrayList<String> serviceNames = extras.getStringArrayList("selectedServices");
-        String sDate = extras.getString("sDate");
-        int selectedHour = extras.getInt("selectedHour");
-        int selectedMinutes = extras.getInt("selectedMinutes");
         long totalTime = extras.getLong("totalTime");
         double totalPrice = extras.getDouble("totalPrice");
 
-        //inicia objetos de layout
-        ImageView imagePhoto = (ImageView) findViewById(R.id.photo);
-        TextView textProfessionalName = (TextView) findViewById(R.id.professionalName);
-        TextView textProfession = (TextView) findViewById(R.id.profession);
-        TextView textDate = (TextView) findViewById(R.id.date);
-        ListView listServiceNames = (ListView) findViewById(R.id.listServiceNames);
-        TextView textInicialHour = (TextView) findViewById(R.id.initialHour);
-        TextView textTotalTime = (TextView) findViewById(R.id.duration);
-        TextView textFinalHour = (TextView) findViewById(R.id.finalHour);
-        ListView listServicePrices = (ListView) findViewById(R.id.listServicePrices);
-        TextView textTotalPrice = (TextView) findViewById(R.id.totalPrice);
-        EditText streetET = (EditText) findViewById(R.id.street);
-        EditText numberET = (EditText) findViewById(R.id.number);
-        EditText cepET = (EditText) findViewById(R.id.cep);
-        EditText complementET = (EditText) findViewById(R.id.complement);
-        EditText districtET = (EditText) findViewById(R.id.district);
-        EditText cityET  = (EditText) findViewById(R.id.city);
-        EditText stateET = (EditText) findViewById(R.id.state);
+
 
         //comeca a formatar valores a serem apresentados
         //inicializando e configurando horarios
@@ -87,18 +90,14 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         }
         finalTime = inicialTime + totalTime + TimeZone.getDefault().getOffset(inicialTime);
         //iniciando adapter de nomes de servicos
-        ArrayAdapter servicesNameAdapter = new ServicesNameAdapter(this,serviceNames);
+        ArrayAdapter servicesNameAdapter = new MyAdapterServicesConfirmSchedule(this, serviceDTOList);
         listServiceNames.setAdapter(servicesNameAdapter);
 
         //iniciando adapter de precos de servicos
         //todo assim que esta classe receber intencias da classe SERVICE implementar adapter de listServicePrices
 
         //configura valores em suas views
-        textProfessionalName.setText(professionalName);
-        textDate.setText(sDate);
-        textProfession.setText(profession);
         textTotalPrice.setText("R$: " + String.format("%.2f", totalPrice));
-        textInicialHour.setText(df2.format(inicialTime));
         textTotalTime.setText(df.format(totalTime));
         textFinalHour.setText(df2.format(finalTime));
         streetET.setText(street);
@@ -109,6 +108,49 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         cityET.setText(city);
         stateET.setText(state);
         //falta buscar endereco do usuario, ou profissional e precos isolados
+
+
+        fillViews();
+    }
+
+    private void retriveAttributes(){
+        //recebe valores da activity anterior
+        Bundle extras = getIntent().getExtras();
+
+        customerDTO = (CustomerDTO) extras.getSerializable(SessionAttributes.CUSTOMER);
+        professionalDTO = (ProfessionalDTO) extras.getSerializable(SessionAttributes.PROFESSIONAL);
+        serviceDTOList = (ArrayList<ServiceDTO>) extras.getSerializable(SessionAttributes.SERVICE);
+        sDate = extras.getString("sDate");
+        selectedHour = extras.getInt("selectedHour");
+        selectedMinutes = extras.getInt("selectedMinutes");
+    }
+
+    private void initViews(){
+        //inicia objetos de layout
+        imagePhoto = (ImageView) findViewById(R.id.photo);
+        textProfessionalName = (TextView) findViewById(R.id.professionalName);
+        textProfession = (TextView) findViewById(R.id.profession);
+        textDate = (TextView) findViewById(R.id.date);
+        listServiceNames = (ListView) findViewById(R.id.listServiceNames);
+        textInicialHour = (TextView) findViewById(R.id.initialHour);
+        textTotalTime = (TextView) findViewById(R.id.duration);
+        textFinalHour = (TextView) findViewById(R.id.finalHour);
+        listServicePrices = (ListView) findViewById(R.id.listServicePrices);
+        textTotalPrice = (TextView) findViewById(R.id.totalPrice);
+        streetET = (EditText) findViewById(R.id.street);
+        numberET = (EditText) findViewById(R.id.number);
+        cepET = (EditText) findViewById(R.id.cep);
+        complementET = (EditText) findViewById(R.id.complement);
+        districtET = (EditText) findViewById(R.id.district);
+        cityET  = (EditText) findViewById(R.id.city);
+        stateET = (EditText) findViewById(R.id.state);
+    }
+
+    private void fillViews(){
+        textProfessionalName.setText(professionalDTO.getName());
+        textProfession.setText(professionalDTO.getProfession().getName());
+        textDate.setText(sDate);
+        textInicialHour.setText(String.format("%02d",selectedHour) + ":" + String.format("%02d",selectedMinutes));
     }
 
     @Override

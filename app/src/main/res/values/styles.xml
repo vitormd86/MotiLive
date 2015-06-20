@@ -60,8 +60,8 @@
     <!-- Image Styles -->
     <style name="ImagePhoto">
         <item name="android:layout_width">@dimen/img_photo</item>
-        <item name="android:layout_height">@dimen/img_photo</item>
-        <item name="android:layout_marginTop">@dimen/margin_photo</item>
+            <item name="android:layout_height">@dimen/img_photo</item>
+            <item name="android:layout_marginTop">@dimen/margin_photo</item>
         <item name="android:layout_marginBottom">@dimen/margin_photo</item>
         <item name="android:layout_marginRight">@dimen/margin_photo</item>
         <!--<item name="android:src">@drawable/button_photo</item>  VERIFICAR PROBLEMA DE INFLATING EM OUTROS DEVICES-->

@@ -8,19 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.henrique.list.Mapeamento_de_Classes.Servico;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Utilidade_Publica.DateUtil;
 
-import java.sql.Time;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 import br.com.motiserver.dto.ServiceDTO;
 
@@ -43,14 +37,15 @@ public class MyAdapterServicesSchedule extends ArrayAdapter<ServiceDTO> {
 
         ServiceDTO service = getItem(position);
 
-        Calendar serviceLenghtCal = service.getTime();
+        Date serviceLenghtDate = service.getTime().getTime();
+
 
         //para testar hora separada de minutos
         //textServiceLenght.setText(serviceLenghtCal.get(Calendar.HOUR) + " " + serviceLenghtCal.get(Calendar.MINUTE));
 
         //alimentando campos da view
         textService.setText(service.getName());
-        textServiceLenght.setText(DateUtil.calendarToMinutes(serviceLenghtCal) + "min");
+        textServiceLenght.setText(DateUtil.getMinutesFromDate(serviceLenghtDate) + "min");
         textPrice.setText("R$ " + service.getValue());
 
         //configurando listener do botao de Info
