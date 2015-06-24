@@ -10,5 +10,6 @@ public class SessionAttributes {
     public static final String PROFESSIONAL = "professional";
     public static final String PROFESSIONAL_ID = "professional_id";
     public static final String SERVICE  = "service";
+    public static final String DAILY_SCHEDULE  = "daily_schedule";
 
 }

@@ -39,19 +39,15 @@ import br.com.motiserver.dto.ServiceDTO;
 /*Tela de selecao de horas e servicos de agendamento, ao final ela gera um alerta de confirmacao*/
 public class CustScheduleHourActivity_7 extends ActionBarActivity {
 
-
-    ArrayList<String> selectedServicesTitles = new ArrayList<>();
     ResizeAnimation resizeAnimation;
+    int freeHourMinutesWidth = 90;
     boolean isHoursOpened, isMinutesOpened;
     String sDate;
-    String street, number, cep, complement, district, city, state;
-    int freeHourMinutesWidth = 90;
-    BigDecimal totalPrice;
-    long totalTime;
 
     //Iniciando DTOs
     private CustomerDTO customerDTO;
     private ProfessionalDTO professionalDTO;
+    private DailyScheduleDTO dailyScheduleDTO;
     private List<ServiceDTO> serviceDTOList, selectedServicesDTOList;
     private Set<SchedulingDTO> schedulingDTOSet;
     private Set<BreakDTO> breakDTOSet;
@@ -89,6 +85,7 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
         Bundle extras = getIntent().getExtras();
         customerDTO = (CustomerDTO) extras.getSerializable(SessionAttributes.CUSTOMER);
         professionalDTO = (ProfessionalDTO) extras.getSerializable(SessionAttributes.PROFESSIONAL);
+        dailyScheduleDTO = (DailyScheduleDTO) extras.getSerializable(SessionAttributes.DAILY_SCHEDULE);
         sDate = extras.getString("selectedDate");
 
         //atributos vindo dos servicos do Banco
@@ -104,16 +101,7 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
         }
 
         //agendamento diario
-        DailyScheduleDTO dailyScheduleDTO = new DailyScheduleDTO();
-        DailyScheduleService dailyScheduleService = new DailyScheduleService();
-        try {
-            dailyScheduleDTO = dailyScheduleService.findByProfessionalIdAndDate
-                    (professionalDTO.getId()
-                    , DateUtil.getCalendarFromString(sDate, new SimpleDateFormat("dd/MM/yyyy")));
-        } catch (Exception e){
-            e.printStackTrace();
-            System.out.println("Erro ao buscar agendamento do profissional");
-        }
+
 
         //recuperando agendamentos
         //schedulingDTOSet = dailyScheduleDTO.getSchedules();
@@ -132,7 +120,6 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
         listServices = (ListView) findViewById(R.id.listServices);
 
         //alimentando adapters
-        //todo-vitor alterar adpaters para receber servicos, horas, etc..
         myAdapterServiceTypes = new MyAdapterServicesSchedule(this, serviceDTOList);
         myAdapterFreeHours = new MyAdapterFreeHours(this, freeHours, listHours);
         myAdapterFreeMinutes = new MyAdapterFreeMinutes(this, freeMinutes, listMinutes);
@@ -160,13 +147,13 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
                 freeHours.clear();
 
                 //freeHours = findFreeHours();
-                freeHours.add(1);
+                freeHours.add(12);
                 freeHours.add(2);
                 freeHours.add(3);
                 freeHours.add(4);
                 freeHours.add(5);freeHours.add(1);
                 freeHours.add(2);
-                freeHours.add(3);
+                freeHours.add(12);
                 freeHours.add(4);
                 freeHours.add(5);freeHours.add(1);
                 freeHours.add(4);
@@ -230,11 +217,9 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 //Armazena servico/hora/servicos selecionados
-
                 selectedServicesDTOList = new ArrayList<>();
                 selectedMinutes = (int) myAdapterFreeMinutes.getItem(position);
-                totalTime = 0;
-                totalPrice = new BigDecimal(0);
+
                 //Alimentando array de servicos selecionados
                 SparseBooleanArray checkedServices = listServices.getCheckedItemPositions();
                 //para cada item selecionado alimenta seus respectivos valores;
@@ -242,13 +227,8 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
                     if (checkedServices.get(i)) {
                         ServiceDTO s = (ServiceDTO) myAdapterServiceTypes.getItem(i);
                         selectedServicesDTOList.add(s);
-
-                        //esse valores devem ser buscados da classe Servicos armazenados no adapterServiceTypes
-                        totalTime = totalTime + s.getTime().getTime().getTime();
-                        totalPrice = totalPrice.add(s.getValue());
                     }
                 }
-                totalTime = totalTime + (TimeZone.getDefault().getOffset(totalTime) * (checkedServices.size() - 1));
 
                 //Chama proxima tela em activity
                 if(isValidFields()){
@@ -272,24 +252,10 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
         intent.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
         intent.putExtra(SessionAttributes.CUSTOMER, customerDTO);
         intent.putExtra(SessionAttributes.SERVICE,(ArrayList) selectedServicesDTOList);
+        intent.putExtra(SessionAttributes.DAILY_SCHEDULE, dailyScheduleDTO);
         intent.putExtra("selectedHour", selectedHour);
         intent.putExtra("selectedMinutes", selectedMinutes);
         intent.putExtra("sDate", sDate);
-
-
-
-        intent.putExtra("professionalName", professionalDTO.getName());
-        intent.putExtra("profession", professionalDTO.getProfession().getName());
-        intent.putExtra("street", "Av da Liberdade");
-        intent.putExtra("number", "444");
-        intent.putExtra("cep", "01501-001");
-        intent.putExtra("complement", "Casa 2");
-        intent.putExtra("district", "Liberdade");
-        intent.putExtra("city", "São Paulo");
-        intent.putExtra("state", "SP");
-        intent.putExtra("selectedServices", selectedServicesTitles);
-        intent.putExtra("totalTime", totalTime);
-        intent.putExtra("totalPrice", totalPrice);
 
         startActivity(intent);
     }
@@ -325,11 +291,11 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
 
     public void restartValues() {
         //reinicia valores deste fragment
+        selectedServicesDTOList.clear();
         isHoursOpened = false;
         isMinutesOpened = false;
         freeMinutes.clear();
         freeHours.clear();
-        selectedServicesTitles.clear();
         listMinutes.clearChoices();
         listHours.clearChoices();
         listServices.clearChoices();

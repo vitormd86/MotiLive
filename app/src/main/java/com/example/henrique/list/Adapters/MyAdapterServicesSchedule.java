@@ -39,10 +39,6 @@ public class MyAdapterServicesSchedule extends ArrayAdapter<ServiceDTO> {
 
         Date serviceLenghtDate = service.getTime().getTime();
 
-
-        //para testar hora separada de minutos
-        //textServiceLenght.setText(serviceLenghtCal.get(Calendar.HOUR) + " " + serviceLenghtCal.get(Calendar.MINUTE));
-
         //alimentando campos da view
         textService.setText(service.getName());
         textServiceLenght.setText(DateUtil.getMinutesFromDate(serviceLenghtDate) + "min");

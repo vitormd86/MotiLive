@@ -18,6 +18,7 @@ import com.example.henrique.list.Beans.ScheduleItem;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Service.SchedulingService;
 import com.example.henrique.list.Utilidade_Publica.PinnedSectionListView;
+import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import br.com.motiserver.dto.CustomerDTO;
 import br.com.motiserver.dto.SchedulingDTO;
 
 public class CustScheduleListFragment_9 extends Fragment {
@@ -36,8 +38,8 @@ public class CustScheduleListFragment_9 extends Fragment {
     PinnedSectionListView listSchedules;
     ImageButton addScheduleBT;
 
-    long customerID = 10; //todo recuperar ID do usuario atual
     List<SchedulingDTO> schedules;
+    CustomerDTO customerDTO;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class CustScheduleListFragment_9 extends Fragment {
         v = inflater.inflate(R.layout.fragment_cust_schedule_list_9, container, false);
 
 
+        retrieveAttributes();
         initScheduleList();
         setListSchedulesListener();
         setAddServiceListener();
@@ -54,6 +57,15 @@ public class CustScheduleListFragment_9 extends Fragment {
         return v;
     }
 
+    public void retrieveAttributes(){
+        Bundle extras = this.getArguments();
+        customerDTO = (CustomerDTO) extras.getSerializable(SessionAttributes.CUSTOMER);
+        if (customerDTO == null) {
+            customerDTO = new CustomerDTO();
+           System.out.println("Erro ao receber customerDTO da intent");
+           Toast.makeText(getActivity(), "Ocorreu um erro interno. Favor contactar o administrador!", Toast.LENGTH_SHORT).show();
+        }
+    }
     private void initScheduleList(){
         ArrayList<ScheduleItem> scheduleItems = initScheduleItems();
 
@@ -73,10 +85,11 @@ public class CustScheduleListFragment_9 extends Fragment {
         ArrayList<ScheduleItem> items = new ArrayList<>();
 
         try{
-            // TODO
-            schedules = scheduleService.findUpcomingSchedulingByCustomerId(customerID);
+            schedules = scheduleService.findUpcomingSchedulingByCustomerId(customerDTO.getId());
         } catch (Exception e){
+            e.printStackTrace();
             schedules = new ArrayList<>();
+            System.out.println("Erro ao recuperar agendamentos do usuario.");
             Toast.makeText(getActivity(), "Ocorreu um erro interno. Favor contactar o administrador!", Toast.LENGTH_SHORT).show();
         }
 

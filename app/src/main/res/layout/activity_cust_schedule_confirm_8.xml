@@ -137,13 +137,12 @@
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:text="Cidade"/>
-        <EditText
+        <Spinner
             android:id="@+id/state"
             android:layout_toRightOf="@id/city"
             android:layout_below="@+id/street"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:text="UF"/>
+            android:minWidth="@dimen/minWidthUF"/>
     </RelativeLayout>
 </LinearLayout>
