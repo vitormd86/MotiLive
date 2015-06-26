@@ -143,9 +143,7 @@ public class CustScheduleDateFragmentPortrait_6 extends Fragment {
             e.printStackTrace();
             System.out.println("Erro ao recuperar dailySchedule");
         }
-        if (dailyScheduleDTO == null) {
-            return false;
-        } else if (dailyScheduleDTO.getWorkDay() == Status.FALSE) {
+        if (dailyScheduleDTO == null || dailyScheduleDTO.getWorkDay() == Status.FALSE) {
             return false;
         } else {
             return true;

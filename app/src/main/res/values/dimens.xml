@@ -29,6 +29,9 @@
     <!-- Medidas mínimas de campos -->
     <dimen name="minWidthUF">60dp</dimen>
 
+    <!-- Medidas Tela CustScheduleConfirmActivity_8-->
+    <dimen name="columnWidthCust8">80dp</dimen>
+
     <!-- Dimensões do calendario -->
     <dimen name="calendar_selected_padding">5dp</dimen>
     <dimen name="calendar_day_headers_paddingbottom">4dp</dimen>

@@ -16,25 +16,23 @@ import com.example.henrique.list.Adapters.MyAdapterFreeHours;
 import com.example.henrique.list.Adapters.MyAdapterFreeMinutes;
 import com.example.henrique.list.Adapters.MyAdapterServicesSchedule;
 import com.example.henrique.list.R;
-import com.example.henrique.list.Service.DailyScheduleService;
 import com.example.henrique.list.Service.ServiceService;
-import com.example.henrique.list.Utilidade_Publica.DateUtil;
 import com.example.henrique.list.Utilidade_Publica.ResizeAnimation;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
-import java.util.TimeZone;
 
 import br.com.motiserver.dto.BreakDTO;
 import br.com.motiserver.dto.CustomerDTO;
 import br.com.motiserver.dto.DailyScheduleDTO;
+import br.com.motiserver.dto.PeriodDTO;
 import br.com.motiserver.dto.ProfessionalDTO;
 import br.com.motiserver.dto.SchedulingDTO;
 import br.com.motiserver.dto.ServiceDTO;
+import br.com.motiserver.dto.builder.PeriodDTOBuilder;
 
 /*Tela de selecao de horas e servicos de agendamento, ao final ela gera um alerta de confirmacao*/
 public class CustScheduleHourActivity_7 extends ActionBarActivity {
@@ -51,6 +49,7 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
     private List<ServiceDTO> serviceDTOList, selectedServicesDTOList;
     private Set<SchedulingDTO> schedulingDTOSet;
     private Set<BreakDTO> breakDTOSet;
+    private List <PeriodDTO> periodDTOList;
 
     //iniciando items do layout
     TextView textProfessionalName, textProfession, textDate;
@@ -59,8 +58,9 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
 
     //variaveis de tempo
     int selectedHour, selectedMinutes;
-    ArrayList<Integer> freeHours = new ArrayList<>();
-    ArrayList<Integer> freeMinutes = new ArrayList<>();
+    ArrayList<Integer> screenFreeHours = new ArrayList<>();
+    ArrayList<Integer> screenFreeMinutes = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +107,8 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
         //schedulingDTOSet = dailyScheduleDTO.getSchedules();
         //recuperando breaks
         //breakDTOSet = dailyScheduleDTO.getBreaks();
+        //recuperando horas livres
+        periodDTOList = PeriodDTOBuilder.buildFreeTimeListByDailyScheduling(dailyScheduleDTO);
 
     }
 
@@ -121,8 +123,8 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
 
         //alimentando adapters
         myAdapterServiceTypes = new MyAdapterServicesSchedule(this, serviceDTOList);
-        myAdapterFreeHours = new MyAdapterFreeHours(this, freeHours, listHours);
-        myAdapterFreeMinutes = new MyAdapterFreeMinutes(this, freeMinutes, listMinutes);
+        myAdapterFreeHours = new MyAdapterFreeHours(this, screenFreeHours, listHours);
+        myAdapterFreeMinutes = new MyAdapterFreeMinutes(this, screenFreeMinutes, listMinutes);
 
         //Configura as variaveis do cabecalho
         textProfessionalName.setText(professionalDTO.getName());
@@ -144,19 +146,8 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //adicionando horas.... deve receber do banco de dados e tratar em seguida
-                freeHours.clear();
-
-                //freeHours = findFreeHours();
-                freeHours.add(12);
-                freeHours.add(2);
-                freeHours.add(3);
-                freeHours.add(4);
-                freeHours.add(5);freeHours.add(1);
-                freeHours.add(2);
-                freeHours.add(12);
-                freeHours.add(4);
-                freeHours.add(5);freeHours.add(1);
-                freeHours.add(4);
+                screenFreeHours.clear();
+                screenFreeHours.addAll(findFreeHours());
                 myAdapterFreeHours.notifyDataSetChanged();
 
                 //verifica se a listview de horas ja esta aberta
@@ -179,24 +170,15 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
             @Override
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //caso clique na hora a lista de minutos mudara de acordo com o horario dispnivel pra aquele servico
-                freeMinutes.clear();
-                freeMinutes.add(00);
-                freeMinutes.add(05);
-                freeMinutes.add(10);
-                freeMinutes.add(15);
-                freeMinutes.add(20);
-                freeMinutes.add(25);
-                freeMinutes.add(30);
-                freeMinutes.add(35);
-                freeMinutes.add(40);
-                freeMinutes.add(45);
-                freeMinutes.add(50);
-                freeMinutes.add(55);
-                myAdapterFreeMinutes.notifyDataSetChanged();
 
                 //Armazena hora selecionada
                 selectedHour = (int) myAdapterFreeHours.getItem(position);
+
+                //caso clique na hora a lista de minutos mudara de acordo com o horario dispnivel pra aquele servico
+                screenFreeMinutes.clear();
+                screenFreeMinutes.addAll(findFreeMinutes(selectedHour));
+                myAdapterFreeMinutes.notifyDataSetChanged();
+
 
                 if (!isMinutesOpened) {
                     //redimensiona listView de horas
@@ -241,7 +223,52 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
     }
 
     private ArrayList<Integer> findFreeHours(){
-        return null;
+        ArrayList<Integer> freeHours = new ArrayList<>();
+        System.out.println("Tamanho da periodDTOlist: " + periodDTOList.size());
+        for (PeriodDTO periodDTO : periodDTOList){
+            //um loop para cada periodo
+            Calendar initialPeriodCal = periodDTO.getStartTime();
+            Calendar finalPeriodCal = periodDTO.getEndTime();
+            System.out.println("indice da lista de periodo do calendario: " + periodDTOList.lastIndexOf(periodDTO));
+            System.out.println("Calendar dia inicial: " + initialPeriodCal.get(Calendar.HOUR_OF_DAY));
+
+            for (int i = initialPeriodCal.get(Calendar.HOUR_OF_DAY); i < finalPeriodCal.get(Calendar.HOUR_OF_DAY); i++){
+                //um loop para cada hora
+                System.out.println("Adicionado na lista, hora numero " + i);
+                freeHours.add(i);
+            }
+        }
+        System.out.println("Tamanho da Arraylist de horas: " + freeHours.size());
+        return freeHours;
+    }
+    private ArrayList<Integer> findFreeMinutes(int selectedHour){
+        ArrayList<Integer> freeMinutes = new ArrayList<>();
+        System.out.println("Tamanho da periodDTOlist: " + periodDTOList.size());
+        for (PeriodDTO periodDTO : periodDTOList){
+            //um loop para cada periodo
+            Calendar initialPeriodCal = periodDTO.getStartTime();
+            Calendar finalPeriodCal = periodDTO.getEndTime();
+            System.out.println("indice da lista de periodo do calendario: " + periodDTOList.lastIndexOf(periodDTO));
+            System.out.println("Calendar dia inicial: " + initialPeriodCal.get(Calendar.HOUR_OF_DAY));
+
+            for (int i = initialPeriodCal.get(Calendar.HOUR_OF_DAY); i < finalPeriodCal.get(Calendar.HOUR_OF_DAY); i++){
+                //um loop para cada hora dentro do periodo
+                System.out.println("Dentro da hora numero " + i);
+                if(i == selectedHour) {
+                    //verifica se a hora é a mesma q a selecionada
+                    System.out.println("Encontrou hora igual a selecionada");
+                    int minutes = initialPeriodCal.get(Calendar.MINUTE);
+                    while (minutes < 60) {
+                        //um loop para cada  5 minutos
+                        freeMinutes.add(minutes);
+                        minutes = minutes + 5;
+                        System.out.println("Incluido na array o minuto " + minutes);
+                    }
+                }
+            }
+        }
+        System.out.println("Tamanho da Arraylist de minutos: " + freeMinutes.size());
+        return freeMinutes;
     }
 
     private void initConfirmActivity() {
@@ -294,8 +321,8 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
         selectedServicesDTOList.clear();
         isHoursOpened = false;
         isMinutesOpened = false;
-        freeMinutes.clear();
-        freeHours.clear();
+        screenFreeMinutes.clear();
+        screenFreeHours.clear();
         listMinutes.clearChoices();
         listHours.clearChoices();
         listServices.clearChoices();

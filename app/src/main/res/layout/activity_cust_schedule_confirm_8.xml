@@ -1,148 +1,233 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:orientation="vertical">
-
-    <RelativeLayout
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_app"
+        android:layout_marginRight="@dimen/margin_app">
 
         <ImageView
-            android:id="@+id/photo"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/img_photo_default" />
+            style="@style/ImagePhoto"
+            android:id="@+id/photo"/>
 
         <TextView
             android:id="@+id/professionalName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:paddingLeft="15dp"
-            android:paddingTop="7dp"
-            android:textSize="15sp"
+            android:layout_toRightOf="@id/photo"
+            android:layout_alignTop="@id/photo"
+            android:layout_marginBottom="@dimen/margin_betweenElements_small"
             android:text="Nome do Profissional"
-            android:textStyle="bold"/>
-
+            android:textColor="@color/black"/>
         <TextView
             android:id="@+id/profession"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:paddingLeft="15dp"
+            android:layout_toRightOf="@id/photo"
             android:layout_below="@+id/professionalName"
-            android:textSize="15sp"
-            android:text="Profissão"
-            android:textStyle="bold"/>
-    </RelativeLayout>
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:text="DATA"/>
-    <ListView
-        android:id="@+id/listServiceNames"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </ListView>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            android:text="Profissão"/>
+        <ImageView
+            android:id="@+id/ic_date"
+            android:layout_width="@dimen/img_photo"
+            android:layout_height="@dimen/img_photo"
+            android:layout_below="@id/photo"
+            android:layout_marginBottom="@dimen/margin_photo"
+            android:layout_marginRight="@dimen/margin_photo"
+            android:contentDescription="@string/description_icDate"
+            android:src="@drawable/ic_form_date" />
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/ic_date"
+            android:layout_alignTop="@id/ic_date"
+            android:layout_alignBottom="@id/ic_date"
+            android:gravity="center_vertical"
+            android:text="DATA"/>
+<RelativeLayout
+    android:id="@+id/serviceLayout_cust8"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/ic_date"
+    android:paddingTop="@dimen/margin_betweenElements_small"
+    android:paddingBottom="@dimen/margin_betweenElements_extraSmall"
+    android:paddingLeft="@dimen/margin_betweenElements_extraSmall"
+    android:paddingRight="@dimen/margin_betweenElements_extraSmall"
+    android:background="@drawable/bg_list_schedule_service">
+            <ImageView
+                android:id="@+id/ic_servTime_cust8"
+                android:layout_width="@dimen/columnWidthCust8"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/description_icServiceTime"
+                android:src="@drawable/ic_form_serv_time" />
+            <ImageView
+                android:id="@+id/ic_service_cust8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/ic_servTime_cust8"
+                android:layout_toLeftOf="@+id/ic_service_price_cust8"
+                android:contentDescription="@string/description_icServiceTime"
+                android:src="@drawable/ic_form_serv_time" />
+            <ImageView
+                android:id="@+id/ic_service_price_cust8"
+                android:layout_width="@dimen/columnWidthCust8"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:contentDescription="@string/description_icServicePrice"
+                android:src="@drawable/ic_form_serv_price" />
+        <TextView
+            android:id="@+id/initialHourTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ic_servTime_cust8"
+            android:layout_alignRight="@id/ic_servTime_cust8"
+            android:layout_alignLeft="@id/ic_servTime_cust8"
+            android:gravity="center"
+            android:text="Início"/>
         <TextView
             android:id="@+id/initialHour"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp"
-            android:paddingLeft="5dp"
+            android:layout_below="@id/initialHourTitle"
+            android:layout_alignRight="@id/initialHourTitle"
+            android:layout_alignLeft="@id/initialHourTitle"
+            android:gravity="center"
             android:text="0:00"/>
-        <TextView
-            android:id="@+id/duration"
+        <ListView
+            android:id="@+id/listServiceNames"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp"
-            android:paddingLeft="20dp"
-            android:text="1 hora e 15 min"/>
+            android:layout_below="@id/initialHour"
+            android:layout_alignLeft="@id/ic_servTime_cust8"
+            android:layout_alignRight="@id/ic_service_price_cust8"
+            android:dividerHeight="0dp"
+            android:divider="@color/transparent">
+
+        </ListView>
+        <TextView
+            android:id="@+id/finalHourTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/listServiceNames"
+            android:layout_alignRight="@id/initialHour"
+            android:layout_alignLeft="@id/initialHour"
+            android:gravity="center"
+            android:text="Fim"/>
         <TextView
             android:id="@+id/finalHour"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp"
-            android:paddingLeft="20dp"
+            android:layout_below="@id/finalHourTitle"
+            android:layout_alignRight="@id/finalHourTitle"
+            android:layout_alignLeft="@id/finalHourTitle"
+            android:gravity="center"
             android:text="1:15"/>
-        </LinearLayout>
-    <ListView
-        android:id="@+id/listServicePrices"
-        android:layout_width="match_parent"
-        android:layout_height="0dp">
-    </ListView>
-    <TextView
-        android:id="@+id/totalPrice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:text="R$50,00"/>
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/street"
+        <TextView
+            android:id="@+id/totalPriceTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/listServiceNames"
+            android:layout_alignRight="@id/ic_service_price_cust8"
+            android:layout_alignLeft="@id/ic_service_price_cust8"
+            android:layout_alignBottom="@id/finalHourTitle"
+            android:gravity="center"
+            android:text="Total"/>
+        <TextView
+            android:id="@+id/totalPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/totalPriceTitle"
+            android:layout_alignRight="@id/ic_service_price_cust8"
+            android:layout_alignLeft="@id/ic_service_price_cust8"
+            android:layout_alignBottom="@id/finalHour"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:text="R$50,00"/>
+</RelativeLayout>
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:textSize="14sp"
-            android:text="Endereco"/>
-        <EditText
-            android:id="@+id/number"
-            android:layout_toRightOf="@+id/street"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:textSize="14sp"
-            android:text="numero"/>
-        <EditText
-            android:id="@+id/complement"
-            android:layout_toRightOf="@+id/number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:textSize="14sp"
-            android:text="compl"/>
-        <EditText
-            android:id="@+id/cep"
-            android:layout_below="@+id/street"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:text="CEP"/>
-        <EditText
-            android:id="@+id/district"
-            android:layout_toRightOf="@+id/cep"
-            android:layout_below="@+id/street"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:text="Bairro"/>
-        <EditText
-            android:id="@+id/city"
-            android:layout_toRightOf="@id/district"
-            android:layout_below="@+id/street"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:text="Cidade"/>
-        <Spinner
-            android:id="@+id/state"
-            android:layout_toRightOf="@id/city"
-            android:layout_below="@+id/street"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="@dimen/minWidthUF"/>
+            android:layout_below="@id/serviceLayout_cust8"
+            android:layout_marginTop="@dimen/margin_betweenElements_medium">
+            <ImageView
+                android:id="@+id/ic_address_cust8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/street"
+                android:layout_alignBottom="@+id/state"
+                android:contentDescription="@string/description_icLocation"
+                android:src="@drawable/ic_form_location" />
+            <EditText
+                android:id="@+id/street"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/ic_address_cust8"
+                android:textSize="14sp"
+                android:text="Endereco"/>
+            <EditText
+                android:id="@+id/number"
+                android:layout_toRightOf="@+id/street"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="numero"/>
+            <EditText
+                android:id="@+id/complement"
+                android:layout_toRightOf="@+id/number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="compl"/>
+            <EditText
+                android:id="@+id/cep"
+                android:layout_below="@+id/street"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/ic_address_cust8"
+                android:textSize="14sp"
+                android:text="CEP"/>
+            <EditText
+                android:id="@+id/district"
+                android:layout_toRightOf="@+id/cep"
+                android:layout_below="@+id/street"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="Bairro"/>
+            <EditText
+                android:id="@+id/city"
+                android:layout_toRightOf="@id/district"
+                android:layout_below="@+id/street"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="Cidade"/>
+            <Spinner
+                android:id="@+id/state"
+                android:layout_toRightOf="@id/city"
+                android:layout_below="@+id/street"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="@dimen/minWidthUF"/>
+        </RelativeLayout>
     </RelativeLayout>
-</LinearLayout>
+
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/duration"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:paddingTop="5dp"-->
+            <!--android:paddingLeft="20dp"-->
+            <!--android:text="1 hora e 15 min"/>-->
+
+        <!--</LinearLayout>-->
+    <!--<ListView-->
+        <!--android:id="@+id/listServicePrices"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp">-->
+    <!--</ListView>-->
+

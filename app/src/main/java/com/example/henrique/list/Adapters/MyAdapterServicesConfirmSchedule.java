@@ -30,9 +30,10 @@ public class MyAdapterServicesConfirmSchedule extends ArrayAdapter <ServiceDTO> 
         TextView priceTV = (TextView) theView.findViewById(R.id.servicePriceTV_cust8);
 
         ServiceDTO serviceDTO = getItem(position);
+
         nameTV.setText(serviceDTO.getName());
-        timeTV.setText(DateUtil.getSmallHoursStringFromCalendar(serviceDTO.getTime()));
-        priceTV.setText(serviceDTO.getValue().toString());
+        timeTV.setText(DateUtil.getMinutesFromCalendar(serviceDTO.getTime()) + "min");
+        priceTV.setText("R$ " + serviceDTO.getValue().toString());
 
         return theView;
 

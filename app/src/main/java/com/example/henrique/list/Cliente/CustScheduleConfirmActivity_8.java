@@ -52,7 +52,7 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
     //Views
     ImageView imagePhoto;
     TextView textProfessionalName, textProfession, textDate ;
-    TextView textInicialHour , textTotalTime, textFinalHour, textTotalPrice;
+    TextView textInicialHour , textFinalHour, textTotalPrice;
     ListView listServiceNames, listServicePrices;
     EditText streetET, numberET, cepET, complementET, districtET, cityET;
     Spinner stateSP;
@@ -99,7 +99,6 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         textDate = (TextView) findViewById(R.id.date);
         listServiceNames = (ListView) findViewById(R.id.listServiceNames);
         textInicialHour = (TextView) findViewById(R.id.initialHour);
-        textTotalTime = (TextView) findViewById(R.id.duration);
         textFinalHour = (TextView) findViewById(R.id.finalHour);
         listServicePrices = (ListView) findViewById(R.id.listServicePrices);
         textTotalPrice = (TextView) findViewById(R.id.totalPrice);
@@ -139,8 +138,7 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         //alimentando views
         textInicialHour.setText(String.format("%02d",selectedHour) + ":" + String.format("%02d",selectedMinutes));
         textFinalHour.setText(DateUtil.getSmallHoursStringFromDate(finalTime));
-        textTotalTime.setText(DateUtil.getBigHoursStringFromDate(totalTime));
-        textTotalPrice.setText(totalPrice.toString());
+        textTotalPrice.setText("R$ " + totalPrice.toString());
         textDate.setText(sDate);
 
         textProfessionalName.setText(professionalDTO.getName());

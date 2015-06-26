@@ -2,7 +2,6 @@ package com.example.henrique.list.Cliente;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -33,7 +32,6 @@ import br.com.motiserver.dto.SchedulingDTO;
 public class CustScheduleListFragment_9 extends Fragment {
 
     private View v;
-    private FragmentActivity fa;
 
     PinnedSectionListView listSchedules;
     ImageButton addScheduleBT;
@@ -45,7 +43,6 @@ public class CustScheduleListFragment_9 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        fa = super.getActivity();
         v = inflater.inflate(R.layout.fragment_cust_schedule_list_9, container, false);
 
 
@@ -159,6 +156,7 @@ public class CustScheduleListFragment_9 extends Fragment {
                     intent.putExtra("totalTime", 0);
                     intent.putExtra("totalPrice", 0);
                     startActivity(intent);
+
                 }
             }
         });
