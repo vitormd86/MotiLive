@@ -249,7 +249,7 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
             Calendar initialPeriodCal = periodDTO.getStartTime();
             Calendar finalPeriodCal = periodDTO.getEndTime();
             System.out.println("indice da lista de periodo do calendario: " + periodDTOList.lastIndexOf(periodDTO));
-            System.out.println("Calendar dia inicial: " + initialPeriodCal.get(Calendar.HOUR_OF_DAY));
+            System.out.println("Calendar hora do dia inicial: " + initialPeriodCal.get(Calendar.HOUR_OF_DAY));
 
             for (int i = initialPeriodCal.get(Calendar.HOUR_OF_DAY); i < finalPeriodCal.get(Calendar.HOUR_OF_DAY); i++){
                 //um loop para cada hora dentro do periodo
