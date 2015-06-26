@@ -257,12 +257,17 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
                 if(i == selectedHour) {
                     //verifica se a hora é a mesma q a selecionada
                     System.out.println("Encontrou hora igual a selecionada");
-                    int minutes = initialPeriodCal.get(Calendar.MINUTE);
-                    while (minutes < 60) {
+                    int initialMinutes = initialPeriodCal.get(Calendar.MINUTE);
+                    int finalMinutes = 60;
+                    if (i == finalPeriodCal.get(Calendar.HOUR_OF_DAY)){
+                        //verifica se a hora termina na metade, caso sim, altera os minutos finais a serem apresentados
+                        finalMinutes = finalPeriodCal.get(Calendar.MINUTE);
+                    }
+                    while (initialMinutes < finalMinutes) {
                         //um loop para cada  5 minutos
-                        freeMinutes.add(minutes);
-                        minutes = minutes + 5;
-                        System.out.println("Incluido na array o minuto " + minutes);
+                        freeMinutes.add(initialMinutes);
+                        initialMinutes = initialMinutes + 5;
+                        System.out.println("Incluido na array o minuto " + initialMinutes);
                     }
                 }
             }
