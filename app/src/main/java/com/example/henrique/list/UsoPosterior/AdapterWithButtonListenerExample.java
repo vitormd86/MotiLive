@@ -28,7 +28,7 @@ public class AdapterWithButtonListenerExample extends ArrayAdapter<ScheduleItem>
     public static final int SECTION = 1;
 
     public AdapterWithButtonListenerExample(Context context, ArrayList<ScheduleItem> values) {
-        super(context, R.layout.view_schedules, values);
+        super(context, R.layout.view_pinnedlist_schedules, values);
     }
 
     //determina quantos tipos de view a lista contem
@@ -59,8 +59,8 @@ public class AdapterWithButtonListenerExample extends ArrayAdapter<ScheduleItem>
         switch (getItemViewType(position)){
             //Caso a view seja de SECAO
             case SECTION:
-                view = theInflator.inflate(R.layout.view_schedules_dates_pinned, parent, false);
-                TextView textDay = (TextView) view.findViewById(R.id.textScheduleDay);
+                view = theInflator.inflate(R.layout.view_pinnedlist_schedules_titles, parent, false);
+                TextView textDay = (TextView) view.findViewById(R.id.textScheduleDayAndMonth);
                 TextView textDayOfWeek = (TextView) view.findViewById(R.id.textScheduleDayOfWeek);
                 textDay.setText(""+cal.get(Calendar.DAY_OF_MONTH));
                 textDayOfWeek.setText(getDayOfWeek(cal.get(Calendar.DAY_OF_WEEK)));
@@ -68,14 +68,14 @@ public class AdapterWithButtonListenerExample extends ArrayAdapter<ScheduleItem>
                 break;
             //Caso a view seja ITEM
             default:
-                view = theInflator.inflate(R.layout.view_schedules, parent, false);
+                view = theInflator.inflate(R.layout.view_pinnedlist_schedules, parent, false);
                 String profissionalName = getItem(position).getPersonName();
                 String inicialTime = getItem(position).getScheduleInicialTime();
                 String finalTime = getItem(position).getScheduleFinalTime();
                 String leftTime = getItem(position).getScheduleLeftTime();
 
-                TextView textTitle = (TextView) view.findViewById(R.id.textScheduleTitle);
-                TextView textSubTitle = (TextView) view.findViewById(R.id.textScheduleSubTitle);
+                TextView textTitle = (TextView) view.findViewById(R.id.textScheduleName);
+                TextView textSubTitle = (TextView) view.findViewById(R.id.textScheduleDuration);
                 TextView textLeftTime = (TextView) view.findViewById(R.id.textLeftTime);
 //                Button moreButton = (Button) view.findViewById(R.id.button);
 

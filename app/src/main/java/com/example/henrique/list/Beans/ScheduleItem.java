@@ -1,5 +1,7 @@
 package com.example.henrique.list.Beans;
 
+import com.example.henrique.list.Utilidade_Publica.DateUtil;
+
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,7 +30,7 @@ public class ScheduleItem {
     }
 
     public String getScheduleInicialTime() {
-        return contertTime(scheduleInicialTime);
+        return DateUtil.getSmallHoursStringFromDate(scheduleInicialTime);
     }
 
     public void setScheduleInicialTime(Date scheduleInicialTime) {
@@ -36,7 +38,7 @@ public class ScheduleItem {
     }
 
     public String getScheduleFinalTime() {
-        return contertTime(scheduleFinalTime);
+        return DateUtil.getSmallHoursStringFromDate(scheduleFinalTime);
     }
 
     public void setScheduleFinalTime(Date scheduleFinalTime) {
@@ -44,7 +46,7 @@ public class ScheduleItem {
     }
 
     public String getScheduleLeftTime() {
-        return contertTime(scheduleLeftTime);
+        return DateUtil.getSmallHoursStringFromDate(scheduleLeftTime);
     }
 
     public void setScheduleLeftTime(Time scheduleLeftTime) {
@@ -57,10 +59,6 @@ public class ScheduleItem {
 
     public void setPersonName(String personName) {
         this.personName = personName;
-    }
-    private String contertTime(Date dateTime){
-        SimpleDateFormat df = new SimpleDateFormat("HH:mm");
-        return df.format(dateTime);
     }
 
     public boolean isSection() {

@@ -114,7 +114,6 @@ public class CustScheduleDateFragmentPortrait_6 extends Fragment {
 
                     toHourIntent.putExtra(SessionAttributes.CUSTOMER, customerDTO);
                     toHourIntent.putExtra(SessionAttributes.PROFESSIONAL, selectedProfessionalDTO);
-                    toHourIntent.putExtra("selectedDate", selectedDate);
                     toHourIntent.putExtra(SessionAttributes.DAILY_SCHEDULE, dailyScheduleDTO);
                     startActivity(toHourIntent);
                 } else {

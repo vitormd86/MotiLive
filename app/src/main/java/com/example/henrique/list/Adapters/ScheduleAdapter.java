@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 
 import com.example.henrique.list.Beans.ScheduleItem;
+import com.example.henrique.list.Utilidade_Publica.DateUtil;
 import com.example.henrique.list.Utilidade_Publica.PinnedSectionListView.PinnedSectionListAdapter;
 import com.example.henrique.list.R;
 
@@ -23,7 +24,7 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleItem> implements Pinne
     public static final int SECTION = 1;
 
     public ScheduleAdapter(Context context, ArrayList<ScheduleItem> values) {
-        super(context, R.layout.view_schedules, values);
+        super(context, R.layout.view_pinnedlist_schedules, values);
     }
 
     //determina quantos tipos de view a lista contem
@@ -54,59 +55,35 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleItem> implements Pinne
         switch (getItemViewType(position)){
             //Caso a view seja de SECAO
             case SECTION:
-                view = theInflator.inflate(R.layout.view_schedules_dates_pinned, parent, false);
-                TextView textDay = (TextView) view.findViewById(R.id.textScheduleDay);
+                view = theInflator.inflate(R.layout.view_pinnedlist_schedules_titles, parent, false);
+                TextView textDay = (TextView) view.findViewById(R.id.textScheduleDayAndMonth);
                 TextView textDayOfWeek = (TextView) view.findViewById(R.id.textScheduleDayOfWeek);
-                textDay.setText(""+cal.get(Calendar.DAY_OF_MONTH));
-                textDayOfWeek.setText(getDayOfWeek(cal.get(Calendar.DAY_OF_WEEK)));
+
+                textDay.setText(cal.get(Calendar.DAY_OF_MONTH) + " de " + DateUtil.getMonthString(cal.get(Calendar.MONTH)));
+                textDayOfWeek.setText("  -  " + DateUtil.getDayOfWeekString(cal.get(Calendar.DAY_OF_WEEK)));
                 //AQUI A VIEW DEVE RECEBER O BACKGROUND para nao aparecer o item saindo.
                 break;
             //Caso a view seja ITEM
             default:
-                view = theInflator.inflate(R.layout.view_schedules, parent, false);
+                view = theInflator.inflate(R.layout.view_pinnedlist_schedules, parent, false);
                 String profissionalName = getItem(position).getPersonName();
-                //String inicialTime = getItem(position).getScheduleInicialTime();
+                String inicialTime = getItem(position).getScheduleInicialTime();
                 String finalTime = getItem(position).getScheduleFinalTime();
                 String leftTime = getItem(position).getScheduleLeftTime();
 
-                TextView textTitle = (TextView) view.findViewById(R.id.textScheduleTitle);
-                TextView textSubTitle = (TextView) view.findViewById(R.id.textScheduleSubTitle);
-                TextView textLeftTime = (TextView) view.findViewById(R.id.textLeftTime);
+                TextView durationTV = (TextView) view.findViewById(R.id.textScheduleDuration);
+                TextView nameTV = (TextView) view.findViewById(R.id.textScheduleName);
+                TextView leftTimeTV = (TextView) view.findViewById(R.id.textLeftTime);
 
-                textTitle.setText(/*inicialTime + */": " + profissionalName);
-                textSubTitle.setText("Duração: ");
-                textLeftTime.setText(leftTime);
+                nameTV.setText(profissionalName);
+                durationTV.setText(inicialTime + "h ~ " + finalTime + "h");
+                leftTimeTV.setText(leftTime);
         }
 
 
         return view;
     }
-    private String getDayOfWeek(int value) {
-        String day = "";
-        switch (value) {
-            case 1:
-                day = "dom";
-                break;
-            case 2:
-                day = "seg";
-                break;
-            case 3:
-                day = "ter";
-                break;
-            case 4:
-                day = "qua";
-                break;
-            case 5:
-                day = "qui";
-                break;
-            case 6:
-                day = "sex";
-                break;
-            case 7:
-                day = "sab";
-                break;
-        }
-        return day;
-    }
+
+
 
 }

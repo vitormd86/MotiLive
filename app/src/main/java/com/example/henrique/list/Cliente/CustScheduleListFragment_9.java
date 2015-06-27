@@ -27,7 +27,10 @@ import java.util.Calendar;
 import java.util.List;
 
 import br.com.motiserver.dto.CustomerDTO;
+import br.com.motiserver.dto.DailyScheduleDTO;
 import br.com.motiserver.dto.SchedulingDTO;
+import br.com.motiserver.dto.ServiceDTO;
+import br.com.motiserver.dto.ServiceSchedulingDTO;
 
 public class CustScheduleListFragment_9 extends Fragment {
 
@@ -49,7 +52,7 @@ public class CustScheduleListFragment_9 extends Fragment {
         retrieveAttributes();
         initScheduleList();
         setListSchedulesListener();
-        setAddServiceListener();
+        setNewScheduleButtonListener();
 
         return v;
     }
@@ -61,6 +64,16 @@ public class CustScheduleListFragment_9 extends Fragment {
             customerDTO = new CustomerDTO();
            System.out.println("Erro ao receber customerDTO da intent");
            Toast.makeText(getActivity(), "Ocorreu um erro interno. Favor contactar o administrador!", Toast.LENGTH_SHORT).show();
+        }
+
+        SchedulingService scheduleService = new SchedulingService();
+        try{
+            schedules = scheduleService.findUpcomingSchedulingByCustomerId(customerDTO.getId());
+        } catch (Exception e){
+            e.printStackTrace();
+            schedules = new ArrayList<>();
+            System.out.println("Erro ao recuperar agendamentos do usuario.");
+            Toast.makeText(getActivity(), "Ocorreu um erro interno. Favor contactar o administrador!", Toast.LENGTH_SHORT).show();
         }
     }
     private void initScheduleList(){
@@ -75,20 +88,7 @@ public class CustScheduleListFragment_9 extends Fragment {
     }
     public ArrayList<ScheduleItem> initScheduleItems(){
         //inicia instancias de agendamento e itens a serem apresentados na lista
-
-        //verifica valores no banco
-
-        SchedulingService scheduleService = new SchedulingService();
         ArrayList<ScheduleItem> items = new ArrayList<>();
-
-        try{
-            schedules = scheduleService.findUpcomingSchedulingByCustomerId(customerDTO.getId());
-        } catch (Exception e){
-            e.printStackTrace();
-            schedules = new ArrayList<>();
-            System.out.println("Erro ao recuperar agendamentos do usuario.");
-            Toast.makeText(getActivity(), "Ocorreu um erro interno. Favor contactar o administrador!", Toast.LENGTH_SHORT).show();
-        }
 
         //recebe data atual e configura no calendario
         Date pinnedMenuDate = new Date();
@@ -105,9 +105,14 @@ public class CustScheduleListFragment_9 extends Fragment {
             item.setListPosition(i);
             item.setPersonName(schedules.get(i).getDailySchedule().getProfessional().getName());
             item.setScheduleDate(schedules.get(i).getDailySchedule().getDate().getTime());
-            // TODO item.setScheduleInicialTime(schedules.get(i).getStartTime().getTime());
-            // TODO item.setScheduleFinalTime(schedules.get(i).getEndTime().getTime());
+            item.setScheduleInicialTime(schedules.get(i).getStartTime().getTime());
+            item.setScheduleFinalTime(schedules.get(i).getEndTime().getTime());
             cal2.setTime(item.getScheduleDate());
+
+            System.out.println("ScheduleDate de item:  " + item.getScheduleDate().getDate() + "/" + item.getScheduleDate().getMonth());
+
+            System.out.println("Cal1 " + cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.MONTH));
+            System.out.println("Cal2 " + cal2.get(Calendar.DAY_OF_MONTH) + "/" + cal2.get(Calendar.MONTH));
             item.setSection(false);
             try {
                 //todo falta calcular o left time
@@ -124,48 +129,42 @@ public class CustScheduleListFragment_9 extends Fragment {
                 sectionItem.setSection(true);
                 sectionItem.setScheduleDate(item.getScheduleDate());
                 items.add(sectionItem);
-                cal = cal2;
+                cal.setTime(cal2.getTime());
+
+                System.out.println("Entrou no if");
             }
         items.add(item);
         }
         return items;
     }
 
+    //listener da lista para consultar agendamento
     public void setListSchedulesListener(){
         listSchedules.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //todo deve passar nesta intent os dados do agendamento selecionados
                 ScheduleItem selectedItem = (ScheduleItem) listSchedules.getItemAtPosition(position);
                 SchedulingDTO selectedSchedule = schedules.get(selectedItem.getListPosition());
+
+                //verifica se usuario nao clicou em um titulo
                 if(!selectedItem.isSection()) {
                     Intent intent = new Intent(getActivity(), CustScheduleConfirmActivity_8.class);
-                    intent.putExtra("professionalName", selectedSchedule.getDailySchedule().getProfessional().getName());
-                    intent.putExtra("street", selectedSchedule.getAddressStreet());
-                    intent.putExtra("number", selectedSchedule.getAddressNumber());
-                    intent.putExtra("cep", selectedSchedule.getAddressZipCode());
-                    intent.putExtra("complement", selectedSchedule.getAddressComplement());
-                    intent.putExtra("district", selectedSchedule.getAddressDistrict());
-                    intent.putExtra("city", selectedSchedule.getAddressCity());
-                    intent.putExtra("state", selectedSchedule.getAddressState().getCode());
-                    intent.putExtra("profession", selectedSchedule.getDailySchedule().getProfessional().getProfession());
-                    intent.putExtra("selectedServices", new ArrayList<String>()); //todo buscar todos agendamentos do servico
-                    intent.putExtra("sDate", "Sem dados"); //todo tranformar os dados da data em int e strings para proxima tela
-                    intent.putExtra("selectedHour", 0);
-                    intent.putExtra("selectedMinutes", 0);
-                    intent.putExtra("totalTime", 0);
-                    intent.putExtra("totalPrice", 0);
+                    intent.putExtra(SessionAttributes.SCHEDULING, selectedSchedule);
                     startActivity(intent);
-
                 }
             }
         });
     }
-    private void setAddServiceListener(){
+    private void setNewScheduleButtonListener(){
         addScheduleBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle extras = new Bundle();
+                extras.putSerializable(SessionAttributes.CUSTOMER, customerDTO);
+
                 CustScheduleDateFragmentPortrait_6 custScheduleDateFragmentPortrait_6 = new CustScheduleDateFragmentPortrait_6();
+                custScheduleDateFragmentPortrait_6.setArguments(extras);
+
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(R.id.content_frame, custScheduleDateFragmentPortrait_6);
 

@@ -17,6 +17,7 @@ import com.example.henrique.list.Adapters.MyAdapterFreeMinutes;
 import com.example.henrique.list.Adapters.MyAdapterServicesSchedule;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Service.ServiceService;
+import com.example.henrique.list.Utilidade_Publica.DateUtil;
 import com.example.henrique.list.Utilidade_Publica.ResizeAnimation;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
+import java.util.TimeZone;
 
 import br.com.motiserver.dto.BreakDTO;
 import br.com.motiserver.dto.CustomerDTO;
@@ -40,7 +42,6 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
     ResizeAnimation resizeAnimation;
     int freeHourMinutesWidth = 90;
     boolean isHoursOpened, isMinutesOpened;
-    String sDate;
 
     //Iniciando DTOs
     private CustomerDTO customerDTO;
@@ -86,7 +87,6 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
         customerDTO = (CustomerDTO) extras.getSerializable(SessionAttributes.CUSTOMER);
         professionalDTO = (ProfessionalDTO) extras.getSerializable(SessionAttributes.PROFESSIONAL);
         dailyScheduleDTO = (DailyScheduleDTO) extras.getSerializable(SessionAttributes.DAILY_SCHEDULE);
-        sDate = extras.getString("selectedDate");
 
         //atributos vindo dos servicos do Banco
 
@@ -129,7 +129,7 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
         //Configura as variaveis do cabecalho
         textProfessionalName.setText(professionalDTO.getName());
         textProfession.setText(professionalDTO.getProfession().getName());
-        textDate.setText(sDate);
+        textDate.setText(DateUtil.getDateStringFromCalendar(dailyScheduleDTO.getDate()));
 
         //Configurando listas de servicos/horas/minutos livre
         listHours.setAdapter(myAdapterFreeHours);
@@ -229,6 +229,8 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
             //um loop para cada periodo
             Calendar initialPeriodCal = periodDTO.getStartTime();
             Calendar finalPeriodCal = periodDTO.getEndTime();
+            initialPeriodCal.setTimeZone(TimeZone.getDefault());
+            finalPeriodCal.setTimeZone(TimeZone.getDefault());
             System.out.println("indice da lista de periodo do calendario: " + periodDTOList.lastIndexOf(periodDTO));
             System.out.println("Calendar dia inicial: " + initialPeriodCal.get(Calendar.HOUR_OF_DAY));
 
@@ -248,6 +250,8 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
             //um loop para cada periodo
             Calendar initialPeriodCal = periodDTO.getStartTime();
             Calendar finalPeriodCal = periodDTO.getEndTime();
+            initialPeriodCal.setTimeZone(TimeZone.getDefault());
+            finalPeriodCal.setTimeZone(TimeZone.getDefault());
             System.out.println("indice da lista de periodo do calendario: " + periodDTOList.lastIndexOf(periodDTO));
             System.out.println("Calendar hora do dia inicial: " + initialPeriodCal.get(Calendar.HOUR_OF_DAY));
 
@@ -287,7 +291,7 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
         intent.putExtra(SessionAttributes.DAILY_SCHEDULE, dailyScheduleDTO);
         intent.putExtra("selectedHour", selectedHour);
         intent.putExtra("selectedMinutes", selectedMinutes);
-        intent.putExtra("sDate", sDate);
+        intent.putExtra("isEditing", false);
 
         startActivity(intent);
     }
@@ -323,7 +327,9 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
 
     public void restartValues() {
         //reinicia valores deste fragment
-        selectedServicesDTOList.clear();
+        if(selectedServicesDTOList != null){
+            selectedServicesDTOList.clear();
+        }
         isHoursOpened = false;
         isMinutesOpened = false;
         screenFreeMinutes.clear();

@@ -36,18 +36,20 @@ import br.com.motiserver.dto.DailyScheduleDTO;
 import br.com.motiserver.dto.ProfessionalDTO;
 import br.com.motiserver.dto.SchedulingDTO;
 import br.com.motiserver.dto.ServiceDTO;
+import br.com.motiserver.dto.ServiceSchedulingDTO;
 import br.com.motiserver.util.constants.UF;
 
 
 public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
 
 
-
+    Bundle extras;
     //DTOs
     private CustomerDTO customerDTO;
     private ProfessionalDTO professionalDTO;
     private DailyScheduleDTO dailyScheduleDTO;
     private ArrayList<ServiceDTO> serviceDTOList;
+    SchedulingDTO schedulingDTO;
 
     //Views
     ImageView imagePhoto;
@@ -58,7 +60,6 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
     Spinner stateSP;
 
     //Variveis de data e hora
-    String sDate;
     int selectedHour, selectedMinutes;
     Date totalTime, finalTime, inicialTime;
 
@@ -80,15 +81,40 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
 
     private void retriveAttributes(){
         //recebe valores da activity anterior
-        Bundle extras = getIntent().getExtras();
+        extras = getIntent().getExtras();
 
-        customerDTO = (CustomerDTO) extras.getSerializable(SessionAttributes.CUSTOMER);
-        professionalDTO = (ProfessionalDTO) extras.getSerializable(SessionAttributes.PROFESSIONAL);
-        serviceDTOList = (ArrayList<ServiceDTO>) extras.getSerializable(SessionAttributes.SERVICE);
-        dailyScheduleDTO = (DailyScheduleDTO) extras.getSerializable(SessionAttributes.DAILY_SCHEDULE);
-        sDate = extras.getString("sDate");
-        selectedHour = extras.getInt("selectedHour");
-        selectedMinutes = extras.getInt("selectedMinutes");
+        if(isEditing()){
+
+            schedulingDTO = (SchedulingDTO) extras.getSerializable(SessionAttributes.SCHEDULING);
+            customerDTO = schedulingDTO.getCustomer();
+            professionalDTO = schedulingDTO.getProfessional();
+            dailyScheduleDTO = schedulingDTO.getDailySchedule();
+
+            Calendar startTime = schedulingDTO.getStartTime();
+            startTime.setTimeZone(TimeZone.getDefault());
+            selectedHour = startTime.get(Calendar.HOUR_OF_DAY);
+            selectedMinutes = startTime.get(Calendar.MINUTE);
+
+            //alimentando lista de servicos do agendamento selecionado
+            List<ServiceSchedulingDTO> serviceSchedulingDTOArrayList = schedulingDTO.getServicesScheduling();
+            ArrayList<ServiceDTO> serviceDTOLocalList = new ArrayList<>();
+            for(ServiceSchedulingDTO serviceSchedulingDTO : serviceSchedulingDTOArrayList){
+                serviceDTOLocalList.add(serviceSchedulingDTO.getService());
+            }
+            serviceDTOList = serviceDTOLocalList;
+
+        } else {
+
+
+            //alimentando campos usados na tela
+            schedulingDTO = new SchedulingDTO();
+            customerDTO = (CustomerDTO) extras.getSerializable(SessionAttributes.CUSTOMER);
+            professionalDTO = (ProfessionalDTO) extras.getSerializable(SessionAttributes.PROFESSIONAL);
+            serviceDTOList = (ArrayList<ServiceDTO>) extras.getSerializable(SessionAttributes.SERVICE);
+            dailyScheduleDTO = (DailyScheduleDTO) extras.getSerializable(SessionAttributes.DAILY_SCHEDULE);
+            selectedHour = extras.getInt("selectedHour");
+            selectedMinutes = extras.getInt("selectedMinutes");
+        }
     }
 
     private void initViews(){
@@ -139,7 +165,7 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         textInicialHour.setText(String.format("%02d",selectedHour) + ":" + String.format("%02d",selectedMinutes));
         textFinalHour.setText(DateUtil.getSmallHoursStringFromDate(finalTime));
         textTotalPrice.setText("R$ " + totalPrice.toString());
-        textDate.setText(sDate);
+        textDate.setText(DateUtil.getDateStringFromCalendar(dailyScheduleDTO.getDate()));
 
         textProfessionalName.setText(professionalDTO.getName());
         textProfession.setText(professionalDTO.getProfession().getName());
@@ -180,7 +206,11 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
     public boolean onCreateOptionsMenu (Menu menu){
         // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_confirm_delete, menu);
+        if(isEditing()){
+            inflater.inflate(R.menu.menu_confirm_delete, menu);
+        } else {
+            inflater.inflate(R.menu.menu_confirm, menu);
+        }
         return super.onCreateOptionsMenu(menu);
     }
     @Override
@@ -192,9 +222,8 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
                 executeJSON();
                 Intent confirmIntent = new Intent(this,CustDrawerMenu_10.class);
                 confirmIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                //todo verificar se existe o agendamento. se existir alterar dados, se nao existir incluir novo no BD
-                Toast.makeText(this, "Confirmado", Toast.LENGTH_SHORT).show();
                 startActivity(confirmIntent);
+                this.finish();
                 return true;
 
             case R.id.deleteButton:
@@ -209,9 +238,20 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
     private void executeJSON(){
         SchedulingService schedulingService = new SchedulingService();
 
-        SchedulingDTO schedulingDTO = new SchedulingDTO();
+        List<ServiceSchedulingDTO> serviceSchedulingDTOList = new ArrayList<>();
+
         Calendar cal = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+        cal.setTime(inicialTime);
+        cal2.setTime(finalTime);
+
         UF state = UF.getEnumFromValue((String) stateSP.getSelectedItem());
+
+        for(ServiceDTO serviceDTO : serviceDTOList){
+            ServiceSchedulingDTO serviceSchedulingDTO = new ServiceSchedulingDTO();
+            serviceSchedulingDTO.setService(serviceDTO);
+            serviceSchedulingDTOList.add(serviceSchedulingDTO);
+        }
 
         schedulingDTO.setProfessional(professionalDTO);
         schedulingDTO.setCustomer(customerDTO);
@@ -223,12 +263,10 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         schedulingDTO.setAddressStreet(streetET.getText().toString());
         schedulingDTO.setAddressZipCode(cepET.getText().toString());
         schedulingDTO.setAmount(totalPrice);
-        schedulingDTO.setServicesScheduling((List) serviceDTOList);
+        schedulingDTO.setServicesScheduling(serviceSchedulingDTOList);
         schedulingDTO.setDailySchedule(dailyScheduleDTO);
-        cal.setTime(inicialTime);
         schedulingDTO.setStartTime(cal);
-        cal.setTime(finalTime);
-        schedulingDTO.setEndTime(cal);
+        schedulingDTO.setEndTime(cal2);
 
         try{
             schedulingService.save(schedulingDTO);
@@ -248,12 +286,14 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
     //define o listener dos botoes SIM / NAO do Alert Dialog
     builder.setPositiveButton("Sim", new DialogInterface.OnClickListener(){
         public void onClick(DialogInterface arg0, int arg1){
-            //caso clique sim, deve voltar para atividade anterior
-            //todo verificar se existe agendamento no bd, caso exista, remover
+            //caso clique sim, deve voltar para atividade anterior e apagar o agendamento
+            SchedulingService schedulingService = new SchedulingService();
+            //todo apagar agendmaneto
 
             Intent cancelIntent = new Intent(getBaseContext(),CustDrawerMenu_10.class);
             cancelIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(cancelIntent);
+            finish();
             Toast.makeText(getBaseContext(), "Cancelado", Toast.LENGTH_SHORT).show();
         }
     });
@@ -266,5 +306,9 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
     popupAlert.show();
     }
 
+    private boolean isEditing(){
+        boolean isEditing = extras.getBoolean("isEditing", true);
+        return isEditing;
+    }
 }
 
