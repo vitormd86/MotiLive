@@ -61,21 +61,8 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
 
         if (getIntent().getExtras() != null) {
             extras = getIntent().getExtras();
+            customerDTO = (CustomerDTO) getIntent().getSerializableExtra(SessionAttributes.CUSTOMER);
         }
-
-        //todo-vitor o professionalDTO deve vir na intent, e nao do servico;
-        // retrieve customer
-        //customerDTO = (CustomerDTO) getIntent().getSerializableExtra(SessionAttributes.CUSTOMER);
-        CustomerService customerService = new CustomerService();
-        Long idCustomer = Long.valueOf(2);
-        try {
-            customerDTO = customerService.find(idCustomer);
-            System.out.println("Located Customer with id" + idCustomer.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error findind customer with id " + idCustomer.toString());
-        }
-        //todo-end
     }
 
     public void setInicialFragment() {
