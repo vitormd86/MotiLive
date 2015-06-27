@@ -17,15 +17,21 @@
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
 
         <!-- GOOGLE CLOUD MESSAGING (RECEIVER E SERVICES) -->
-        <receiver
-            android:name="com.google.android.gms.gcm.GcmReceiver"
-            android:exported="true"
+        <receiver android:name="com.google.android.gms.gcm.GcmReceiver" android:exported="true"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
                 <category android:name="com.example.gcm" />
             </intent-filter>
         </receiver>
+        <service android:name=".Notification.InstanceIDListenerServiceImpl"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID"/>
+            </intent-filter>
+        </service>
+        <service android:name=".Notification.TokenRegistrationIntentService" />
 
         <!-- ACTIVITIES -->
         <activity
@@ -37,7 +43,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Login.LoginNewAccount_2"
             android:label="Criar Conta"

@@ -3,6 +3,7 @@
 
     <!--Globals-->
     <string name="app_name">Moti</string>
+    <string name="gcm_defaultSenderId">817242884838</string>
     <string name="genderMale">Masculino</string>
     <string name="genderFemale">Feminino</string>
     <string name="buttonCancel">Cancelar</string>

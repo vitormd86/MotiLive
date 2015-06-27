@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.henrique.list.Cliente.CustDrawerMenu_10;
+import com.example.henrique.list.Notification.TokenRegistrationIntentService;
 import com.example.henrique.list.Profissional.ProDrawerMenu_15;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Service.CustomerService;
@@ -27,14 +28,14 @@ import br.com.motiserver.util.constants.PersonType;
 
 public class Login_1 extends Activity {
 
-    TextView errorMsgTV;
-    EditText userET, pwdET;
-    Button createAccountBT, loginBT;
+    private TextView errorMsgTV;
+    private EditText userET, pwdET;
+    private Button createAccountBT, loginBT;
 
-    CustomerService customerService = new CustomerService();
-    LocalLoginService localLoginService = null;
-    LoginService loginService = new LoginService();
-    ProfessionalService professionalService = new ProfessionalService();
+    private CustomerService customerService = new CustomerService();
+    private LocalLoginService localLoginService = null;
+    private LoginService loginService = new LoginService();
+    private ProfessionalService professionalService = new ProfessionalService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +84,9 @@ public class Login_1 extends Activity {
                 // CALL A LOGIN SERVICE
                 CustomerDTO customerDTO = loginService.login(customerLocal.getLogin(), customerLocal.getPassword());
                 if (customerDTO != null) {
+                    // REGISTER TOKEN CLOUD MESSAGING TO LOGGED USER
+                    //registerCloudMessagingToken();
+                    // REDIRECT TO A NEXT SCREEN
                     redirectToNextScreen(customerDTO);
                     return true;
                 } else {
@@ -106,8 +110,10 @@ public class Login_1 extends Activity {
                 if (customerDTO == null) {
                     Toast.makeText(getApplicationContext(), "Login ou senha inválido!", Toast.LENGTH_SHORT).show();
                 } else {
-                    //  REGISTAR LOGIN LOCALLY
+                    //  REGISTER LOGIN LOCALLY
                     localLoginService.registerLogin(customerDTO);
+                    // REGISTER TOKEN CLOUD MESSAGING TO LOGGED USER
+                    //registerCloudMessagingToken();
                     // REDIRECT TO A NEXT SCREEN
                     redirectToNextScreen(customerDTO);
                 }
@@ -129,6 +135,12 @@ public class Login_1 extends Activity {
             executeJson = false;
         }
         return executeJson;
+    }
+
+    private void registerCloudMessagingToken() {
+        // CALL A INTENT TO REGISTER A TOKEN CLOUD MESSAGING
+        Intent intent = new Intent(this, TokenRegistrationIntentService.class);
+        startService(intent);
     }
 
     private void redirectToNextScreen(CustomerDTO customerDTO) throws ServiceException {

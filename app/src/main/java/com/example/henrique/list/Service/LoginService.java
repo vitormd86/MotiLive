@@ -48,6 +48,20 @@ public class LoginService extends GenericService {
         }
     }
 
+    public Boolean registerTokenGCM(Long customerId, String tokenGCM) throws ServiceException {
+        WrapperDTO<Boolean> wrapperDTO = null;
+        try {
+            wrapperDTO = new RegisterTokenGCM().execute(customerId,tokenGCM).get();
+        } catch (Exception e) {
+            throw new ServiceException(e);
+        }
+        if (wrapperDTO.getErrorMessage() != null) {
+            throw new ServiceException(wrapperDTO.getErrorMessage());
+        } else {
+            return wrapperDTO.getObject();
+        }
+    }
+
     public Boolean verifyExistingUser(String login) throws ServiceException {
         WrapperDTO<Boolean> wrapperDTO = null;
         try {
@@ -96,6 +110,24 @@ public class LoginService extends GenericService {
             // EXECUTE
             ResponseEntity<WrapperDTO<CustomerDTO>> response = (ResponseEntity<WrapperDTO<CustomerDTO>>) restTemplate
                     .exchange(URLConstants.LOGIN_WITH_FACEBOOK, HttpMethod.POST, null, responseType, vars);
+            return response.getBody();
+        }
+    }
+
+    private class RegisterTokenGCM extends AsyncTask<Object, Void, WrapperDTO<Boolean>> {
+        @Override
+        protected WrapperDTO<Boolean> doInBackground(Object... parameters) {
+            // PREPARE
+            RestTemplate restTemplate = new RestTemplate();
+            restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            Map<String, Object> vars = new HashMap<String, Object>();
+            vars.put("customerId", (Long) parameters[0]);
+            vars.put("tokenGCM", (String) parameters[1]);
+            ParameterizedTypeReference<WrapperDTO<Boolean>> responseType = new ParameterizedTypeReference<WrapperDTO<Boolean>>(){};
+
+            // EXECUTE
+            ResponseEntity<WrapperDTO<Boolean>> response = (ResponseEntity<WrapperDTO<Boolean>>) restTemplate
+                    .exchange(URLConstants.LOGIN_REGISTER_TOKEN_GCM, HttpMethod.POST, null, responseType, vars);
             return response.getBody();
         }
     }
