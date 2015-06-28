@@ -23,6 +23,7 @@ import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.TimeZone;
@@ -145,20 +146,36 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
             @Override
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //adicionando horas.... deve receber do banco de dados e tratar em seguida
-                screenFreeHours.clear();
-                screenFreeHours.addAll(findFreeHours());
-                myAdapterFreeHours.notifyDataSetChanged();
 
-                //verifica se a listview de horas ja esta aberta
-                if (!isHoursOpened) {
-                    //redimensiona listView de horas
-                    isHoursOpened = true;
-                    resizeAnimation = new ResizeAnimation(listHours, freeHourMinutesWidth);
-                    resizeAnimation.setDuration(600);
+                //caso nenhum servico selecionado, fechar listview de horas
+                if (listServices.getCheckedItemCount() == 0 & isHoursOpened){
+                    isHoursOpened = false;
+                    resizeAnimation = new ResizeAnimation(listHours, 0);
+                    resizeAnimation.setDuration(400);
                     listHours.startAnimation(resizeAnimation);
-                }
+                } else {
+                    //adicionando horas na lista
+                    screenFreeHours.clear();
+                    screenFreeHours.addAll(findFreeHours());
+                    myAdapterFreeHours.notifyDataSetChanged();
 
+                    //verifica se a lista de minutos jah esta aberta, para fecha-la
+                    if(isMinutesOpened){
+                        isMinutesOpened = false;
+                        resizeAnimation = new ResizeAnimation(listMinutes, 0);
+                        resizeAnimation.setDuration(400);
+                        listMinutes.startAnimation(resizeAnimation);
+                        listHours.clearChoices();
+                    }
+
+                    //verifica se a listview de horas esta fechada, para abri-la
+                    if (!isHoursOpened) {
+                        isHoursOpened = true;
+                        resizeAnimation = new ResizeAnimation(listHours, freeHourMinutesWidth);
+                        resizeAnimation.setDuration(400);
+                        listHours.startAnimation(resizeAnimation);
+                    }
+                }
             }
         });
 
@@ -225,16 +242,20 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
     private ArrayList<Integer> findFreeHours(){
         ArrayList<Integer> freeHours = new ArrayList<>();
         System.out.println("Tamanho da periodDTOlist: " + periodDTOList.size());
+
         for (PeriodDTO periodDTO : periodDTOList){
             //um loop para cada periodo
             Calendar initialPeriodCal = periodDTO.getStartTime();
-            Calendar finalPeriodCal = periodDTO.getEndTime();
+            Calendar finalPeriodCal = subtractSelectedServicesTime(periodDTO.getEndTime());
             initialPeriodCal.setTimeZone(TimeZone.getDefault());
             finalPeriodCal.setTimeZone(TimeZone.getDefault());
-            System.out.println("indice da lista de periodo do calendario: " + periodDTOList.lastIndexOf(periodDTO));
-            System.out.println("Calendar dia inicial: " + initialPeriodCal.get(Calendar.HOUR_OF_DAY));
+            System.out.println("Periodo de " + initialPeriodCal.get(Calendar.HOUR_OF_DAY) + ":"
+                                             + initialPeriodCal.get(Calendar.MINUTE) + " ate "
+                                             + finalPeriodCal.get(Calendar.HOUR_OF_DAY) + ":"
+                                             + finalPeriodCal.get(Calendar.MINUTE));
+            System.out.println("Calendar hora inicial: " + initialPeriodCal.get(Calendar.HOUR_OF_DAY));
 
-            for (int i = initialPeriodCal.get(Calendar.HOUR_OF_DAY); i < finalPeriodCal.get(Calendar.HOUR_OF_DAY); i++){
+            for (int i = initialPeriodCal.get(Calendar.HOUR_OF_DAY); i <= finalPeriodCal.get(Calendar.HOUR_OF_DAY); i++){
                 //um loop para cada hora
                 System.out.println("Adicionado na lista, hora numero " + i);
                 freeHours.add(i);
@@ -249,26 +270,32 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
         for (PeriodDTO periodDTO : periodDTOList){
             //um loop para cada periodo
             Calendar initialPeriodCal = periodDTO.getStartTime();
-            Calendar finalPeriodCal = periodDTO.getEndTime();
+            Calendar finalPeriodCal = subtractSelectedServicesTime(periodDTO.getEndTime());
             initialPeriodCal.setTimeZone(TimeZone.getDefault());
             finalPeriodCal.setTimeZone(TimeZone.getDefault());
             System.out.println("indice da lista de periodo do calendario: " + periodDTOList.lastIndexOf(periodDTO));
             System.out.println("Calendar hora do dia inicial: " + initialPeriodCal.get(Calendar.HOUR_OF_DAY));
 
-            for (int i = initialPeriodCal.get(Calendar.HOUR_OF_DAY); i < finalPeriodCal.get(Calendar.HOUR_OF_DAY); i++){
+            for (int i = initialPeriodCal.get(Calendar.HOUR_OF_DAY); i <= finalPeriodCal.get(Calendar.HOUR_OF_DAY); i++){
                 //um loop para cada hora dentro do periodo
                 System.out.println("Dentro da hora numero " + i);
                 if(i == selectedHour) {
                     //verifica se a hora é a mesma q a selecionada
                     System.out.println("Encontrou hora igual a selecionada");
-                    int initialMinutes = initialPeriodCal.get(Calendar.MINUTE);
-                    int finalMinutes = 60;
+                    int initialMinutes = 0;
+                    int finalMinutes = 55;
+                    if (i == initialPeriodCal.get(Calendar.HOUR_OF_DAY)){
+                        //verifica se a hora comeca na metade, caso sim, altera os minutos finais a serem apresentados
+                        initialMinutes = initialPeriodCal.get(Calendar.MINUTE);
+                        System.out.println("Hora selecionada coincide com inicio de um periodo");
+                    }
                     if (i == finalPeriodCal.get(Calendar.HOUR_OF_DAY)){
                         //verifica se a hora termina na metade, caso sim, altera os minutos finais a serem apresentados
                         finalMinutes = finalPeriodCal.get(Calendar.MINUTE);
+                        System.out.println("Hora selecionada coincide com final de um periodo");
                     }
-                    while (initialMinutes < finalMinutes) {
-                        //um loop para cada  5 minutos
+                    while (initialMinutes <= finalMinutes) {
+                        //um loop para cada 5 minutos
                         freeMinutes.add(initialMinutes);
                         initialMinutes = initialMinutes + 5;
                         System.out.println("Incluido na array o minuto " + initialMinutes);
@@ -278,6 +305,47 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
         }
         System.out.println("Tamanho da Arraylist de minutos: " + freeMinutes.size());
         return freeMinutes;
+    }
+
+    private Calendar subtractSelectedServicesTime(Calendar finalPeriodCal){
+        //esse metodo remove o tempo de servico selecionado pelo usuario do calendario recebido
+
+        //Alimentando array de servicos selecionados
+        SparseBooleanArray checkedServices = listServices.getCheckedItemPositions();
+        List<ServiceDTO> selectedServices = new ArrayList<>();
+        //para cada item selecionado alimenta seus respectivos valores;
+        for (int i = 0; i < listServices.getAdapter().getCount(); i++) {
+            if (checkedServices.get(i)) {
+                ServiceDTO s = (ServiceDTO) myAdapterServiceTypes.getItem(i);
+                selectedServices.add(s);
+            }
+        }
+        //para cada servico selecionado armazena tempo total
+        long serviceTimeLong = 0;
+        for (ServiceDTO serviceDTO : selectedServices){
+            serviceTimeLong = serviceDTO.getTime().getTime().getTime() + serviceTimeLong;
+        }
+        //todo verificar bug de fuso horario (e tirar esta correcao)
+        serviceTimeLong = serviceTimeLong + (TimeZone.getDefault().getOffset(serviceTimeLong) * (selectedServices.size() - 1));
+
+        Calendar subtractedCal = Calendar.getInstance();
+        Calendar toSubtractCal = Calendar.getInstance();
+
+        subtractedCal.setTime(finalPeriodCal.getTime());
+        toSubtractCal.setTime(new Date(serviceTimeLong));
+        subtractedCal.setTimeZone(TimeZone.getDefault());
+        toSubtractCal.setTimeZone(TimeZone.getDefault());
+
+        System.out.println(subtractedCal.get(Calendar.HOUR_OF_DAY) + ":" + subtractedCal.get(Calendar.MINUTE));
+        System.out.println(-toSubtractCal.get(Calendar.HOUR_OF_DAY) + ":" + -toSubtractCal.get(Calendar.MINUTE));
+
+        subtractedCal.add(Calendar.HOUR_OF_DAY, -toSubtractCal.get(Calendar.HOUR_OF_DAY));
+        subtractedCal.add(Calendar.MINUTE, -toSubtractCal.get(Calendar.MINUTE));
+
+        System.out.println(subtractedCal.get(Calendar.HOUR_OF_DAY) + ":" + subtractedCal.get(Calendar.MINUTE));
+
+        selectedServices.clear();
+        return subtractedCal;
     }
 
     private void initConfirmActivity() {

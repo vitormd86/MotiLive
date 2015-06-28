@@ -59,7 +59,7 @@ public class AdapterWithButtonListenerExample extends ArrayAdapter<ScheduleItem>
         switch (getItemViewType(position)){
             //Caso a view seja de SECAO
             case SECTION:
-                view = theInflator.inflate(R.layout.view_pinnedlist_schedules_titles, parent, false);
+                view = theInflator.inflate(R.layout.view_pinnedlist_schedules_datetitle, parent, false);
                 TextView textDay = (TextView) view.findViewById(R.id.textScheduleDayAndMonth);
                 TextView textDayOfWeek = (TextView) view.findViewById(R.id.textScheduleDayOfWeek);
                 textDay.setText(""+cal.get(Calendar.DAY_OF_MONTH));

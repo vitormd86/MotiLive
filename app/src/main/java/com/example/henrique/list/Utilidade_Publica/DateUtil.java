@@ -13,9 +13,9 @@ public class DateUtil {
 
     public static int getMinutesFromCalendar(Calendar cal){
         //todo-vitor por enquanto ele so converte corretamente qd calendario < que 1 dia
-
         int mins;
-        mins = cal.get(Calendar.HOUR)*60 + cal.get(Calendar.MINUTE);
+        Date date = cal.getTime();
+        mins = getMinutesFromDate(date);
 
         return mins;
     }

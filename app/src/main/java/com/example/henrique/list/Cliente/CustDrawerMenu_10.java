@@ -23,6 +23,7 @@ import com.example.henrique.list.Beans.DrawerMenuItem;
 import com.example.henrique.list.Login.CustProfile_5;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Service.CustomerService;
+import com.example.henrique.list.Service.ProfessionalService;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 
 import br.com.motiserver.dto.CustomerDTO;
@@ -63,6 +64,17 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
             extras = getIntent().getExtras();
             customerDTO = (CustomerDTO) getIntent().getSerializableExtra(SessionAttributes.CUSTOMER);
         }
+
+        //todo-vitor apagar assim q tiver o logout
+        CustomerService custService = new CustomerService();
+        Long idProfessional = Long.valueOf(2);
+        try {
+            customerDTO = custService.find(idProfessional);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error findind customer with id " + idProfessional.toString());
+        }
+        //todo-end
     }
 
     public void setInicialFragment() {

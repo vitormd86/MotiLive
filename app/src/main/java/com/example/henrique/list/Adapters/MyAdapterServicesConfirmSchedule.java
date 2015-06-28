@@ -32,7 +32,7 @@ public class MyAdapterServicesConfirmSchedule extends ArrayAdapter <ServiceDTO> 
         ServiceDTO serviceDTO = getItem(position);
 
         nameTV.setText(serviceDTO.getName());
-        timeTV.setText(DateUtil.getMinutesFromCalendar(serviceDTO.getTime()) + "min");
+        timeTV.setText(DateUtil.getMinutesFromCalendar(serviceDTO.getTime()) + " min");
         priceTV.setText("R$ " + serviceDTO.getValue().toString());
 
         return theView;
