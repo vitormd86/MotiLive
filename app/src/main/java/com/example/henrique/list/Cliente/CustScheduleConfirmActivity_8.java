@@ -288,7 +288,7 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         public void onClick(DialogInterface arg0, int arg1){
             //caso clique sim, deve voltar para atividade anterior e apagar o agendamento
             SchedulingService schedulingService = new SchedulingService();
-            //todo apagar agendmaneto
+            //todo servico de apagar agendmaneto
 
             Intent cancelIntent = new Intent(getBaseContext(),CustDrawerMenu_10.class);
             cancelIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
