@@ -55,7 +55,7 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleItem> implements Pinne
         switch (getItemViewType(position)){
             //Caso a view seja de SECAO
             case SECTION:
-                view = theInflator.inflate(R.layout.view_pinnedlist_schedules_titles, parent, false);
+                view = theInflator.inflate(R.layout.view_pinnedlist_schedules_datetitle, parent, false);
                 TextView textDay = (TextView) view.findViewById(R.id.textScheduleDayAndMonth);
                 TextView textDayOfWeek = (TextView) view.findViewById(R.id.textScheduleDayOfWeek);
 
