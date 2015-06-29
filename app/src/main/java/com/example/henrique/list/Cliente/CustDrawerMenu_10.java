@@ -21,9 +21,10 @@ import android.widget.TextView;
 import com.example.henrique.list.Adapters.MyAdapterDrawerOptions;
 import com.example.henrique.list.Beans.DrawerMenuItem;
 import com.example.henrique.list.Login.CustProfile_5;
+import com.example.henrique.list.Login.Login_1;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Service.CustomerService;
-import com.example.henrique.list.Service.ProfessionalService;
+import com.example.henrique.list.Service.local.LocalLoginService;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 
 import br.com.motiserver.dto.CustomerDTO;
@@ -209,7 +210,7 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_logout, menu);
         return true;
     }
 
@@ -230,16 +231,18 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Pass the event to ActionBarDrawerToggle, if it returns
         // true, then it has handled the app icon touch event
-        int id = item.getItemId();
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        } else if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.logout:
+                logout();
+                return true;
+            case R.id.exit_the_app:
+                exit_the_app();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        // Handle your other action bar items...
-
-        return super.onOptionsItemSelected(item);
     }
+
 
     /**
      * Swaps fragments in the main content view
@@ -256,6 +259,17 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
     public void setTitle(CharSequence title) {
         mTitle = title;
         getSupportActionBar().setTitle(mTitle);
+    }
+    // olhar depois c tem alguma soluçao mais elegantes
+    public  void logout(){
+        LocalLoginService localLoginService = new LocalLoginService(CustDrawerMenu_10.this);
+        localLoginService.logoff();
+        Intent createAccountIntent = new Intent(CustDrawerMenu_10.this, Login_1.class);
+        startActivity(createAccountIntent);
+    }
+
+    private void exit_the_app() {
+        System.exit(0);
     }
 
 }

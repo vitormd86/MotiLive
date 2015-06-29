@@ -49,7 +49,6 @@ public class ProProfile_5 extends ActionBarActivity {
 
     //    //Constants
     static final int DATE_DIALOG_ID = 999;
-
 //
 //
 //    //TODO: fazer recuperacao de data e Genero
