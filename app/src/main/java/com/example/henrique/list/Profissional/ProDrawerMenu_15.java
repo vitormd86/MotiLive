@@ -224,16 +224,21 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Pass the event to ActionBarDrawerToggle, if it returns
         // true, then it has handled the app icon touch event
-        switch (item.getItemId()) {
-            case R.id.logout:
-                logout();
-                return true;
-            case R.id.exit_the_app:
-                exit_the_app();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+
+        int id = item.getItemId();
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        } else if (id == R.id.action_settings) {
+            return true;
+        } else if (id == R.id.logout) {
+            logout();
+            return true;
+        } else if (id == R.id.exit_the_app){
+            exit_the_app();
+            return true;
         }
+        // Handle your other action bar items...
+        return super.onOptionsItemSelected(item);
     }
 
     /**

@@ -85,7 +85,6 @@ public class ProScheduleListFragment_14 extends Fragment {
             try {
                 // TODO item.setScheduleInicialTime(Calendar.getInstance());
                 item.setScheduleFinalTime(new Time(sdf.parse("08:15").getTime()));
-                item.setScheduleLeftTime(new Time(sdf.parse("01:10").getTime()));
             } catch (Exception e) {
                 throw new RuntimeException(e.getMessage());
             }

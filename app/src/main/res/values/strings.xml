@@ -89,8 +89,9 @@
     <string name="action_refresh">action_refresh</string>
     <string name="action_help">action_help</string>
 
-    <!-- Tela 4  -->
+    <!-- Tela 8 customer  -->
 
+    <string name="scheduleAddressTitle">Enderço de Atendimento</string>
 
 
     <!-- Tela 5 Profissional  -->

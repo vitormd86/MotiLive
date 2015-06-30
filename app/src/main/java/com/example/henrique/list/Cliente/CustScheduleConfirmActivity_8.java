@@ -9,16 +9,16 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.henrique.list.Adapters.MyAdapterServicesConfirmSchedule;
 import com.example.henrique.list.R;
-import com.example.henrique.list.Service.DailyScheduleService;
 import com.example.henrique.list.Service.SchedulingService;
 import com.example.henrique.list.Utilidade_Publica.DateUtil;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
@@ -53,16 +53,20 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
 
     //Views
     ImageView imagePhoto;
-    TextView textProfessionalName, textProfession, textDate ;
-    TextView textInicialHour , textFinalHour, textTotalPrice;
+    TextView textProfessionalName, textProfession, textDate;
+    TextView textInicialHour, textFinalHour, textTotalPrice;
     ListView listServiceNames, listServicePrices;
-    EditText streetET, numberET, cepET, complementET, districtET, cityET;
+    TextView streetET, numberET, cepET, complementET, districtET, cityET;
     Spinner stateSP;
+    RadioGroup selectAddressRadioGroup;
+
+    ArrayList<String> stateSpinnerItens;
 
     //Variveis de data e hora
     int selectedHour, selectedMinutes;
     Date totalTime, finalTime, inicialTime;
 
+    //variaveis de preco
     BigDecimal totalPrice;
 
 
@@ -77,13 +81,14 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         retriveAttributes();
         initViews();
         fillViews();
+        setAddressRadioListener();
     }
 
-    private void retriveAttributes(){
+    private void retriveAttributes() {
         //recebe valores da activity anterior
         extras = getIntent().getExtras();
 
-        if(isEditing()){
+        if (isEditing()) {
 
             schedulingDTO = (SchedulingDTO) extras.getSerializable(SessionAttributes.SCHEDULING);
             customerDTO = schedulingDTO.getCustomer();
@@ -98,14 +103,12 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
             //alimentando lista de servicos do agendamento selecionado
             List<ServiceSchedulingDTO> serviceSchedulingDTOArrayList = schedulingDTO.getServicesScheduling();
             ArrayList<ServiceDTO> serviceDTOLocalList = new ArrayList<>();
-            for(ServiceSchedulingDTO serviceSchedulingDTO : serviceSchedulingDTOArrayList){
+            for (ServiceSchedulingDTO serviceSchedulingDTO : serviceSchedulingDTOArrayList) {
                 serviceDTOLocalList.add(serviceSchedulingDTO.getService());
             }
             serviceDTOList = serviceDTOLocalList;
 
         } else {
-
-
             //alimentando campos usados na tela
             schedulingDTO = new SchedulingDTO();
             customerDTO = (CustomerDTO) extras.getSerializable(SessionAttributes.CUSTOMER);
@@ -117,7 +120,7 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         }
     }
 
-    private void initViews(){
+    private void initViews() {
         //inicia objetos de layout
         imagePhoto = (ImageView) findViewById(R.id.photo);
         textProfessionalName = (TextView) findViewById(R.id.professionalName);
@@ -128,24 +131,24 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         textFinalHour = (TextView) findViewById(R.id.finalHour);
         listServicePrices = (ListView) findViewById(R.id.listServicePrices);
         textTotalPrice = (TextView) findViewById(R.id.totalPrice);
-        streetET = (EditText) findViewById(R.id.street);
-        numberET = (EditText) findViewById(R.id.number);
-        cepET = (EditText) findViewById(R.id.cep);
-        complementET = (EditText) findViewById(R.id.complement);
-        districtET = (EditText) findViewById(R.id.district);
-        cityET  = (EditText) findViewById(R.id.city);
+        streetET = (TextView) findViewById(R.id.street);
+        numberET = (TextView) findViewById(R.id.number);
+        cepET = (TextView) findViewById(R.id.cep);
+        complementET = (TextView) findViewById(R.id.complement);
+        districtET = (TextView) findViewById(R.id.district);
+        cityET = (TextView) findViewById(R.id.city);
         stateSP = (Spinner) findViewById(R.id.state);
+        selectAddressRadioGroup = (RadioGroup) findViewById(R.id.addressRadioGroup_cust_8);
     }
 
 
-
-    private void fillViews(){
+    private void fillViews() {
         //precos e tempo dos servicos
         totalPrice = new BigDecimal("0.00");
         long totalTimeLong = 0;
         long finalTimeLong, inicialTimeLong;
 
-        for (int i = 0; serviceDTOList.size() > i; i++){
+        for (int i = 0; serviceDTOList.size() > i; i++) {
             totalPrice = totalPrice.add(serviceDTOList.get(i).getValue());
             totalTimeLong = totalTimeLong + serviceDTOList.get(i).getTime().getTime().getTime();
         }
@@ -153,7 +156,7 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         totalTimeLong = totalTimeLong + (TimeZone.getDefault().getOffset(totalTimeLong) * (serviceDTOList.size() - 1));
 
 
-        String sSelectedTime = String.format("%02d",selectedHour) + ":" + String.format("%02d",selectedMinutes);
+        String sSelectedTime = String.format("%02d", selectedHour) + ":" + String.format("%02d", selectedMinutes);
         inicialTimeLong = DateUtil.getDateFromString(sSelectedTime, new SimpleDateFormat("HH:mm")).getTime();
         finalTimeLong = inicialTimeLong + totalTimeLong + TimeZone.getDefault().getOffset(inicialTimeLong);
 
@@ -162,7 +165,7 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         finalTime = new Date(finalTimeLong);
 
         //alimentando views
-        textInicialHour.setText(String.format("%02d",selectedHour) + ":" + String.format("%02d",selectedMinutes));
+        textInicialHour.setText(String.format("%02d", selectedHour) + ":" + String.format("%02d", selectedMinutes));
         textFinalHour.setText(DateUtil.getSmallHoursStringFromDate(finalTime));
         textTotalPrice.setText("R$ " + totalPrice.toString());
         textDate.setText(DateUtil.getDateStringFromCalendar(dailyScheduleDTO.getDate()));
@@ -170,13 +173,9 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         textProfessionalName.setText(professionalDTO.getName());
         textProfession.setText(professionalDTO.getProfession().getName());
 
-        streetET.setText(customerDTO.getAddressStreet());
-        numberET.setText(customerDTO.getAddressNumber());
-        complementET.setText(customerDTO.getAddressComplement());
-        cepET.setText(customerDTO.getAddressZipCode());
-        districtET.setText(customerDTO.getAddressDistrict());
-        cityET.setText(customerDTO.getAddressCity());
+
         setSpinnerItems();
+        setInitialAddressItens();
 
         //lista de servico
         ArrayAdapter servicesAdapter = new MyAdapterServicesConfirmSchedule(this, serviceDTOList);
@@ -186,7 +185,7 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
     //configura spinner da tela
     private void setSpinnerItems() {
 
-        ArrayList<String> stateSpinnerItens = new ArrayList<>();
+        stateSpinnerItens = new ArrayList<>();
         ArrayAdapter stateAdapter;
 
         for (UF state : UF.values()) {
@@ -196,23 +195,100 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         stateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         stateSP.setAdapter(stateAdapter);
 
-        //apontando a posicao inicial do spinner de estado a partir do estado do cliente
-        UF customerUF = customerDTO.getAddressState();
-        int startPosition = stateSpinnerItens.lastIndexOf(customerUF.getCode());
-        stateSP.setSelection(startPosition);
+
+    }
+
+    //configura endereco inicial
+    private void setInitialAddressItens() {
+        if (isEditing()) {
+            streetET.setText(schedulingDTO.getAddressStreet() + ",");
+            numberET.setText(schedulingDTO.getAddressNumber() + " - ");
+            complementET.setText(schedulingDTO.getAddressComplement());
+            cepET.setText(schedulingDTO.getAddressZipCode());
+            districtET.setText(schedulingDTO.getAddressDistrict());
+            cityET.setText(schedulingDTO.getAddressCity());
+            //apontando a posicao do spinner de estado a partir do estado do endereco de agendamento
+            UF schedulingUF = schedulingDTO.getAddressState();
+            int startPosition = stateSpinnerItens.lastIndexOf(schedulingUF.getCode());
+            stateSP.setSelection(startPosition);
+
+        } else {
+            streetET.setText(customerDTO.getAddressStreet() + ",");
+            numberET.setText(customerDTO.getAddressNumber() + " - ");
+            complementET.setText(customerDTO.getAddressComplement());
+            cepET.setText(customerDTO.getAddressZipCode());
+            districtET.setText(customerDTO.getAddressDistrict());
+            cityET.setText(customerDTO.getAddressCity());
+            //apontando a posicao do spinner de estado a partir do estado do endereco de customer
+            UF customerUF = customerDTO.getAddressState();
+            int startPosition = stateSpinnerItens.lastIndexOf(customerUF.getCode());
+            stateSP.setSelection(startPosition);
+        }
+
+    }
+
+    //mude endereco caso usuario selecione outro enderecamento
+    private void setAddressRadioListener() {
+        if (isEditing()) {
+            //em modo de edicao nao pode mudar o endereco, desativa o radiogroup
+            for (int i = 0; i < selectAddressRadioGroup.getChildCount(); i++) {
+                RadioButton radioButton = (RadioButton) selectAddressRadioGroup.getChildAt(i);
+                radioButton.setEnabled(false);
+                radioButton.setTextColor(getResources().getColor(R.color.lightGray));
+            }
+
+            selectAddressRadioGroup.clearCheck();
+            selectAddressRadioGroup.setEnabled(false);
+        } else {
+            selectAddressRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    int startPosition;
+                    UF toSelectUF;
+                    switch (checkedId) {
+                        case R.id.proAddressRadio_cust8:
+                            streetET.setText(professionalDTO.getAddressStreet() + ",");
+                            numberET.setText(professionalDTO.getAddressNumber() + " - ");
+                            complementET.setText(professionalDTO.getAddressComplement());
+                            cepET.setText(professionalDTO.getAddressZipCode());
+                            districtET.setText(professionalDTO.getAddressDistrict());
+                            cityET.setText(professionalDTO.getAddressCity());
+                            //apontando a posicao do spinner de estado a partir do estado do endereco de profissional
+                            toSelectUF = professionalDTO.getAddressState();
+                            startPosition = stateSpinnerItens.lastIndexOf(toSelectUF.getCode());
+                            stateSP.setSelection(startPosition);
+                            break;
+                        case R.id.custAddressRadio_cust8:
+                            streetET.setText(customerDTO.getAddressStreet() + ",");
+                            numberET.setText(customerDTO.getAddressNumber() + " - ");
+                            complementET.setText(customerDTO.getAddressComplement());
+                            cepET.setText(customerDTO.getAddressZipCode());
+                            districtET.setText(customerDTO.getAddressDistrict());
+                            cityET.setText(customerDTO.getAddressCity());
+                            //apontando a posicao do spinner de estado a partir do estado do endereco de agendamento
+                            toSelectUF = customerDTO.getAddressState();
+                            startPosition = stateSpinnerItens.lastIndexOf(toSelectUF.getCode());
+                            stateSP.setSelection(startPosition);
+                            break;
+                    }
+                }
+
+            });
+        }
     }
 
     @Override
-    public boolean onCreateOptionsMenu (Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();
-        if(isEditing()){
+        if (isEditing()) {
             inflater.inflate(R.menu.menu_confirm_delete, menu);
         } else {
             inflater.inflate(R.menu.menu_confirm, menu);
         }
         return super.onCreateOptionsMenu(menu);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Admininstra cliques da ActionBar
@@ -220,7 +296,7 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
             case R.id.confirmButton:
                 //todo validar campos de endereco
                 executeJSON();
-                Intent confirmIntent = new Intent(this,CustDrawerMenu_10.class);
+                Intent confirmIntent = new Intent(this, CustDrawerMenu_10.class);
                 confirmIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(confirmIntent);
                 this.finish();
@@ -235,7 +311,7 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         }
     }
 
-    private void executeJSON(){
+    private void executeJSON() {
         SchedulingService schedulingService = new SchedulingService();
 
         List<ServiceSchedulingDTO> serviceSchedulingDTOList = new ArrayList<>();
@@ -247,7 +323,7 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
 
         UF state = UF.getEnumFromValue((String) stateSP.getSelectedItem());
 
-        for(ServiceDTO serviceDTO : serviceDTOList){
+        for (ServiceDTO serviceDTO : serviceDTOList) {
             ServiceSchedulingDTO serviceSchedulingDTO = new ServiceSchedulingDTO();
             serviceSchedulingDTO.setService(serviceDTO);
             serviceSchedulingDTOList.add(serviceSchedulingDTO);
@@ -268,45 +344,46 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         schedulingDTO.setStartTime(cal);
         schedulingDTO.setEndTime(cal2);
 
-        try{
+        try {
             schedulingService.save(schedulingDTO);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Erro ao gravar agendamento");
         }
     }
-    public void initCancelScheduleAlert(){
 
-    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    AlertDialog popupAlert;
+    public void initCancelScheduleAlert() {
 
-   //Alimenta o Alert Dialog para confirmar cancelamento
-    builder.setTitle("Cancelar Agendamento");
-    builder.setMessage("Voce deseja mesmo cancelar o agendamento com " + professionalDTO.getName() + "?");
-    //define o listener dos botoes SIM / NAO do Alert Dialog
-    builder.setPositiveButton("Sim", new DialogInterface.OnClickListener(){
-        public void onClick(DialogInterface arg0, int arg1){
-            //caso clique sim, deve voltar para atividade anterior e apagar o agendamento
-            SchedulingService schedulingService = new SchedulingService();
-            //todo servico de apagar agendmaneto
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog popupAlert;
 
-            Intent cancelIntent = new Intent(getBaseContext(),CustDrawerMenu_10.class);
-            cancelIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(cancelIntent);
-            finish();
-            Toast.makeText(getBaseContext(), "Cancelado", Toast.LENGTH_SHORT).show();
-        }
-    });
-    builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
-        public void onClick(DialogInterface arg0, int arg1) {
-            //caso clique nao deve continuar na mesma atividade
-        }
-    });
-    popupAlert = builder.create();
-    popupAlert.show();
+        //Alimenta o Alert Dialog para confirmar cancelamento
+        builder.setTitle("Cancelar Agendamento");
+        builder.setMessage("Voce deseja mesmo cancelar o agendamento com " + professionalDTO.getName() + "?");
+        //define o listener dos botoes SIM / NAO do Alert Dialog
+        builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface arg0, int arg1) {
+                //caso clique sim, deve voltar para atividade anterior e apagar o agendamento
+                SchedulingService schedulingService = new SchedulingService();
+                //todo servico de apagar agendmaneto
+
+                Intent cancelIntent = new Intent(getBaseContext(), CustDrawerMenu_10.class);
+                cancelIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(cancelIntent);
+                finish();
+                Toast.makeText(getBaseContext(), "Cancelado", Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface arg0, int arg1) {
+                //caso clique nao deve continuar na mesma atividade
+            }
+        });
+        popupAlert = builder.create();
+        popupAlert.show();
     }
 
-    private boolean isEditing(){
+    private boolean isEditing() {
         boolean isEditing = extras.getBoolean("isEditing", true);
         return isEditing;
     }

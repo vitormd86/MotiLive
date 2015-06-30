@@ -15,12 +15,12 @@ public class ScheduleItem {
     String personName;
     boolean isSection; //0 para ITEM e 1 para SECTION
 
-
     public int getListPosition(){return listPosition;}
 
     public void setListPosition(int listPosition){
         this.listPosition = listPosition;
     }
+
     public Date getScheduleDate() {
         return scheduleDate;
     }
@@ -46,11 +46,25 @@ public class ScheduleItem {
     }
 
     public String getScheduleLeftTime() {
+        setScheduleLeftTime(scheduleInicialTime);
         return DateUtil.getSmallHoursStringFromDate(scheduleLeftTime);
     }
 
-    public void setScheduleLeftTime(Time scheduleLeftTime) {
-        this.scheduleLeftTime = scheduleLeftTime;
+    private void setScheduleLeftTime(Date scheduleInicialTime) {
+        Date todayDate = new Date();
+        Date scheduleLeftTime = new Date();
+
+        long scheduleLeftTimeLong = scheduleInicialTime.getTime() - todayDate.getTime();
+        if(scheduleLeftTimeLong >= 0){
+            scheduleLeftTime.setTime(scheduleLeftTimeLong);
+            this.scheduleLeftTime = scheduleLeftTime;
+        } else {
+            System.out.println("Não é possível calcular o tempo faltante de um agendamento q já passou");
+            System.out.println("Hora do agendamento: " + DateUtil.getSmallHoursStringFromDate(scheduleInicialTime) +
+                                " Hora atual: " + DateUtil.getSmallHoursStringFromDate(todayDate));
+            scheduleLeftTime.setTime(scheduleLeftTimeLong);
+            this.scheduleLeftTime = scheduleLeftTime;
+        }
     }
 
     public String getPersonName() {

@@ -147,59 +147,104 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/serviceLayout_cust8"
             android:layout_marginTop="@dimen/margin_betweenElements_medium">
+            <TextView
+                android:id="@+id/addressTitle_cust8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textSize_medium"
+                android:gravity="center"
+                android:text="@string/scheduleAddressTitle"/>
             <ImageView
                 android:id="@+id/ic_address_cust8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/street"
+                android:layout_alignTop="@+id/addressRadioGroup_cust_8"
                 android:layout_alignBottom="@+id/state"
+                android:layout_below="@id/addressTitle_cust8"
                 android:contentDescription="@string/description_icLocation"
                 android:src="@drawable/ic_form_location" />
-            <EditText
+
+            <RadioGroup
+                android:id="@+id/addressRadioGroup_cust_8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/ic_address_cust8"
+                android:layout_below="@id/addressTitle_cust8"
+                android:layout_marginBottom="@dimen/margin_betweenElements_extraSmall"
+                android:checkedButton="@+id/custAddressRadio_cust8"
+                android:weightSum="2"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal">
+                <RadioButton
+                    android:id="@+id/proAddressRadio_cust8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Profissional"
+                    android:textColor="@color/Gray"
+                    />
+                <RadioButton
+                    android:id="@+id/custAddressRadio_cust8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Cliente"
+                    android:textColor="@color/Gray"/>
+            </RadioGroup>
+
+            <TextView
                 android:id="@+id/street"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/ic_address_cust8"
-                android:textSize="14sp"
-                android:text="Endereco"/>
-            <EditText
+                android:layout_below="@id/addressRadioGroup_cust_8"
+                android:layout_marginRight="@dimen/margin_betweenAddressElements"
+                android:textColor="@color/black"
+                android:hint="Endereco"/>
+            <TextView
                 android:id="@+id/number"
                 android:layout_toRightOf="@+id/street"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="numero"/>
-            <EditText
+                android:layout_below="@id/addressRadioGroup_cust_8"
+                android:layout_marginRight="@dimen/margin_betweenAddressElements"
+                android:textColor="@color/black"
+                android:hint="numero"/>
+            <TextView
                 android:id="@+id/complement"
                 android:layout_toRightOf="@+id/number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="compl"/>
-            <EditText
+                android:layout_below="@id/addressRadioGroup_cust_8"
+                android:textColor="@color/black"
+                android:hint="compl"/>
+            <TextView
                 android:id="@+id/cep"
                 android:layout_below="@+id/street"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/ic_address_cust8"
-                android:textSize="14sp"
-                android:text="CEP"/>
-            <EditText
+                android:layout_marginRight="@dimen/margin_betweenAddressElements"
+                android:textColor="@color/black"
+                android:hint="CEP"/>
+            <TextView
                 android:id="@+id/district"
                 android:layout_toRightOf="@+id/cep"
                 android:layout_below="@+id/street"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="Bairro"/>
-            <EditText
+                android:layout_marginRight="@dimen/margin_betweenAddressElements"
+                android:textColor="@color/black"
+                android:hint="Bairro"/>
+            <TextView
                 android:id="@+id/city"
                 android:layout_toRightOf="@id/district"
                 android:layout_below="@+id/street"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="Cidade"/>
+                android:layout_marginRight="@dimen/margin_betweenAddressElements"
+                android:textColor="@color/black"
+                android:hint="Cidade"/>
             <Spinner
                 android:id="@+id/state"
                 android:layout_toRightOf="@id/city"

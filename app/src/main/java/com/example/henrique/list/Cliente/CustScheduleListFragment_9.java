@@ -95,7 +95,6 @@ public class CustScheduleListFragment_9 extends Fragment {
         Calendar cal = Calendar.getInstance();
         Calendar cal2 = Calendar.getInstance();
         cal.setTime(pinnedMenuDate);
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 
         //inicia proximos itens de agendamento, e verifica se a data é a mesma. caso contrario gera outo item SECTION
         for (int i = 0; i < schedules.size(); i++){
@@ -114,12 +113,6 @@ public class CustScheduleListFragment_9 extends Fragment {
             System.out.println("Cal1 " + cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.MONTH));
             System.out.println("Cal2 " + cal2.get(Calendar.DAY_OF_MONTH) + "/" + cal2.get(Calendar.MONTH));
             item.setSection(false);
-            try {
-                //todo falta calcular o left time
-                item.setScheduleLeftTime(new Time(sdf.parse("01:10").getTime()));
-            } catch (Exception e) {
-                throw new RuntimeException(e.getMessage());
-            }
 
             //Verifica se o item é o primeiro da lista, ou se há diferenca de DIA para criar uma SECTION
             if (i == 0 || cal.get(Calendar.DAY_OF_MONTH) != cal2.get(Calendar.DAY_OF_MONTH)

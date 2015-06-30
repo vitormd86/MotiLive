@@ -1,6 +1,7 @@
 <resources>
     <!-- Espacamento de margens de visualizações -->
     <dimen name="margin_app">16dp</dimen>
+    <dimen name="margin_betweenAddressElements">5dp</dimen>
     <dimen name="margin_betweenElements_extraSmall">5dp</dimen>
     <dimen name="margin_betweenElements_small">10dp</dimen>
     <dimen name="margin_betweenElements_medium">20dp</dimen>
