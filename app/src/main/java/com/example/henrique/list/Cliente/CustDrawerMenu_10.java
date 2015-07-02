@@ -65,17 +65,6 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
             extras = getIntent().getExtras();
             customerDTO = (CustomerDTO) getIntent().getSerializableExtra(SessionAttributes.CUSTOMER);
         }
-
-        //todo-vitor apagar assim q tiver o logout
-        CustomerService custService = new CustomerService();
-        Long idProfessional = Long.valueOf(2);
-        try {
-            customerDTO = custService.find(idProfessional);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error findind customer with id " + idProfessional.toString());
-        }
-        //todo-end
     }
 
     public void setInicialFragment() {
@@ -180,7 +169,9 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent toEditProfileIntent = new Intent(CustDrawerMenu_10.this, CustProfile_5.class);
+                toEditProfileIntent.putExtra(SessionAttributes.CUSTOMER, customerDTO);
                 startActivity(toEditProfileIntent);
+                mDrawerLayout.closeDrawers();
             }
         });
     }
@@ -200,6 +191,7 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
                     Intent i = new Intent(CustDrawerMenu_10.this, menuOptions[position].getLinkActivity().getClass());
                     i.putExtra(SessionAttributes.CUSTOMER, customerDTO);
                     startActivity(i);
+                    finish();
                 }
 
                 mDrawerLayout.closeDrawers();

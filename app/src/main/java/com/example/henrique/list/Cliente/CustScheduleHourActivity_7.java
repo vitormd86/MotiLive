@@ -18,15 +18,13 @@ import com.example.henrique.list.Adapters.MyAdapterServicesSchedule;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Service.ServiceService;
 import com.example.henrique.list.Utilidade_Publica.DateUtil;
+import com.example.henrique.list.Utilidade_Publica.SchedulingCalculator.FreeTimeCalculator;
 import com.example.henrique.list.Utilidade_Publica.ResizeAnimation;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
-import java.util.TimeZone;
 
 import br.com.motiserver.dto.BreakDTO;
 import br.com.motiserver.dto.CustomerDTO;
@@ -42,7 +40,7 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
 
     ResizeAnimation resizeAnimation;
     int freeHourMinutesWidth = 90;
-    boolean isHoursOpened, isMinutesOpened;
+    boolean isHoursOpened, isMinutesOpened, isToday;
 
     //Iniciando DTOs
     private CustomerDTO customerDTO;
@@ -88,28 +86,12 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
         customerDTO = (CustomerDTO) extras.getSerializable(SessionAttributes.CUSTOMER);
         professionalDTO = (ProfessionalDTO) extras.getSerializable(SessionAttributes.PROFESSIONAL);
         dailyScheduleDTO = (DailyScheduleDTO) extras.getSerializable(SessionAttributes.DAILY_SCHEDULE);
+        periodDTOList = (ArrayList<PeriodDTO>) extras.getSerializable(SessionAttributes.PERIOD_LIST);
+        serviceDTOList = (ArrayList<ServiceDTO>) extras.getSerializable(SessionAttributes.SERVICE);
 
+        System.out.println("Array Servicos chegando com size " + serviceDTOList.size());
         //atributos vindo dos servicos do Banco
-
         //lista de servicos
-        serviceDTOList = new ArrayList<>();
-        ServiceService serviceService = new ServiceService();
-        try {
-            serviceDTOList = serviceService.findAllByProfessionalId(professionalDTO.getId());
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Erro ao buscar servicos do profissional selecionado");
-        }
-
-        //agendamento diario
-
-
-        //recuperando agendamentos
-        //schedulingDTOSet = dailyScheduleDTO.getSchedules();
-        //recuperando breaks
-        //breakDTOSet = dailyScheduleDTO.getBreaks();
-        //recuperando horas livres
-        periodDTOList = PeriodDTOBuilder.buildFreeTimeListByDailyScheduling(dailyScheduleDTO);
 
     }
 
@@ -139,7 +121,6 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
         listServices.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
     }
 
-
     //metodo q cria listener da lista de servicos
     public void setServicesListener() {
         listServices.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -156,7 +137,7 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
                 } else {
                     //adicionando horas na lista
                     screenFreeHours.clear();
-                    screenFreeHours.addAll(findFreeHours());
+                    screenFreeHours.addAll(FreeTimeCalculator.findFreeHours(periodDTOList, dailyScheduleDTO, findSelectedServices()));
                     myAdapterFreeHours.notifyDataSetChanged();
 
                     //verifica se a lista de minutos jah esta aberta, para fecha-la
@@ -193,7 +174,7 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
 
                 //caso clique na hora a lista de minutos mudara de acordo com o horario dispnivel pra aquele servico
                 screenFreeMinutes.clear();
-                screenFreeMinutes.addAll(findFreeMinutes(selectedHour));
+                screenFreeMinutes.addAll(FreeTimeCalculator.findFreeMinutes(selectedHour, periodDTOList, findSelectedServices()));
                 myAdapterFreeMinutes.notifyDataSetChanged();
 
 
@@ -235,81 +216,9 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
                 }
             }
         });
-
-
     }
 
-    private ArrayList<Integer> findFreeHours(){
-        ArrayList<Integer> freeHours = new ArrayList<>();
-        System.out.println("Tamanho da periodDTOlist: " + periodDTOList.size());
-
-        for (PeriodDTO periodDTO : periodDTOList){
-            //um loop para cada periodo
-            Calendar initialPeriodCal = periodDTO.getStartTime();
-            Calendar finalPeriodCal = subtractSelectedServicesTime(periodDTO.getEndTime());
-            initialPeriodCal.setTimeZone(TimeZone.getDefault());
-            finalPeriodCal.setTimeZone(TimeZone.getDefault());
-            System.out.println("Periodo de " + initialPeriodCal.get(Calendar.HOUR_OF_DAY) + ":"
-                                             + initialPeriodCal.get(Calendar.MINUTE) + " ate "
-                                             + finalPeriodCal.get(Calendar.HOUR_OF_DAY) + ":"
-                                             + finalPeriodCal.get(Calendar.MINUTE));
-            System.out.println("Calendar hora inicial: " + initialPeriodCal.get(Calendar.HOUR_OF_DAY));
-
-            for (int i = initialPeriodCal.get(Calendar.HOUR_OF_DAY); i <= finalPeriodCal.get(Calendar.HOUR_OF_DAY); i++){
-                //um loop para cada hora
-                System.out.println("Adicionado na lista, hora numero " + i);
-                freeHours.add(i);
-            }
-        }
-        System.out.println("Tamanho da Arraylist de horas: " + freeHours.size());
-        return freeHours;
-    }
-    private ArrayList<Integer> findFreeMinutes(int selectedHour){
-        ArrayList<Integer> freeMinutes = new ArrayList<>();
-        System.out.println("Tamanho da periodDTOlist: " + periodDTOList.size());
-        for (PeriodDTO periodDTO : periodDTOList){
-            //um loop para cada periodo
-            Calendar initialPeriodCal = periodDTO.getStartTime();
-            Calendar finalPeriodCal = subtractSelectedServicesTime(periodDTO.getEndTime());
-            initialPeriodCal.setTimeZone(TimeZone.getDefault());
-            finalPeriodCal.setTimeZone(TimeZone.getDefault());
-            System.out.println("indice da lista de periodo do calendario: " + periodDTOList.lastIndexOf(periodDTO));
-            System.out.println("Calendar hora do dia inicial: " + initialPeriodCal.get(Calendar.HOUR_OF_DAY));
-
-            for (int i = initialPeriodCal.get(Calendar.HOUR_OF_DAY); i <= finalPeriodCal.get(Calendar.HOUR_OF_DAY); i++){
-                //um loop para cada hora dentro do periodo
-                System.out.println("Dentro da hora numero " + i);
-                if(i == selectedHour) {
-                    //verifica se a hora é a mesma q a selecionada
-                    System.out.println("Encontrou hora igual a selecionada");
-                    int initialMinutes = 0;
-                    int finalMinutes = 55;
-                    if (i == initialPeriodCal.get(Calendar.HOUR_OF_DAY)){
-                        //verifica se a hora comeca na metade, caso sim, altera os minutos finais a serem apresentados
-                        initialMinutes = initialPeriodCal.get(Calendar.MINUTE);
-                        System.out.println("Hora selecionada coincide com inicio de um periodo");
-                    }
-                    if (i == finalPeriodCal.get(Calendar.HOUR_OF_DAY)){
-                        //verifica se a hora termina na metade, caso sim, altera os minutos finais a serem apresentados
-                        finalMinutes = finalPeriodCal.get(Calendar.MINUTE);
-                        System.out.println("Hora selecionada coincide com final de um periodo");
-                    }
-                    while (initialMinutes <= finalMinutes) {
-                        //um loop para cada 5 minutos
-                        freeMinutes.add(initialMinutes);
-                        initialMinutes = initialMinutes + 5;
-                        System.out.println("Incluido na array o minuto " + initialMinutes);
-                    }
-                }
-            }
-        }
-        System.out.println("Tamanho da Arraylist de minutos: " + freeMinutes.size());
-        return freeMinutes;
-    }
-
-    private Calendar subtractSelectedServicesTime(Calendar finalPeriodCal){
-        //esse metodo remove o tempo de servico selecionado pelo usuario do calendario recebido
-
+    private List<ServiceDTO> findSelectedServices(){
         //Alimentando array de servicos selecionados
         SparseBooleanArray checkedServices = listServices.getCheckedItemPositions();
         List<ServiceDTO> selectedServices = new ArrayList<>();
@@ -320,39 +229,11 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
                 selectedServices.add(s);
             }
         }
-        //para cada servico selecionado armazena tempo total
-        long serviceTimeLong = 0;
-        for (ServiceDTO serviceDTO : selectedServices){
-            serviceTimeLong = serviceDTO.getTime().getTime().getTime() + serviceTimeLong;
-        }
-        //todo verificar bug de fuso horario (e tirar esta correcao)
-        serviceTimeLong = serviceTimeLong + (TimeZone.getDefault().getOffset(serviceTimeLong) * (selectedServices.size() - 1));
-
-        Calendar subtractedCal = Calendar.getInstance();
-        Calendar toSubtractCal = Calendar.getInstance();
-
-        subtractedCal.setTime(finalPeriodCal.getTime());
-        toSubtractCal.setTime(new Date(serviceTimeLong));
-        subtractedCal.setTimeZone(TimeZone.getDefault());
-        toSubtractCal.setTimeZone(TimeZone.getDefault());
-
-        System.out.println(subtractedCal.get(Calendar.HOUR_OF_DAY) + ":" + subtractedCal.get(Calendar.MINUTE));
-        System.out.println(-toSubtractCal.get(Calendar.HOUR_OF_DAY) + ":" + -toSubtractCal.get(Calendar.MINUTE));
-
-        subtractedCal.add(Calendar.HOUR_OF_DAY, -toSubtractCal.get(Calendar.HOUR_OF_DAY));
-        subtractedCal.add(Calendar.MINUTE, -toSubtractCal.get(Calendar.MINUTE));
-
-        System.out.println(subtractedCal.get(Calendar.HOUR_OF_DAY) + ":" + subtractedCal.get(Calendar.MINUTE));
-
-        selectedServices.clear();
-        return subtractedCal;
+        return selectedServices;
     }
 
     private void initConfirmActivity() {
         Intent intent = new Intent(this, CustScheduleConfirmActivity_8.class);
-
-
-        //todo deve passar na intent o vetor dos servicos selecionados
         intent.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
         intent.putExtra(SessionAttributes.CUSTOMER, customerDTO);
         intent.putExtra(SessionAttributes.SERVICE,(ArrayList) selectedServicesDTOList);
