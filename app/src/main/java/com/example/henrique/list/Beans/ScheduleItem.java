@@ -1,10 +1,10 @@
 package com.example.henrique.list.Beans;
 
-import com.example.henrique.list.Utilidade_Publica.DateUtil;
 
-import java.sql.Time;
-import java.text.SimpleDateFormat;
+import com.example.henrique.list.Utilidade_Publica.DateUtil;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class ScheduleItem {
     int listPosition;
@@ -51,21 +51,32 @@ public class ScheduleItem {
     }
 
     private void setScheduleLeftTime(Date scheduleInicialTime) {
-        Date todayDate = new Date();
-        Date scheduleLeftTime = new Date();
+        scheduleLeftTime = new Date();
+        Calendar todayCal = Calendar.getInstance(TimeZone.getDefault());
+        Calendar scheduleInicialCal = Calendar.getInstance();
+        Calendar scheduleLeftCal = Calendar.getInstance(TimeZone.getDefault());
+        scheduleInicialCal.setTime(scheduleInicialTime);
+        scheduleInicialCal.setTimeZone(TimeZone.getDefault());
 
-        long scheduleLeftTimeLong = scheduleInicialTime.getTime() - todayDate.getTime();
-        if(scheduleLeftTimeLong >= 0){
-            scheduleLeftTime.setTime(scheduleLeftTimeLong);
-            this.scheduleLeftTime = scheduleLeftTime;
+        scheduleLeftCal.setTimeInMillis(scheduleInicialCal.getTimeInMillis() - todayCal.getTimeInMillis()
+                - TimeZone.getDefault().getOffset(scheduleLeftCal.getTimeInMillis()));
+
+        System.out.println(scheduleLeftCal.get(Calendar.HOUR_OF_DAY) + ":" + scheduleLeftCal.get(Calendar.MINUTE)
+                + " = " + scheduleInicialCal.get(Calendar.HOUR_OF_DAY) + ":" + scheduleInicialCal.get(Calendar.MINUTE) + " - "
+                + todayCal.get(Calendar.HOUR_OF_DAY) + ":" + todayCal.get(Calendar.MINUTE)
+                + " Offset: " + TimeZone.getDefault().getOffset(scheduleLeftCal.getTimeInMillis()));
+
+        if (scheduleLeftCal.getTimeInMillis() >= 0) {
+            //verifica se a diferenca eh maior q 0
+            scheduleLeftTime.setTime(scheduleLeftCal.getTimeInMillis());
         } else {
             System.out.println("Não é possível calcular o tempo faltante de um agendamento q já passou");
             System.out.println("Hora do agendamento: " + DateUtil.getSmallHoursStringFromDate(scheduleInicialTime) +
-                                " Hora atual: " + DateUtil.getSmallHoursStringFromDate(todayDate));
-            scheduleLeftTime.setTime(scheduleLeftTimeLong);
-            this.scheduleLeftTime = scheduleLeftTime;
+                    " Hora atual: " + DateUtil.getSmallHoursStringFromDate(todayCal.getTime()));
+            scheduleLeftTime.setTime(scheduleLeftCal.getTimeInMillis());
         }
     }
+
 
     public String getPersonName() {
         return personName;

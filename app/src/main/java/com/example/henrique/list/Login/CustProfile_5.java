@@ -73,6 +73,7 @@ public class CustProfile_5 extends ActionBarActivity {
     String rua;
     String bairro;
     String cidade;
+    String complemento;
     UF estado;
 
     //requestCodes
@@ -389,6 +390,9 @@ public class CustProfile_5 extends ActionBarActivity {
                 numeroET.setError(null);
         }
 
+        complemento = complementoET.getText().toString();
+        //todo falta validar complemento
+
         rua = ruaET.getText().toString();
         if (!DataValidatorUtil.isValidTextWithSpace(rua)) {
             //todo rua pode conter digitos sim
@@ -460,6 +464,7 @@ public class CustProfile_5 extends ActionBarActivity {
         customerDTO.setAddressDistrict(bairro);
         customerDTO.setAddressCity(cidade);
         customerDTO.setAddressNumber(numero);
+        customerDTO.setAddressComplement(complemento);
         customerDTO.setAddressZipCode(cep);
         customerDTO.setAddressState(estado);
         customerDTO.setGender(opcaoEscolhidaGenero);
@@ -487,13 +492,9 @@ public class CustProfile_5 extends ActionBarActivity {
         } else {
             System.out.println("=== DEU CERTO E O CLIENTE RETORNOU COM SUCESSO " + customerDTO.getName());  //TODO verificar se o back adiciona o id no objeto de retorno
             Intent intent = new Intent(CustProfile_5.this, CustDrawerMenu_10.class);
-//            intent.putExtra(SessionAttributes.CUSTOMER, customerDTO);
-
-            Bundle mBundle = new Bundle();
-            mBundle.putSerializable(SessionAttributes.CUSTOMER, customerDTO);
-            intent.putExtras(mBundle);
+            intent.putExtra(SessionAttributes.CUSTOMER, customerDTO);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-            //TODO nao esquecer de usar finish()
         }
     }
     private boolean isEditingService() {

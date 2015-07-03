@@ -91,17 +91,17 @@
             android:layout_alignLeft="@id/initialHourTitle"
             android:gravity="center"
             android:text="0:00"/>
-        <ListView
-            android:id="@+id/listServiceNames"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/initialHour"
-            android:layout_alignLeft="@id/ic_servTime_cust8"
-            android:layout_alignRight="@id/ic_service_price_cust8"
-            android:dividerHeight="0dp"
-            android:divider="@color/transparent">
+    <ListView
+        android:id="@+id/listServiceNames"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/initialHour"
+        android:layout_alignLeft="@id/ic_servTime_cust8"
+        android:layout_alignRight="@id/ic_service_price_cust8"
+        android:dividerHeight="0dp"
+        android:divider="@color/transparent">
 
-        </ListView>
+    </ListView>
         <TextView
             android:id="@+id/finalHourTitle"
             android:layout_width="match_parent"
@@ -245,13 +245,15 @@
                 android:layout_marginRight="@dimen/margin_betweenAddressElements"
                 android:textColor="@color/black"
                 android:hint="Cidade"/>
-            <Spinner
+            <TextView
                 android:id="@+id/state"
                 android:layout_toRightOf="@id/city"
                 android:layout_below="@+id/street"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="@dimen/minWidthUF"/>
+                android:textColor="@color/black"
+                android:hint="UF"
+                />
         </RelativeLayout>
     </RelativeLayout>
 

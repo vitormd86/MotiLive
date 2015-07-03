@@ -56,11 +56,8 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
     TextView textProfessionalName, textProfession, textDate;
     TextView textInicialHour, textFinalHour, textTotalPrice;
     ListView listServiceNames, listServicePrices;
-    TextView streetET, numberET, cepET, complementET, districtET, cityET;
-    Spinner stateSP;
+    TextView streetET, numberET, cepET, complementET, districtET, cityET, stateET;
     RadioGroup selectAddressRadioGroup;
-
-    ArrayList<String> stateSpinnerItens;
 
     //Variveis de data e hora
     int selectedHour, selectedMinutes;
@@ -137,7 +134,7 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         complementET = (TextView) findViewById(R.id.complement);
         districtET = (TextView) findViewById(R.id.district);
         cityET = (TextView) findViewById(R.id.city);
-        stateSP = (Spinner) findViewById(R.id.state);
+        stateET = (TextView) findViewById(R.id.state);
         selectAddressRadioGroup = (RadioGroup) findViewById(R.id.addressRadioGroup_cust_8);
     }
 
@@ -173,8 +170,6 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         textProfessionalName.setText(professionalDTO.getName());
         textProfession.setText(professionalDTO.getProfession().getName());
 
-
-        setSpinnerItems();
         setInitialAddressItens();
 
         //lista de servico
@@ -182,21 +177,6 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         listServiceNames.setAdapter(servicesAdapter);
     }
 
-    //configura spinner da tela
-    private void setSpinnerItems() {
-
-        stateSpinnerItens = new ArrayList<>();
-        ArrayAdapter stateAdapter;
-
-        for (UF state : UF.values()) {
-            stateSpinnerItens.add(state.getCode());
-        }
-        stateAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, stateSpinnerItens);
-        stateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        stateSP.setAdapter(stateAdapter);
-
-
-    }
 
     //configura endereco inicial
     private void setInitialAddressItens() {
@@ -206,11 +186,9 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
             complementET.setText(schedulingDTO.getAddressComplement());
             cepET.setText(schedulingDTO.getAddressZipCode());
             districtET.setText(schedulingDTO.getAddressDistrict());
-            cityET.setText(schedulingDTO.getAddressCity());
-            //apontando a posicao do spinner de estado a partir do estado do endereco de agendamento
+            cityET.setText(schedulingDTO.getAddressCity() + "-");
             UF schedulingUF = schedulingDTO.getAddressState();
-            int startPosition = stateSpinnerItens.lastIndexOf(schedulingUF.getCode());
-            stateSP.setSelection(startPosition);
+            stateET.setText(schedulingUF.getCode());
 
         } else {
             streetET.setText(customerDTO.getAddressStreet() + ",");
@@ -218,11 +196,10 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
             complementET.setText(customerDTO.getAddressComplement());
             cepET.setText(customerDTO.getAddressZipCode());
             districtET.setText(customerDTO.getAddressDistrict());
-            cityET.setText(customerDTO.getAddressCity());
-            //apontando a posicao do spinner de estado a partir do estado do endereco de customer
-            UF customerUF = customerDTO.getAddressState();
-            int startPosition = stateSpinnerItens.lastIndexOf(customerUF.getCode());
-            stateSP.setSelection(startPosition);
+            cityET.setText(customerDTO.getAddressCity() + "-");
+            UF schedulingUF = customerDTO.getAddressState();
+            stateET.setText(schedulingUF.getCode());
+
         }
 
     }
@@ -243,7 +220,6 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
             selectAddressRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup group, int checkedId) {
-                    int startPosition;
                     UF toSelectUF;
                     switch (checkedId) {
                         case R.id.proAddressRadio_cust8:
@@ -252,11 +228,10 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
                             complementET.setText(professionalDTO.getAddressComplement());
                             cepET.setText(professionalDTO.getAddressZipCode());
                             districtET.setText(professionalDTO.getAddressDistrict());
-                            cityET.setText(professionalDTO.getAddressCity());
-                            //apontando a posicao do spinner de estado a partir do estado do endereco de profissional
+                            cityET.setText(professionalDTO.getAddressCity() + "-");
                             toSelectUF = professionalDTO.getAddressState();
-                            startPosition = stateSpinnerItens.lastIndexOf(toSelectUF.getCode());
-                            stateSP.setSelection(startPosition);
+                            stateET.setText(toSelectUF.getCode());
+
                             break;
                         case R.id.custAddressRadio_cust8:
                             streetET.setText(customerDTO.getAddressStreet() + ",");
@@ -264,11 +239,10 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
                             complementET.setText(customerDTO.getAddressComplement());
                             cepET.setText(customerDTO.getAddressZipCode());
                             districtET.setText(customerDTO.getAddressDistrict());
-                            cityET.setText(customerDTO.getAddressCity());
-                            //apontando a posicao do spinner de estado a partir do estado do endereco de agendamento
+                            cityET.setText(customerDTO.getAddressCity() + "-");
                             toSelectUF = customerDTO.getAddressState();
-                            startPosition = stateSpinnerItens.lastIndexOf(toSelectUF.getCode());
-                            stateSP.setSelection(startPosition);
+                            stateET.setText(toSelectUF.getCode());
+
                             break;
                     }
                 }
@@ -298,6 +272,7 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
                 executeJSON();
                 Intent confirmIntent = new Intent(this, CustDrawerMenu_10.class);
                 confirmIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                confirmIntent.putExtra(SessionAttributes.CUSTOMER, customerDTO);
                 startActivity(confirmIntent);
                 this.finish();
                 return true;
@@ -321,7 +296,7 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         cal.setTime(inicialTime);
         cal2.setTime(finalTime);
 
-        UF state = UF.getEnumFromValue((String) stateSP.getSelectedItem());
+        UF state = UF.getEnumFromValue((String) stateET.getText());
 
         for (ServiceDTO serviceDTO : serviceDTOList) {
             ServiceSchedulingDTO serviceSchedulingDTO = new ServiceSchedulingDTO();

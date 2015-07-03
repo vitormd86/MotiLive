@@ -263,6 +263,7 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
         LocalLoginService localLoginService = new LocalLoginService(CustDrawerMenu_10.this);
         localLoginService.logoff();
         Intent createAccountIntent = new Intent(CustDrawerMenu_10.this, Login_1.class);
+        createAccountIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(createAccountIntent);
     }
 
