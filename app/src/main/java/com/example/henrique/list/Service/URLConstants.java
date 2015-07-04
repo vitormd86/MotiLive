@@ -41,6 +41,7 @@ public class URLConstants {
     public static final String SCHEDULING_FIND_ALL_BY_CUSTOMER_ID = JSON_SERVER_URL + "/scheduling/findAllByCustomerId?customerId={customerId}";
     public static final String SCHEDULING_FIND_ALL_BY_PROFESSIONAL_ID = JSON_SERVER_URL + "/scheduling/findAllByProfessionalId?professionalId={professionalId}";
     public static final String SCHEDULING_FIND_UPCOMING_BY_CUSTOMER_ID = JSON_SERVER_URL + "/scheduling/findUpcomingByCustomerId?customerId={customerId}&timeNow={timeNow}";
+    public static final String SCHEDULING_FIND_UPCOMING_BY_PROFESSIONAL_ID = JSON_SERVER_URL + "/scheduling/findUpcomingByProfessionalId?professionalId={professionalId}&timeNow={timeNow}";
     public static final String SCHEDULING_DELETE = JSON_SERVER_URL + "/scheduling/delete";
 
     // SERVICE SERVICE
