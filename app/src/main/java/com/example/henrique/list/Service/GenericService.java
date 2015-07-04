@@ -5,7 +5,7 @@ import java.util.Calendar;
 
 abstract class GenericService {
 
-    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
 
     protected String convertCalendarToString(Calendar calendar) {
         String dateString = null;

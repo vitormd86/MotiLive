@@ -68,7 +68,7 @@ public class CustScheduleListFragment_9 extends Fragment {
 
         SchedulingService scheduleService = new SchedulingService();
         try{
-            schedules = scheduleService.findUpcomingSchedulingByCustomerId(customerDTO.getId());
+            schedules = scheduleService.findUpcomingSchedulingByCustomerId(customerDTO.getId(), null);
         } catch (Exception e){
             e.printStackTrace();
             schedules = new ArrayList<>();
