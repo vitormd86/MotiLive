@@ -119,7 +119,7 @@ public class CustScheduleDateFragmentPortrait_6 extends Fragment {
                 //verifica se na data selecionada o profissional esta livre
                 if (isUtilDate(screenCalendar.getSelectedDate(), selectedProfessionalDTO)) {
                     //recupera lista de periodo e de servicos do profissional, para verificar se tem hora livre
-                    List<PeriodDTO> periodDTOList = PeriodDTOBuilder.buildFreeTimeListByDailyScheduling(dailyScheduleDTO);
+                    List<PeriodDTO> periodDTOList = PeriodDTOBuilder.buildFreeTimeList(dailyScheduleDTO);
                     List<ServiceDTO> serviceDTOList = new ArrayList<>();
                     ServiceService serviceService = new ServiceService();
                     try {
@@ -144,6 +144,8 @@ public class CustScheduleDateFragmentPortrait_6 extends Fragment {
                     } else {
                         Toast.makeText(getActivity(), "O profissional selecionado não está livre este dia", Toast.LENGTH_LONG).show();
                     }
+                } else {
+                    Toast.makeText(getActivity(), "O profissional selecionado não está livre este dia", Toast.LENGTH_LONG).show();
                 }
             }
         });

@@ -41,9 +41,12 @@ public class FreeTimeCalculator {
                 if(todayCal.after(initialPeriodCal)){
                     //se a data for de hoje, iniciar periodo com horario apos hora atual
                     initialPeriodCal.setTime(todayCal.getTime());
-                    System.out.println("Este periodo inicia apos horario atual");
+                    System.out.println("Este periodo inicia antes horario atual");
                 }
             }
+
+            System.out.println(initialPeriodCal);
+            System.out.println(finalPeriodCal);
 
             if (finalPeriodCal.after(initialPeriodCal)){
                 //verifica se o final do periodo eh de fato MAIOR que o inicio (apos subtrair tempo de servico selecionado)

@@ -25,6 +25,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import br.com.motiserver.dto.CustomerDTO;
 import br.com.motiserver.dto.DailyScheduleDTO;
@@ -68,7 +69,7 @@ public class CustScheduleListFragment_9 extends Fragment {
 
         SchedulingService scheduleService = new SchedulingService();
         try{
-            schedules = scheduleService.findUpcomingSchedulingByCustomerId(customerDTO.getId(), null);
+            schedules = scheduleService.findUpcomingSchedulingByCustomerId(customerDTO.getId(), Calendar.getInstance(TimeZone.getDefault()));
         } catch (Exception e){
             e.printStackTrace();
             schedules = new ArrayList<>();

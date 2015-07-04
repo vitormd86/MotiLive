@@ -69,15 +69,15 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleItem> implements Pinne
                 String profissionalName = getItem(position).getPersonName();
                 String inicialTime = getItem(position).getScheduleInicialTime();
                 String finalTime = getItem(position).getScheduleFinalTime();
-                String leftTime = getItem(position).getScheduleLeftTime();
+                //String leftTime = getItem(position).getScheduleLeftTime();
 
                 TextView durationTV = (TextView) view.findViewById(R.id.textScheduleDuration);
                 TextView nameTV = (TextView) view.findViewById(R.id.textScheduleName);
-                TextView leftTimeTV = (TextView) view.findViewById(R.id.textLeftTime);
+                //TextView leftTimeTV = (TextView) view.findViewById(R.id.textLeftTime);
 
                 nameTV.setText(profissionalName);
                 durationTV.setText(inicialTime + "h ~ " + finalTime + "h");
-                leftTimeTV.setText(leftTime);
+                //leftTimeTV.setText(leftTime);
         }
 
 

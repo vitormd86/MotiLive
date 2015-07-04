@@ -175,7 +175,7 @@
                 android:weightSum="2"
                 android:orientation="horizontal"
                 android:gravity="center_horizontal">
-                <RadioButton
+                <!--<RadioButton
                     android:id="@+id/proAddressRadio_cust8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -189,7 +189,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Cliente"
-                    android:textColor="@color/Gray"/>
+                    android:textColor="@color/Gray"/>-->
             </RadioGroup>
 
             <TextView
@@ -216,8 +216,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/addressRadioGroup_cust_8"
-                android:textColor="@color/black"
-                android:hint="compl"/>
+                android:textColor="@color/black"/>
             <TextView
                 android:id="@+id/cep"
                 android:layout_below="@+id/street"

@@ -67,7 +67,7 @@ public class DateUtil {
     }
 
     public static String getBigHoursStringFromDate(Date date){
-        sdf = new SimpleDateFormat("HH' horas e 'mm' minutos'");
+        sdf = new SimpleDateFormat("'HH' horas e 'mm' minutos'");
         return sdf.format(date);
     }
 

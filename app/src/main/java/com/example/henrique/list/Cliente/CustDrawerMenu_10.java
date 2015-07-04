@@ -32,9 +32,9 @@ import br.com.motiserver.dto.CustomerDTO;
 /*Atividade que configura o drawer e o frame layout que recebe os fragments*/
 public class CustDrawerMenu_10 extends ActionBarActivity {
 
+    private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private CharSequence mTitle;
-    private DrawerLayout mDrawerLayout;
     private ListView listOptions;
     private ImageButton editProfileBT;
 
@@ -105,6 +105,7 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
              * Called when a drawer has settled in a completely open state.
              */
             public void onDrawerOpened(View drawerView) {
+                mDrawerLayout.bringToFront();
             }
         };
 
@@ -149,7 +150,7 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
         CustScheduleDateFragmentPortrait_6 custScheduleDateFragment = new CustScheduleDateFragmentPortrait_6();
         CustScheduleListFragment_9 custScheduleListFragment9 = new CustScheduleListFragment_9();
 
-        DrawerMenuItem item1 = new DrawerMenuItem(custScheduleListFragment9, "Consultar Agendamentos", R.drawable.ic_drawer_consult_schedule);
+        DrawerMenuItem item1 = new DrawerMenuItem(custScheduleListFragment9, "Meus Agendamentos", R.drawable.ic_drawer_consult_schedule);
         DrawerMenuItem item2 = new DrawerMenuItem(custScheduleDateFragment, "Novo Agendamento", R.drawable.ic_drawer_new_schedule);
         DrawerMenuItem[] menuOptions = {item1, item2};
 
@@ -188,9 +189,9 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
                 if (menuOptions[position].isFragment()) {
                     initFragment(menuOptions[position].getLinkTitle(), menuOptions[position].getLinkFragment());
                 } else if (menuOptions[position].isActivity()) {
-                    Intent i = new Intent(CustDrawerMenu_10.this, menuOptions[position].getLinkActivity().getClass());
-                    i.putExtra(SessionAttributes.CUSTOMER, customerDTO);
-                    startActivity(i);
+                    Intent drawerListIntent = new Intent(CustDrawerMenu_10.this, menuOptions[position].getLinkActivity().getClass());
+                    drawerListIntent.putExtra(SessionAttributes.CUSTOMER, customerDTO);
+                    startActivity(drawerListIntent);
                     finish();
                 }
 

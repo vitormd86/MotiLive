@@ -78,7 +78,7 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         retriveAttributes();
         initViews();
         fillViews();
-        setAddressRadioListener();
+        //setAddressRadioListener();
     }
 
     private void retriveAttributes() {
@@ -135,7 +135,7 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         districtET = (TextView) findViewById(R.id.district);
         cityET = (TextView) findViewById(R.id.city);
         stateET = (TextView) findViewById(R.id.state);
-        selectAddressRadioGroup = (RadioGroup) findViewById(R.id.addressRadioGroup_cust_8);
+        //selectAddressRadioGroup = (RadioGroup) findViewById(R.id.addressRadioGroup_cust_8);
     }
 
 
@@ -204,6 +204,7 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
 
     }
 
+    /*
     //mude endereco caso usuario selecione outro enderecamento
     private void setAddressRadioListener() {
         if (isEditing()) {
@@ -250,7 +251,7 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
             });
         }
     }
-
+    */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu items for use in the action bar
@@ -340,13 +341,19 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
             public void onClick(DialogInterface arg0, int arg1) {
                 //caso clique sim, deve voltar para atividade anterior e apagar o agendamento
                 SchedulingService schedulingService = new SchedulingService();
-                //todo servico de apagar agendmaneto
+                try{
+                    schedulingService.delete(schedulingDTO);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    System.out.println("Erro ao apagar agendamento");
+                }
 
                 Intent cancelIntent = new Intent(getBaseContext(), CustDrawerMenu_10.class);
+                cancelIntent.putExtra(SessionAttributes.CUSTOMER, customerDTO);
                 cancelIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(cancelIntent);
                 finish();
-                Toast.makeText(getBaseContext(), "Cancelado", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "Agendamento Cancelado", Toast.LENGTH_SHORT).show();
             }
         });
         builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
