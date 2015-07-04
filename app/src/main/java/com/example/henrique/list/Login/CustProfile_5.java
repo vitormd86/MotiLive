@@ -2,13 +2,17 @@ package com.example.henrique.list.Login;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,9 +29,9 @@ import android.widget.TextView;
 import com.example.henrique.list.Cliente.CustDrawerMenu_10;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Service.CustomerService;
+import com.example.henrique.list.Utilidade_Publica.DataValidatorUtil;
 import com.example.henrique.list.Utilidade_Publica.ServiceException;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
-import com.example.henrique.list.Utilidade_Publica.DataValidatorUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -80,6 +84,19 @@ public class CustProfile_5 extends ActionBarActivity {
     private static final int SELECT_PHOTO = 100;
     private static final int CROP_PHOTO = 101;
 
+    //saredPreferences
+
+    private static String NOME = "nomeFile";
+    private static String EMAIL = "emailFile";
+    private static  String PREFIX= "prefixFile";
+    private static String CELULAR = "celularFile";
+    private static String CEP = "CEPFile";
+    private static String NUMERO= "NumeroFile";
+    private static String RUA= "RuaFile";
+    private static String BAIRRO= "BairroFile";
+    private static  String CIDADE = "CidadeFile";
+    private static String ESTADO = "EstadoFile";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +108,8 @@ public class CustProfile_5 extends ActionBarActivity {
         //Habilitando BackNavigation button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initViews();
+        addChangeListeners();
+        readFromChanged();
         setSpinnerItems();
 
         // Recuperando Usuario
@@ -246,7 +265,7 @@ public class CustProfile_5 extends ActionBarActivity {
 
             // coloca data selecionada dentro do TextView correspondente
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            String sDate = sdf.format(onScreenCal.getTime());
+            String sDate = sdf.format(chosenDateCal.getTime());
             dataET.setText(sDate);
         }
     };
@@ -404,7 +423,7 @@ public class CustProfile_5 extends ActionBarActivity {
         }
 
         bairro = bairroET.getText().toString();
-        if (!DataValidatorUtil.isValidBairro(bairro)) {
+        if (!DataValidatorUtil.isValidTextWithSpace(bairro)) {
             //todo bairro pode conter digitos sim
             bairroET.setError("O bairro não pode conter números.");
             isAllValidate = false;
@@ -415,7 +434,7 @@ public class CustProfile_5 extends ActionBarActivity {
 
 
         cidade = cidadeET.getText().toString();
-        if (!DataValidatorUtil.isValidCidade(cidade)) {
+        if (!DataValidatorUtil.isValidTextWithSpace(cidade)) {
             cidadeET.setError("A cidade n�o pode conter n�meros.");
             isAllValidate = false;
         } else {
@@ -504,6 +523,257 @@ public class CustProfile_5 extends ActionBarActivity {
 
     private void retrieveAttributes() {
         customerDTO = (CustomerDTO) getIntent().getSerializableExtra(SessionAttributes.CUSTOMER);
+
+    }
+
+    public void addChangeListeners(){
+        nomeET.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                nomeET.setError(null);
+                SharedPreferences sharedPref = CustProfile_5.this.getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor editorNomeShared = sharedPref.edit();
+                editorNomeShared.putString(NOME, nomeET.getText().toString());
+                editorNomeShared.commit();
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                nomeET.setError(null);
+            }
+        });
+        emailET.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                emailET.setError(null);
+                SharedPreferences sharedPref = CustProfile_5.this.getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor editorNomeShared = sharedPref.edit();
+                editorNomeShared.putString(EMAIL, emailET.getText().toString());
+                editorNomeShared.commit();
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                emailET.setError(null);
+            }
+        });
+        prefixET.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                prefixET.setError(null);
+                SharedPreferences sharedPref = CustProfile_5.this.getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor editorNomeShared = sharedPref.edit();
+                editorNomeShared.putString(PREFIX, prefixET.getText().toString());
+                editorNomeShared.commit();
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                prefixET.setError(null);
+            }
+        });
+        celularET.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                celularET.setError(null);
+                SharedPreferences sharedPref = CustProfile_5.this.getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor editorNomeShared = sharedPref.edit();
+                editorNomeShared.putString(CELULAR, celularET.getText().toString());
+                editorNomeShared.commit();
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                celularET.setError(null);
+            }
+        });
+        CEPET.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                nomeET.setError(null);
+                SharedPreferences sharedPref = CustProfile_5.this.getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor editorNomeShared = sharedPref.edit();
+                editorNomeShared.putString(CEP, CEPET.getText().toString());
+                editorNomeShared.commit();
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                CEPET.setError(null);
+            }
+        });
+
+        bairroET.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                bairroET.setError(null);
+                SharedPreferences sharedPref = CustProfile_5.this.getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor editorNomeShared = sharedPref.edit();
+                editorNomeShared.putString(BAIRRO, bairroET.getText().toString());
+                editorNomeShared.commit();
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                bairroET.setError(null);
+            }
+        });
+        cidadeET.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                cidadeET.setError(null);
+                SharedPreferences sharedPref = CustProfile_5.this.getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor editorNomeShared = sharedPref.edit();
+                editorNomeShared.putString(CIDADE, cidadeET.getText().toString());
+                editorNomeShared.commit();
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                cidadeET.setError(null);
+            }
+        });
+        numeroET.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                numeroET.setError(null);
+                SharedPreferences sharedPref = CustProfile_5.this.getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor editorNomeShared = sharedPref.edit();
+                editorNomeShared.putString(NUMERO, numeroET.getText().toString());
+                editorNomeShared.commit();
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                numeroET.setError(null);
+            }
+        });
+        ruaET.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                ruaET.setError(null);
+                SharedPreferences sharedPref = CustProfile_5.this.getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor editorNomeShared = sharedPref.edit();
+                editorNomeShared.putString(RUA, ruaET.getText().toString());
+                editorNomeShared.commit();
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                ruaET.setError(null);
+            }
+        });
+
+    }
+    public void readFromChanged(){
+
+        SharedPreferences sharedPref = CustProfile_5.this.getPreferences(Context.MODE_PRIVATE);
+        String nameWritten = sharedPref.getString(NOME, null);
+        nomeET.setText(nameWritten);
+
+        SharedPreferences sharedPref2 = CustProfile_5.this.getPreferences(Context.MODE_PRIVATE);
+        String emailWritten = sharedPref2.getString(EMAIL, null);
+        emailET.setText(emailWritten);
+//
+        SharedPreferences sharedPref3 = CustProfile_5.this.getPreferences(Context.MODE_PRIVATE);
+        String prefixWritten = sharedPref3.getString(PREFIX, null);
+        prefixET.setText(prefixWritten);
+
+        SharedPreferences sharedPref4 = CustProfile_5.this.getPreferences(Context.MODE_PRIVATE);
+        String celularWritten = sharedPref4.getString(CELULAR, null);
+        celularET.setText(celularWritten);
+//
+        SharedPreferences sharedPref5 = CustProfile_5.this.getPreferences(Context.MODE_PRIVATE);
+        String CEPWritten = sharedPref5.getString(CEP, null);
+        CEPET.setText(CEPWritten);
+
+        SharedPreferences sharedPref6 = CustProfile_5.this.getPreferences(Context.MODE_PRIVATE);
+        String bairroWritten = sharedPref6.getString(BAIRRO, null);
+        bairroET.setText(bairroWritten);
+//
+        SharedPreferences sharedPref7 = CustProfile_5.this.getPreferences(Context.MODE_PRIVATE);
+        String cidadeWritten = sharedPref7.getString(CIDADE, null);
+        cidadeET.setText(cidadeWritten);
+
+        SharedPreferences sharedPref8 = CustProfile_5.this.getPreferences(Context.MODE_PRIVATE);
+        String ruaWritten = sharedPref8.getString(RUA, null);
+        ruaET.setText(ruaWritten);
+
+        SharedPreferences sharedPref9 = CustProfile_5.this.getPreferences(Context.MODE_PRIVATE);
+        String numeroWritten = sharedPref9.getString(NUMERO, null);
+        numeroET.setText(numeroWritten);
 
     }
 
