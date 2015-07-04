@@ -47,10 +47,11 @@ public class ScheduleItem {
 
     public String getScheduleLeftTime() {
         setScheduleLeftTime(scheduleInicialTime);
-        return DateUtil.getSmallHoursStringFromDate(scheduleLeftTime);
+        return DateUtil.getBigHoursStringFromDate(scheduleLeftTime);
     }
 
     private void setScheduleLeftTime(Date scheduleInicialTime) {
+        //todo esta com bug de dias meses e ano.
         scheduleLeftTime = new Date();
         Calendar todayCal = Calendar.getInstance(TimeZone.getDefault());
         Calendar scheduleInicialCal = Calendar.getInstance();
@@ -66,13 +67,13 @@ public class ScheduleItem {
                 + todayCal.get(Calendar.HOUR_OF_DAY) + ":" + todayCal.get(Calendar.MINUTE)
                 + " Offset: " + TimeZone.getDefault().getOffset(scheduleLeftCal.getTimeInMillis()));
 
-        if (scheduleLeftCal.getTimeInMillis() >= 0) {
+        if (scheduleLeftCal.getTimeInMillis() < 0) {
             //verifica se a diferenca eh maior q 0
             scheduleLeftTime.setTime(scheduleLeftCal.getTimeInMillis());
         } else {
             System.out.println("Não é possível calcular o tempo faltante de um agendamento q já passou");
             System.out.println("Hora do agendamento: " + DateUtil.getSmallHoursStringFromDate(scheduleInicialTime) +
-                    " Hora atual: " + DateUtil.getSmallHoursStringFromDate(todayCal.getTime()));
+                    " Hora atual: " + DateUtil.getBigHoursStringFromDate(todayCal.getTime()));
             scheduleLeftTime.setTime(scheduleLeftCal.getTimeInMillis());
         }
     }

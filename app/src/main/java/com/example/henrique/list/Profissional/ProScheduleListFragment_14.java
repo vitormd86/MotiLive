@@ -4,7 +4,6 @@ package com.example.henrique.list.Profissional;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,34 +11,72 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.henrique.list.Adapters.ScheduleAdapter;
 import com.example.henrique.list.Beans.ScheduleItem;
 import com.example.henrique.list.R;
+import com.example.henrique.list.Service.SchedulingService;
 import com.example.henrique.list.Utilidade_Publica.PinnedSectionListView;
+import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.TimeZone;
+
+import br.com.motiserver.dto.ProfessionalDTO;
+import br.com.motiserver.dto.SchedulingDTO;
 
 
 public class ProScheduleListFragment_14 extends Fragment {
 
     private View v;
-    private FragmentActivity fa;
 
     PinnedSectionListView listSchedules;
     ImageButton addScheduleBT;
+
+    List<SchedulingDTO> schedules;
+    ProfessionalDTO professionalDTO;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        fa = super.getActivity();
         v = inflater.inflate(R.layout.fragment_pro_schedule_list_14, container, false);
 
+        retrieveAttributes();
+        initScheduleList();
+        setListSchedulesListener();
+        setAddServiceListener();
+
+        return v;
+    }
+
+    private void retrieveAttributes(){
+        Bundle extras = this.getArguments();
+        professionalDTO = (ProfessionalDTO) extras.getSerializable(SessionAttributes.PROFESSIONAL);
+        if (professionalDTO == null){
+            professionalDTO = new ProfessionalDTO();
+            System.out.println("Erro ao receber professionalDTO da intent");
+            Toast.makeText(getActivity(), "Ocorreu um erro interno. Favor contactar o administrador!", Toast.LENGTH_SHORT).show();
+        }
+
+        SchedulingService schedulingService = new SchedulingService();
+        try{
+            //schedules = schedulingService.findUpcomingSchedulingByProfessionalId(professionalDTO.getId(), Calendar.getInstance(TimeZone.getDefault()));
+        } catch (Exception e){
+            e.printStackTrace();
+            schedules = new ArrayList<>();
+            System.out.println("Erro ao recuperar agendamentos do profissional.");
+            Toast.makeText(getActivity(), "Ocorreu um erro interno. Favor contactar o administrador!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void initScheduleList(){
         ArrayList<ScheduleItem> scheduleItems = initScheduleItems();
 
         listSchedules = (PinnedSectionListView) v.findViewById(R.id.pinnedListSchedules);
@@ -48,19 +85,10 @@ public class ProScheduleListFragment_14 extends Fragment {
 
         listSchedules.initShadow(false);
         listSchedules.setAdapter(schedulesAdapter);
-        setListSchedulesListener();
-        setAddServiceListener();
-
-        return v;
     }
 
     public ArrayList<ScheduleItem> initScheduleItems(){
         //inicia instancias de agendamento e itens a serem apresentados na lista
-        //todo aqui deve ser gerada um vetor de AGENDAMENTO e de seus respectivos nomes de PROFISSIONAIS, para poder resgatar todos os dados
-        String[] favoriteClients = new String[]{"Leandro Massaru (Cliente)", "Ivo Issao Tobioka",
-                "Michel SantaGuida", "Henrique Tamashiro", "Vitor Mendes", "Cliente 2", "Cliente 7", "Leandro Massaru", "Ivo Issao Tobioka",
-                "Michel SantaGuida", "Henrique Tamashiro", "Vitor Mendes", "Cliente 6", "Cliente 7", "Leandro Massaru", "Ivo Issao Tobioka",
-                "Michel SantaGuida", "Henrique Tamashiro", "Vitor Mendes", "Cliente 6", "Cliente 7"};
         ArrayList<ScheduleItem> items = new ArrayList<>();
 
         //recebe data atual e configura no calendario
@@ -68,23 +96,22 @@ public class ProScheduleListFragment_14 extends Fragment {
         Calendar cal = Calendar.getInstance();
         Calendar cal2 = Calendar.getInstance();
         cal.setTime(pinnedMenuDate);
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-
-
 
         //inicia proximos itens de agendamento, e verifica se a data é a mesma. caso contrario gera outo item SECTION
-        for (int i = 0; i < favoriteClients.length; i++){
+        for (int i = 0; i < schedules.size(); i++){
             ScheduleItem item = new ScheduleItem();
 
             //inicializa valores da view a partir dos agendamentos buscado no BD
-            item.setPersonName(favoriteClients[i]);
-            //todo receber data do vetor de agendamento
+            item.setListPosition(i);
+            item.setPersonName(schedules.get(i).getCustomer().getName());
+            item.setScheduleDate(schedules.get(i).getDailySchedule().getDate().getTime());
+
             item.setScheduleDate(new Date());
             cal2.setTime(item.getScheduleDate());
             item.setSection(false);
             try {
                 // TODO item.setScheduleInicialTime(Calendar.getInstance());
-                item.setScheduleFinalTime(new Time(sdf.parse("08:15").getTime()));
+                //item.setScheduleFinalTime(new Time(sdf.parse("08:15").getTime()));
             } catch (Exception e) {
                 throw new RuntimeException(e.getMessage());
             }

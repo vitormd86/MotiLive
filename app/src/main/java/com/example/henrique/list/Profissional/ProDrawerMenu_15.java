@@ -26,6 +26,7 @@ import com.example.henrique.list.Login.ProProfile_5;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Service.ProfessionalService;
 import com.example.henrique.list.Service.local.LocalLoginService;
+import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 
 import br.com.motiserver.dto.ProfessionalDTO;
 
@@ -34,12 +35,12 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
 
 
     DrawerLayout mDrawerLayout;
-    CharSequence mTitle;
     ActionBarDrawerToggle mDrawerToggle;
+    CharSequence mTitle;
     ListView listOptions;
     ImageButton editProfileBT;
 
-    Bundle extras;
+    Bundle extras = new Bundle();
     ProfessionalDTO professionalDTO;
 
     @Override
@@ -53,26 +54,18 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-
         initDrawer();
         setDrawerLayoutItems();
     }
 
     private void retrieveAttributes() {
         //recupera dados do da Intent e do BD
-        extras = getIntent().getExtras();
         professionalDTO = new ProfessionalDTO();
 
-        //todo-vitor o professionalDTO deve vir na intent, e nao do servico;
-        ProfessionalService professionalService = new ProfessionalService();
-        Long idProfessional = Long.valueOf(6);
-        try {
-            professionalDTO = professionalService.find(idProfessional);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error findind professional with id " + idProfessional.toString());
+        if(getIntent().getExtras() != null){
+            extras = getIntent().getExtras();
+            professionalDTO = (ProfessionalDTO) getIntent().getSerializableExtra(SessionAttributes.PROFESSIONAL);
         }
-        //todo-end
     }
 
     public void setInicialFragment() {
@@ -121,10 +114,17 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
 
     public void initFragment(String title, Fragment fragment) {
         //inicia um fragment dentro do frame de conteudo
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content_frame, fragment);
-        setTitle(title);
-        ft.commit();
+
+        if(!fragment.isVisible()){
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            extras.putSerializable(SessionAttributes.PROFESSIONAL, professionalDTO);
+            fragment.setArguments(extras);
+
+            ft.replace(R.id.content_frame, fragment);
+            setTitle(title);
+            ft.commit();
+        }
+
     }
 
     //Esta classe alimenta e configura o conteudo do drawer
@@ -152,7 +152,7 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
         ProServiceListActivity_7 proServiceListActivity_7 = new ProServiceListActivity_7();
         ProScheduleConfig_8 proScheduleConfig_8 = new ProScheduleConfig_8();
 
-        DrawerMenuItem item1 = new DrawerMenuItem(proScheduleListFragment_14, "Consultar Agendamentos", R.drawable.ic_drawer_consult_schedule);
+        DrawerMenuItem item1 = new DrawerMenuItem(proScheduleListFragment_14, "Meus Agendamentos", R.drawable.ic_drawer_consult_schedule);
         DrawerMenuItem item2 = new DrawerMenuItem(proScheduleDateFragment_10, "Novo Agendamento", R.drawable.ic_drawer_new_schedule);
         DrawerMenuItem item3 = new DrawerMenuItem(proServiceListActivity_7, "Meus Serviços", R.drawable.ic_drawer_my_services);
         DrawerMenuItem item4 = new DrawerMenuItem(proScheduleConfig_8, "Configurar Expediente", R.drawable.ic_drawer_schedule_config);
@@ -175,7 +175,9 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent toEditProfileIntent = new Intent(ProDrawerMenu_15.this, ProProfile_5.class);
+                toEditProfileIntent.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
                 startActivity(toEditProfileIntent);
+                mDrawerLayout.closeDrawers();
             }
         });
     }
@@ -193,7 +195,9 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
                     initFragment(menuOptions[position].getLinkTitle(), menuOptions[position].getLinkFragment());
                 } else if (menuOptions[position].isActivity()) {
                     Intent drawerlistIntent = new Intent(ProDrawerMenu_15.this, menuOptions[position].getLinkActivity().getClass());
+                    drawerlistIntent.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
                     startActivity(drawerlistIntent);
+                    finish();
                 }
                 mDrawerLayout.closeDrawers();
             }
@@ -262,6 +266,7 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
         LocalLoginService localLoginService = new LocalLoginService(ProDrawerMenu_15.this);
         localLoginService.logoff();
         Intent createAccountIntent = new Intent(ProDrawerMenu_15.this, Login_1.class);
+        createAccountIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(createAccountIntent);
     }
 
