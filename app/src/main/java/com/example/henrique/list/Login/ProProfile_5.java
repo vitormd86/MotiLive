@@ -455,7 +455,7 @@ public class ProProfile_5 extends ActionBarActivity {
         }
 
         bairro = bairroET.getText().toString();
-        if (!DataValidatorUtil.isValidBairro(bairro)) {
+        if (!DataValidatorUtil.isValidTextWithSpace(bairro)) {
             //todo bairro pode conter digitos sim
             bairroET.setError("O bairro n�o pode conter n�meros.");
             isAllValidate = false;

@@ -100,39 +100,8 @@ public class DataValidatorUtil {
             }
         }
     }
-    public static boolean isValidCidade(String cidade) {
-        if (cidade.equals("")) {
-            return false;
-        }
-        else{
-            if(cidade.length() > 40){
-                return false;
-            }
-            else{
-                String CITY_NAME = "^[_A-Za-z0-9\\+]{3,15}+((\\s[_A-Za-z0-9]+)*)$";
 
-                Pattern pattern = Pattern.compile(CITY_NAME);
-                Matcher matcher = pattern.matcher(cidade);
-                return matcher.matches();
-            }
-        }
-    }
-    public static boolean isValidBairro(String bairro) {
-        if (bairro.equals("")) {
-            return false;
-        }
-        else{
-            if(bairro.length() > 60){
-                return false;
-            }
-            else{
-                String DISTRICT_NAME = "^[_A-Za-z0-9\\+]{3,15}+((\\s[_A-Za-z0-9]+)*)$";
 
-                Pattern pattern = Pattern.compile(DISTRICT_NAME);
-                Matcher matcher = pattern.matcher(bairro);
-                return matcher.matches();            }
-        }
-    }
     public static boolean isValidTextWithSpace(String text) {
         if (text.equals("")) {
             return false;
