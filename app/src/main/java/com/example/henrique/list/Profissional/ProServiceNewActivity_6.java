@@ -14,9 +14,9 @@ import android.widget.Toast;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Service.ProfessionalService;
 import com.example.henrique.list.Service.ServiceService;
+import com.example.henrique.list.Utilidade_Publica.DataValidatorUtil;
 import com.example.henrique.list.Utilidade_Publica.ServiceException;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
-import com.example.henrique.list.Utilidade_Publica.DataValidatorUtil;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -57,33 +57,20 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pro_service_new_6);
-
+        retrieveAttributes();
         //verifica se esta no modo de edicao ou de novo servico
         isEditing = isEditingService();
-        if (!isEditing) {
-            try {
-                professionalService = new ProfessionalService();
-                professionalDTO = professionalService.find((long) 6); //TODO depois.. recuperar id da tela anterior.
-                if (professionalDTO == null)
-                {
-                    System.out.println("Professional ta vindo nulo!");
-                }else{
-                    System.out.println(professionalDTO.getAddressNumber());
-                    System.out.println("Profissional recuperado com sucesso");
-
-                }
-            } catch (ServiceException e) {
-                e.printStackTrace();
-            }
-        }
 
         //inicializa componentes da tela
         initViews();
         initSpinnerAdapters();
 
+
         //configurando BackNavigation button
         if (isEditing) {
+            //pega os dados do bundle
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
             try {
                 serviceDTO = (ServiceDTO) getIntent().getSerializableExtra(SessionAttributes.SERVICE);
             } catch (Exception e) {
@@ -91,10 +78,18 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
             }
             serviceDescriptionET.setText(serviceDTO.getDescription());
             serviceNameET.setText(serviceDTO.getName());
-            System.out.println(serviceDTO.getName());
             sessionValueET.setText(serviceDTO.getValue().toString());
+
         } else {
+            //cria novos dados
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            try {
+                professionalService = new ProfessionalService();
+                professionalDTO = professionalService.find((long)32); //TODO depois.. recuperar id da tela anterior.
+
+            } catch (ServiceException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -108,40 +103,31 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
             case R.id.confirmButton:
                 executaJSON = true;
                 serviceDTO = new ServiceDTO();
-                if (isEditingService()) {
+                initVariables(); // inicia as variaveis com os editTexts
+
+                if (isEditing) {
                     //todo   agora quem vai tratar  edição e adição é o proprio back... soh precisamos da isEditing para sabermos como vamos tratar a tela
-
-
-                } else {
-                    //todo deve adicionar servico no banco
-                    serviceDTO = new ServiceDTO();
-
-                    initVariables();
                     System.out.println("InitVariables OK");
                     if (validatefields()) {
                         System.out.println("validateFields OK");
                         serviceDTO.setName(serviceName);
                         serviceDTO.setDescription(serviceDescription);
                         serviceDTO.setValue(sessionValue);
-                        System.out.println(serviceDTO.getValue());
                         try {
                             serviceDTO.setTime(calendar);
                         }catch (Exception e){
                             e.printStackTrace();
                         }
                         serviceDTO.setProfessional(professionalDTO);
-                        System.out.println("filling serviceDTO OK");
 
                         try {
                             ServiceService serviceservice = new ServiceService();
                             serviceDTO = serviceservice.save(serviceDTO);
-                            System.out.println("Salvou");
 
-                            sProfessional_id = professionalDTO.getId().toString();
-                            System.out.println(sProfessional_id);
                             Intent createAccountIntent = new Intent(ProServiceNewActivity_6.this, ProServiceListActivity_7.class);
-                            createAccountIntent.putExtra(SessionAttributes.PROFESSIONAL_ID, sProfessional_id);
+                            createAccountIntent.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
                             startActivity(createAccountIntent);
+
                         } catch (ServiceException e) {
                             e.printStackTrace();
                             System.out.println("Não Salvou");
@@ -149,7 +135,47 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
                     }else{
                         System.out.println("Falha na validação fields");
                     }
-                    intent.putExtra("service", serviceNameET.getText().toString());
+
+
+                } else {
+                    //todo deve adicionar servico no banco
+                    serviceDTO = new ServiceDTO();
+
+
+                    if (validatefields()) {
+
+                        serviceDTO.setName(serviceName);
+                        System.out.println("" + serviceName);
+                        serviceDTO.setDescription(serviceDescription);
+                        System.out.println("" + serviceDescription);
+                        serviceDTO.setValue(sessionValue);
+                        System.out.println("" + sessionValue);
+                        try {
+                            serviceDTO.setTime(calendar);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                        serviceDTO.setProfessional(professionalDTO);
+                        //serviceDTO.setStatus();
+                        System.out.println("" + professionalDTO.getId());
+
+                        try {
+                            ServiceService serviceservice = new ServiceService();
+                            serviceDTO = serviceservice.save(serviceDTO);
+                            System.out.println("Salvou");
+
+
+                            Intent createAccountIntent = new Intent(ProServiceNewActivity_6.this, ProServiceListActivity_7.class);
+                            createAccountIntent.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
+                            startActivity(createAccountIntent);
+
+                        } catch (ServiceException e) {
+                            e.printStackTrace();
+                            System.out.println("Não Salvou");
+                        }
+                    }else{
+                        System.out.println("Falha na validação fields");
+                    }
                 }
                 return true;
             case R.id.deleteButton:
@@ -263,8 +289,7 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
     }
 
     private boolean isEditingService() {
-        boolean isEditing = false;
-        return getIntent().getBooleanExtra("isEditing", false)|| false;
+        return getIntent().getBooleanExtra("isEditing", false);
     }
 
     private void initViews() {
@@ -276,5 +301,8 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         serviceDescriptionET = (EditText) findViewById(R.id.serviceDescriptionProET_6);
         sessionValueET = (EditText) findViewById(R.id.sessionValueProET_6);
 
+    }
+    private void retrieveAttributes() {
+        professionalDTO = (ProfessionalDTO) getIntent().getSerializableExtra(SessionAttributes.PROFESSIONAL);
     }
 }
