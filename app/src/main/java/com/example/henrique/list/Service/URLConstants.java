@@ -24,7 +24,7 @@ public class URLConstants {
     // LOGIN SERVICE
     public static final String LOGIN = JSON_SERVER_URL + "/login/user?login={login}&password={password}";
     public static final String LOGIN_WITH_FACEBOOK = JSON_SERVER_URL + "/login/facebook?facebookLogin={facebookLogin}";
-    public static final String LOGIN_REGISTER_TOKEN_GCM = "/login/registerTokenGCM?customerId={customerId}&tokenGCM={tokenGCM}";
+    public static final String LOGIN_REGISTER_TOKEN_GCM = JSON_SERVER_URL + "/login/registerTokenGCM?customerId={customerId}&tokenGCM={tokenGCM}";
     public static final String LOGIN_VERIFY_EXISTING_USER = JSON_SERVER_URL + "/login/verifyExistingUser?login={login}";
 
     // PROFESSIONAL SERVICE

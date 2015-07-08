@@ -85,7 +85,7 @@ public class Login_1 extends Activity {
                 CustomerDTO customerDTO = loginService.login(customerLocal.getLogin(), customerLocal.getPassword());
                 if (customerDTO != null) {
                     // REGISTER TOKEN CLOUD MESSAGING TO LOGGED USER
-                    //registerCloudMessagingToken();
+                    registerCloudMessagingToken(customerDTO);
                     // REDIRECT TO A NEXT SCREEN
                     redirectToNextScreen(customerDTO);
                     return true;
@@ -113,7 +113,7 @@ public class Login_1 extends Activity {
                     //  REGISTER LOGIN LOCALLY
                     localLoginService.registerLogin(customerDTO);
                     // REGISTER TOKEN CLOUD MESSAGING TO LOGGED USER
-                    //registerCloudMessagingToken();
+                    registerCloudMessagingToken(customerDTO);
                     // REDIRECT TO A NEXT SCREEN
                     redirectToNextScreen(customerDTO);
                 }
@@ -137,9 +137,10 @@ public class Login_1 extends Activity {
         return executeJson;
     }
 
-    private void registerCloudMessagingToken() {
+    private void registerCloudMessagingToken(CustomerDTO customerDTO) {
         // CALL A INTENT TO REGISTER A TOKEN CLOUD MESSAGING
         Intent intent = new Intent(this, TokenRegistrationIntentService.class);
+        intent.putExtra(SessionAttributes.CUSTOMER, customerDTO);
         startService(intent);
     }
 
