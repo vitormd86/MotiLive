@@ -39,6 +39,8 @@ import br.com.motiserver.util.constants.Status;
 
 public class ProScheduleConfig_8 extends ActionBarActivity {
 
+    Bundle extras;
+
     Spinner expedientStartHourSP, expedientStartMinutesSP, expedientEndHourSP, expedientEndMinutesSP;
     Spinner breakStartHourSP, breakStartMinutesSP, breakEndHourSP, breakEndMinutesSP;
     Spinner intervalBetweenHourSP, intervalBetweenMinutesSP;
@@ -52,9 +54,6 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
     Calendar timeBetweenSession;
 
     List<Date> selectedDates;
-
-    String scheduleName;
-
 
     ProfessionalDTO professionalDTO;
 
@@ -78,11 +77,11 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
         //configurando listeners
         initBreakTimeRadioListeners();
         initCheckBoxListeners();
-
-
+        fillViews();
     }
+
     private void retrievingAttributes(){
-        Bundle extras = getIntent().getExtras();
+        extras = getIntent().getExtras();
 
         professionalDTO = (ProfessionalDTO) extras.getSerializable(SessionAttributes.PROFESSIONAL);
     }
@@ -113,7 +112,9 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
         screenCalendar = (CalendarPickerView) findViewById(R.id.calendar_view);
     }
 
+    public void fillViews(){
 
+    }
 
     //este metodo configura os adapters de todos spinners
     public void initSpinnersAdapters(){
@@ -160,7 +161,7 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
         //configura duas datas para limites, inicial e final
         initDate = Calendar.getInstance();
         endDate = Calendar.getInstance();
-        endDate.add(Calendar.MONTH, 3);
+        endDate.add(Calendar.MONTH, 2);
 
         //inicializa calendario apontando datas finais, iniciais e modo de selecao
         screenCalendar.init(initDate.getTime(), endDate.getTime())
@@ -403,5 +404,9 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
             e.printStackTrace();
         }
         return convertedCal;
+    }
+
+    private boolean isEditing() {
+        return extras.getBoolean("isEditing", true);
     }
 }
