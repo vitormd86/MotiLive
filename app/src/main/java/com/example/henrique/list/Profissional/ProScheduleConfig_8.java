@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -20,7 +19,6 @@ import com.example.henrique.list.Service.ProfessionalService;
 import com.example.henrique.list.Utilidade_Publica.Calendar.CalendarPickerView;
 import com.example.henrique.list.Utilidade_Publica.ServiceException;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
-import com.example.henrique.list.Utilidade_Publica.DataValidatorUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -69,6 +67,7 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
 
         //configurando views do layout
         retrievingAttributes();
+        Toast.makeText(this, "" + professionalDTO.getName(), Toast.LENGTH_SHORT).show();
         initViews();
         //configurando calendario
         initCalendar();

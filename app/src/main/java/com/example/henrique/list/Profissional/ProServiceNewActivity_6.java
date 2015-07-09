@@ -68,7 +68,6 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         initViews();
         initSpinnerAdapters();
 
-
         //configurando BackNavigation button
         if (isEditing) {
             //pega os dados do bundle
@@ -90,8 +89,6 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
 
             int returningHour = returningCalendar.get(Calendar.HOUR);
             int returningMinute = returningCalendar.get(Calendar.MINUTE);
-            System.out.println(""+returningHour);
-            System.out.println(""+returningMinute);
 
             sessionHoursSP.setSelection(hourAdapter.getPosition(String.format("%02d", returningHour)));
             sessionMinutesSP.setSelection(minutesAdapter.getPosition(String.format("%02d", returningMinute)));
@@ -101,7 +98,7 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             try {
                 professionalService = new ProfessionalService();
-                professionalDTO = professionalService.find((long)32); //TODO depois.. recuperar id da tela anterior.
+                professionalDTO = professionalService.find(professionalDTO.getId()); //TODO depois.. recuperar id da tela anterior.
 
             } catch (ServiceException e) {
                 e.printStackTrace();

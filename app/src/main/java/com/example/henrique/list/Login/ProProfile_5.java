@@ -22,13 +22,13 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.henrique.list.Profissional.ProDrawerMenu_15;
+import com.example.henrique.list.Profissional.ProServiceNewActivity_6;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Service.ProfessionService;
 import com.example.henrique.list.Service.ProfessionalService;
+import com.example.henrique.list.Utilidade_Publica.DataValidatorUtil;
 import com.example.henrique.list.Utilidade_Publica.ServiceException;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
-import com.example.henrique.list.Utilidade_Publica.DataValidatorUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -109,7 +109,7 @@ public class ProProfile_5 extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         isEditing = isEditingService();
-        isEditing = true; // somente para teste
+//        isEditing = true; // somente para teste
         if(isEditing){
             professionalDTO = new ProfessionalDTO();
 //            professionalDTO = (ProfessionalDTO) getIntent().getSerializableExtra(SessionAttributes.PROFESSIONAL);
@@ -121,15 +121,15 @@ public class ProProfile_5 extends ActionBarActivity {
 
         initViews();
         setSpinnerItems();
-
+        retrieveAttributes();
         //variavle de teste
-        try {
-            professionalDTO.setId((long) 6);
-            System.out.println("Parsing Id OK!");
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("setId está vazia");
-        }
+//        try {
+//            professionalDTO.setId((long) 6);
+//            System.out.println("Parsing Id OK!");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            System.out.println("setId está vazia");
+//        }
         if (professionalDTO.getId()!=null) {
             if(isEditing){
                 try {
@@ -547,7 +547,7 @@ public class ProProfile_5 extends ActionBarActivity {
                 System.out.println("=== DEU ERRO E O PROFISSIONAl RETORNO NULLO");
             } else {
                 System.out.println("=== DEU CERTO E O PROFISSIONAl RETORNOU COM SUCESSO " + professionalDTO.getName());  //TODO verificar se o back adiciona o id no objeto de retorno
-                Intent intent = new Intent(ProProfile_5.this, ProDrawerMenu_15.class);
+                Intent intent = new Intent(ProProfile_5.this, ProServiceNewActivity_6.class);
                 Bundle mBundle = new Bundle();
                 mBundle.putSerializable(SessionAttributes.PROFESSIONAL, professionalDTO);
                 intent.putExtras(mBundle);
@@ -563,6 +563,9 @@ public class ProProfile_5 extends ActionBarActivity {
         boolean isEditing = false;
         return getIntent().getBooleanExtra("isEditing", false);
 
+    }
+    private void retrieveAttributes() {
+        professionalDTO = (ProfessionalDTO) getIntent().getSerializableExtra(SessionAttributes.PROFESSIONAL);
     }
 
 }
