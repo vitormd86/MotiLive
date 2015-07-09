@@ -2,6 +2,8 @@ package com.example.henrique.list.Utilidade_Publica.SchedulingCalculator;
 
 import android.text.format.DateUtils;
 
+import com.example.henrique.list.Utilidade_Publica.DateUtilMoti;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -37,7 +39,7 @@ public class FreeTimeCalculator {
 
             //todo futuramente o servico do periodDTO, deve verificar se a data eh a mesma de hoje para nao trazer horas q jah passaram
             if(isToday(dailyScheduleDTO)){
-                Calendar todayCal = Calendar.getInstance(TimeZone.getDefault());
+                Calendar todayCal = DateUtilMoti.truncateCal(Calendar.getInstance(TimeZone.getDefault()));
                 if(todayCal.after(initialPeriodCal)){
                     //se a data for de hoje, iniciar periodo com horario apos hora atual
                     initialPeriodCal.setTime(todayCal.getTime());
