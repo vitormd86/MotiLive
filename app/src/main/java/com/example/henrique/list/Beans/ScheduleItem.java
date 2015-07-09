@@ -51,7 +51,6 @@ public class ScheduleItem {
     }
 
     private void setScheduleLeftTime(Date scheduleInicialTime) {
-        //todo esta com bug de dias meses e ano.
         scheduleLeftTime = new Date();
         Calendar todayCal = Calendar.getInstance(TimeZone.getDefault());
         Calendar scheduleInicialCal = Calendar.getInstance();

@@ -342,8 +342,8 @@ public class ProScheduleConfirmActivity_13 extends ActionBarActivity {
                     System.out.println("Erro ao apagar agendamento");
                 }
 
-                Intent cancelIntent = new Intent(getBaseContext(), CustDrawerMenu_10.class);
-                cancelIntent.putExtra(SessionAttributes.CUSTOMER, customerDTO);
+                Intent cancelIntent = new Intent(getBaseContext(), ProDrawerMenu_15.class);
+                cancelIntent.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
                 cancelIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(cancelIntent);
                 finish();
