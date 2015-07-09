@@ -21,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.henrique.list.Profissional.ProServiceNewActivity_6;
 import com.example.henrique.list.R;
@@ -61,9 +62,7 @@ public class ProProfile_5 extends ActionBarActivity {
     ArrayAdapter<String> professionAdapter;
     ArrayAdapter<String> stateAdapter;
 
-
     //Inicializacao dos EditTexts Obrigatorios
-
 
     Calendar chosenDateCal;
     Calendar onScreenCal = Calendar.getInstance();
@@ -93,7 +92,6 @@ public class ProProfile_5 extends ActionBarActivity {
     String bairro;
     String cidade;
     UF estado;
-    String profissao;
     boolean isEditing;
 
     //requestCodes
@@ -109,29 +107,16 @@ public class ProProfile_5 extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         isEditing = isEditingService();
-//        isEditing = true; // somente para teste
-        if(isEditing){
-            professionalDTO = new ProfessionalDTO();
-//            professionalDTO = (ProfessionalDTO) getIntent().getSerializableExtra(SessionAttributes.PROFESSIONAL);
-        }else{
-            professionalDTO = new ProfessionalDTO();
-        }
+        professionalDTO = new ProfessionalDTO();
 
         // Objetos
 
         initViews();
         setSpinnerItems();
-        retrieveAttributes();
-        //variavle de teste
-//        try {
-//            professionalDTO.setId((long) 6);
-//            System.out.println("Parsing Id OK!");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            System.out.println("setId está vazia");
-//        }
+
         if (professionalDTO.getId()!=null) {
             if(isEditing){
+                retrieveAttributes();
                 try {
                     ProfessionalService professionalService;
                     professionalService = new ProfessionalService();
@@ -178,7 +163,10 @@ public class ProProfile_5 extends ActionBarActivity {
                 profissaoSP.setSelection(stateAdapter.getPosition(professionalDTO.getProfession().toString()));
             }
         } else {
-            System.out.println("id veio vazio");
+            professionalDTO = new ProfessionalDTO();
+            retrieveAttributes();
+            Toast.makeText(this, professionalDTO.getLogin(), Toast.LENGTH_SHORT).show();
+
         }
         addDateListenerButton();
         addPhotoListenerButton();
@@ -505,9 +493,9 @@ public class ProProfile_5 extends ActionBarActivity {
 
     public void executeJSON() {
         //executa JSON
-        if(!isEditing){
-            professionalDTO = new ProfessionalDTO();
-        }
+//        if(!isEditing){
+//            professionalDTO = new ProfessionalDTO();
+//        }
         ProfessionalService professionalService = new ProfessionalService();
         estado = UF.getEnumFromValue((String) estadoSP.getSelectedItem());
 
@@ -560,7 +548,6 @@ public class ProProfile_5 extends ActionBarActivity {
         }
     }
     private boolean isEditingService() {
-        boolean isEditing = false;
         return getIntent().getBooleanExtra("isEditing", false);
 
     }
