@@ -15,13 +15,12 @@ import android.widget.Toast;
 
 import com.example.henrique.list.Adapters.ScheduleAdapter;
 import com.example.henrique.list.Beans.ScheduleItem;
+import com.example.henrique.list.Cliente.CustScheduleConfirmActivity_8;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Service.SchedulingService;
 import com.example.henrique.list.Utilidade_Publica.PinnedSectionListView;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 
-import java.sql.Time;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -51,7 +50,7 @@ public class ProScheduleListFragment_14 extends Fragment {
         retrieveAttributes();
         initScheduleList();
         setListSchedulesListener();
-        setAddServiceListener();
+        setNewScheduleButtonListener();
 
         return v;
     }
@@ -67,7 +66,7 @@ public class ProScheduleListFragment_14 extends Fragment {
 
         SchedulingService schedulingService = new SchedulingService();
         try{
-            //schedules = schedulingService.findUpcomingSchedulingByProfessionalId(professionalDTO.getId(), Calendar.getInstance(TimeZone.getDefault()));
+            schedules = schedulingService.findUpcomingSchedulingByProfessionalId(professionalDTO.getId(), Calendar.getInstance(TimeZone.getDefault()));
         } catch (Exception e){
             e.printStackTrace();
             schedules = new ArrayList<>();
@@ -105,63 +104,60 @@ public class ProScheduleListFragment_14 extends Fragment {
             item.setListPosition(i);
             item.setPersonName(schedules.get(i).getCustomer().getName());
             item.setScheduleDate(schedules.get(i).getDailySchedule().getDate().getTime());
-
-            item.setScheduleDate(new Date());
+            item.setScheduleInicialTime(schedules.get(i).getStartTime().getTime());
+            item.setScheduleFinalTime(schedules.get(i).getEndTime().getTime());
             cal2.setTime(item.getScheduleDate());
+
+            System.out.println("ScheduleDate de item:  " + item.getScheduleDate().getDate() + "/" + item.getScheduleDate().getMonth());
+            System.out.println("Cal1 " + cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.MONTH));
+            System.out.println("Cal2 " + cal2.get(Calendar.DAY_OF_MONTH) + "/" + cal2.get(Calendar.MONTH));
             item.setSection(false);
-            try {
-                // TODO item.setScheduleInicialTime(Calendar.getInstance());
-                //item.setScheduleFinalTime(new Time(sdf.parse("08:15").getTime()));
-            } catch (Exception e) {
-                throw new RuntimeException(e.getMessage());
-            }
 
             //Verifica se o item é o primeiro da lista, ou se há diferenca de DIA para criar uma SECTION
-            if (i == 0 || cal.get(Calendar.DAY_OF_MONTH) != cal2.get(Calendar.DAY_OF_MONTH)){
+            if (i == 0 || cal.get(Calendar.DAY_OF_MONTH) != cal2.get(Calendar.DAY_OF_MONTH)
+                    || cal.get(Calendar.MONTH) != cal2.get(Calendar.MONTH)
+                    || cal.get(Calendar.YEAR) != cal2.get(Calendar.YEAR)){
                 ScheduleItem sectionItem = new ScheduleItem();
                 sectionItem.setSection(true);
                 sectionItem.setScheduleDate(item.getScheduleDate());
                 items.add(sectionItem);
-                cal = cal2;
+                cal.setTime(cal2.getTime());
+
+                System.out.println("Entrou no if");
             }
             items.add(item);
         }
         return items;
     }
 
+    //listener da lista para consultar agendamento
     public void setListSchedulesListener(){
         listSchedules.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //todo deve passar nesta intent os dados do agendamento selecionados
                 ScheduleItem selectedItem = (ScheduleItem) listSchedules.getItemAtPosition(position);
+                SchedulingDTO selectedSchedule = schedules.get(selectedItem.getListPosition());
+
+                //verifica se usuario nao clicou em um titulo
                 if(!selectedItem.isSection()) {
-                    Intent intent = new Intent(getActivity(), ProScheduleConfirmActivity_13.class);
-                    intent.putExtra("clientName", selectedItem.getPersonName());
-                    intent.putExtra("street", "Av da Liberdade");
-                    intent.putExtra("number", "444");
-                    intent.putExtra("cep", "01501-001");
-                    intent.putExtra("complement", "Casa 2");
-                    intent.putExtra("district", "Liberdade");
-                    intent.putExtra("city", "São Paulo");
-                    intent.putExtra("state", "SP");
-                    intent.putExtra("selectedServices", new ArrayList<String>());
-                    intent.putExtra("sDate", "Sem dados");
-                    intent.putExtra("selectedHour", 0);
-                    intent.putExtra("selectedMinutes", 0);
-                    intent.putExtra("totalTime", 0);
-                    intent.putExtra("totalPrice", 0);
+                    Intent intent = new Intent(getActivity(), CustScheduleConfirmActivity_8.class);
+                    intent.putExtra(SessionAttributes.SCHEDULING, selectedSchedule);
                     startActivity(intent);
                 }
             }
         });
     }
 
-    private void setAddServiceListener(){
+    private void setNewScheduleButtonListener(){
         addScheduleBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle extras = new Bundle();
+                extras.putSerializable(SessionAttributes.PROFESSIONAL, professionalDTO);
+
                 ProScheduleDateFragment_10 proScheduleDateFragment_10 = new ProScheduleDateFragment_10();
+                proScheduleDateFragment_10.setArguments(extras);
+
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(R.id.content_frame, proScheduleDateFragment_10);
 

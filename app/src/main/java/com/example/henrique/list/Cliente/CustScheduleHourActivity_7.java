@@ -16,7 +16,6 @@ import com.example.henrique.list.Adapters.MyAdapterFreeHours;
 import com.example.henrique.list.Adapters.MyAdapterFreeMinutes;
 import com.example.henrique.list.Adapters.MyAdapterServicesSchedule;
 import com.example.henrique.list.R;
-import com.example.henrique.list.Service.ServiceService;
 import com.example.henrique.list.Utilidade_Publica.DateUtil;
 import com.example.henrique.list.Utilidade_Publica.SchedulingCalculator.FreeTimeCalculator;
 import com.example.henrique.list.Utilidade_Publica.ResizeAnimation;
@@ -24,31 +23,25 @@ import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-import br.com.motiserver.dto.BreakDTO;
 import br.com.motiserver.dto.CustomerDTO;
 import br.com.motiserver.dto.DailyScheduleDTO;
 import br.com.motiserver.dto.PeriodDTO;
 import br.com.motiserver.dto.ProfessionalDTO;
-import br.com.motiserver.dto.SchedulingDTO;
 import br.com.motiserver.dto.ServiceDTO;
-import br.com.motiserver.dto.builder.PeriodDTOBuilder;
 
 /*Tela de selecao de horas e servicos de agendamento, ao final ela gera um alerta de confirmacao*/
 public class CustScheduleHourActivity_7 extends ActionBarActivity {
 
     ResizeAnimation resizeAnimation;
-    int freeHourMinutesWidth = 90;
-    boolean isHoursOpened, isMinutesOpened, isToday;
+    int freeHourMinutesListWidth = 90;
+    boolean isHoursOpened, isMinutesOpened;
 
     //Iniciando DTOs
     private CustomerDTO customerDTO;
     private ProfessionalDTO professionalDTO;
     private DailyScheduleDTO dailyScheduleDTO;
     private List<ServiceDTO> serviceDTOList, selectedServicesDTOList;
-    private Set<SchedulingDTO> schedulingDTOSet;
-    private Set<BreakDTO> breakDTOSet;
     private List <PeriodDTO> periodDTOList;
 
     //iniciando items do layout
@@ -90,9 +83,6 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
         serviceDTOList = (ArrayList<ServiceDTO>) extras.getSerializable(SessionAttributes.SERVICE);
 
         System.out.println("Array Servicos chegando com size " + serviceDTOList.size());
-        //atributos vindo dos servicos do Banco
-        //lista de servicos
-
     }
 
     private void initViews() {
@@ -152,7 +142,7 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
                     //verifica se a listview de horas esta fechada, para abri-la
                     if (!isHoursOpened) {
                         isHoursOpened = true;
-                        resizeAnimation = new ResizeAnimation(listHours, freeHourMinutesWidth);
+                        resizeAnimation = new ResizeAnimation(listHours, freeHourMinutesListWidth);
                         resizeAnimation.setDuration(400);
                         listHours.startAnimation(resizeAnimation);
                     }
@@ -181,7 +171,7 @@ public class CustScheduleHourActivity_7 extends ActionBarActivity {
                 if (!isMinutesOpened) {
                     //redimensiona listView de horas
                     isMinutesOpened = true;
-                    resizeAnimation = new ResizeAnimation(listMinutes, freeHourMinutesWidth);
+                    resizeAnimation = new ResizeAnimation(listMinutes, freeHourMinutesListWidth);
                     resizeAnimation.setDuration(600);
                     listMinutes.startAnimation(resizeAnimation);
                 }

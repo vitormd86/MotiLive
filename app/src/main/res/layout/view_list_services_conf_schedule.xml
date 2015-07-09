@@ -7,7 +7,7 @@
     android:paddingBottom="@dimen/margin_betweenElements_small">
     <TextView
         android:id="@+id/serviceTimeTV_cust8"
-        android:layout_width="@dimen/columnWidthCust8"
+        android:layout_width="@dimen/columnWidthConfirmSchedule"
         android:layout_height="match_parent"
         android:gravity="center"
         android:textColor="@color/black"/>
@@ -20,7 +20,7 @@
         android:textColor="@color/black"/>
     <TextView
         android:id="@+id/servicePriceTV_cust8"
-        android:layout_width="@dimen/columnWidthCust8"
+        android:layout_width="@dimen/columnWidthConfirmSchedule"
         android:layout_height="match_parent"
         android:gravity="center"
         android:textColor="@color/black"/>

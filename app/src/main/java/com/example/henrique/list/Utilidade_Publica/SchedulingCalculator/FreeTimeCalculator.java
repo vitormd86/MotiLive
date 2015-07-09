@@ -177,4 +177,6 @@ public class FreeTimeCalculator {
         selectedServices.clear();
         return subtractedCal;
     }
+
+
 }

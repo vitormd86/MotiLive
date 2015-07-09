@@ -10,25 +10,33 @@ import android.widget.TextView;
 
 import com.example.henrique.list.R;
 
+import java.util.List;
 
-public class ClientAdapter extends ArrayAdapter<String>{
-    public ClientAdapter(Context context, String[] values) {
-        super(context, R.layout.view_list_profssional, values);
+import br.com.motiserver.dto.CustomerDTO;
+
+
+public class ClientAdapter extends ArrayAdapter<CustomerDTO>{
+    public ClientAdapter(Context context, List<CustomerDTO> values) {
+        super(context, R.layout.view_list_cust_pro_schedule, values);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater theInflator = LayoutInflater.from(getContext());
-        View theView = theInflator.inflate(R.layout.view_list_profssional, parent, false);
+        View v = theInflator.inflate(R.layout.view_list_cust_pro_schedule, parent, false);
 
-        String clients = getItem(position);
-        TextView textView = (TextView) theView.findViewById(R.id.textView1);
+        CustomerDTO customerDTO = getItem(position);
 
-        textView.setText(clients);
-        ImageView theImageView =  (ImageView) theView.findViewById(R.id.imageView1);
-        theImageView.setImageResource(R.drawable.img_photo_default);
+        TextView nameTV = (TextView) v.findViewById(R.id.profName_list_professional);
+        TextView contactTV = (TextView) v.findViewById(R.id.profProfession_list_professional);
+        ImageView photoIM =  (ImageView) v.findViewById(R.id.photo_list_professional);
 
-        return theView;
+        nameTV.setText(customerDTO.getName());
+        contactTV.setText("(" + customerDTO.getPhoneCode() + ") " + customerDTO.getPhoneNumber());
 
+        //todo-vitor recebr foto do profissionalDTO e aponta-la no setImage
+        photoIM.setImageResource(R.drawable.img_photo_default);
+
+        return v;
     }
 }

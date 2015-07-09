@@ -11,9 +11,6 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,7 +54,7 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
     TextView textInicialHour, textFinalHour, textTotalPrice;
     ListView listServiceNames, listServicePrices;
     TextView streetET, numberET, cepET, complementET, districtET, cityET, stateET;
-    RadioGroup selectAddressRadioGroup;
+    //RadioGroup selectAddressRadioGroup;
 
     //Variveis de data e hora
     int selectedHour, selectedMinutes;
@@ -123,10 +120,9 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         textProfessionalName = (TextView) findViewById(R.id.professionalName);
         textProfession = (TextView) findViewById(R.id.profession);
         textDate = (TextView) findViewById(R.id.date);
-        listServiceNames = (ListView) findViewById(R.id.listServiceNames);
+        listServiceNames = (ListView) findViewById(R.id.listServices_cust8);
         textInicialHour = (TextView) findViewById(R.id.initialHour);
         textFinalHour = (TextView) findViewById(R.id.finalHour);
-        listServicePrices = (ListView) findViewById(R.id.listServicePrices);
         textTotalPrice = (TextView) findViewById(R.id.totalPrice);
         streetET = (TextView) findViewById(R.id.street);
         numberET = (TextView) findViewById(R.id.number);
@@ -145,6 +141,7 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         long totalTimeLong = 0;
         long finalTimeLong, inicialTimeLong;
 
+        //calcula tempo total e final do atendimento
         for (int i = 0; serviceDTOList.size() > i; i++) {
             totalPrice = totalPrice.add(serviceDTOList.get(i).getValue());
             totalTimeLong = totalTimeLong + serviceDTOList.get(i).getTime().getTime().getTime();
@@ -170,6 +167,7 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         textProfessionalName.setText(professionalDTO.getName());
         textProfession.setText(professionalDTO.getProfession().getName());
 
+        //alimenta endereco
         setInitialAddressItens();
 
         //lista de servico
@@ -269,7 +267,6 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         // Admininstra cliques da ActionBar
         switch (item.getItemId()) {
             case R.id.confirmButton:
-                //todo validar campos de endereco
                 executeJSON();
                 Intent confirmIntent = new Intent(this, CustDrawerMenu_10.class);
                 confirmIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -366,8 +363,7 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
     }
 
     private boolean isEditing() {
-        boolean isEditing = extras.getBoolean("isEditing", true);
-        return isEditing;
+        return extras.getBoolean("isEditing", true);
     }
 }
 

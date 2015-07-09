@@ -18,13 +18,13 @@ import br.com.motiserver.dto.ProfessionalDTO;
 //Adaptador ele joga as  a imagem e um EditText dentro de uma lista
 public class ProfessionalAdapter extends ArrayAdapter<ProfessionalDTO> {
     public ProfessionalAdapter(Context context, List<ProfessionalDTO> values) {
-        super(context, R.layout.view_list_profssional, values);
+        super(context, R.layout.view_list_cust_pro_schedule, values);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater theInflator = LayoutInflater.from(getContext());
-        View v = theInflator.inflate(R.layout.view_list_profssional, parent, false);
+        View v = theInflator.inflate(R.layout.view_list_cust_pro_schedule, parent, false);
 
         ProfessionalDTO professionalDTO = getItem(position);
 

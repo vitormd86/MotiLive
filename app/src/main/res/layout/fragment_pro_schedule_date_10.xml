@@ -8,17 +8,21 @@
         android:id="@+id/calendar_view"
         android:layout_width="match_parent"
         android:layout_height="250dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 
-        />
     <Button
         android:id="@+id/newClientButton"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="Novo Cliente..."/>
+        android:layout_marginTop="5dp"
+        android:text="@string/button_newClient"/>
 
     <ListView
         android:id="@+id/ListViewPro_10"
         android:layout_width="fill_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:divider="@color/lightGray"
+        android:dividerHeight="1dp"/>
 
 </LinearLayout>

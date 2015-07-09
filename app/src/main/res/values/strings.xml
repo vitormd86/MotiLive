@@ -67,7 +67,11 @@
     <string name="drawer_open">Open</string>
 
 
+    <!-- Textos de Botões -->
+    <string name="button_newClient">Novo Cliente</string>
+
     <!--Outros -->
+
     <string name="facebook_app_id">456445487839463</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -91,7 +95,6 @@
     <string name="action_help">action_help</string>
 
     <!-- Tela 8 customer  -->
-
     <string name="scheduleAddressTitle">Enderço de Atendimento</string>
 
 

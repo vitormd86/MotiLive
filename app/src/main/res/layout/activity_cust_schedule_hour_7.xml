@@ -2,11 +2,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/margin_app"
+    android:paddingRight="0dp"
     android:paddingBottom="@dimen/margin_app">
 
     <ImageView
         android:id="@+id/photo"
-        style="@style/ImagePhoto"/>
+        style="@style/ImagePhoto"
+        android:contentDescription="@string/description_photo"/>
     <TextView
         android:id="@+id/professionalName"
         android:layout_width="wrap_content"

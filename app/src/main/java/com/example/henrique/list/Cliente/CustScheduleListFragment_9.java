@@ -110,7 +110,6 @@ public class CustScheduleListFragment_9 extends Fragment {
             cal2.setTime(item.getScheduleDate());
 
             System.out.println("ScheduleDate de item:  " + item.getScheduleDate().getDate() + "/" + item.getScheduleDate().getMonth());
-
             System.out.println("Cal1 " + cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.MONTH));
             System.out.println("Cal2 " + cal2.get(Calendar.DAY_OF_MONTH) + "/" + cal2.get(Calendar.MONTH));
             item.setSection(false);

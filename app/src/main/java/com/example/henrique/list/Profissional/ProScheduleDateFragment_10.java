@@ -10,43 +10,53 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.henrique.list.Adapters.ClientAdapter;
+import com.example.henrique.list.Cliente.CustScheduleHourActivity_7;
 import com.example.henrique.list.R;
+import com.example.henrique.list.Service.CustomerService;
+import com.example.henrique.list.Service.DailyScheduleService;
+import com.example.henrique.list.Service.ServiceService;
 import com.example.henrique.list.Utilidade_Publica.Calendar.CalendarPickerView;
+import com.example.henrique.list.Utilidade_Publica.SchedulingCalculator.FreeTimeCalculator;
+import com.example.henrique.list.Utilidade_Publica.ServiceException;
+import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import br.com.motiserver.dto.CustomerDTO;
+import br.com.motiserver.dto.DailyScheduleDTO;
+import br.com.motiserver.dto.PeriodDTO;
+import br.com.motiserver.dto.ProfessionalDTO;
+import br.com.motiserver.dto.ServiceDTO;
+import br.com.motiserver.dto.builder.PeriodDTOBuilder;
+import br.com.motiserver.util.constants.Status;
 
 
 public class ProScheduleDateFragment_10 extends Fragment {
 
-    View v;
-    String[] favoriteClients;
+    private ProfessionalDTO professionalDTO;
+    private List<CustomerDTO> customerDTOList;
+    private DailyScheduleDTO dailyScheduleDTO;
+
     ListView listClients;
     Button newClientButton;
 
-    CalendarPickerView screenCalendar;
-    Calendar initDate, endDate;
+    private CalendarPickerView screenCalendar;
+    private View v;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_pro_schedule_date_10, parent, false);
 
-        favoriteClients = new String[]{"Leandro Massaru Kubota (Cliente)", "Ivo Issao Tobioka",
-                "Michel SantaGuida", "Henrique Tamashiro", "Vitor Mendes", "Professional 6", "Professional 7"};
+        retrieveAttributes();
 
         initViews();
         initCalendar();
-
-
-        //TODO: colocar o objeto q vem la de traz do login
-        //supondo q personDTO já exista por causa do login.
-        long teste = 50;
-        CustomerDTO customerDTO = new CustomerDTO();
-        customerDTO.setId(teste);
 
         //configurando listeners
         setNewClientListener();
@@ -55,13 +65,29 @@ public class ProScheduleDateFragment_10 extends Fragment {
         return v;
     }
 
+    private void  retrieveAttributes(){
+        Bundle extras = this.getArguments();
+        professionalDTO = (ProfessionalDTO) extras.getSerializable(SessionAttributes.PROFESSIONAL);
+
+        if(professionalDTO != null){
+            CustomerService customerService = new CustomerService();
+            try{
+                customerDTOList = customerService.findCustomerContactsByProfessionalId(professionalDTO.getId());
+            } catch (ServiceException ex){
+                ex.printStackTrace();
+                customerDTOList = new ArrayList<>();
+                System.out.println("Falha ao buscar os contatos.");
+            }
+        }
+    }
+
     private void initViews(){
         listClients = (ListView) v.findViewById(R.id.ListViewPro_10); // inicializa a List View do fragment inflado
         newClientButton = (Button) v.findViewById(R.id.newClientButton);
         screenCalendar = (CalendarPickerView) v.findViewById(R.id.calendar_view);
 
         ListAdapter clientAdapter; //inicializa o adaptador de array, pra encaixar o array na lista
-        clientAdapter = new ClientAdapter(v.getContext(), favoriteClients);
+        clientAdapter = new ClientAdapter(v.getContext(), customerDTOList);
         listClients.setAdapter(clientAdapter);// seleciona o adaptador... no caso  "clientAdapter"
     }
 
@@ -69,22 +95,14 @@ public class ProScheduleDateFragment_10 extends Fragment {
         //metodo q inicializa calendario
 
         //configura duas datas para limites, inicial e final
-        initDate = Calendar.getInstance();
-        endDate = Calendar.getInstance();
+        Calendar initDate = Calendar.getInstance();
+        Calendar endDate = Calendar.getInstance();
         endDate.add(Calendar.MONTH, 3);
 
         //inicializa calendario apontando datas finais, iniciais e modo de selecao
         screenCalendar.init(initDate.getTime(), endDate.getTime())
                 .inMode(CalendarPickerView.SelectionMode.SINGLE).withSelectedDate(initDate.getTime());
 
-    }
-    //este metodo retorna a data selecionada no calendario formatada em String
-    private String getCalendarDate(CalendarPickerView calendar){
-        String sDate;
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        sDate = sdf.format(new Date(calendar.getSelectedDate().getTime()));
-
-        return sDate;
     }
 
     private void setNewClientListener(){
@@ -93,7 +111,6 @@ public class ProScheduleDateFragment_10 extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent newClientIntent = new Intent(getActivity(),ProScheduleFirstActivity_11.class);
-                newClientIntent.putExtra("nextScreen", 12);
                 startActivity(newClientIntent);
             }
         });
@@ -104,23 +121,60 @@ public class ProScheduleDateFragment_10 extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                //recebe a dados selecionada para passar para a proxima tela
-                String selectedDate = getCalendarDate(screenCalendar);
-                String selectedClient = String.valueOf(parent.getItemAtPosition(position));
+                //recupera profissional q esta usando o aplicatico e customer q ele quer agendar
+                CustomerDTO selectedCustomerDTO = (CustomerDTO) parent.getItemAtPosition(position);
 
-                //inicia chamada de agendamento de horario
-                Intent toHourIntent = new Intent(getActivity(), ProScheduleHoursActivity_12.class);
-                toHourIntent.putExtra("selectedClient", selectedClient);
-                toHourIntent.putExtra("selectedDate", selectedDate);
-                startActivity(toHourIntent);
+                //verifica se a data do profissional esta livre
+                if(isUtilDate(screenCalendar.getSelectedDate(), professionalDTO)){
+                    //recupera lista de periodo e de servicos do profissional, para verificar se tem hora livre
+                    List<PeriodDTO> periodDTOList = PeriodDTOBuilder.buildFreeTimeList(dailyScheduleDTO);
+                    List<ServiceDTO> serviceDTOList = new ArrayList<>();
+                    ServiceService serviceService = new ServiceService();
+                    try {
+                        serviceDTOList = serviceService.findAllByProfessionalId(professionalDTO.getId());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        System.out.println("Erro ao buscar servicos do profissional selecionado");
+                    }
+                    System.out.println("Size da array de Servicos antes da intent " + serviceDTOList.size());
+                    if (FreeTimeCalculator.isFreeHourDay(periodDTOList, dailyScheduleDTO, serviceDTOList)) {
+                        //inicia chamada de agendamento de horario
+
+                        System.out.println("Size da array de Servicos depois do if " + serviceDTOList.size());
+                        Intent toHourIntent = new Intent(getActivity(), ProScheduleHoursActivity_12.class);
+                        toHourIntent.putExtra(SessionAttributes.CUSTOMER, selectedCustomerDTO);
+                        toHourIntent.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
+                        toHourIntent.putExtra(SessionAttributes.DAILY_SCHEDULE, dailyScheduleDTO);
+                        toHourIntent.putExtra(SessionAttributes.PERIOD_LIST, (ArrayList) periodDTOList);
+                        toHourIntent.putExtra(SessionAttributes.SERVICE, (ArrayList) serviceDTOList);
+                        System.out.println("Array Servicos saindo com size " + serviceDTOList.size());
+                        startActivity(toHourIntent);
+                    } else {
+                        Toast.makeText(getActivity(), "Você não está livre este dia", Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Toast.makeText(getActivity(), "Você não está livre este dia", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
 
-    public void recoverListProfessionals(View view)
-    {
-//        RequestParams params = new RequestParams();
-        // params.put("id_customer", customerDTO);
+    private boolean isUtilDate(Date date, ProfessionalDTO userProfessionalDTO) {
+        //recupera dailySchedule para verificar se o o dia é util para o profissional
+        DailyScheduleService dailyScheduleService = new DailyScheduleService();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        try {
+            dailyScheduleDTO = dailyScheduleService.findByProfessionalIdAndDate(userProfessionalDTO.getId(), cal);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Erro ao recuperar dailySchedule");
+        }
+        if (dailyScheduleDTO == null || dailyScheduleDTO.getWorkDay() == Status.FALSE) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 }

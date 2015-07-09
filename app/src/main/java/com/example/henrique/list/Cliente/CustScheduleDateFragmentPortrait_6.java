@@ -3,7 +3,6 @@ package com.example.henrique.list.Cliente;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +17,10 @@ import com.example.henrique.list.Service.DailyScheduleService;
 import com.example.henrique.list.Service.ProfessionalService;
 import com.example.henrique.list.Service.ServiceService;
 import com.example.henrique.list.Utilidade_Publica.Calendar.CalendarPickerView;
-import com.example.henrique.list.Utilidade_Publica.DateUtil;
 import com.example.henrique.list.Utilidade_Publica.SchedulingCalculator.FreeTimeCalculator;
 import com.example.henrique.list.Utilidade_Publica.ServiceException;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -46,7 +43,7 @@ import br.com.motiserver.util.constants.Status;
 public class CustScheduleDateFragmentPortrait_6 extends Fragment {
 
     private CustomerDTO customerDTO;
-    private List<ProfessionalDTO> favoriteProfessionals;
+    private List<ProfessionalDTO> professionalDTOList;
     private DailyScheduleDTO dailyScheduleDTO;
 
     private ListView professionalLV;
@@ -55,8 +52,7 @@ public class CustScheduleDateFragmentPortrait_6 extends Fragment {
     private View v;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-
-        v = inflater.inflate(R.layout.fragment_cust_schedule_date_6_p, parent, false);
+            v = inflater.inflate(R.layout.fragment_cust_schedule_date_6_p, parent, false);
 
         retriveAttributes();
 
@@ -74,8 +70,10 @@ public class CustScheduleDateFragmentPortrait_6 extends Fragment {
         if (customerDTO != null) {
             ProfessionalService professionalService = new ProfessionalService();
             try {
-                favoriteProfessionals = professionalService.findProfessionalContactsByCustomerId(customerDTO.getId());
+                professionalDTOList = professionalService.findProfessionalContactsByCustomerId(customerDTO.getId());
             } catch (ServiceException ex) {
+                ex.printStackTrace();
+                professionalDTOList = new ArrayList<>();
                 System.out.println("Falha ao buscar os contatos.");
             }
         }
@@ -85,9 +83,9 @@ public class CustScheduleDateFragmentPortrait_6 extends Fragment {
     private void initViews() {
         professionalLV = (ListView) v.findViewById(R.id.ListView); // inicializa a List View do fragment inflado
         screenCalendar = (CalendarPickerView) v.findViewById(R.id.calendarView); // inicializa a Calendar View do fragment inflado
-        ListAdapter professionalAdapter; //inicializa o adaptador de array, pra encaixar o array na lista
-        professionalAdapter = new ProfessionalAdapter(v.getContext(), favoriteProfessionals);
 
+        ListAdapter professionalAdapter; //inicializa o adaptador de array, pra encaixar o array na lista
+        professionalAdapter = new ProfessionalAdapter(v.getContext(), professionalDTOList);
         professionalLV.setAdapter(professionalAdapter);// seleciona o adaptador... no caso  "professionalAdapter" q eh do tipo myAdapter
     }
 
@@ -113,8 +111,6 @@ public class CustScheduleDateFragmentPortrait_6 extends Fragment {
 
                 //recupera profissional selecionado
                 ProfessionalDTO selectedProfessionalDTO = (ProfessionalDTO) parent.getItemAtPosition(position);
-
-
 
                 //verifica se na data selecionada o profissional esta livre
                 if (isUtilDate(screenCalendar.getSelectedDate(), selectedProfessionalDTO)) {
