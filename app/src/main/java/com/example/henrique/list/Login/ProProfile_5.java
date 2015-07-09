@@ -21,14 +21,15 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.henrique.list.Profissional.ProDrawerMenu_15;
+import com.example.henrique.list.Profissional.ProServiceNewActivity_6;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Service.ProfessionService;
 import com.example.henrique.list.Service.ProfessionalService;
+import com.example.henrique.list.Utilidade_Publica.DataValidatorUtil;
 import com.example.henrique.list.Utilidade_Publica.ServiceException;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
-import com.example.henrique.list.Utilidade_Publica.DataValidatorUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -61,9 +62,7 @@ public class ProProfile_5 extends ActionBarActivity {
     ArrayAdapter<String> professionAdapter;
     ArrayAdapter<String> stateAdapter;
 
-
     //Inicializacao dos EditTexts Obrigatorios
-
 
     Calendar chosenDateCal;
     Calendar onScreenCal = Calendar.getInstance();
@@ -93,7 +92,6 @@ public class ProProfile_5 extends ActionBarActivity {
     String bairro;
     String cidade;
     UF estado;
-    String profissao;
     boolean isEditing;
 
     //requestCodes
@@ -109,29 +107,16 @@ public class ProProfile_5 extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         isEditing = isEditingService();
-        isEditing = true; // somente para teste
-        if(isEditing){
-            professionalDTO = new ProfessionalDTO();
-//            professionalDTO = (ProfessionalDTO) getIntent().getSerializableExtra(SessionAttributes.PROFESSIONAL);
-        }else{
-            professionalDTO = new ProfessionalDTO();
-        }
+        professionalDTO = new ProfessionalDTO();
 
         // Objetos
 
         initViews();
         setSpinnerItems();
 
-        //variavle de teste
-        try {
-            professionalDTO.setId((long) 6);
-            System.out.println("Parsing Id OK!");
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("setId está vazia");
-        }
         if (professionalDTO.getId()!=null) {
             if(isEditing){
+                retrieveAttributes();
                 try {
                     ProfessionalService professionalService;
                     professionalService = new ProfessionalService();
@@ -178,7 +163,10 @@ public class ProProfile_5 extends ActionBarActivity {
                 profissaoSP.setSelection(stateAdapter.getPosition(professionalDTO.getProfession().toString()));
             }
         } else {
-            System.out.println("id veio vazio");
+            professionalDTO = new ProfessionalDTO();
+            retrieveAttributes();
+            Toast.makeText(this, professionalDTO.getLogin(), Toast.LENGTH_SHORT).show();
+
         }
         addDateListenerButton();
         addPhotoListenerButton();
@@ -505,9 +493,9 @@ public class ProProfile_5 extends ActionBarActivity {
 
     public void executeJSON() {
         //executa JSON
-        if(!isEditing){
-            professionalDTO = new ProfessionalDTO();
-        }
+//        if(!isEditing){
+//            professionalDTO = new ProfessionalDTO();
+//        }
         ProfessionalService professionalService = new ProfessionalService();
         estado = UF.getEnumFromValue((String) estadoSP.getSelectedItem());
 
@@ -547,7 +535,7 @@ public class ProProfile_5 extends ActionBarActivity {
                 System.out.println("=== DEU ERRO E O PROFISSIONAl RETORNO NULLO");
             } else {
                 System.out.println("=== DEU CERTO E O PROFISSIONAl RETORNOU COM SUCESSO " + professionalDTO.getName());  //TODO verificar se o back adiciona o id no objeto de retorno
-                Intent intent = new Intent(ProProfile_5.this, ProDrawerMenu_15.class);
+                Intent intent = new Intent(ProProfile_5.this, ProServiceNewActivity_6.class);
                 Bundle mBundle = new Bundle();
                 mBundle.putSerializable(SessionAttributes.PROFESSIONAL, professionalDTO);
                 intent.putExtras(mBundle);
@@ -560,9 +548,11 @@ public class ProProfile_5 extends ActionBarActivity {
         }
     }
     private boolean isEditingService() {
-        boolean isEditing = false;
         return getIntent().getBooleanExtra("isEditing", false);
 
+    }
+    private void retrieveAttributes() {
+        professionalDTO = (ProfessionalDTO) getIntent().getSerializableExtra(SessionAttributes.PROFESSIONAL);
     }
 
 }

@@ -33,13 +33,9 @@ public class ProServiceListActivity_7 extends ActionBarActivity{
     ServiceDTO serviceDTO;
     ProfessionalDTO professionalDTO;
 
-
-
-
     //Arrays
     ArrayAdapter myServiceAdapter;
     ArrayList<ServiceDTO> servicesList;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,8 +132,10 @@ public class ProServiceListActivity_7 extends ActionBarActivity{
         // Admininstra cliques da ActionBar
         switch (item.getItemId()) {
             case R.id.confirmButton:
-                Intent intent = new Intent(ProServiceListActivity_7.this, ProScheduleConfig_8.class);
-                startActivity(intent);
+                Intent configureAccount = new Intent(ProServiceListActivity_7.this, ProScheduleConfig_8.class);
+                configureAccount.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
+                configureAccount.putExtra("isEditing",false);
+                startActivity(configureAccount);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

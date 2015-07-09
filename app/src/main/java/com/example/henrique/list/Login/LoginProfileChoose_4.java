@@ -47,10 +47,11 @@ public class LoginProfileChoose_4 extends Activity {
                 CustomerDTO customerDTO = new CustomerDTO();
                 customerDTO.setLogin(login);
                 customerDTO.setPassword(password);
-                intent.putExtra("isEditing", false);//todo tirar teste
 
+                intent.putExtra("isEditing", false);//todo tirar teste
                 intent.putExtra(SessionAttributes.CUSTOMER, customerDTO);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
                 startActivity(intent);
             }
         });
@@ -60,14 +61,16 @@ public class LoginProfileChoose_4 extends Activity {
         professionalChooseBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),ProProfile_5.class);
+                Intent professionalIntent = new Intent(getApplicationContext(),ProProfile_5.class);
                 ProfessionalDTO professionalDTO = new ProfessionalDTO();
                 professionalDTO.setLogin(login);
                 professionalDTO.setPassword(password);
-                intent.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
-                intent.putExtra("isEditing", false);//todo tirar teste
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+
+                professionalIntent.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
+                professionalIntent.putExtra("isEditing", false);
+                professionalIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                startActivity(professionalIntent);
             }
         });
     }
