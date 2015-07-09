@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 
 import com.example.henrique.list.Beans.ScheduleItem;
-import com.example.henrique.list.Utilidade_Publica.DateUtil;
+import com.example.henrique.list.Utilidade_Publica.DateUtilMoti;
 import com.example.henrique.list.Utilidade_Publica.PinnedSectionListView.PinnedSectionListAdapter;
 import com.example.henrique.list.R;
 
@@ -59,8 +59,8 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleItem> implements Pinne
                 TextView textDay = (TextView) view.findViewById(R.id.textScheduleDayAndMonth);
                 TextView textDayOfWeek = (TextView) view.findViewById(R.id.textScheduleDayOfWeek);
 
-                textDay.setText(cal.get(Calendar.DAY_OF_MONTH) + " de " + DateUtil.getMonthString(cal.get(Calendar.MONTH)));
-                textDayOfWeek.setText("  -  " + DateUtil.getDayOfWeekString(cal.get(Calendar.DAY_OF_WEEK)));
+                textDay.setText(cal.get(Calendar.DAY_OF_MONTH) + " de " + DateUtilMoti.getMonthString(cal.get(Calendar.MONTH)));
+                textDayOfWeek.setText("  -  " + DateUtilMoti.getDayOfWeekString(cal.get(Calendar.DAY_OF_WEEK)));
                 //AQUI A VIEW DEVE RECEBER O BACKGROUND para nao aparecer o item saindo.
                 break;
             //Caso a view seja ITEM

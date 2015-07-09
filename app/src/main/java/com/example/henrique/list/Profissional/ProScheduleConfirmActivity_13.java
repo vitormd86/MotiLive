@@ -9,10 +9,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +18,7 @@ import com.example.henrique.list.Adapters.MyAdapterServicesConfirmSchedule;
 import com.example.henrique.list.Cliente.CustDrawerMenu_10;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Service.SchedulingService;
-import com.example.henrique.list.Utilidade_Publica.DateUtil;
+import com.example.henrique.list.Utilidade_Publica.DateUtilMoti;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 
 import java.math.BigDecimal;
@@ -153,7 +151,7 @@ public class ProScheduleConfirmActivity_13 extends ActionBarActivity {
 
 
         String sSelectedTime = String.format("%02d", selectedHour) + ":" + String.format("%02d", selectedMinutes);
-        inicialTimeLong = DateUtil.getDateFromString(sSelectedTime, new SimpleDateFormat("HH:mm")).getTime();
+        inicialTimeLong = DateUtilMoti.getDateFromString(sSelectedTime, new SimpleDateFormat("HH:mm")).getTime();
         finalTimeLong = inicialTimeLong + totalTimeLong + TimeZone.getDefault().getOffset(inicialTimeLong);
 
         inicialTime = new Date(inicialTimeLong);
@@ -162,9 +160,9 @@ public class ProScheduleConfirmActivity_13 extends ActionBarActivity {
 
         //alimentando views
         textInicialHour.setText(String.format("%02d", selectedHour) + ":" + String.format("%02d", selectedMinutes));
-        textFinalHour.setText(DateUtil.getSmallHoursStringFromDate(finalTime));
+        textFinalHour.setText(DateUtilMoti.getSmallHoursStringFromDate(finalTime));
         textTotalPrice.setText("R$ " + totalPrice.toString());
-        textDate.setText(DateUtil.getDateStringFromCalendar(dailyScheduleDTO.getDate()));
+        textDate.setText(DateUtilMoti.getDateStringFromCalendar(dailyScheduleDTO.getDate()));
 
         textCustomerName.setText(customerDTO.getName());
         textContact.setText("(" + customerDTO.getPhoneCode() + ") " + customerDTO.getPhoneNumber());
@@ -344,8 +342,8 @@ public class ProScheduleConfirmActivity_13 extends ActionBarActivity {
                     System.out.println("Erro ao apagar agendamento");
                 }
 
-                Intent cancelIntent = new Intent(getBaseContext(), CustDrawerMenu_10.class);
-                cancelIntent.putExtra(SessionAttributes.CUSTOMER, customerDTO);
+                Intent cancelIntent = new Intent(getBaseContext(), ProDrawerMenu_15.class);
+                cancelIntent.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
                 cancelIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(cancelIntent);
                 finish();

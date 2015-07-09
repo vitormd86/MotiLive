@@ -1,7 +1,7 @@
 package com.example.henrique.list.Beans;
 
 
-import com.example.henrique.list.Utilidade_Publica.DateUtil;
+import com.example.henrique.list.Utilidade_Publica.DateUtilMoti;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
@@ -30,7 +30,7 @@ public class ScheduleItem {
     }
 
     public String getScheduleInicialTime() {
-        return DateUtil.getSmallHoursStringFromDate(scheduleInicialTime);
+        return DateUtilMoti.getSmallHoursStringFromDate(scheduleInicialTime);
     }
 
     public void setScheduleInicialTime(Date scheduleInicialTime) {
@@ -38,7 +38,7 @@ public class ScheduleItem {
     }
 
     public String getScheduleFinalTime() {
-        return DateUtil.getSmallHoursStringFromDate(scheduleFinalTime);
+        return DateUtilMoti.getSmallHoursStringFromDate(scheduleFinalTime);
     }
 
     public void setScheduleFinalTime(Date scheduleFinalTime) {
@@ -47,11 +47,10 @@ public class ScheduleItem {
 
     public String getScheduleLeftTime() {
         setScheduleLeftTime(scheduleInicialTime);
-        return DateUtil.getBigHoursStringFromDate(scheduleLeftTime);
+        return DateUtilMoti.getBigHoursStringFromDate(scheduleLeftTime);
     }
 
     private void setScheduleLeftTime(Date scheduleInicialTime) {
-        //todo esta com bug de dias meses e ano.
         scheduleLeftTime = new Date();
         Calendar todayCal = Calendar.getInstance(TimeZone.getDefault());
         Calendar scheduleInicialCal = Calendar.getInstance();
@@ -72,8 +71,8 @@ public class ScheduleItem {
             scheduleLeftTime.setTime(scheduleLeftCal.getTimeInMillis());
         } else {
             System.out.println("Não é possível calcular o tempo faltante de um agendamento q já passou");
-            System.out.println("Hora do agendamento: " + DateUtil.getSmallHoursStringFromDate(scheduleInicialTime) +
-                    " Hora atual: " + DateUtil.getBigHoursStringFromDate(todayCal.getTime()));
+            System.out.println("Hora do agendamento: " + DateUtilMoti.getSmallHoursStringFromDate(scheduleInicialTime) +
+                    " Hora atual: " + DateUtilMoti.getBigHoursStringFromDate(todayCal.getTime()));
             scheduleLeftTime.setTime(scheduleLeftCal.getTimeInMillis());
         }
     }

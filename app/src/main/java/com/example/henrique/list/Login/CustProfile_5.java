@@ -25,6 +25,7 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.henrique.list.Cliente.CustDrawerMenu_10;
 import com.example.henrique.list.R;
@@ -160,16 +161,9 @@ public class CustProfile_5 extends ActionBarActivity {
         } else {
             customerDTO = new CustomerDTO();
             retrieveAttributes();
-            System.out.println(customerDTO.getLogin());
+            Toast.makeText(this, customerDTO.getName(), Toast.LENGTH_SHORT).show();
 
         }
-        //variavle de teste
-/*        try {
-            customerDTO.setId((long) 1);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("setId está vazia");
-        }*/
 
         addDateListenerButton();
         addPhotoListenerButton();

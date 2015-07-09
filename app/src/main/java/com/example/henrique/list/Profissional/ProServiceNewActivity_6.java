@@ -23,6 +23,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.util.Calendar;
+import java.util.TimeZone;
 
 import br.com.motiserver.dto.ProfessionalDTO;
 import br.com.motiserver.dto.ServiceDTO;
@@ -52,7 +53,8 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
     //Bundle
     String sProfessional_id;
 
-
+    ArrayAdapter<CharSequence> hourAdapter;
+    ArrayAdapter<CharSequence> minutesAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +68,6 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         initViews();
         initSpinnerAdapters();
 
-
         //configurando BackNavigation button
         if (isEditing) {
             //pega os dados do bundle
@@ -77,16 +78,27 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+            professionalDTO =  serviceDTO.getProfessional();
             serviceDescriptionET.setText(serviceDTO.getDescription());
             serviceNameET.setText(serviceDTO.getName());
             sessionValueET.setText(serviceDTO.getValue().toString());
+
+            Calendar returningCalendar = serviceDTO.getTime();
+            returningCalendar.setTimeZone(TimeZone.getDefault());
+
+            int returningHour = returningCalendar.get(Calendar.HOUR);
+            int returningMinute = returningCalendar.get(Calendar.MINUTE);
+
+            sessionHoursSP.setSelection(hourAdapter.getPosition(String.format("%02d", returningHour)));
+            sessionMinutesSP.setSelection(minutesAdapter.getPosition(String.format("%02d", returningMinute)));
 
         } else {
             //cria novos dados
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             try {
                 professionalService = new ProfessionalService();
-                professionalDTO = professionalService.find((long)32); //TODO depois.. recuperar id da tela anterior.
+                professionalDTO = professionalService.find(professionalDTO.getId()); //TODO depois.. recuperar id da tela anterior.
 
             } catch (ServiceException e) {
                 e.printStackTrace();
@@ -114,13 +126,14 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
                         serviceDTO.setName(serviceName);
                         serviceDTO.setDescription(serviceDescription);
                         serviceDTO.setValue(sessionValue);
+                        serviceDTO.setStatus(Status.TRUE);
                         try {
                             serviceDTO.setTime(calendar);
                         }catch (Exception e){
                             e.printStackTrace();
                         }
                         serviceDTO.setProfessional(professionalDTO);
-
+                        Toast.makeText(this, "validou  os dados", Toast.LENGTH_SHORT).show();
                         try {
                             ServiceService serviceservice = new ServiceService();
                             serviceDTO = serviceservice.save(serviceDTO);
@@ -137,11 +150,9 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
                         System.out.println("Falha na validação fields");
                     }
 
-
+                //codigo para qdo nao tiver editando
                 } else {
-                    //todo deve adicionar servico no banco
                     serviceDTO = new ServiceDTO();
-
 
                     if (validatefields()) {
 
@@ -151,6 +162,7 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
                         System.out.println("" + serviceDescription);
                         serviceDTO.setValue(sessionValue);
                         System.out.println("" + sessionValue);
+
                         try {
                             serviceDTO.setTime(calendar);
                         }catch (Exception e){
@@ -164,7 +176,6 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
                             ServiceService serviceservice = new ServiceService();
                             serviceDTO = serviceservice.save(serviceDTO);
                             System.out.println("Salvou");
-
 
                             Intent createAccountIntent = new Intent(ProServiceNewActivity_6.this, ProServiceListActivity_7.class);
                             createAccountIntent.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
@@ -219,10 +230,12 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         serviceDescription = serviceDescriptionET.getText().toString();
         sessionValueString = sessionValueET.getText().toString();
 
+
         //pegando os dados dos Spinners
 
         sessionHours = sessionHoursSP.getSelectedItem().toString();
         sessionMinutes = sessionMinutesSP.getSelectedItem().toString();
+
 
         try {
             sessionHoursInt = Integer.parseInt(sessionHours);
@@ -232,12 +245,8 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
-
         calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR, sessionHoursInt );
-        System.out.println(sessionHoursInt);
-        calendar.set(Calendar.MINUTE, sessionMinutesInt);
-        System.out.println(sessionMinutesInt);
+        calendar.set(0,0,0,sessionHoursInt,sessionMinutesInt);
 
         try {
             sessionValue = (BigDecimal) decimalFormat.parse(sessionValueString);
@@ -280,11 +289,11 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
 
     private void initSpinnerAdapters() {
 
-        ArrayAdapter<CharSequence> hourAdapter = ArrayAdapter.createFromResource(this, R.array.hours, R.layout.view_spinner_text_hour);
+        hourAdapter = ArrayAdapter.createFromResource(this, R.array.hours, R.layout.view_spinner_text_hour);
         hourAdapter.setDropDownViewResource(R.layout.view_spinner_dropdown_hour);
         sessionHoursSP.setAdapter(hourAdapter);
 
-        ArrayAdapter<CharSequence> minutesAdapter = ArrayAdapter.createFromResource(this, R.array.minutes, android.R.layout.simple_spinner_dropdown_item);
+        minutesAdapter = ArrayAdapter.createFromResource(this, R.array.minutes, android.R.layout.simple_spinner_dropdown_item);
         minutesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sessionMinutesSP.setAdapter(minutesAdapter);
     }

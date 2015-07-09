@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.example.henrique.list.Adapters.MyAdapterServicesConfirmSchedule;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Service.SchedulingService;
-import com.example.henrique.list.Utilidade_Publica.DateUtil;
+import com.example.henrique.list.Utilidade_Publica.DateUtilMoti;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 
 import java.math.BigDecimal;
@@ -151,7 +151,7 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
 
 
         String sSelectedTime = String.format("%02d", selectedHour) + ":" + String.format("%02d", selectedMinutes);
-        inicialTimeLong = DateUtil.getDateFromString(sSelectedTime, new SimpleDateFormat("HH:mm")).getTime();
+        inicialTimeLong = DateUtilMoti.getDateFromString(sSelectedTime, new SimpleDateFormat("HH:mm")).getTime();
         finalTimeLong = inicialTimeLong + totalTimeLong + TimeZone.getDefault().getOffset(inicialTimeLong);
 
         inicialTime = new Date(inicialTimeLong);
@@ -160,9 +160,9 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
 
         //alimentando views
         textInicialHour.setText(String.format("%02d", selectedHour) + ":" + String.format("%02d", selectedMinutes));
-        textFinalHour.setText(DateUtil.getSmallHoursStringFromDate(finalTime));
+        textFinalHour.setText(DateUtilMoti.getSmallHoursStringFromDate(finalTime));
         textTotalPrice.setText("R$ " + totalPrice.toString());
-        textDate.setText(DateUtil.getDateStringFromCalendar(dailyScheduleDTO.getDate()));
+        textDate.setText(DateUtilMoti.getDateStringFromCalendar(dailyScheduleDTO.getDate()));
 
         textProfessionalName.setText(professionalDTO.getName());
         textProfession.setText(professionalDTO.getProfession().getName());

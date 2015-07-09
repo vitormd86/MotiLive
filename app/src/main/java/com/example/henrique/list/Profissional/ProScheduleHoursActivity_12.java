@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.example.henrique.list.Adapters.MyAdapterFreeHours;
 import com.example.henrique.list.Adapters.MyAdapterServicesSchedule;
 import com.example.henrique.list.R;
-import com.example.henrique.list.Utilidade_Publica.DateUtil;
+import com.example.henrique.list.Utilidade_Publica.DateUtilMoti;
 import com.example.henrique.list.Utilidade_Publica.ResizeAnimation;
 import com.example.henrique.list.Utilidade_Publica.SchedulingCalculator.FreeTimeCalculator;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
@@ -100,7 +100,7 @@ public class ProScheduleHoursActivity_12 extends ActionBarActivity {
         //Configura as variaveis do cabecalho
         textClientName.setText(customerDTO.getName());
         textContact.setText("(" + customerDTO.getPhoneCode() + ") " + customerDTO.getPhoneNumber());
-        textDate.setText(DateUtil.getDateStringFromCalendar(dailyScheduleDTO.getDate()));
+        textDate.setText(DateUtilMoti.getDateStringFromCalendar(dailyScheduleDTO.getDate()));
 
         //Configurando listas de servicos/horas/minutos livre
         listHours.setAdapter(myAdapterFreeHours);

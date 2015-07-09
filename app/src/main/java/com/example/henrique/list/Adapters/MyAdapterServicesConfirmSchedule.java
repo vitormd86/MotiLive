@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.henrique.list.R;
-import com.example.henrique.list.Utilidade_Publica.DateUtil;
+import com.example.henrique.list.Utilidade_Publica.DateUtilMoti;
 
 import java.util.ArrayList;
 
@@ -32,7 +32,7 @@ public class MyAdapterServicesConfirmSchedule extends ArrayAdapter <ServiceDTO> 
         ServiceDTO serviceDTO = getItem(position);
 
         nameTV.setText(serviceDTO.getName());
-        timeTV.setText(DateUtil.getMinutesFromCalendar(serviceDTO.getTime()) + " min");
+        timeTV.setText(DateUtilMoti.getMinutesFromCalendar(serviceDTO.getTime()) + " min");
         priceTV.setText("R$ " + serviceDTO.getValue().toString());
 
         return theView;

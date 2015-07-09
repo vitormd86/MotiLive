@@ -29,18 +29,13 @@ public class ProServiceListActivity_7 extends ActionBarActivity{
     ImageButton addServiceBT;
     //ListView
     ListView servicesLV;
-    //objects
-    ProfessionalDTO professionalDTO;
+    //objectsf
     ServiceDTO serviceDTO;
-    //ints
-    Long idProfessional;
-    //String
-    String idProfessionalString;
+    ProfessionalDTO professionalDTO;
 
     //Arrays
     ArrayAdapter myServiceAdapter;
     ArrayList<ServiceDTO> servicesList;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,15 +58,8 @@ public class ProServiceListActivity_7 extends ActionBarActivity{
         //todo deve receber todos os servicos do bd e adicionar ao vetor
 
         try {
-            idProfessional = Long.parseLong(idProfessionalString);
-            System.out.println("parsing idProfissional OK!");
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-            System.out.println("Error parsing idProfissional");
-        }
-        try {
             ServiceService serviceService = new ServiceService();
-            servicesList = (ArrayList<ServiceDTO>) serviceService.findAllByProfessionalId(idProfessional);
+            servicesList = (ArrayList<ServiceDTO>) serviceService.findAllByProfessionalId(professionalDTO.getId());
             System.out.println("Baixou os serviços");
 
         } catch (Exception e) {
@@ -127,8 +115,7 @@ public class ProServiceListActivity_7 extends ActionBarActivity{
         });
     }
     private void retrieveAttributes() {
-        idProfessionalString    = getIntent().getStringExtra(SessionAttributes.PROFESSIONAL_ID);
-        System.out.println("retrieveAttributes OK!");
+        professionalDTO= (ProfessionalDTO) getIntent().getSerializableExtra(SessionAttributes.PROFESSIONAL);
     }
 
 
@@ -145,8 +132,10 @@ public class ProServiceListActivity_7 extends ActionBarActivity{
         // Admininstra cliques da ActionBar
         switch (item.getItemId()) {
             case R.id.confirmButton:
-                Intent intent = new Intent(ProServiceListActivity_7.this, ProScheduleConfig_8.class);
-                startActivity(intent);
+                Intent configureAccount = new Intent(ProServiceListActivity_7.this, ProScheduleConfig_8.class);
+                configureAccount.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
+                configureAccount.putExtra("isEditing",false);
+                startActivity(configureAccount);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

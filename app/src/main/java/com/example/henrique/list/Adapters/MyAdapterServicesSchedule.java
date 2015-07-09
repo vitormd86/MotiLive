@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.henrique.list.R;
-import com.example.henrique.list.Utilidade_Publica.DateUtil;
+import com.example.henrique.list.Utilidade_Publica.DateUtilMoti;
 
 import java.util.Date;
 import java.util.List;
@@ -41,7 +41,7 @@ public class MyAdapterServicesSchedule extends ArrayAdapter<ServiceDTO> {
 
         //alimentando campos da view
         textService.setText(service.getName());
-        textServiceLenght.setText(DateUtil.getMinutesFromDate(serviceLenghtDate) + "min");
+        textServiceLenght.setText(DateUtilMoti.getMinutesFromDate(serviceLenghtDate) + "min");
         textPrice.setText("R$ " + service.getValue());
 
         //configurando listener do botao de Info
