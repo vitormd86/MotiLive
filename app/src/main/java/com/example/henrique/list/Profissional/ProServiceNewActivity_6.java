@@ -26,6 +26,7 @@ import java.util.Calendar;
 
 import br.com.motiserver.dto.ProfessionalDTO;
 import br.com.motiserver.dto.ServiceDTO;
+import br.com.motiserver.util.constants.Status;
 
 
 public class ProServiceNewActivity_6 extends ActionBarActivity {
@@ -156,7 +157,7 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
                             e.printStackTrace();
                         }
                         serviceDTO.setProfessional(professionalDTO);
-                        //serviceDTO.setStatus();
+                        serviceDTO.setStatus(Status.TRUE);
                         System.out.println("" + professionalDTO.getId());
 
                         try {
