@@ -27,6 +27,7 @@ import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TimeZone;
 
 import br.com.motiserver.dto.BreakDTO;
 import br.com.motiserver.dto.DailyScheduleDTO;
@@ -44,6 +45,7 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
     Spinner intervalBetweenHourSP, intervalBetweenMinutesSP;
     RadioGroup breakTimeRadioGroup;
     CheckBox sunCB, monCB, tueCB, wedCB, thuCB, friCB, satCB;
+    ArrayAdapter<String> hourAdapter, minutesAdapter;
 
     CalendarPickerView screenCalendar;
     Calendar initDate, endDate;
@@ -112,6 +114,48 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
     }
 
     public void fillViews(){
+        expedientStartHourSP.setSelection(8);
+        expedientEndHourSP.setSelection(17);
+        breakStartHourSP.setSelection(12);
+        breakEndHourSP.setSelection(13);
+        intervalBetweenHourSP.setSelection(0);
+        intervalBetweenMinutesSP.setSelection(4);
+
+        if(isEditing()){
+            //se estiver em modo de edicao, buscara dados do servicos para alimentar campos
+            DailyScheduleService dailyScheduleService = new DailyScheduleService();
+            DailyScheduleDTO dailyScheduleDTO;
+            try {
+                dailyScheduleDTO = dailyScheduleService.findAllByProfessionalId(professionalDTO.getId()).get(0);
+            } catch (ServiceException ex) {
+                dailyScheduleDTO = new DailyScheduleDTO();
+                ex.printStackTrace();
+                System.out.println("Erro ao buscar dailySchedule.");
+            }
+            Calendar expedientStartCal = Calendar.getInstance(TimeZone.getDefault());
+            Calendar expedientEndCal = Calendar.getInstance(TimeZone.getDefault());
+            Calendar breakStartCal = Calendar.getInstance(TimeZone.getDefault());
+            Calendar breakEndCal = Calendar.getInstance(TimeZone.getDefault());
+            Calendar intervalBetweenCal = Calendar.getInstance(TimeZone.getDefault());
+
+            expedientStartCal.setTime(dailyScheduleDTO.getStartTime().getTime());
+            expedientEndCal.setTime(dailyScheduleDTO.getEndTime().getTime());
+            //breakStartCal.setTime();
+            //breakEndCal.setTime();
+            //intervalBetweenCal.setTime(professionalDTO.getSessionInterval().getTime());
+
+            System.out.println(String.format("%02d", expedientStartCal.get(Calendar.HOUR_OF_DAY)));
+            expedientStartHourSP.setSelection(hourAdapter.getPosition(String.format("%02d", expedientStartCal.get(Calendar.HOUR_OF_DAY))));
+            expedientStartMinutesSP.setSelection(minutesAdapter.getPosition(String.format("%02d", expedientStartCal.get(Calendar.MINUTE))));
+            expedientEndHourSP.setSelection(hourAdapter.getPosition(String.format("%02d", expedientEndCal.get(Calendar.HOUR_OF_DAY))));
+            expedientEndMinutesSP.setSelection(minutesAdapter.getPosition(String.format("%02d", expedientEndCal.get(Calendar.MINUTE))));
+            //breakStartHourSP.setSelection(hourAdapter.getPosition(String.format("%02d", breakStartCal.get(Calendar.HOUR_OF_DAY))));
+            //breakStartMinutesSP.setSelection(minutesAdapter.getPosition(String.format("%02d", breakStartCal.get(Calendar.MINUTE))));
+            //breakEndHourSP.setSelection(hourAdapter.getPosition(String.format("%02d", breakEndCal.get(Calendar.HOUR_OF_DAY))));
+            //breakEndMinutesSP.setSelection(minutesAdapter.getPosition(String.format("%02d", breakEndCal.get(Calendar.MINUTE))));
+            //intervalBetweenHourSP.setSelection(hourAdapter.getPosition(String.format("%02d", intervalBetweenCal.get(Calendar.HOUR_OF_DAY))));
+            //intervalBetweenMinutesSP.setSelection(minutesAdapter.getPosition(String.format("%02d", intervalBetweenCal.get(Calendar.MINUTE))));
+        }
 
     }
 
@@ -127,28 +171,22 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
 //            minutesArray.set(i, " " + minutesArray.get(i));
 //        }
         //configurando adapters e spinners
-        ArrayAdapter<String> hourAdapter = new ArrayAdapter<>(this, R.layout.view_spinner_text_hour, getResources().getStringArray(R.array.hours));
+        hourAdapter = new ArrayAdapter<>(this, R.layout.view_spinner_text_hour, getResources().getStringArray(R.array.hours));
         hourAdapter.setDropDownViewResource(R.layout.view_spinner_dropdown_hour);
         expedientStartHourSP.setAdapter(hourAdapter);
-        expedientStartHourSP.setSelection(8);
         expedientEndHourSP.setAdapter(hourAdapter);
-        expedientEndHourSP.setSelection(17);
         breakStartHourSP.setAdapter(hourAdapter);
-        breakStartHourSP.setSelection(12);
         breakEndHourSP.setAdapter(hourAdapter);
-        breakEndHourSP.setSelection(13);
         intervalBetweenHourSP.setAdapter(hourAdapter);
-        intervalBetweenHourSP.setSelection(0);
 
         //adapter de array de minutos
-        ArrayAdapter<String> minutesAdapter = new ArrayAdapter<>(this, R.layout.view_spinner_text_minutes, getResources().getStringArray(R.array.minutes));
+        minutesAdapter = new ArrayAdapter<>(this, R.layout.view_spinner_text_minutes, getResources().getStringArray(R.array.minutes));
         minutesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         expedientStartMinutesSP.setAdapter(minutesAdapter);
         expedientEndMinutesSP.setAdapter(minutesAdapter);
         breakStartMinutesSP.setAdapter(minutesAdapter);
         breakEndMinutesSP.setAdapter(minutesAdapter);
         intervalBetweenMinutesSP.setAdapter(minutesAdapter);
-        intervalBetweenMinutesSP.setSelection(4);
 
 
 
