@@ -3,11 +3,12 @@ package com.example.henrique.list.Utilidade_Publica;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Created by Cristor on 18/06/2015.
  */
-public class DateUtil {
+public class DateUtilMoti {
 
     static SimpleDateFormat sdf;
 
@@ -139,5 +140,18 @@ public class DateUtil {
                 break;
         }
         return month;
+    }
+    public static Calendar truncateCal(Calendar cal){
+        Calendar toTruncateCal = Calendar.getInstance(TimeZone.getDefault());
+        int minutesToAdd;
+        int overMinutes;
+
+        toTruncateCal.setTime(cal.getTime());
+
+        overMinutes = toTruncateCal.get(Calendar.MINUTE) % 5;
+        minutesToAdd = 5 - overMinutes;
+
+        toTruncateCal.add(Calendar.MINUTE, minutesToAdd);
+        return toTruncateCal;
     }
 }
