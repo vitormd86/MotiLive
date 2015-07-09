@@ -45,15 +45,20 @@
                 <category android:name="com.example.gcm" />
             </intent-filter>
         </receiver>
-
-        <service
-            android:name=".Notification.InstanceIDListenerServiceImpl"
-            android:exported="false" >
+        <service android:name=".Service.registration.InstanceIDListenerServiceImpl"
+                 android:exported="false" >
             <intent-filter>
                 <action android:name="com.google.android.gms.iid.InstanceID" />
             </intent-filter>
         </service>
-        <service android:name=".Notification.TokenRegistrationIntentService"  android:exported="false"  />
+        <service android:name=".Service.registration.TokenRegistrationIntentService"
+                 android:exported="false"  />
+        <service android:name=".Service.notification.GcmListenerServiceImpl"
+                 android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
 
         <!-- ACTIVITIES -->
         <activity

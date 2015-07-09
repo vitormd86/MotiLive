@@ -11,7 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.henrique.list.Cliente.CustDrawerMenu_10;
-import com.example.henrique.list.Notification.TokenRegistrationIntentService;
+import com.example.henrique.list.Service.registration.TokenRegistrationIntentService;
 import com.example.henrique.list.Profissional.ProDrawerMenu_15;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Service.CustomerService;

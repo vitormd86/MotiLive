@@ -1,4 +1,4 @@
-package com.example.henrique.list.Notification;
+package com.example.henrique.list.Service.registration;
 
 import android.app.IntentService;
 import android.content.Intent;
@@ -14,7 +14,6 @@ import br.com.motiserver.dto.CustomerDTO;
 
 public class TokenRegistrationIntentService extends IntentService {
 
-    private LocalLoginService localLoginService = null;
     private LoginService loginService = new LoginService();
 
     public TokenRegistrationIntentService() {
