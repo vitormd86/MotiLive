@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="windows-1252"?>
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.henrique.list" >
 
@@ -60,10 +60,12 @@
             </intent-filter>
         </service>
 
-        <!-- ACTIVITIES -->
+        <!-- ACTIVITIES (ORDERED BY ACTIVITY TYPE AND NUMBER) -->
+        <!-- LOGIN ACTIVITIES -->
         <activity
             android:name=".Login.Login_1"
             android:label="Login"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -74,170 +76,155 @@
         <activity
             android:name=".Login.LoginNewAccount_2"
             android:label="Criar Conta"
-            android:windowSoftInputMode="stateHidden" >
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden">
         </activity>
-        <activity android:name=".UsoPosterior.Telatermos" >
+        <activity
+            android:name=".Login.LoginProfileChoose_4"
+            android:label="Tela Inicial do nosso APP"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name="com.facebook.LoginActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
+
+        <!-- CUSTOMER ACTIVITIES -->
         <activity
             android:name=".Login.CustProfile_5"
             android:label="Cadastro Cliente"
             android:parentActivityName=".Login.LoginNewAccount_2"
             android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Login.LoginNewAccount_2" />
-        </activity>
-        <activity
-            android:name=".Login.ProProfile_5"
-            android:label="Cadastro Profissional"
-            android:parentActivityName=".Login.LoginNewAccount_2"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Login.LoginNewAccount_2" />
-        </activity>
-        <activity
-            android:name=".Cliente.CustScheduleConfirmActivity_8"
-            android:label="Resumo"
-            android:parentActivityName=".Cliente.CustScheduleHourActivity_7"
-            android:theme="@style/AppTheme" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Cliente.CustScheduleHourActivity_7" />
-        </activity>
-        <activity
-            android:name=".UsoPosterior.LoginScreen"
-            android:label="Get Name"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".Cliente.CustDrawerMenu_10"
-            android:label="Tela Inicial do nosso APP"
-            android:launchMode="singleTask" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Cliente.CustScheduleHourActivity_7"
             android:label="Novo Agendamento"
             android:launchMode="singleTop"
             android:parentActivityName=".Cliente.CustDrawerMenu_10"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Cliente.CustDrawerMenu_10" />
         </activity>
+
         <activity
-            android:name=".Profissional.ProScheduleConfig_8"
-            android:label="Configurar Agenda"
-            android:parentActivityName=".Profissional.ProServiceListActivity_7"
+            android:name=".Cliente.CustScheduleConfirmActivity_8"
+            android:label="Resumo"
+            android:parentActivityName=".Cliente.CustScheduleHourActivity_7"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Profissional.ProServiceListActivity_7" />
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                android:value=".Cliente.CustScheduleHourActivity_7" />
         </activity>
         <activity
-            android:name=".Profissional.ProScheduleFirstActivity_11"
-            android:label="Novo Cliente"
-            android:parentActivityName=".Profissional.ProDrawerMenu_15" >
+            android:name=".Cliente.CustDrawerMenu_10"
+            android:label="Tela Inicial do nosso APP"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"
+            android:launchMode="singleTask" >
+        </activity>
+
+        <!-- PROFESSIONAL ACTIVITIES -->
+        <activity
+            android:name=".Login.ProProfile_5"
+            android:label="Cadastro Profissional"
+            android:parentActivityName=".Login.LoginNewAccount_2"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Profissional.ProDrawerMenu_15" />
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".Profissional.ProServiceListActivity_7"
-            android:label="Meus Serviços"
-            android:launchMode="singleTask" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                android:value=".Login.LoginNewAccount_2" />
         </activity>
         <activity
             android:name=".Profissional.ProServiceNewActivity_6"
             android:label="Novo Servico"
-            android:parentActivityName=".Profissional.ProServiceListActivity_7" >
+            android:parentActivityName=".Profissional.ProServiceListActivity_7"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Login.ProProfile_5"
                 android:windowSoftInputMode="stateHidden" />
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
-            android:name=".Login.LoginProfileChoose_4"
-            android:label="Tela Inicial do nosso APP" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".Profissional.ProDrawerMenu_15"
-            android:label="Tela Inicial do nosso APP"
+            android:name=".Profissional.ProServiceListActivity_7"
+            android:label="Meus ServiÃ§os"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"
             android:launchMode="singleTask" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
-            android:name=".Profissional.ProScheduleHoursActivity_12"
-            android:label="Novo Agendamento"
-            android:launchMode="singleTop"
+            android:name=".Profissional.ProScheduleConfig_8"
+            android:label="Configurar Agenda"
+            android:parentActivityName=".Profissional.ProServiceListActivity_7"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Profissional.ProServiceListActivity_7" />
+        </activity>
+        <activity
+            android:name=".Profissional.ProScheduleFirstActivity_11"
+            android:label="Novo Cliente"
             android:parentActivityName=".Profissional.ProDrawerMenu_15"
-            android:theme="@style/AppTheme" >
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Profissional.ProDrawerMenu_15" />
+        </activity>
+        <activity
+        android:name=".Profissional.ProScheduleHoursActivity_12"
+        android:label="Novo Agendamento"
+        android:launchMode="singleTop"
+        android:parentActivityName=".Profissional.ProDrawerMenu_15"
+        android:theme="@style/AppTheme"
+        android:screenOrientation="portrait"
+        android:windowSoftInputMode="stateHidden" >
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".Profissional.ProDrawerMenu_15" />
         </activity>
         <activity
             android:name=".Profissional.ProScheduleConfirmActivity_13"
             android:label="Confirmar Agendamento"
             android:parentActivityName=".Profissional.ProScheduleHoursActivity_12"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Profissional.ProScheduleHoursActivity_12" />
         </activity>
+        <activity
+            android:name=".Profissional.ProDrawerMenu_15"
+            android:label="Tela Inicial do nosso APP"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+
+        <!-- USO POSTERIOR ACTIVITIES -->
+        <activity android:name=".UsoPosterior.Telatermos" >
+        </activity>
+        <activity
+            android:name=".UsoPosterior.LoginScreen"
+            android:label="Get Name"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

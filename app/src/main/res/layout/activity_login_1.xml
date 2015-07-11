@@ -42,7 +42,7 @@
         android:id="@+id/buttonCustLoginLogar"
         android:text="@string/buttonLogin"/>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -51,6 +51,6 @@
             android:id="@+id/buttonCustLoginCriarConta"
             android:layout_marginBottom="@dimen/margin_betweenElements_small"
             android:text="@string/buttonSignUp"/>
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
-        android:hint="@string/hintPassword"
+        android:hint="@string/hintPasswordSignUp"
         android:inputType="textPassword" />
 
     <EditText
@@ -51,18 +51,17 @@
         android:id="@+id/register_error"
         style="@style/TextAlert"
         android:layout_marginBottom="@dimen/margin_betweenElements_small" />
-
     <Button
         style="@style/LoginButton"
         android:id="@+id/buttonloginNewAccount"
         android:text="@string/buttonSignUp" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <Button
             style="@style/SignUpButton"
             android:id="@+id/buttonCancel"
             android:text="@string/buttonCancel"/>
-    </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>
