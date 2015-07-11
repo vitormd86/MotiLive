@@ -404,6 +404,14 @@ public class CustProfile_5 extends ActionBarActivity {
         }
 
         complemento = complementoET.getText().toString();
+        if (!DataValidatorUtil.isValidTextWithSpace(complemento)) {
+            //todo bairro pode conter digitos sim
+            complementoET.setError("O bairro não pode conter números.");
+            isAllValidate = false;
+        } else {
+            if (complementoET.getError() != null)
+                complementoET.setError(null);
+        }
         //todo falta validar complemento
 
         rua = ruaET.getText().toString();
@@ -425,7 +433,6 @@ public class CustProfile_5 extends ActionBarActivity {
             if (bairroET.getError() != null)
                 bairroET.setError(null);
         }
-
 
         cidade = cidadeET.getText().toString();
         if (!DataValidatorUtil.isValidTextWithSpace(cidade)) {

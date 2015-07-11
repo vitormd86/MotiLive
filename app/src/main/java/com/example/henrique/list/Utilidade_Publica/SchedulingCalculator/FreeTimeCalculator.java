@@ -53,7 +53,7 @@ public class FreeTimeCalculator {
             if (finalPeriodCal.after(initialPeriodCal)){
                 //verifica se o final do periodo eh de fato MAIOR que o inicio (apos subtrair tempo de servico selecionado)
                 for (int i = initialPeriodCal.get(Calendar.HOUR_OF_DAY); i <= finalPeriodCal.get(Calendar.HOUR_OF_DAY); i++){
-                    //um loop para cada hora verificando se a hora é menor ou igual ao final do periodo, para incluir na lista
+                    //um loop para cada hora verificando se a hora  menor ou igual ao final do periodo, para incluir na lista
                     System.out.println("Adicionado na lista, hora numero " + i);
                     freeHours.add(i);
                 }
@@ -84,7 +84,7 @@ public class FreeTimeCalculator {
                 //um loop para cada hora dentro do periodo
                 System.out.println("Dentro da hora numero " + i);
                 if(i == selectedHour) {
-                    //verifica se a hora é a mesma q a selecionada
+                    //verifica se a hora eh a mesma q a selecionada
                     System.out.println("Encontrou hora igual a selecionada");
                     int initialMinutes = 0;
                     int finalMinutes = 55;

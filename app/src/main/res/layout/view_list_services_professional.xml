@@ -27,14 +27,16 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawableLeft="@drawable/ic_form_serv_time"
-                android:contentDescription="@string/description_icServiceTime"/>
+                android:contentDescription="@string/description_icServiceTime"
+                android:textColor="@color/text_black"/>
             <TextView
                 android:id="@+id/sessionPriceTVPro_7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawableLeft="@drawable/ic_form_serv_price"
-                android:contentDescription="@string/description_icServicePrice"/>
+                android:contentDescription="@string/description_icServicePrice"
+                android:textColor="@color/text_black"/>
     </LinearLayout>
 
 </LinearLayout>

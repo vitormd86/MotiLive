@@ -63,6 +63,7 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         retrieveAttributes();
         //verifica se esta no modo de edicao ou de novo servico
         isEditing = isEditingService();
+        Toast.makeText(this, ""+isEditing, Toast.LENGTH_SHORT).show();
 
         //inicializa componentes da tela
         initViews();
@@ -72,12 +73,6 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         if (isEditing) {
             //pega os dados do bundle
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-            try {
-                serviceDTO = (ServiceDTO) getIntent().getSerializableExtra(SessionAttributes.SERVICE);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
             professionalDTO =  serviceDTO.getProfessional();
             serviceDescriptionET.setText(serviceDTO.getDescription());
@@ -115,7 +110,6 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         switch (item.getItemId()) {
             case R.id.confirmButton:
                 executaJSON = true;
-                serviceDTO = new ServiceDTO();
                 initVariables(); // inicia as variaveis com os editTexts
 
                 if (isEditing) {
@@ -260,7 +254,7 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
     private boolean validatefields() {
         System.out.println("Entrou em validdate fields");
         if (!DataValidatorUtil.isValidTextWithSpace(serviceName)) {
-            serviceNameET.setError("O nome não pode conter numeros");
+            serviceNameET.setError("O preenchimento esta incorreto ( o sistem acha pelo menos");
             executaJSON = false;
         } else {
             if (serviceNameET.getError() != null)
@@ -268,7 +262,7 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         }
 
         if (!DataValidatorUtil.isValidTextWithSpace(serviceDescription)) {
-            serviceDescriptionET.setError("A descrição pode conter qualquer coisa!");
+            serviceDescriptionET.setError("O preenchimento esta incorreto ( o sistem acha pelo menos");
             executaJSON = false;
         } else {
             if (serviceDescriptionET.getError() != null)
@@ -299,7 +293,7 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
     }
 
     private boolean isEditingService() {
-        return getIntent().getBooleanExtra("isEditing", false);
+        return getIntent().getBooleanExtra("isEditing", true);
     }
 
     private void initViews() {
@@ -314,5 +308,7 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
     }
     private void retrieveAttributes() {
         professionalDTO = (ProfessionalDTO) getIntent().getSerializableExtra(SessionAttributes.PROFESSIONAL);
+        serviceDTO = (ServiceDTO) getIntent().getSerializableExtra(SessionAttributes.SERVICE);
+
     }
 }
