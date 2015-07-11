@@ -50,13 +50,6 @@ public class Login_1 extends Activity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
     private void initViews(){
         //inicia as views
         errorMsgTV = (TextView)findViewById(R.id.login_error);
@@ -149,12 +142,14 @@ public class Login_1 extends Activity {
         if (customerDTO.getType().equals(PersonType.CUSTOMER)) {
             Intent loginIntent = new Intent(Login_1.this, CustDrawerMenu_10.class);
             loginIntent.putExtra(SessionAttributes.CUSTOMER, customerDTO);
+            loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(loginIntent);
             // REDIRECT TO PROFESSIONAL SCREEN
         } else {
             ProfessionalDTO professionalDTO = professionalService.find(customerDTO.getId());
             Intent loginIntent = new Intent(Login_1.this, ProDrawerMenu_15.class);
             loginIntent.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
+            loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(loginIntent);
         }
     }
@@ -168,5 +163,12 @@ public class Login_1 extends Activity {
                 startActivity(loginIntent);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        //botao de voltar sempre destruirá o app
+        super.onBackPressed();
+        this.finish(); // or do something else
     }
 }

@@ -233,9 +233,6 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
         } else if (id == R.id.logout) {
             logout();
             return true;
-        } else if (id == R.id.exit_the_app){
-            exit_the_app();
-            return true;
         }
         // Handle your other action bar items...
         return super.onOptionsItemSelected(item);
@@ -267,9 +264,4 @@ public class CustDrawerMenu_10 extends ActionBarActivity {
         createAccountIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(createAccountIntent);
     }
-
-    private void exit_the_app() {
-        System.exit(0);
-    }
-
 }

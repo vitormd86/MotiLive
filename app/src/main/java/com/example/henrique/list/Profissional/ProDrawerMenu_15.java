@@ -1,6 +1,7 @@
 package com.example.henrique.list.Profissional;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -197,7 +198,6 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
                     Intent drawerlistIntent = new Intent(ProDrawerMenu_15.this, menuOptions[position].getLinkActivity().getClass());
                     drawerlistIntent.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
                     startActivity(drawerlistIntent);
-                    finish();
                 }
                 mDrawerLayout.closeDrawers();
             }
@@ -237,9 +237,6 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
         } else if (id == R.id.logout) {
             logout();
             return true;
-        } else if (id == R.id.exit_the_app){
-            exit_the_app();
-            return true;
         }
         // Handle your other action bar items...
         return super.onOptionsItemSelected(item);
@@ -268,9 +265,6 @@ public class ProDrawerMenu_15 extends ActionBarActivity {
         Intent createAccountIntent = new Intent(ProDrawerMenu_15.this, Login_1.class);
         createAccountIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(createAccountIntent);
-    }
-
-    private void exit_the_app() {
-        System.exit(1);
+        this.finish();
     }
 }

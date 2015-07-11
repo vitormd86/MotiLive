@@ -16,6 +16,7 @@
     <!--Login Process -->
     <string name="hintLogin">Digite seu login</string>
     <string name="hintPassword">Digite sua senha</string>
+    <string name="hintPasswordSignUp">Digite sua senha (mínimo 6 dígitos)</string>
     <string name="hintConfirmPassword">Confirme sua senha</string>
     <string name="hintShowPassword">Mostrar Senha</string>
     <string name="hintName">Nome completo</string>

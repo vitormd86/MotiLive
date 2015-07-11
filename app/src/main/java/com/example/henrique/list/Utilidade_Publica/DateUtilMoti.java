@@ -1,6 +1,9 @@
 package com.example.henrique.list.Utilidade_Publica;
 
+import com.example.henrique.list.Utilidade_Publica.Calendar.CalendarPickerView;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
@@ -153,5 +156,49 @@ public class DateUtilMoti {
 
         toTruncateCal.add(Calendar.MINUTE, minutesToAdd);
         return toTruncateCal;
+    }
+
+    public static ArrayList<Date> repeatDaysOfWeek (Date initDate, Date endDate, int targetDayOfWeek){
+        //este metodo gera uma array de repeticao de dias de semana, dentro de um limite minimo e maximo de data.
+
+        ArrayList<Date> selectedDaysOfWeeK = new ArrayList<>();
+
+        //inicializando calendarios
+        Calendar dateCal = Calendar.getInstance();
+        Calendar endDateCal = Calendar.getInstance();
+        dateCal.setTime(initDate);
+        endDateCal.setTime(endDate);
+        //zerando horario dos calendarios
+        CalendarPickerView.setMidnight(dateCal);
+        CalendarPickerView.setMidnight(endDateCal);
+
+        int initDayOfWeek = dateCal.get(Calendar.DAY_OF_WEEK);
+        for (int i = 0; i < 7; i++){
+            //laco para encontrar o dia da semana requisitado como argumento do metodo
+            if (initDayOfWeek == targetDayOfWeek)
+                break;
+            dateCal.add(Calendar.DAY_OF_WEEK, 1);
+            initDayOfWeek = dateCal.get(Calendar.DAY_OF_WEEK);
+        }
+
+        while(dateCal.getTime().getTime() < endDateCal.getTime().getTime()){
+            //adiciona todos os dias escolhidos dentro da array que sera retornada
+            selectedDaysOfWeeK.add(dateCal.getTime());
+            dateCal.add(Calendar.DAY_OF_WEEK, 7);
+        }
+
+        //Toast.makeText(this, "Igualou no dia " + initDayOfWeek + ". Date = " + initDateCal, Toast.LENGTH_SHORT).show();
+
+        return selectedDaysOfWeeK;
+    }
+
+    public static boolean isSameDay(Calendar cal1, Calendar cal2){
+        if(cal1.get(Calendar.DAY_OF_MONTH) == cal2.get(Calendar.DAY_OF_MONTH)
+                && cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH)
+                && cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)){
+            return true;
+        } else {
+            return false;
+        }
     }
 }
