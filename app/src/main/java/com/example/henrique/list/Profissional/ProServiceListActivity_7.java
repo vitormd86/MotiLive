@@ -32,6 +32,7 @@ public class ProServiceListActivity_7 extends ActionBarActivity{
     //objectsf
     ServiceDTO serviceDTO;
     ProfessionalDTO professionalDTO;
+    boolean isEditing;
 
     //Arrays
     ArrayAdapter myServiceAdapter;
@@ -45,11 +46,20 @@ public class ProServiceListActivity_7 extends ActionBarActivity{
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         //obtem o id_professional atravẽs da session
         System.out.println("Entrando na teLa 7");
+        isEditing = isEditingService();
+
         retrieveAttributes();
         initViews();
 
         setSelectServiceListener();
         setAddServiceListener();
+
+        if(isEditing==false){
+            Intent createAccountIntent = new Intent(ProServiceListActivity_7.this, ProServiceNewActivity_6.class);
+            createAccountIntent.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
+            createAccountIntent.putExtra("isEditing",false);
+            startActivity(createAccountIntent);
+        }
     }
 
     @Override
@@ -110,6 +120,9 @@ public class ProServiceListActivity_7 extends ActionBarActivity{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ProServiceListActivity_7.this, ProServiceNewActivity_6.class);
+                intent.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
+                intent.putExtra("isEditing", false);
+
                 startActivity(intent);
             }
         });
@@ -132,13 +145,24 @@ public class ProServiceListActivity_7 extends ActionBarActivity{
         // Admininstra cliques da ActionBar
         switch (item.getItemId()) {
             case R.id.confirmButton:
-                Intent configureAccount = new Intent(ProServiceListActivity_7.this, ProScheduleConfig_8.class);
-                configureAccount.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
-                configureAccount.putExtra("isEditing",false);
-                startActivity(configureAccount);
+                if(isEditing){
+                    Intent configureAccount = new Intent(ProServiceListActivity_7.this, ProDrawerMenu_15.class);
+                    configureAccount.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
+                    startActivity(configureAccount);
+
+                }else{
+                    Intent configureAccount = new Intent(ProServiceListActivity_7.this, ProScheduleConfig_8.class);
+                    configureAccount.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
+                    configureAccount.putExtra("isEditing",false);
+                    startActivity(configureAccount);
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+    private boolean isEditingService() {
+        return getIntent().getBooleanExtra("isEditing", true);
+    }
+
 }

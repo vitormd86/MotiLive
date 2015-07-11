@@ -23,7 +23,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.henrique.list.Profissional.ProServiceNewActivity_6;
+import com.example.henrique.list.Profissional.ProDrawerMenu_15;
+import com.example.henrique.list.Profissional.ProServiceListActivity_7;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Service.ProfessionService;
 import com.example.henrique.list.Service.ProfessionalService;
@@ -107,69 +108,66 @@ public class ProProfile_5 extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         isEditing = isEditingService();
+        Toast.makeText(this,""+isEditing , Toast.LENGTH_SHORT).show();
+
         professionalDTO = new ProfessionalDTO();
 
         // Objetos
 
         initViews();
         setSpinnerItems();
+        if (isEditing) {
+            retrieveAttributes();
+            try {
+                ProfessionalService professionalService;
+                professionalService = new ProfessionalService();
 
-        if (professionalDTO.getId()!=null) {
-            if(isEditing){
-                retrieveAttributes();
-                try {
-                    ProfessionalService professionalService;
-                    professionalService = new ProfessionalService();
-
-                    professionalDTO = professionalService.find(professionalDTO.getId()); //TODO depois.. recuperar id da Session.customer.
-                    if (professionalDTO == null)
-                    {
-                        System.out.println("Professional ta vindo nulo!");
-                    }else{
-                        System.out.println("Professional recuperado com sucesso");
-                    }
-                } catch (ServiceException e) {
-                    e.printStackTrace();
-                    System.out.println("Erro ao executor professionalService");
+                professionalDTO = professionalService.find(professionalDTO.getId()); //TODO depois.. recuperar id da Session.customer.
+                if (professionalDTO == null) {
+                    System.out.println("Professional ta vindo nulo!");
+                } else {
+                    System.out.println("Professional recuperado com sucesso");
                 }
-
-                Calendar resumeCal ;
-                resumeCal = professionalDTO.getBirthDate();
-
-                // coloca data selecionada dentro do TextView correspondente
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                String sDate = sdf.format(resumeCal.getTime());
-                chosenDateCal = resumeCal;
-                dateET.setText(sDate);
-                nomeET.setText(professionalDTO.getName());
-                prefixET.setText(professionalDTO.getPhoneCode());
-                celularET.setText(professionalDTO.getPhoneNumber());
-                emailET.setText(professionalDTO.getEmail());
-                numeroET.setText(professionalDTO.getAddressNumber());
-                ruaET.setText(professionalDTO.getAddressStreet());
-                bairroET.setText(professionalDTO.getAddressDistrict());
-                cidadeET.setText(professionalDTO.getAddressCity());
-                CEPET.setText(professionalDTO.getAddressZipCode());
-                if(professionalDTO.getGender()== Gender.FEMALE)
-                {
-                    femininoRB.toggle();
-                    opcaoEscolhidaGenero = Gender.FEMALE;
-                }else{
-                    masculinoRB.toggle();
-                    opcaoEscolhidaGenero = Gender.MALE;
-                }
-
-                estadoSP.setSelection(stateAdapter.getPosition(professionalDTO.getAddressState().toString()));
-                profissaoSP.setSelection(stateAdapter.getPosition(professionalDTO.getProfession().toString()));
+            } catch (ServiceException e) {
+                e.printStackTrace();
+                System.out.println("Erro ao executor professionalService");
             }
+
+            Calendar resumeCal;
+            resumeCal = professionalDTO.getBirthDate();
+
+            // coloca data selecionada dentro do TextView correspondente
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            String sDate = sdf.format(resumeCal.getTime());
+            chosenDateCal = resumeCal;
+            dateET.setText(sDate);
+            nomeET.setText(professionalDTO.getName());
+            prefixET.setText(professionalDTO.getPhoneCode());
+            celularET.setText(professionalDTO.getPhoneNumber());
+            emailET.setText(professionalDTO.getEmail());
+            numeroET.setText(professionalDTO.getAddressNumber());
+            ruaET.setText(professionalDTO.getAddressStreet());
+            bairroET.setText(professionalDTO.getAddressDistrict());
+            cidadeET.setText(professionalDTO.getAddressCity());
+            CEPET.setText(professionalDTO.getAddressZipCode());
+            if (professionalDTO.getGender() == Gender.FEMALE) {
+                femininoRB.toggle();
+                opcaoEscolhidaGenero = Gender.FEMALE;
+            } else {
+                masculinoRB.toggle();
+                opcaoEscolhidaGenero = Gender.MALE;
+            }
+
+            estadoSP.setSelection(stateAdapter.getPosition(professionalDTO.getAddressState().toString()));
+            profissaoSP.setSelection(stateAdapter.getPosition(professionalDTO.getProfession().toString()));
         } else {
             professionalDTO = new ProfessionalDTO();
             retrieveAttributes();
             Toast.makeText(this, professionalDTO.getLogin(), Toast.LENGTH_SHORT).show();
-
         }
         addDateListenerButton();
         addPhotoListenerButton();
+
 
     }
 
@@ -535,11 +533,22 @@ public class ProProfile_5 extends ActionBarActivity {
                 System.out.println("=== DEU ERRO E O PROFISSIONAl RETORNO NULLO");
             } else {
                 System.out.println("=== DEU CERTO E O PROFISSIONAl RETORNOU COM SUCESSO " + professionalDTO.getName());  //TODO verificar se o back adiciona o id no objeto de retorno
-                Intent intent = new Intent(ProProfile_5.this, ProServiceNewActivity_6.class);
-                Bundle mBundle = new Bundle();
-                mBundle.putSerializable(SessionAttributes.PROFESSIONAL, professionalDTO);
-                intent.putExtras(mBundle);
-                startActivity(intent);
+                if(isEditing) {
+                    Intent intent = new Intent(ProProfile_5.this, ProDrawerMenu_15.class);
+                    Bundle mBundle = new Bundle();
+                    mBundle.putSerializable(SessionAttributes.PROFESSIONAL, professionalDTO);
+                    intent.putExtras(mBundle);
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(ProProfile_5.this, ProServiceListActivity_7.class);
+                    Bundle mBundle = new Bundle();
+                    mBundle.putSerializable(SessionAttributes.PROFESSIONAL, professionalDTO);
+
+                    intent.putExtras(mBundle);
+                    intent.putExtra("isEditing", false);
+                    startActivity(intent);
+
+                }
 
             }
         } catch (Exception e) {
@@ -548,7 +557,7 @@ public class ProProfile_5 extends ActionBarActivity {
         }
     }
     private boolean isEditingService() {
-        return getIntent().getBooleanExtra("isEditing", false);
+        return getIntent().getBooleanExtra("isEditing", true);
 
     }
     private void retrieveAttributes() {
