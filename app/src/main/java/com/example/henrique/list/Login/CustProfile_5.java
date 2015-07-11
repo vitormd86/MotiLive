@@ -402,7 +402,7 @@ public class CustProfile_5 extends ActionBarActivity {
             if (numeroET.getError() != null)
                 numeroET.setError(null);
         }
-
+//nao obrigatorio
         complemento = complementoET.getText().toString();
         if (!DataValidatorUtil.isValidTextWithSpace(complemento)) {
             //todo bairro pode conter digitos sim
@@ -490,15 +490,12 @@ public class CustProfile_5 extends ActionBarActivity {
         customerDTO.setGender(opcaoEscolhidaGenero);
         customerDTO.setUpdateDate(dg);
 
-        //campos nao obrigatorios
-
-        customerDTO.setAddressComplement(complementoET.getText().toString());
-
         // campos nao essenciais ao MVP
         customerDTO.setStatus(Status.TRUE);
         customerDTO.setCpfCnpj("nulo");
         customerDTO.setFacebookLogin("NaoEssencial");
         customerDTO.setGoogleLogin("NaoEssencial");
+        Toast.makeText(this, customerDTO.getAddressComplement(), Toast.LENGTH_SHORT).show();
 
         // executa requisição JSON
         try {

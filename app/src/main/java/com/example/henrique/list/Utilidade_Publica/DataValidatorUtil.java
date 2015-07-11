@@ -112,7 +112,7 @@ public class DataValidatorUtil {
             }
             else{
 
-                String TEXT = "^[\\._A-Za-z0-9'À-ÖÙ-Üà-öù-ü\\+]{3,15}+((\\s[\\._A-Za-z0-9'À-ÖÙ-Üà-öù-ü]+)*)$";
+                String TEXT = "^[\\._A-Za-z0-9À-ÖÙ-Üà-öù-ü\\+]{3,15}+((\\s[\\._A-Za-z0-9À-ÖÙ-Üà-öù-ü]+)*)$";
                 Pattern pattern = Pattern.compile(TEXT);
                 Matcher matcher = pattern.matcher(text);
                 return matcher.matches();             }

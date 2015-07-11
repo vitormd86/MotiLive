@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="windows-1252"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.henrique.list" >
 
@@ -177,7 +177,7 @@
         </activity>
         <activity
             android:name=".Profissional.ProServiceListActivity_7"
-            android:label="Meus ServiÃ§os"
+            android:label="Meus Serviços"
             android:launchMode="singleTask" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
