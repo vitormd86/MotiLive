@@ -70,11 +70,11 @@ public class ProServiceListActivity_7 extends ActionBarActivity{
         try {
             ServiceService serviceService = new ServiceService();
             servicesList = (ArrayList<ServiceDTO>) serviceService.findAllByProfessionalId(professionalDTO.getId());
-            System.out.println("Baixou os serviços");
+            System.out.println("Baixou os servicos");
 
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Algum problema na recuperação da lista");
+            System.out.println("Algum problema na recuperacao da lista");
         }
 //        //todo verificar se isso eh o suficiente para inicializar a lista ou precisa de mais coisas
         settingAdapters();
@@ -104,7 +104,7 @@ public class ProServiceListActivity_7 extends ActionBarActivity{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String serviceToIntent = String.valueOf(parent.getItemAtPosition(position));
 
-                System.out.println("Id do serviço recuperada do banco");
+                System.out.println("Id do servico recuperada do banco");
                 Intent intent = new Intent(ProServiceListActivity_7.this, ProServiceNewActivity_6.class);
                 Bundle mBundle = new Bundle();
                 mBundle.putSerializable(SessionAttributes.SERVICE, servicesList.get(position));

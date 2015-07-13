@@ -309,7 +309,7 @@ public class ProScheduleFirstActivity_11 extends ActionBarActivity {
 
         //validacoes dos campos
         nome = nomeET.getText().toString();
-        if (!DataValidatorUtil.isValidName(nome)) {
+        if (!DataValidatorUtil.isValidTextWithSpace(nome)) {
             nomeET.setError("O nome precisa conter no mínimo 3 letras e conter caracteres válidos");
             isAllValidate = false;
 

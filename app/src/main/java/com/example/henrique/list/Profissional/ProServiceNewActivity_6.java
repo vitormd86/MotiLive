@@ -134,6 +134,7 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
 
                             Intent createAccountIntent = new Intent(ProServiceNewActivity_6.this, ProServiceListActivity_7.class);
                             createAccountIntent.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
+                            intent.putExtra("isEditing", true);
                             startActivity(createAccountIntent);
 
                         } catch (ServiceException e) {

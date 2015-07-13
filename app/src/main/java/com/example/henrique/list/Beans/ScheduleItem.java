@@ -70,7 +70,7 @@ public class ScheduleItem {
             //verifica se a diferenca eh maior q 0
             scheduleLeftTime.setTime(scheduleLeftCal.getTimeInMillis());
         } else {
-            System.out.println("Não é possível calcular o tempo faltante de um agendamento q já passou");
+            System.out.println("Nao eh possivel calcular o tempo faltante de um agendamento q ja passou");
             System.out.println("Hora do agendamento: " + DateUtilMoti.getSmallHoursStringFromDate(scheduleInicialTime) +
                     " Hora atual: " + DateUtilMoti.getBigHoursStringFromDate(todayCal.getTime()));
             scheduleLeftTime.setTime(scheduleLeftCal.getTimeInMillis());

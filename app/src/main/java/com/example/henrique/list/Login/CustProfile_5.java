@@ -351,7 +351,7 @@ public class CustProfile_5 extends ActionBarActivity {
         //retorna verdadeiro se todos campos forem validos
         boolean isAllValidate = true;
         nome = nomeET.getText().toString();
-        if (!DataValidatorUtil.isValidName(nome)) {
+        if (!DataValidatorUtil.isValidTextWithSpace(nome)) {
             nomeET.setError("O nome precisa conter no mínimo 3 letras e conter caracteres válidos");
             isAllValidate = false;
 
