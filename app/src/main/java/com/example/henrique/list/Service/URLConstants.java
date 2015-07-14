@@ -8,6 +8,10 @@ public class URLConstants {
     // SERVER
     public static final String JSON_SERVER_URL = "http://192.169.198.138:8080//moti-json";
 
+    // BREAK SERVICE
+    public static final String BREAK_FIND_UPCOMING_PERSONAL_INTERVAL = JSON_SERVER_URL + "/break/findUpcomingPersonalInterval?professionalId={professionalId}&timeNow={timeNow}";
+    public static final String BREAK_SAVE = JSON_SERVER_URL + "/break/save";
+
     // CUSTOMER SERVICE
     public static final String CUSTOMER_FIND = JSON_SERVER_URL + "/customer/find?id={id}";
     public static final String CUSTOMER_FIND_ALL = JSON_SERVER_URL + "/customer/findAll";
