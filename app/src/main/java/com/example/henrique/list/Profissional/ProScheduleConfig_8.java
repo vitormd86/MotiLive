@@ -74,14 +74,18 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
         //configurando views do layout
         retrievingAttributes();
         initViews();
+
         //configurando calendario
         initCalendar();
         //configurando adapters dos spinners
         initSpinnersAdapters();
+
+        //preencenhdo views caso tenha dados
+        fillViews();
+
         //configurando listeners
         initBreakTimeRadioListeners();
         initCheckBoxListeners();
-        fillViews();
     }
 
     private void retrievingAttributes(){
@@ -123,6 +127,7 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
         breakEndHourSP.setSelection(13);
         intervalBetweenHourSP.setSelection(0);
         intervalBetweenMinutesSP.setSelection(4);
+        breakTimeRadioGroup.check(R.id.breakTimeRadioYes);
 
         if(isEditing()){
             //se estiver em modo de edicao, buscara dados do servicos para alimentar campos
@@ -172,12 +177,12 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
 
 
         //desabilita radioButtons
+        breakTimeRadioGroup.clearCheck();
         for (int i = 0; i < breakTimeRadioGroup.getChildCount(); i++) {
             RadioButton radioButton = (RadioButton) breakTimeRadioGroup.getChildAt(i);
             radioButton.setEnabled(false);
             radioButton.setTextColor(getResources().getColor(R.color.lightGray));
         }
-        breakTimeRadioGroup.clearCheck();
         breakTimeRadioGroup.setEnabled(false);
 
         //bloqueia mudancas de horarios
@@ -208,6 +213,7 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
     private void fillEditingDays(){
         DailyScheduleService dailyScheduleService = new DailyScheduleService();
         try{
+            //todo futuramente buscar apenas dailySchedules a partir da data atual
             dailyScheduleDTOList = dailyScheduleService.findAllByProfessionalId(professionalDTO.getId());
         } catch (ServiceException ex) {
             dailyScheduleDTOList = new ArrayList<>();
@@ -222,7 +228,9 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
                 } else if(DateUtilMoti.isSameDay(dailyScheduleDTO.getDate(), Calendar.getInstance(TimeZone.getDefault()))){
                     screenCalendar.selectDate(dailyScheduleDTO.getDate().getTime());
                 }
+                System.out.println("Recuperando dia " + dailyScheduleDTO.getDate().get(Calendar.DAY_OF_MONTH) + " de " + DateUtilMoti.getMonthString(dailyScheduleDTO.getDate().get(Calendar.MONTH)));
             }
+
         }
     }
 
@@ -260,13 +268,34 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
     }
 
     private List<Calendar> getOccupedDays(List<DailyScheduleDTO> dailyScheduleDTOs){
+        //recupera lista de datas ocupadas (que ja possuem agendamentos)
         List<Calendar> occupedDailyScheduleCalList = new ArrayList<>();
         for (DailyScheduleDTO dailyScheduleDTO : dailyScheduleDTOs){
-            if(dailyScheduleDTO.getSchedules() != null){
+            System.out.println("Tentando adicionar " + dailyScheduleDTO.getDate().get(Calendar.DAY_OF_MONTH)
+                    + " de " + DateUtilMoti.getMonthString(dailyScheduleDTO.getDate().get(Calendar.MONTH))
+                    + " na lista de dias ocupados");
+            if(dailyScheduleDTO.getSchedules().size() > 0){
                 occupedDailyScheduleCalList.add(dailyScheduleDTO.getDate());
+                System.out.println("Qtdade de agendamentos: " + dailyScheduleDTO.getSchedules().size());
+                System.out.println("Adicionando " + dailyScheduleDTO.getDate().get(Calendar.DAY_OF_MONTH)
+                        + " de " + DateUtilMoti.getMonthString(dailyScheduleDTO.getDate().get(Calendar.MONTH))
+                        + " na lista de dias ocupados");
             }
         }
         return occupedDailyScheduleCalList;
+    }
+
+    private boolean isOccupedDate(Calendar toVerifyCal){
+        //verifica se a data do dailySchedule esta ocupada, e nao permite usuario desmarca-la
+        boolean isOccupedDay = false;
+        if(ocuppedCalList != null) {
+            for (Calendar ocuppedCal : ocuppedCalList)
+                if (DateUtilMoti.isSameDay(toVerifyCal, ocuppedCal)) {
+                    //screenCalendar.selectDate(ocuppedCal.getTime());
+                    isOccupedDay = true;
+                }
+        }
+        return isOccupedDay;
     }
 
     private void initCalendar(){
@@ -357,11 +386,21 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
             }
             //screenCalendar.selectDate(initDate.getTime());
         } if (!isChecked){
+            boolean showErrorMsg = true;
             for (Date toUncheckDate : repeatDates){
-                screenCalendar.unselectDate(toUncheckDate);
+                Calendar cal = Calendar.getInstance(TimeZone.getDefault());
+                cal.setTime(toUncheckDate);
+
+                if(!isOccupedDate(cal)){
+                    screenCalendar.unselectDate(toUncheckDate);
+                } else {
+                    if (showErrorMsg){
+                        //mostra mensagem de erro apenas uma vez
+                        Toast.makeText(ProScheduleConfig_8.this, "Existem dias que não foram removidos, pois estão ocupados.", Toast.LENGTH_SHORT).show();
+                        showErrorMsg = false;
+                    }
+                }
             }
-            //Toast.makeText(this, "Clicado = " + dayOfWeek + " isChecked = 0", Toast.LENGTH_SHORT).show();
-            //screenCalendar.unselectDate(initDate.getTime());
         }
     }
     @Override
@@ -410,11 +449,11 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
         }
         if(expedientStartCal.after(expedientEndCal)){
             isAllValid = false;
-            Toast.makeText(this, "In�cio de expediente deve ser menor que o final do expediente.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Início de expediente deve ser menor que o final do expediente.", Toast.LENGTH_LONG).show();
         }
         if(breakTimeStartCal.after(breakTimeEndCal) && breakTimeRadioGroup.getCheckedRadioButtonId() == R.id.breakTimeRadioYes){
             isAllValid = false;
-            Toast.makeText(this, "In�cio de intervalo deve ser menor que o final do intervalo.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Início de intervalo deve ser menor que o final do intervalo.", Toast.LENGTH_LONG).show();
         }
         return isAllValid;
     }
@@ -422,13 +461,10 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
     private void executeJSON(){
         ProfessionalService professionalService = new ProfessionalService();
         DailyScheduleService dailyScheduleService = new DailyScheduleService();
-        DailyScheduleDTO dailyScheduleDTO = new DailyScheduleDTO();
 
-        Calendar selectedDayCal = Calendar.getInstance();
 
         //iniciando Set de BreakTimes
         Set<BreakDTO> breakDTOs = new LinkedHashSet<>();
-
         //incluindo breaktime de intervalo
         if(breakTimeRadioGroup.getCheckedRadioButtonId() == R.id.breakTimeRadioYes){
             //verifica se o radio esta selecionado como SIM para armazenar o BreakTime
@@ -440,40 +476,8 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
             System.out.println(breakTimeEndCal.get(Calendar.HOUR_OF_DAY) + ":" + breakTimeEndCal.get(Calendar.MINUTE));
             breakDTOs.add(breakDTO);
         } else {
-            System.out.println("Intervalo selecionado como n�o");
+            System.out.println("Intervalo selecionado como nao");
         }
-
-
-        if(isEditing()){
-            //aponta todas as datas como workDay = FALSE no DailySchedule
-            for (DailyScheduleDTO toFalseDailyScheduleDTO : dailyScheduleDTOList){
-                toFalseDailyScheduleDTO.setWorkDay(Status.FALSE);
-                try {
-                    dailyScheduleService.save(toFalseDailyScheduleDTO);
-                } catch (ServiceException e){
-                    e.printStackTrace();
-                    System.out.println("Erro ao gravar dados (Status.FALSE) em dailySchedule");
-                }
-            }
-        }
-
-        for(int i = 0; i < selectedDates.size(); i++){
-            //adiciona na dailySchedule como workDay = TRUE os dias selecionados
-            selectedDayCal.setTime(selectedDates.get(i));
-            dailyScheduleDTO.setProfessional(professionalDTO);
-            dailyScheduleDTO.setDate(selectedDayCal);
-            dailyScheduleDTO.setStartTime(expedientStartCal);
-            dailyScheduleDTO.setEndTime(expedientEndCal);
-            dailyScheduleDTO.setBreaks(breakDTOs);
-            dailyScheduleDTO.setWorkDay(Status.TRUE);
-            try {
-                dailyScheduleService.save(dailyScheduleDTO);
-            } catch (Exception e){
-                e.printStackTrace();
-                System.out.println("Erro ao gravar dados em dailySchedule");
-            }
-        }
-
 
         //incluindo timeBetweenSession no profissional
         professionalDTO.setSessionInterval(timeBetweenSession);
@@ -481,9 +485,78 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
             professionalService.save(professionalDTO);
         } catch (ServiceException ex){
             ex.printStackTrace();
-            System.out.println("Erro ao gravar intervalo entre se��es no usuario de id " + professionalDTO.getId());
+            System.out.println("Erro ao gravar intervalo entre secoes no usuario de id " + professionalDTO.getId());
         }
 
+
+        //incluindo dias de agendamento e seus respectivos horarios
+        if(isEditing()){
+            //caso estiver em modo de edicao, gravar dias q nao foram gravados e substituir dias q jah existem
+            for (int i = 0; dailyScheduleDTOList.size() > i; i++){
+                dailyScheduleDTOList.get(i).setWorkDay(Status.FALSE);
+            }
+
+            for (Date selectedDate : selectedDates){
+                Calendar selectedCal = Calendar.getInstance(TimeZone.getDefault());
+                selectedCal.setTime(selectedDate);
+                boolean isNewDaily = true;
+
+                for (int i = 0; dailyScheduleDTOList.size() > i; i++){
+                    if(DateUtilMoti.isSameDay(dailyScheduleDTOList.get(i).getDate(), selectedCal)){
+                        //aqui altera os dados do DailySchedule q JA EXISTE no banco
+                        dailyScheduleDTOList.get(i).setWorkDay(Status.TRUE);
+                        System.out.println("Alterando dia " + dailyScheduleDTOList.get(i).getDate().get(Calendar.DAY_OF_MONTH) + " de " + DateUtilMoti.getMonthString(dailyScheduleDTOList.get(i).getDate().get(Calendar.MONTH))
+                                + " como Status = TRUE");
+                        isNewDaily = false;
+                    }
+                }
+                if(isNewDaily){
+                    //aqui grava os DailySchedules q NAO EXISTEM no banco
+                    DailyScheduleDTO dailyScheduleDTO = new DailyScheduleDTO();
+                    dailyScheduleDTO.setProfessional(professionalDTO);
+                    dailyScheduleDTO.setDate(selectedCal);
+                    dailyScheduleDTO.setStartTime(expedientStartCal);
+                    dailyScheduleDTO.setEndTime(expedientEndCal);
+                    dailyScheduleDTO.setBreaks(breakDTOs);
+                    dailyScheduleDTO.setWorkDay(Status.TRUE);
+                    dailyScheduleDTOList.add(dailyScheduleDTO);
+                    System.out.println("Incluindo na lista dia " + dailyScheduleDTO.getDate().get(Calendar.DAY_OF_MONTH) + " de " + DateUtilMoti.getMonthString(dailyScheduleDTO.getDate().get(Calendar.MONTH))
+                            + " como Status = " + dailyScheduleDTO.getWorkDay().getValue());
+                }
+            }
+
+            try {
+                dailyScheduleService.saveAll(dailyScheduleDTOList);
+            } catch (ServiceException e){
+                e.printStackTrace();
+                System.out.println("Erro ao gravar dados em dailySchedule");
+            }
+        } else {
+            //caso nao esteja em modo de edicao, gravar todos dias selecionados no banco e intervalo
+            Calendar selectedDayCal = Calendar.getInstance();
+
+
+            //todo-vitor mudar para saveAll com vetor de dailySchedule
+            DailyScheduleDTO dailyScheduleDTO = new DailyScheduleDTO();
+            for(int i = 0; i < selectedDates.size(); i++){
+                //adiciona na dailySchedule como workDay = TRUE os dias selecionados
+                selectedDayCal.setTime(selectedDates.get(i));
+                dailyScheduleDTO.setProfessional(professionalDTO);
+                dailyScheduleDTO.setDate(selectedDayCal);
+                dailyScheduleDTO.setStartTime(expedientStartCal);
+                dailyScheduleDTO.setEndTime(expedientEndCal);
+                dailyScheduleDTO.setBreaks(breakDTOs);
+                dailyScheduleDTO.setWorkDay(Status.TRUE);
+                try {
+                    dailyScheduleService.save(dailyScheduleDTO);
+                } catch (Exception e){
+                    e.printStackTrace();
+                    System.out.println("Erro ao gravar dados em dailySchedule");
+                }
+                System.out.println("Gravando dia " + dailyScheduleDTO.getDate().get(Calendar.DAY_OF_MONTH) + " de " + DateUtilMoti.getMonthString(dailyScheduleDTO.getDate().get(Calendar.MONTH))
+                        + " como Status = True");
+            }
+        }
     }
 
     private Calendar convertToCalendar(String hour, String minutes){
@@ -501,6 +574,7 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
     }
 
     private void configSelectScreenCalendarDate(){
+        //configura listener do calendario para nao poder remover dias ja ocupados
         if(isEditing()){
             screenCalendar.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
                 @Override
@@ -512,9 +586,11 @@ public class ProScheduleConfig_8 extends ActionBarActivity {
                 public void onDateUnselected(Date date) {
                     Calendar selectedCal = Calendar.getInstance(TimeZone.getDefault());
                     selectedCal.setTime(date);
-                    for(Calendar ocuppedCal : ocuppedCalList)
-                    if(DateUtilMoti.isSameDay(selectedCal, ocuppedCal)){
-                        screenCalendar.selectDate(ocuppedCal.getTime());
+                    if(!isOccupedDate(selectedCal)){
+                        screenCalendar.unselectDate(date);
+                    } else {
+                        screenCalendar.selectDate(date);
+                        Toast.makeText(ProScheduleConfig_8.this, "Este dia não pode ser removido, pois esta ocupado.", Toast.LENGTH_SHORT).show();
                     }
                 }
             });

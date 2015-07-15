@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.example.henrique.list.Adapters.ScheduleAdapter;
 import com.example.henrique.list.Beans.ScheduleItem;
-import com.example.henrique.list.Cliente.CustScheduleConfirmActivity_8;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Service.SchedulingService;
 import com.example.henrique.list.Utilidade_Publica.PinnedSectionListView;
@@ -140,7 +139,7 @@ public class ProScheduleListFragment_14 extends Fragment {
 
                 //verifica se usuario nao clicou em um titulo
                 if(!selectedItem.isSection()) {
-                    Intent intent = new Intent(getActivity(), CustScheduleConfirmActivity_8.class);
+                    Intent intent = new Intent(getActivity(), ProScheduleConfirmActivity_13.class);
                     intent.putExtra(SessionAttributes.SCHEDULING, selectedSchedule);
                     startActivity(intent);
                 }

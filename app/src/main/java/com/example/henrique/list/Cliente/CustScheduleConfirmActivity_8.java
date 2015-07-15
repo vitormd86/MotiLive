@@ -267,7 +267,9 @@ public class CustScheduleConfirmActivity_8 extends ActionBarActivity {
         // Admininstra cliques da ActionBar
         switch (item.getItemId()) {
             case R.id.confirmButton:
-                executeJSON();
+                if(!isEditing()){
+                    executeJSON();
+                }
                 Intent confirmIntent = new Intent(this, CustDrawerMenu_10.class);
                 confirmIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 confirmIntent.putExtra(SessionAttributes.CUSTOMER, customerDTO);
