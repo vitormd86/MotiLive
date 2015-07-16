@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="0dp"
+    android:paddingTop="@dimen/margin_app">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/listHours_pro17"
+        android:background="@drawable/bg_list_schedule_service">
+
+        <TextView
+            android:id="@+id/break_time_title_pro17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_betweenElements_medium"
+            android:layout_marginTop="@dimen/margin_betweenElements_extraSmall"
+            android:text="Duração:"
+            android:textSize="@dimen/textSize_small"
+            android:textColor="@color/black" />
+
+        <LinearLayout
+            android:id="@+id/linearTime_pro17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/break_time_title_pro17"
+            android:layout_alignTop="@id/break_time_title_pro17"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/breakTimenHour_pro17"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/colon" />
+
+            <Spinner
+                android:id="@+id/breakTimeMinutes_pro17"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/break_time_tip_pro17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linearTime_pro17"
+            android:layout_marginBottom="@dimen/margin_betweenElements_extraSmall"
+            android:layout_marginLeft="@dimen/margin_betweenElements_medium"
+            android:layout_marginTop="@dimen/margin_betweenElements_extraSmall"
+            android:text="Caso necessite liberar horário,&#10;desmarque um agendamento."/>
+
+
+    </RelativeLayout>
+    <ListView
+        android:id="@+id/listMinutes_pro17"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/bg_list_schedule_service"
+        android:choiceMode="singleChoice"
+        />
+    <!-- esta lista vai mostrar as minutos livres do profissional-->
+    <ListView
+        android:id="@+id/listHours_pro17"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_toLeftOf="@id/listMinutes_pro17"
+        android:background="@drawable/bg_list_schedule_service"
+        android:choiceMode="singleChoice" />
+    <!-- esta lista vai mostrar as horas livres do profissional-->
+
+</RelativeLayout>
+

@@ -124,7 +124,7 @@ public class ProScheduleHoursActivity_12 extends ActionBarActivity {
                 } else {
                     //adicionando horas na lista
                     screenFreeHours.clear();
-                    screenFreeHours.addAll(FreeTimeCalculator.findFreeHours(periodDTOList, dailyScheduleDTO, findSelectedServices()));
+                    screenFreeHours.addAll(FreeTimeCalculator.findFreeHoursByServicesTime(periodDTOList, dailyScheduleDTO, findSelectedServices()));
                     myAdapterFreeHours.notifyDataSetChanged();
 
                     //verifica se a lista de minutos jah esta aberta, para fecha-la
@@ -160,7 +160,7 @@ public class ProScheduleHoursActivity_12 extends ActionBarActivity {
 
                 //caso clique na hora a lista de minutos mudara de acordo com o horario dispnivel pra aquele servico
                 screenFreeMinutes.clear();
-                screenFreeMinutes.addAll(FreeTimeCalculator.findFreeMinutes(selectedHour, periodDTOList, findSelectedServices()));
+                screenFreeMinutes.addAll(FreeTimeCalculator.findFreeMinutesByServicesTime(selectedHour, periodDTOList, findSelectedServices()));
                 myAdapterFreeMinutes.notifyDataSetChanged();
 
 

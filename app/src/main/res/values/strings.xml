@@ -70,6 +70,7 @@
 
     <!-- Textos de Botões -->
     <string name="button_newClient">Novo Cliente</string>
+    <string name="button_addBreakTime">Adicionar Intervalo</string>
 
     <!--Outros -->
 

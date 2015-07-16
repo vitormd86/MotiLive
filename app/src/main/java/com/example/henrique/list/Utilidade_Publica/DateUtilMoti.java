@@ -31,6 +31,20 @@ public class DateUtilMoti {
         return mins;
     }
 
+    public static Calendar convertToCalendar(String hour, String minutes){
+
+        SimpleDateFormat sdf = new SimpleDateFormat("HHmm");
+        Calendar convertedCal = Calendar.getInstance();
+
+        try{
+            convertedCal.setTime(sdf.parse(hour + minutes));
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return convertedCal;
+    }
+
     public static Calendar getCalendarFromString(String sDate, SimpleDateFormat sdf){
         Date date = new Date();
         Calendar cal = Calendar.getInstance();

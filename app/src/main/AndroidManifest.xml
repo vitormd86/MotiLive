@@ -217,6 +217,17 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" >
         </activity>
+        <activity
+            android:name=".Profissional.ProBreakTimeConfig_17"
+            android:label="Adicionar Intervalo"
+            android:parentActivityName=".Profissional.ProDrawerMenu_15"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Profissional.ProDrawerMenu_15" />
+        </activity>
 
         <!-- USO POSTERIOR ACTIVITIES -->
         <activity android:name=".UsoPosterior.Telatermos" >

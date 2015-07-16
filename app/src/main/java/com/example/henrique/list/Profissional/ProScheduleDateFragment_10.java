@@ -45,7 +45,7 @@ public class ProScheduleDateFragment_10 extends Fragment {
     private DailyScheduleDTO dailyScheduleDTO;
 
     ListView listClients;
-    Button newClientButton;
+    Button newClientButton, addBreakTimeButton;
 
     private CalendarPickerView screenCalendar;
     private View v;
@@ -60,6 +60,7 @@ public class ProScheduleDateFragment_10 extends Fragment {
 
         //configurando listeners
         setNewClientListener();
+        setAddBreakTimeListener();
         setClientsListener();
 
         return v;
@@ -84,6 +85,7 @@ public class ProScheduleDateFragment_10 extends Fragment {
     private void initViews(){
         listClients = (ListView) v.findViewById(R.id.ListViewPro_10); // inicializa a List View do fragment inflado
         newClientButton = (Button) v.findViewById(R.id.newClientButton);
+        addBreakTimeButton = (Button) v.findViewById(R.id.addBreakTimeButton);
         screenCalendar = (CalendarPickerView) v.findViewById(R.id.calendar_view);
 
         ListAdapter clientAdapter; //inicializa o adaptador de array, pra encaixar o array na lista
@@ -111,7 +113,29 @@ public class ProScheduleDateFragment_10 extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent newClientIntent = new Intent(getActivity(),ProScheduleFirstActivity_11.class);
+
                 startActivity(newClientIntent);
+
+            }
+        });
+    }
+
+    private void setAddBreakTimeListener(){
+        //esse metodo gera o listener do botao Novo Cliente
+        addBreakTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isUtilDate(screenCalendar.getSelectedDate(), professionalDTO)){
+                    List<PeriodDTO> periodDTOList = PeriodDTOBuilder.buildFreeTimeList(dailyScheduleDTO);
+
+                    Intent breakTimeIntent = new Intent(getActivity(), ProBreakTimeConfig_17.class);
+                    breakTimeIntent.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
+                    breakTimeIntent.putExtra(SessionAttributes.DAILY_SCHEDULE, dailyScheduleDTO);
+                    breakTimeIntent.putExtra(SessionAttributes.PERIOD_LIST, (ArrayList) periodDTOList);
+                    startActivity(breakTimeIntent);
+                } else {
+                    Toast.makeText(getActivity(), "Você não está livre este dia", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

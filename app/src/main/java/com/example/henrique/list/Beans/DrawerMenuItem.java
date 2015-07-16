@@ -15,17 +15,17 @@ public class DrawerMenuItem {
 
     private int resID;
 
-    public DrawerMenuItem(Fragment f, String s, int iconResID) {
+    public DrawerMenuItem(Fragment linkFragment, String linkTitle, int iconResID) {
         linkActivity = null;
-        linkFragment = f;
-        linkTitle = s;
+        this.linkFragment = linkFragment;
+        this.linkTitle = linkTitle;
         resID = iconResID;
     }
 
-    public DrawerMenuItem(Activity a, String s, int iconResID) {
-        linkActivity = a;
+    public DrawerMenuItem(Activity linkActivity, String linkTitle, int iconResID) {
+        this.linkActivity = linkActivity;
         linkFragment = null;
-        linkTitle = s;
+        this.linkTitle = linkTitle;
         resID = iconResID;
     }
 

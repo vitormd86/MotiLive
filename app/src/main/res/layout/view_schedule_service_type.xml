@@ -5,6 +5,7 @@
     android:paddingTop="@dimen/margin_betweenElements_small"
     android:paddingBottom="@dimen/margin_betweenElements_small"
     android:background="@drawable/selector_list_schedule_services">
+
     <Button
         android:id="@+id/infoButton"
         style="@style/ImageButtomInfo"
@@ -13,29 +14,30 @@
         android:layout_marginRight="@dimen/margin_betweenElements_medium"
         android:contentDescription="@string/description_icInfo"
         android:focusable="false"
-        android:focusableInTouchMode="false"/>
-        <TextView
-            android:id="@+id/service"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/infoButton"
-            android:layout_marginBottom="@dimen/margin_betweenElements_extraSmall"
-            android:textColor="@color/black"/>
+        android:focusableInTouchMode="false" />
+
+    <TextView
+        android:id="@+id/service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_betweenElements_extraSmall"
+        android:layout_toRightOf="@id/infoButton"
+        android:textColor="@color/black" />
+
     <TextView
         android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/service"
-        android:layout_below="@id/service"/>
-        <TextView
-            android:id="@+id/serviceLength"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/margin_betweenElements_medium"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/service"/>
+        android:layout_below="@id/service" />
 
-
+    <TextView
+        android:id="@+id/serviceLength"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/service"
+        android:layout_marginRight="@dimen/margin_betweenElements_medium" />
 
 
 </RelativeLayout>
