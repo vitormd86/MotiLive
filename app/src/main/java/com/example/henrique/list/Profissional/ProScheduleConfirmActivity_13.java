@@ -35,6 +35,7 @@ import br.com.motiserver.dto.ProfessionalDTO;
 import br.com.motiserver.dto.SchedulingDTO;
 import br.com.motiserver.dto.ServiceDTO;
 import br.com.motiserver.dto.ServiceSchedulingDTO;
+import br.com.motiserver.util.constants.PersonType;
 import br.com.motiserver.util.constants.UF;
 
 
@@ -315,6 +316,7 @@ public class ProScheduleConfirmActivity_13 extends ActionBarActivity {
         schedulingDTO.setDailySchedule(dailyScheduleDTO);
         schedulingDTO.setStartTime(cal);
         schedulingDTO.setEndTime(cal2);
+        schedulingDTO.setSchedulingRequester(PersonType.PROFESSIONAL);
 
         try {
             schedulingService.save(schedulingDTO);
@@ -338,6 +340,7 @@ public class ProScheduleConfirmActivity_13 extends ActionBarActivity {
                 //caso clique sim, deve voltar para atividade anterior e apagar o agendamento
                 SchedulingService schedulingService = new SchedulingService();
                 try{
+                    schedulingDTO.setSchedulingCanceller(PersonType.PROFESSIONAL);
                     schedulingService.delete(schedulingDTO);
                 } catch (Exception e) {
                     e.printStackTrace();
