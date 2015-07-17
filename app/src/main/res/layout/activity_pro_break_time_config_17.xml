@@ -7,10 +7,31 @@
     android:paddingRight="0dp"
     android:paddingTop="@dimen/margin_app">
 
+    <ImageView
+        android:id="@+id/ic_date_pro17"
+        android:layout_width="@dimen/img_photo"
+        android:layout_height="@dimen/img_photo"
+        android:layout_below="@id/photo"
+        android:layout_marginBottom="@dimen/margin_photo"
+        android:layout_marginRight="@dimen/margin_photo"
+        android:contentDescription="@string/description_icDate"
+        android:src="@drawable/ic_form_date" />
+
+    <TextView
+        android:id="@+id/date_pro17"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/ic_date_pro17"
+        android:layout_alignTop="@id/ic_date_pro17"
+        android:layout_toRightOf="@id/ic_date_pro17"
+        android:gravity="center_vertical"
+        android:text="DATA" />
+
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/listHours_pro17"
+        android:layout_below="@id/ic_date_pro17"
         android:background="@drawable/bg_list_schedule_service">
 
         <TextView
@@ -67,6 +88,7 @@
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_alignParentRight="true"
+        android:layout_below="@id/ic_date_pro17"
         android:background="@drawable/bg_list_schedule_service"
         android:choiceMode="singleChoice"
         />
@@ -76,6 +98,7 @@
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_toLeftOf="@id/listMinutes_pro17"
+        android:layout_below="@id/ic_date_pro17"
         android:background="@drawable/bg_list_schedule_service"
         android:choiceMode="singleChoice" />
     <!-- esta lista vai mostrar as horas livres do profissional-->

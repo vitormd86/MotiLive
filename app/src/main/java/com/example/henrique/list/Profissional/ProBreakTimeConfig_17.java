@@ -11,21 +11,27 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.henrique.list.Adapters.MyAdapterFreeHours;
+import com.example.henrique.list.Adapters.MyAdapterFreeMinutes;
 import com.example.henrique.list.R;
+import com.example.henrique.list.Service.BreakService;
 import com.example.henrique.list.Utilidade_Publica.DateUtilMoti;
 import com.example.henrique.list.Utilidade_Publica.ResizeAnimation;
 import com.example.henrique.list.Utilidade_Publica.SchedulingCalculator.FreeTimeCalculator;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import br.com.motiserver.dto.BreakDTO;
 import br.com.motiserver.dto.DailyScheduleDTO;
 import br.com.motiserver.dto.PeriodDTO;
 import br.com.motiserver.dto.ProfessionalDTO;
 import br.com.motiserver.dto.ServiceDTO;
+import br.com.motiserver.util.constants.BreakType;
 
 /**
  * Created by Cristor on 15/07/2015.
@@ -43,6 +49,7 @@ public class ProBreakTimeConfig_17 extends ActionBarActivity {
     //itens de layout
     Spinner breakTimeHourSP, breakTimeMinutesSP;
     ListView listHours, listMinutes;
+    TextView dateTV;
     ArrayAdapter myAdapterFreeHours, myAdapterFreeMinutes;
     ArrayAdapter<String> breakTimeHourAdapter, breakTimeMinutesAdapter;
 
@@ -84,9 +91,12 @@ public class ProBreakTimeConfig_17 extends ActionBarActivity {
         breakTimeMinutesSP = (Spinner) findViewById(R.id.breakTimeMinutes_pro17);
         listHours = (ListView) findViewById(R.id.listHours_pro17);
         listMinutes = (ListView) findViewById(R.id.listMinutes_pro17);
+        dateTV = (TextView) findViewById(R.id.date_pro17);
+
+        dateTV.setText(DateUtilMoti.getDateStringFromCalendar(dailyScheduleDTO.getDate()));
 
         myAdapterFreeHours = new MyAdapterFreeHours(this, screenFreeHours, listHours);
-        myAdapterFreeMinutes = new MyAdapterFreeHours(this, screenFreeMinutes, listMinutes);
+        myAdapterFreeMinutes = new MyAdapterFreeMinutes(this, screenFreeMinutes, listMinutes);
 
          //Configurando listas de servicos/horas/minutos livre
         listHours.setAdapter(myAdapterFreeHours);
@@ -113,14 +123,25 @@ public class ProBreakTimeConfig_17 extends ActionBarActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //caso nenhum servico selecionado, fechar listview de horas
-                if (breakTimeHourSP.getSelectedItem().toString() == "00"
-                        & breakTimeMinutesSP.getSelectedItem().toString() == "00"
-                        & isHoursOpened) {
+                if (breakTimeHourSP.getSelectedItem().toString().equals("00")
+                        && breakTimeMinutesSP.getSelectedItem().toString().equals("00")) {
+
+                    //se a selecao de intervalo estiver 00:00 fechar as 2 barras de hora
                     isHoursOpened = false;
                     resizeAnimation = new ResizeAnimation(listHours, 0);
                     resizeAnimation.setDuration(400);
                     listHours.startAnimation(resizeAnimation);
+
+                    isMinutesOpened = false;
+                    resizeAnimation = new ResizeAnimation(listMinutes, 0);
+                    resizeAnimation.setDuration(400);
+                    listMinutes.startAnimation(resizeAnimation);
+
+                    System.out.println("Entrou no if de break = 00:00");
                 } else {
+                    System.out.println("fora do if de break = 00:00");
+                    System.out.println("Selecionado tempo: " + breakTimeHourSP.getSelectedItem().toString()
+                                            + ":" + breakTimeMinutesSP.getSelectedItem().toString());
                     //adicionando horas na lista
                     screenFreeHours.clear();
                     screenFreeHours.addAll(FreeTimeCalculator.findFreeHoursByCalendar(periodDTOList, dailyScheduleDTO,
@@ -199,14 +220,38 @@ public class ProBreakTimeConfig_17 extends ActionBarActivity {
     }
 
     private void initConfirmActivity() {
+        executeJSON();
         Intent intent = new Intent(this, ProDrawerMenu_15.class);
         intent.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
-        intent.putExtra(SessionAttributes.DAILY_SCHEDULE, dailyScheduleDTO);
-        intent.putExtra("selectedHour", selectedHour);
-        intent.putExtra("selectedMinutes", selectedMinutes);
-        intent.putExtra("isEditing", false);
 
         startActivity(intent);
+    }
+
+
+    private void executeJSON(){
+        //grava as informacoes de breakTime no banco
+        BreakService breakService = new BreakService();
+        BreakDTO breakDTO = new BreakDTO();
+
+        //iniciando calendarios
+        Calendar startTime = DateUtilMoti.convertToCalendar(String.format("%02d", selectedHour), String.format("%02d", selectedMinutes));
+        Calendar endTime = DateUtilMoti.convertToCalendar(String.format("%02d", selectedHour), String.format("%02d", selectedMinutes));
+        endTime.add(Calendar.HOUR_OF_DAY, Integer.parseInt(breakTimeHourSP.getSelectedItem().toString()));
+        endTime.add(Calendar.MINUTE, Integer.parseInt(breakTimeMinutesSP.getSelectedItem().toString()));
+        System.out.println("Calendario inicial: " + startTime);
+        System.out.println("Calendario final:" + endTime);
+
+        //gravando dados de BreakDTO
+        breakDTO.setDailySchedule(dailyScheduleDTO);
+        breakDTO.setType(BreakType.PERSONAL_INTERVAL);
+        breakDTO.setStartTime(startTime);
+        breakDTO.setEndTime(endTime);
+        try {
+            breakService.save(breakDTO);
+        } catch (Exception e){
+            e.printStackTrace();
+            System.out.println("Erro ao gravar BreakTime");
+        }
     }
 
     @Override
