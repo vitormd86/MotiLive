@@ -1,5 +1,6 @@
 package com.example.henrique.list.Profissional;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -52,6 +53,8 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
     private ProfessionalService professionalService;
     //Bundle
     String sProfessional_id;
+    ProgressDialog progress;
+
 
     ArrayAdapter<CharSequence> hourAdapter;
     ArrayAdapter<CharSequence> minutesAdapter;
@@ -110,6 +113,12 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         switch (item.getItemId()) {
             case R.id.confirmButton:
                 executaJSON = true;
+                progress = new ProgressDialog(this);
+                progress.setTitle("Processando...");
+                progress.setMessage("Por favor espere.");
+                progress.setCancelable(false);
+                progress.setIndeterminate(true);
+                progress.show();
                 initVariables(); // inicia as variaveis com os editTexts
 
                 if (isEditing) {
@@ -152,11 +161,8 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
                     if (validatefields()) {
 
                         serviceDTO.setName(serviceName);
-                        System.out.println("" + serviceName);
                         serviceDTO.setDescription(serviceDescription);
-                        System.out.println("" + serviceDescription);
                         serviceDTO.setValue(sessionValue);
-                        System.out.println("" + sessionValue);
 
                         try {
                             serviceDTO.setTime(calendar);
@@ -174,6 +180,7 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
 
                             Intent createAccountIntent = new Intent(ProServiceNewActivity_6.this, ProServiceListActivity_7.class);
                             createAccountIntent.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
+
                             startActivity(createAccountIntent);
 
                         } catch (ServiceException e) {
@@ -183,6 +190,7 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
                     }else{
                         System.out.println("Falha na validação fields");
                     }
+
                 }
                 return true;
             case R.id.deleteButton:
@@ -208,6 +216,13 @@ public class ProServiceNewActivity_6 extends ActionBarActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        if(progress!= null)
+            progress.dismiss();
+    }
     private void initVariables() {
 
         //inicializando BigDecimal

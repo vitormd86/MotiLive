@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.henrique.list.Adapters.MyAdapterServicesConfirmSchedule;
-import com.example.henrique.list.Cliente.CustDrawerMenu_10;
 import com.example.henrique.list.R;
 import com.example.henrique.list.Service.SchedulingService;
 import com.example.henrique.list.Utilidade_Publica.DateUtilMoti;

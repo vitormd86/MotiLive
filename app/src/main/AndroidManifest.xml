@@ -229,6 +229,20 @@
                 android:value=".Profissional.ProDrawerMenu_15" />
         </activity>
 
+        <activity
+            android:name=".Login.SplashActivity"
+            android:label="Tela Inicial do nosso APP"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
         <!-- USO POSTERIOR ACTIVITIES -->
         <activity android:name=".UsoPosterior.Telatermos" >
         </activity>
@@ -236,6 +250,7 @@
             android:name=".UsoPosterior.LoginScreen"
             android:label="Get Name"
             android:theme="@style/AppTheme" />
+
     </application>
 
 </manifest>
