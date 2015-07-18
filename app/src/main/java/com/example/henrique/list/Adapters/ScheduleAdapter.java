@@ -1,10 +1,12 @@
 package com.example.henrique.list.Adapters;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -69,14 +71,18 @@ public class ScheduleAdapter extends ArrayAdapter<ScheduleItem> implements Pinne
                 String profissionalName = getItem(position).getPersonName();
                 String inicialTime = getItem(position).getScheduleInicialTime();
                 String finalTime = getItem(position).getScheduleFinalTime();
+                //Drawable image = getItem(position).getImage();
+
                 //String leftTime = getItem(position).getScheduleLeftTime();
 
                 TextView durationTV = (TextView) view.findViewById(R.id.textScheduleDuration);
                 TextView nameTV = (TextView) view.findViewById(R.id.textScheduleName);
+                ImageView photoIV = (ImageView) view.findViewById(R.id.photo);
                 //TextView leftTimeTV = (TextView) view.findViewById(R.id.textLeftTime);
 
                 nameTV.setText(profissionalName);
                 durationTV.setText(inicialTime + "h ~ " + finalTime + "h");
+                //photoIV.setBackground(image);
                 //leftTimeTV.setText(leftTime);
         }
 
