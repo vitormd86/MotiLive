@@ -26,7 +26,7 @@ import com.example.henrique.list.Utilidade_Publica.DataValidatorUtil;
 public class LoginNewAccount_2 extends Activity {
 
     private EditText nameET, passwordET, confirmPasswordET;
-    private CheckBox showPasswordCB;
+    // TODO private CheckBox showPasswordCB;
     private Button createAccountBT, cancelBT;
 
     private LoginService loginService;
@@ -39,14 +39,14 @@ public class LoginNewAccount_2 extends Activity {
         initViews();
         setCreateAccountButtonListener();
         setCancelButtonListener();
-        setShowPasswordListener();
+        // TODO setShowPasswordListener();
     }
 
     private void initViews(){
         nameET = (EditText) findViewById(R.id.loginNewAccountName);
         passwordET = (EditText) findViewById(R.id.loginNewAccountPassword);
         confirmPasswordET = (EditText) findViewById(R.id.loginNewAccountConfirmPassword);
-        showPasswordCB = (CheckBox) findViewById(R.id.cbShowPassword);
+        // TODO showPasswordCB = (CheckBox) findViewById(R.id.cbShowPassword);
         createAccountBT = (Button) findViewById(R.id.buttonloginNewAccount);
         cancelBT = (Button) findViewById(R.id.buttonCancel);
     }
@@ -71,7 +71,7 @@ public class LoginNewAccount_2 extends Activity {
         });
     }
     private void setShowPasswordListener(){
-        showPasswordCB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        /* TODO showPasswordCB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
@@ -83,7 +83,7 @@ public class LoginNewAccount_2 extends Activity {
                     confirmPasswordET.setTransformationMethod(new PasswordTransformationMethod());
                 }
             }
-        });
+        });*/
     }
     private boolean executeSignUp(){
         //este metodo verifica se os campos estao corretos e responde se o login pode ser criado ou nao

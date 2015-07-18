@@ -16,7 +16,7 @@
     <!--Login Process -->
     <string name="hintLogin">Digite seu login</string>
     <string name="hintPassword">Digite sua senha</string>
-    <string name="hintPasswordSignUp">Digite sua senha (mínimo 6 dígitos)</string>
+    <string name="hintPasswordSignUp">Senha (mínimo 6 dígitos)</string>
     <string name="hintConfirmPassword">Confirme sua senha</string>
     <string name="hintShowPassword">Mostrar Senha</string>
     <string name="hintName">Nome completo</string>
@@ -97,7 +97,7 @@
     <string name="action_help">action_help</string>
 
     <!-- Tela 8 customer  -->
-    <string name="scheduleAddressTitle">Enderço de Atendimento</string>
+    <string name="scheduleAddressTitle">Endereço de Atendimento</string>
 
 
     <!-- Tela 5 Profissional  -->

@@ -41,11 +41,11 @@
         android:hint="@string/hintConfirmPassword"
         android:inputType="textPassword" />
 
-    <CheckBox
+    <!--<CheckBox
         android:id="@+id/cbShowPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/hintShowPassword"/>
+        android:hint="@string/hintShowPassword"/>-->
 
     <TextView
         android:id="@+id/register_error"
