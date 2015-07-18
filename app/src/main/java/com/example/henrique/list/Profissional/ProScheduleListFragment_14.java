@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.henrique.list.Adapters.ScheduleAdapter;
 import com.example.henrique.list.Beans.ScheduleItem;
 import com.example.henrique.list.R;
+import com.example.henrique.list.Service.BreakService;
 import com.example.henrique.list.Service.SchedulingService;
 import com.example.henrique.list.Utilidade_Publica.PinnedSectionListView;
 import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
@@ -23,11 +24,16 @@ import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.TimeZone;
 
+import br.com.motiserver.dto.BreakDTO;
+import br.com.motiserver.dto.PeriodDTO;
 import br.com.motiserver.dto.ProfessionalDTO;
 import br.com.motiserver.dto.SchedulingDTO;
+import br.com.motiserver.dto.builder.PeriodDTOBuilder;
 
 
 public class ProScheduleListFragment_14 extends Fragment {
@@ -37,7 +43,9 @@ public class ProScheduleListFragment_14 extends Fragment {
     PinnedSectionListView listSchedules;
     ImageButton addScheduleBT;
 
-    List<SchedulingDTO> schedules;
+    List<SchedulingDTO> schedulingList;
+    List<BreakDTO> breakList;
+    List<PeriodDTO> busyTimePeriodDTOList;
     ProfessionalDTO professionalDTO;
 
     @Override
@@ -65,11 +73,21 @@ public class ProScheduleListFragment_14 extends Fragment {
 
         SchedulingService schedulingService = new SchedulingService();
         try{
-            schedules = schedulingService.findUpcomingSchedulingByProfessionalId(professionalDTO.getId(), Calendar.getInstance(TimeZone.getDefault()));
+            schedulingList = schedulingService.findUpcomingSchedulingByProfessionalId(professionalDTO.getId(), Calendar.getInstance(TimeZone.getDefault()));
         } catch (Exception e){
             e.printStackTrace();
-            schedules = new ArrayList<>();
+            schedulingList = new ArrayList<>();
             System.out.println("Erro ao recuperar agendamentos do profissional.");
+            Toast.makeText(getActivity(), "Ocorreu um erro interno. Favor contactar o administrador!", Toast.LENGTH_SHORT).show();
+        }
+
+        BreakService breakService = new BreakService();
+        try{
+            breakList = breakService.findUpcomingPersonalInterval(professionalDTO.getId(), Calendar.getInstance(TimeZone.getDefault()));
+        } catch (Exception e){
+            e.printStackTrace();
+            breakList = new ArrayList<>();
+            System.out.println("Erro ao recuperar breaks do profissional.");
             Toast.makeText(getActivity(), "Ocorreu um erro interno. Favor contactar o administrador!", Toast.LENGTH_SHORT).show();
         }
     }
@@ -86,7 +104,7 @@ public class ProScheduleListFragment_14 extends Fragment {
     }
 
     public ArrayList<ScheduleItem> initScheduleItems(){
-        //inicia instancias de agendamento e itens a serem apresentados na lista
+        //inicia instancias de agendamento, break e itens a serem apresentados na lista
         ArrayList<ScheduleItem> items = new ArrayList<>();
 
         //recebe data atual e configura no calendario
@@ -95,18 +113,35 @@ public class ProScheduleListFragment_14 extends Fragment {
         Calendar cal2 = Calendar.getInstance();
         cal.setTime(pinnedMenuDate);
 
-        //inicia proximos itens de agendamento, e verifica se a data é a mesma. caso contrario gera outo item SECTION
-        for (int i = 0; i < schedules.size(); i++){
+
+        //recupera schedulings e breaks para gravar em array de items
+        Set<SchedulingDTO> schedulingDTOSet = new HashSet<>(schedulingList);
+        Set<BreakDTO> breakDTOSet = new HashSet<>(breakList);
+        busyTimePeriodDTOList = PeriodDTOBuilder.buildBusyTimesList(schedulingDTOSet, breakDTOSet);
+
+        for (int i = 0; i < busyTimePeriodDTOList.size(); i++){
             ScheduleItem item = new ScheduleItem();
 
             //inicializa valores da view a partir dos agendamentos buscado no BD
+            if(busyTimePeriodDTOList.get(i) instanceof SchedulingDTO) {
+                SchedulingDTO schedulingDTO = (SchedulingDTO) busyTimePeriodDTOList.get(i);
+                item.setPersonName(schedulingDTO.getCustomer().getName());
+                item.setScheduleDate(schedulingDTO.getDailySchedule().getDate().getTime());
+                item.setScheduleInicialTime(schedulingDTO.getStartTime().getTime());
+                item.setScheduleFinalTime(schedulingDTO.getEndTime().getTime());
+            }
+            if(busyTimePeriodDTOList.get(i) instanceof BreakDTO){
+                BreakDTO breakDTO = (BreakDTO) busyTimePeriodDTOList.get(i);
+                item.setPersonName("INTERVALO");
+                item.setScheduleDate(breakDTO.getDailySchedule().getDate().getTime());
+                item.setScheduleInicialTime(breakDTO.getStartTime().getTime());
+                item.setScheduleFinalTime(breakDTO.getEndTime().getTime());
+                //item.se
+            }
             item.setListPosition(i);
-            item.setPersonName(schedules.get(i).getCustomer().getName());
-            item.setScheduleDate(schedules.get(i).getDailySchedule().getDate().getTime());
-            item.setScheduleInicialTime(schedules.get(i).getStartTime().getTime());
-            item.setScheduleFinalTime(schedules.get(i).getEndTime().getTime());
             cal2.setTime(item.getScheduleDate());
 
+            //manipulacao de secion (tipo de item da lista)
             System.out.println("ScheduleDate de item:  " + item.getScheduleDate().getDate() + "/" + item.getScheduleDate().getMonth());
             System.out.println("Cal1 " + cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.MONTH));
             System.out.println("Cal2 " + cal2.get(Calendar.DAY_OF_MONTH) + "/" + cal2.get(Calendar.MONTH));
@@ -126,6 +161,7 @@ public class ProScheduleListFragment_14 extends Fragment {
             }
             items.add(item);
         }
+
         return items;
     }
 
@@ -135,7 +171,7 @@ public class ProScheduleListFragment_14 extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ScheduleItem selectedItem = (ScheduleItem) listSchedules.getItemAtPosition(position);
-                SchedulingDTO selectedSchedule = schedules.get(selectedItem.getListPosition());
+                SchedulingDTO selectedSchedule = schedulingList.get(selectedItem.getListPosition());
 
                 //verifica se usuario nao clicou em um titulo
                 if(!selectedItem.isSection()) {

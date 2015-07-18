@@ -1,18 +1,22 @@
 package com.example.henrique.list.Beans;
 
 
+import android.graphics.drawable.Drawable;
+
 import com.example.henrique.list.Utilidade_Publica.DateUtilMoti;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
 public class ScheduleItem {
-    int listPosition;
-    Date scheduleDate;
-    Date scheduleInicialTime;
-    Date scheduleFinalTime;
-    Date scheduleLeftTime;
-    String personName;
+    private int listPosition;
+    private Date scheduleDate;
+    private Date scheduleInicialTime;
+    private Date scheduleFinalTime;
+    private Date scheduleLeftTime;
+    private Drawable mainImage;
+    private String personName;
+
     boolean isSection; //0 para ITEM e 1 para SECTION
 
     public int getListPosition(){return listPosition;}
@@ -84,6 +88,14 @@ public class ScheduleItem {
 
     public void setPersonName(String personName) {
         this.personName = personName;
+    }
+
+    public Drawable getMainImage() {
+        return mainImage;
+    }
+
+    public void setMainImage(Drawable mainImage) {
+        this.mainImage = mainImage;
     }
 
     public boolean isSection() {
