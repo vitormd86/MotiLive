@@ -1,12 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">List</string>
+    <!--Globals-->
+    <string name="app_name">Moti</string>
+    <string name="gcm_defaultSenderId">817242884838</string>
+    <string name="genderMale">Masculino</string>
+    <string name="genderFemale">Feminino</string>
+    <string name="buttonCancel">Cancelar</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="colon">&#160;:&#160;</string>
+    <string name="currency">R$&#160;</string>
+    <string name="hintCurrency">00,00</string>
+
+    <!--Login Process -->
+    <string name="hintLogin">Digite seu login</string>
+    <string name="hintPassword">Digite sua senha</string>
+    <string name="hintPasswordSignUp">Senha (mínimo 6 dígitos)</string>
+    <string name="hintConfirmPassword">Confirme sua senha</string>
+    <string name="hintShowPassword">Mostrar Senha</string>
+    <string name="hintName">Nome completo</string>
+    <string name="hintBirthDate">Data de nascimento</string>
+    <string name="hintCellPhoneNumber">Digite seu celular</string>
+    <string name="hintCellPhonePrefixNumber">**</string>
+    <string name="hintCellPhonePrefixStart">(&#160;</string>
+    <string name="hintCellPhonePrefixEnd">&#160;)&#160;&#160;</string>
+    <string name="hintEmail">Digite seu e-mail</string>
+    <string name="hintCEP">CEP&#160;&#160;&#160;&#160;&#160;</string>
+    <string name="hintAddress">Digite seu endereço</string>
+    <string name="hintAddressNumber">Nº&#160;&#160;&#160;</string>
+    <string name="hintAddressComplement">Compl.&#160;&#160;&#160;&#160;</string>
+    <string name="hintAddressDistrict">Bairro</string>
+    <string name="hintAddressCity">Cidade</string>
+    <string name="hintScheduleName">Nome do expediente</string>
+    <string name="hintServiceName">Nome do Serviço</string>
+    <string name="hintServiceDescription">Faça uma breve descrição do serviço prestado ao cliente.</string>
+    <string name="buttonLogin">Entrar</string>
+    <string name="buttonSignUp">Criar Conta</string>
+    <string name="buttonBeClient">Sou cliente e quero&#10;agendar serviços</string>
+    <string name="buttonBeProfessional">Sou profissional&#10;prestador de serviços</string>
+    <string name="textChooseYourProfile">Escolha seu Perfil</string>
+    <string name="textScheduleAppointmentTitle">Expediente:</string>
+    <string name="textServiceDescription">Descrição do serviço:</string>
+    <string name="textServiceTime">Tempo da sessão:</string>
+    <string name="textServicePrice">Valor da sessão:</string>
+    <string name="textBreakTimeTitle">Intervalo:</string>
+    <string name="textTimeBetweenSchedulesTitle">Intervalo entre agendamentos:</string>
+    <string name="textBetweenHours">~</string>
+
+    <!-- Image Descriptions-->
+    <string name="descriptionLogo">Logo Moti</string>
+    <string name="description_photo">Foto do usuário</string>
+    <string name="description_icDate">Ícone de data</string>
+    <string name="description_icCellPhoneNumber">Ícone de número de celular</string>
+    <string name="description_icEmail">Ícone de email</string>
+    <string name="description_icProfession">Ícone de profissão</string>
+    <string name="description_icLocation">Ícone de localização</string>
+    <string name="description_icServiceDescription">Ícone de descrição de serviço</string>
+    <string name="description_icServiceTime">Ícone de tempo do serviço</string>
+    <string name="description_icServicePrice">Ícone de valor do serviço</string>
+    <string name="description_icEdit">Ícone de edição</string>
+    <string name="description_icDrawer">Ícone de seleção do drawer</string>
+    <string name="description_icInfo">Ícone de informações do serviço</string>
+
+    <!-- Strings do Drawer-->
+    <string name="drawer_close">Close</string>
+    <string name="drawer_open">Open</string>
+
+
+    <!-- Textos de Botões -->
+    <string name="button_newClient">Novo Cliente</string>
+    <string name="button_addBreakTime">Adicionar Intervalo</string>
+
+    <!--Outros -->
+
+    <string name="facebook_app_id">456445487839463</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="options_exit_text">Exit</string>
     <string name="enter_name_text_view">Enter your name:</string>
     <string name="enter_name_button_text">Enter</string>
     <string name="calling_activity_message">The calling activity was</string>
+    <string name="title_activity_hour_consult">HourConsult</string>
+    <string name="title_activity_drawer_text">DrawerText</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="register_title">Register</string>
+    <string name="login_title">Login</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="pwd">Password</string>
+    <string name="action_refresh">action_refresh</string>
+    <string name="action_help">action_help</string>
+
+    <!-- Tela 8 customer  -->
+    <string name="scheduleAddressTitle">Endereço de Atendimento</string>
+
+
+    <!-- Tela 5 Profissional  -->
+
+    <string name="yearProET_5">Ano</string>
+    <string name="pointofcareTV_5">pointofcareProET_5</string>
+    <string name="CompleteNameProET_5">Nome Completo</string>
+    <string name="BirthProET_5">Nascimento</string>
+    <string name="DayProET_5">Dia</string>
+    <string name="MonthProET_5">Mes</string>
+    <string name="SexProTV_5">Sexo</string>
+    <string name="MaleTV_5">Masculino</string>
+    <string name="FemaleProTV_5">Feminino</string>
+    <string name="MaleProTV_5">MaleTVPro_5</string>
+    <string name="CelProET_5">Celular</string>
+    <string name="EmailProET_5">E-Mail</string>
+    <string name="MaleProRB_5">MaleProRB_5</string>
+    <string name="FemaleProRB_5">FemaleProRB_5</string>
+    <string name="LocaldeAtendimentoTV_5">Local de Atendimento</string>
+    <string name="StreetProET_5">Rua</string>
+    <string name="NumberProET_5">Numero</string>
+    <string name="CEPProET_5">CEP</string>
+    <string name="ComplementProET_5">Complemento</string>
+    <string name="neighborhoodProET_5">Bairro</string>
+    <string name="cityProET_5">Cidade</string>
+    <string name="stateProET_5">Estado</string>
+
+
+
+    <!-- Tela 6 Profissional -->
+
+    <string name="serviceNameProET_6">Nome do Serviço</string>
+    <string name="descriptionofServiceProTV_6">Descrição do Serviço</string>
+    <string name="descriptionProET_6">Descrição</string>
+    <string name="sessionTimeProTV_6">Tempo de Sessão</string>
+    <string name="sessionTimeProET_6">00 min</string>
+    <string name="timeOfShiftingProTV_6">Tempo de deslocamento</string>
+    <string name="shiftingTimeProET_6">000 min min</string>
+    <string name="shiftingTimeProTV_6">shiftingTimeProTV_6</string>
+    <string name="valueProTV_6">Valor</string>
+    <string name="valueProET_6">00,00</string>
+
+
+    <!-- Tela 11 Profissional -->
+
+
+    <string name="completeNameProET_11">Nome Completo</string>
+    <string name="pointofcareProTV_11">Local de Atendimento</string>
+    <string name="streetProET_11">Rua</string>
+    <string name="numberProET_11">Numero</string>
+    <string name="CEPProET_11">CEP</string>
+    <string name="complementProET_11">Complemento</string>
+    <string name="neighborhoodProET_11">Bairro</string>
+    <string name="cityProET_11">Cidade</string>
+    <string name="stateProET_11">Estado</string>
+
+    <!-- Tela 7 Profissional -->
+
+    <string name="serviceListProTV_7">Lista de serviços</string>
+    <string name="nameCustET_5">Nome Completo</string>
+
+    <!-- Calendario -->
+    <string name="day_name_format">EEE</string>
+    <string name="invalid_date">Date must be between %1$s and %2$s.</string>
+    <string name="month_name_format">MMMM yyyy</string>
+    <string name="logout">logout</string>
+    <string name="exit">exit</string>
+
+    <!-- Horas e minutos -->
+    <string-array name="hours">
+        <item>00</item><item>01</item><item>02</item><item>03</item><item>04</item><item>05</item>
+        <item>06</item><item>07</item><item>08</item><item>09</item>
+        <item>10</item><item>11</item><item>12</item><item>13</item><item>14</item><item>15</item>
+        <item>16</item><item>17</item><item>18</item><item>19</item>
+        <item>20</item><item>21</item><item>22</item><item>23</item>
+    </string-array>
+    <string-array name="minutes">
+        <item>00</item><item>05</item><item>10</item><item>15</item><item>20</item><item>25</item>
+        <item>30</item><item>35</item><item>40</item><item>45</item><item>50</item><item>55</item>
+    </string-array>
+    <string-array name="cidades">
+        <item>São Paulo</item><item>Guarulhos</item><item>São Bernardo</item><item>São Caetano</item><item>Santo André</item><item>Mauá</item>
+
+    </string-array>
+
 
 </resources>

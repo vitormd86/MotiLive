@@ -1,5 +1,53 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
+    <!-- Espacamento de margens de visualizações -->
+    <dimen name="margin_app">16dp</dimen>
+    <dimen name="margin_betweenAddressElements">5dp</dimen>
+    <dimen name="margin_betweenElements_extraSmall">5dp</dimen>
+    <dimen name="margin_betweenElements_small">10dp</dimen>
+    <dimen name="margin_betweenElements_medium">20dp</dimen>
+    <dimen name="margin_betweenElements_big">30dp</dimen>
+    <dimen name="margin_photo">10dp</dimen>
+    <dimen name="margin_infoButtom">5dp</dimen>
+    <dimen name="margin_calendar_checkBox">12dp</dimen>
+
+    <!-- Dimensoes de fontes -->
+    <dimen name="text_blankSpace">30dp</dimen>
+    <dimen name="textSize_extraSmall">12sp</dimen>
+    <dimen name="textSize_small">16sp</dimen>
+    <dimen name="textSize_medium">18sp</dimen>
+    <dimen name="textSize_big">25sp</dimen>
+
+    <!-- Dimensões de imagens -->
+    <dimen name="img_choose_width">250dp</dimen>
+    <dimen name="img_choose_height">120dp</dimen>
+    <dimen name="img_photo">60dp</dimen>
+    <dimen name="img_infoButtom">30dp</dimen>
+
+    <!-- Dimensões das barras de horário-->
+    <dimen name="hoursBarWidth">100dp</dimen>
+    <dimen name="hourBarMargin">5dp</dimen>
+    <dimen name="hourBarMinutesMargin">20dp</dimen>
+
+    <!-- Medidas mínimas de campos -->
+    <dimen name="minWidthUF">60dp</dimen>
+
+    <!-- Medidas Tela CustScheduleConfirmActivity_8-->
+    <dimen name="columnWidthConfirmSchedule">80dp</dimen>
+
+    <!-- Dimensões do calendario -->
+    <dimen name="calendar_selected_padding">5dp</dimen>
+    <dimen name="calendar_day_headers_paddingbottom">4dp</dimen>
+    <dimen name="calendar_month_topmargin">16dp</dimen>
+    <dimen name="calendar_month_title_bottommargin">4dp</dimen>
+    <dimen name="calendar_text_medium">18sp</dimen>
+    <dimen name="calendar_text_small">14sp</dimen>
+
+
+
+
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+
+
 </resources>

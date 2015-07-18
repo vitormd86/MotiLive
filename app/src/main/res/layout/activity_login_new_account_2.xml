@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/margin_app"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageLogoSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/margin_betweenElements_medium"
+        android:contentDescription="@string/descriptionLogo"
+        android:src="@drawable/img_logo_small" />
+
+    <EditText
+        android:id="@+id/loginNewAccountName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_betweenElements_medium"
+        android:hint="@string/hintLogin"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/loginNewAccountPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:hint="@string/hintPasswordSignUp"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/loginNewAccountConfirmPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:hint="@string/hintConfirmPassword"
+        android:inputType="textPassword" />
+
+    <!--<CheckBox
+        android:id="@+id/cbShowPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/hintShowPassword"/>-->
+
+    <TextView
+        android:id="@+id/register_error"
+        style="@style/TextAlert"
+        android:layout_marginBottom="@dimen/margin_betweenElements_small" />
+    <Button
+        style="@style/LoginButton"
+        android:id="@+id/buttonloginNewAccount"
+        android:text="@string/buttonSignUp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button
+            style="@style/SignUpButton"
+            android:id="@+id/buttonCancel"
+            android:text="@string/buttonCancel"/>
+    </LinearLayout>
+</LinearLayout>

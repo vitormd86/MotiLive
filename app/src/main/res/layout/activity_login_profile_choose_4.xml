@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="@dimen/margin_app"
+    android:weightSum="3">
+
+    <TextView
+        android:id="@+id/chooseYourProfileTV_4"
+        style="@style/TextTitle"
+        android:layout_weight="1"
+        android:text="@string/textChooseYourProfile" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/clienteBTN_4"
+            android:layout_width="@dimen/img_choose_width"
+            android:layout_height="@dimen/img_choose_height"
+            android:layout_marginBottom="@dimen/margin_betweenElements_medium"
+            android:background="@drawable/img_choose_cust"
+            android:text="@string/buttonBeClient"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/profissionalBTN_4"
+            android:layout_width="@dimen/img_choose_width"
+            android:layout_height="@dimen/img_choose_height"
+            android:layout_marginBottom="@dimen/margin_betweenElements_big"
+            android:background="@drawable/img_choose_prof"
+            android:text="@string/buttonBeProfessional"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</LinearLayout>

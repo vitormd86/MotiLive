@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ListView
+        android:id="@+id/serviceListProLV_7"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_app"
+        android:scrollbarStyle="outsideOverlay"
+        android:divider="@color/lightGray"
+        android:dividerHeight="1dp">
+        <!-- esta lista vai mostrar todos servicos do profissional-->
+    </ListView>
+    <ImageButton
+        style="@style/PlusButtom"
+        android:id="@+id/addServiceProBTN_7"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"/>
+</RelativeLayout>

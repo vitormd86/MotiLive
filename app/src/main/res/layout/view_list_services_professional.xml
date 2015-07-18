@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/margin_betweenElements_small"
+    android:paddingTop="@dimen/margin_betweenElements_small"
+    android:paddingLeft="@dimen/margin_app"
+    android:paddingRight="@dimen/margin_app">
+
+    <TextView
+        android:id="@+id/serviceNameETPro_7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/margin_betweenElements_extraSmall"
+        android:textColor="@color/text_black" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:baselineAligned="false"
+        android:weightSum="2">
+            <TextView
+                android:id="@+id/sessionTimeTVPro_7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_form_serv_time"
+                android:contentDescription="@string/description_icServiceTime"
+                android:textColor="@color/text_black"/>
+            <TextView
+                android:id="@+id/sessionPriceTVPro_7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_form_serv_price"
+                android:contentDescription="@string/description_icServicePrice"
+                android:textColor="@color/text_black"/>
+    </LinearLayout>
+
+</LinearLayout>

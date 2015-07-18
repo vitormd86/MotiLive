@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.example.henrique.list.Utilidade_Publica.Calendar.CalendarPickerView
+        android:id="@+id/calendar_view"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <Button
+            android:id="@+id/newClientButton"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_marginTop="5dp"
+            android:text="@string/button_newClient"/>
+        <Button
+            android:id="@+id/addBreakTimeButton"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_marginTop="5dp"
+            android:text="@string/button_addBreakTime"/>
+    </LinearLayout>
+
+
+    <ListView
+        android:id="@+id/ListViewPro_10"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/lightGray"
+        android:dividerHeight="1dp"/>
+
+</LinearLayout>

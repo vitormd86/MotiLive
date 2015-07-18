@@ -1,0 +1,603 @@
+package com.example.henrique.list.Profissional;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.example.henrique.list.R;
+import com.example.henrique.list.Service.DailyScheduleService;
+import com.example.henrique.list.Service.ProfessionalService;
+import com.example.henrique.list.Utilidade_Publica.Calendar.CalendarPickerView;
+import com.example.henrique.list.Utilidade_Publica.DateUtilMoti;
+import com.example.henrique.list.Utilidade_Publica.ServiceException;
+import com.example.henrique.list.Utilidade_Publica.SessionAttributes;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.TimeZone;
+
+import br.com.motiserver.dto.BreakDTO;
+import br.com.motiserver.dto.DailyScheduleDTO;
+import br.com.motiserver.dto.ProfessionalDTO;
+import br.com.motiserver.util.constants.Status;
+
+/** Tela de configuracao de agenda do profissional */
+
+public class ProScheduleConfig_8 extends ActionBarActivity {
+
+    Bundle extras;
+
+    Spinner expedientStartHourSP, expedientStartMinutesSP, expedientEndHourSP, expedientEndMinutesSP;
+    Spinner breakStartHourSP, breakStartMinutesSP, breakEndHourSP, breakEndMinutesSP;
+    Spinner intervalBetweenHourSP, intervalBetweenMinutesSP;
+    RadioGroup breakTimeRadioGroup;
+    CheckBox sunCB, monCB, tueCB, wedCB, thuCB, friCB, satCB;
+    ArrayAdapter<String> hourAdapter, minutesAdapter;
+
+    CalendarPickerView screenCalendar;
+    Calendar initDate, endDate;
+
+    Calendar expedientStartCal, expedientEndCal, breakTimeStartCal, breakTimeEndCal;
+    Calendar timeBetweenSession;
+
+    List<Date> selectedDates;
+    List<Calendar> ocuppedCalList;
+
+    ProfessionalDTO professionalDTO;
+    List<DailyScheduleDTO> dailyScheduleDTOList;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_pro_schedule_config_8);
+
+        //Habilitando BackNavigation button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //configurando views do layout
+        retrievingAttributes();
+        initViews();
+
+        //configurando calendario
+        initCalendar();
+        //configurando adapters dos spinners
+        initSpinnersAdapters();
+
+        //preencenhdo views caso tenha dados
+        fillViews();
+
+        //configurando listeners
+        initBreakTimeRadioListeners();
+        initCheckBoxListeners();
+    }
+
+    private void retrievingAttributes(){
+        extras = getIntent().getExtras();
+
+        professionalDTO = (ProfessionalDTO) extras.getSerializable(SessionAttributes.PROFESSIONAL);
+    }
+
+    private void initViews(){
+        //este metodo inicializa as views
+        expedientStartHourSP = (Spinner) findViewById(R.id.expedientStartHourSP_pro8);
+        expedientStartMinutesSP = (Spinner) findViewById(R.id.expedientStartMinutesSP_pro8);
+        expedientEndHourSP = (Spinner) findViewById(R.id.expedientEndHourSP_pro8);
+        expedientEndMinutesSP = (Spinner) findViewById(R.id.expedientEndMinutesSP_pro8);
+        breakStartHourSP = (Spinner) findViewById(R.id.breakTimeStartHour);
+        breakStartMinutesSP = (Spinner) findViewById(R.id.breakTimeStartMinutes);
+        breakEndHourSP = (Spinner) findViewById(R.id.breakTimeEndHour);
+        breakEndMinutesSP = (Spinner) findViewById(R.id.breakTimeEndMinutes);
+        intervalBetweenHourSP = (Spinner) findViewById(R.id.intervalBetweenHour);
+        intervalBetweenMinutesSP = (Spinner) findViewById(R.id.intervalBetweenMinutes);
+
+        sunCB = (CheckBox) findViewById(R.id.checkboxSun);
+        monCB = (CheckBox) findViewById(R.id.checkboxMon);
+        tueCB = (CheckBox) findViewById(R.id.checkboxTue);
+        wedCB = (CheckBox) findViewById(R.id.checkboxWed);
+        thuCB = (CheckBox) findViewById(R.id.checkboxThu);
+        friCB = (CheckBox) findViewById(R.id.checkboxFri);
+        satCB = (CheckBox) findViewById(R.id.checkboxSat);
+
+        breakTimeRadioGroup = (RadioGroup) findViewById(R.id.breakTimeRadioGroup);
+
+        screenCalendar = (CalendarPickerView) findViewById(R.id.calendar_view);
+    }
+
+    public void fillViews(){
+        expedientStartHourSP.setSelection(8);
+        expedientEndHourSP.setSelection(17);
+        breakStartHourSP.setSelection(12);
+        breakEndHourSP.setSelection(13);
+        intervalBetweenHourSP.setSelection(0);
+        intervalBetweenMinutesSP.setSelection(4);
+        breakTimeRadioGroup.check(R.id.breakTimeRadioYes);
+
+        if(isEditing()){
+            //se estiver em modo de edicao, buscara dados do servicos para alimentar campos
+            fillEditingTimes();
+            fillEditingDays();
+            ocuppedCalList = getOccupedDays(dailyScheduleDTOList);
+            configSelectScreenCalendarDate();
+        }
+    }
+
+    private void fillEditingTimes(){
+        DailyScheduleService dailyScheduleService = new DailyScheduleService();
+        DailyScheduleDTO dailyScheduleDTO;
+        try {
+            dailyScheduleDTO = dailyScheduleService.findAllByProfessionalId(professionalDTO.getId()).get(0);
+        } catch (ServiceException ex) {
+            dailyScheduleDTO = new DailyScheduleDTO();
+            ex.printStackTrace();
+            System.out.println("Erro ao buscar dailySchedule.");
+        }
+        Calendar expedientStartCal = Calendar.getInstance(TimeZone.getDefault());
+        Calendar expedientEndCal = Calendar.getInstance(TimeZone.getDefault());
+        Calendar breakStartCal = Calendar.getInstance(TimeZone.getDefault());
+        Calendar breakEndCal = Calendar.getInstance(TimeZone.getDefault());
+        Calendar intervalBetweenCal = Calendar.getInstance(TimeZone.getDefault());
+
+        expedientStartCal.setTime(dailyScheduleDTO.getStartTime().getTime());
+        expedientEndCal.setTime(dailyScheduleDTO.getEndTime().getTime());
+        //breakStartCal.setTime();
+        //breakEndCal.setTime();
+        //intervalBetweenCal.setTime(professionalDTO.getSessionInterval().getTime());
+
+        System.out.println(String.format("%02d", expedientStartCal.get(Calendar.HOUR_OF_DAY)));
+        expedientStartHourSP.setSelection(hourAdapter.getPosition(String.format("%02d", expedientStartCal.get(Calendar.HOUR_OF_DAY))));
+        expedientStartMinutesSP.setSelection(minutesAdapter.getPosition(String.format("%02d", expedientStartCal.get(Calendar.MINUTE))));
+        expedientEndHourSP.setSelection(hourAdapter.getPosition(String.format("%02d", expedientEndCal.get(Calendar.HOUR_OF_DAY))));
+        expedientEndMinutesSP.setSelection(minutesAdapter.getPosition(String.format("%02d", expedientEndCal.get(Calendar.MINUTE))));
+        //breakStartHourSP.setSelection(hourAdapter.getPosition(String.format("%02d", breakStartCal.get(Calendar.HOUR_OF_DAY))));
+        //breakStartMinutesSP.setSelection(minutesAdapter.getPosition(String.format("%02d", breakStartCal.get(Calendar.MINUTE))));
+        //breakEndHourSP.setSelection(hourAdapter.getPosition(String.format("%02d", breakEndCal.get(Calendar.HOUR_OF_DAY))));
+        //breakEndMinutesSP.setSelection(minutesAdapter.getPosition(String.format("%02d", breakEndCal.get(Calendar.MINUTE))));
+        //intervalBetweenHourSP.setSelection(hourAdapter.getPosition(String.format("%02d", intervalBetweenCal.get(Calendar.HOUR_OF_DAY))));
+        //intervalBetweenMinutesSP.setSelection(minutesAdapter.getPosition(String.format("%02d", intervalBetweenCal.get(Calendar.MINUTE))));
+
+
+
+
+
+        //desabilita radioButtons
+        breakTimeRadioGroup.clearCheck();
+        for (int i = 0; i < breakTimeRadioGroup.getChildCount(); i++) {
+            RadioButton radioButton = (RadioButton) breakTimeRadioGroup.getChildAt(i);
+            radioButton.setEnabled(false);
+            radioButton.setTextColor(getResources().getColor(R.color.lightGray));
+        }
+        breakTimeRadioGroup.setEnabled(false);
+
+        //bloqueia mudancas de horarios
+        expedientStartHourSP.setEnabled(false);
+        expedientStartHourSP.setClickable(false);
+        expedientStartMinutesSP.setEnabled(false);
+        expedientStartMinutesSP.setClickable(false);
+        expedientEndHourSP.setEnabled(false);
+        expedientEndHourSP.setClickable(false);
+        expedientEndMinutesSP.setEnabled(false);
+        expedientEndMinutesSP.setClickable(false);
+
+        breakStartHourSP.setEnabled(false);
+        breakStartHourSP.setClickable(false);
+        breakStartMinutesSP.setEnabled(false);
+        breakStartMinutesSP.setClickable(false);
+        breakEndHourSP.setEnabled(false);
+        breakEndHourSP.setClickable(false);
+        breakEndMinutesSP.setEnabled(false);
+        breakEndMinutesSP.setClickable(false);
+
+        intervalBetweenMinutesSP.setEnabled(false);
+        intervalBetweenMinutesSP.setClickable(false);
+        intervalBetweenHourSP.setEnabled(false);
+        intervalBetweenHourSP.setClickable(false);
+    }
+
+    private void fillEditingDays(){
+        DailyScheduleService dailyScheduleService = new DailyScheduleService();
+        try{
+            //todo futuramente buscar apenas dailySchedules a partir da data atual
+            dailyScheduleDTOList = dailyScheduleService.findAllByProfessionalId(professionalDTO.getId());
+        } catch (ServiceException ex) {
+            dailyScheduleDTOList = new ArrayList<>();
+            ex.printStackTrace();
+            System.out.println("Erro ao buscar lista de DailySchedules");
+        }
+        for (DailyScheduleDTO dailyScheduleDTO : dailyScheduleDTOList){
+            //verifica qual dailySchedule eh workDay, dentro do periodo do calendario da tela
+            if(dailyScheduleDTO.getWorkDay() == Status.TRUE){
+                if(dailyScheduleDTO.getDate().after(initDate) && dailyScheduleDTO.getDate().before(endDate)){
+                    screenCalendar.selectDate(dailyScheduleDTO.getDate().getTime());
+                } else if(DateUtilMoti.isSameDay(dailyScheduleDTO.getDate(), Calendar.getInstance(TimeZone.getDefault()))){
+                    screenCalendar.selectDate(dailyScheduleDTO.getDate().getTime());
+                }
+                System.out.println("Recuperando dia " + dailyScheduleDTO.getDate().get(Calendar.DAY_OF_MONTH) + " de " + DateUtilMoti.getMonthString(dailyScheduleDTO.getDate().get(Calendar.MONTH)));
+            }
+
+        }
+    }
+
+    //este metodo configura os adapters de todos spinners
+    public void initSpinnersAdapters(){
+       //incluindo mascara nos arrays
+//        List<String> hoursArray = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.hours)));
+//        for (int i =0; i<hoursArray.size(); i++){
+//            hoursArray.set(i, hoursArray.get(i) +" :");
+//        }
+//        List<String> minutesArray = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.minutes)));
+//        for (int i =0; i<minutesArray.size(); i++){
+//            minutesArray.set(i, " " + minutesArray.get(i));
+//        }
+        //configurando adapters e spinners
+        hourAdapter = new ArrayAdapter<>(this, R.layout.view_spinner_text_hour, getResources().getStringArray(R.array.hours));
+        hourAdapter.setDropDownViewResource(R.layout.view_spinner_dropdown_hour);
+        expedientStartHourSP.setAdapter(hourAdapter);
+        expedientEndHourSP.setAdapter(hourAdapter);
+        breakStartHourSP.setAdapter(hourAdapter);
+        breakEndHourSP.setAdapter(hourAdapter);
+        intervalBetweenHourSP.setAdapter(hourAdapter);
+
+        //adapter de array de minutos
+        minutesAdapter = new ArrayAdapter<>(this, R.layout.view_spinner_text_minutes, getResources().getStringArray(R.array.minutes));
+        minutesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        expedientStartMinutesSP.setAdapter(minutesAdapter);
+        expedientEndMinutesSP.setAdapter(minutesAdapter);
+        breakStartMinutesSP.setAdapter(minutesAdapter);
+        breakEndMinutesSP.setAdapter(minutesAdapter);
+        intervalBetweenMinutesSP.setAdapter(minutesAdapter);
+
+
+
+    }
+
+    private List<Calendar> getOccupedDays(List<DailyScheduleDTO> dailyScheduleDTOs){
+        //recupera lista de datas ocupadas (que ja possuem agendamentos)
+        List<Calendar> occupedDailyScheduleCalList = new ArrayList<>();
+        for (DailyScheduleDTO dailyScheduleDTO : dailyScheduleDTOs){
+            System.out.println("Tentando adicionar " + dailyScheduleDTO.getDate().get(Calendar.DAY_OF_MONTH)
+                    + " de " + DateUtilMoti.getMonthString(dailyScheduleDTO.getDate().get(Calendar.MONTH))
+                    + " na lista de dias ocupados");
+            if(dailyScheduleDTO.getSchedules().size() > 0){
+                occupedDailyScheduleCalList.add(dailyScheduleDTO.getDate());
+                System.out.println("Qtdade de agendamentos: " + dailyScheduleDTO.getSchedules().size());
+                System.out.println("Adicionando " + dailyScheduleDTO.getDate().get(Calendar.DAY_OF_MONTH)
+                        + " de " + DateUtilMoti.getMonthString(dailyScheduleDTO.getDate().get(Calendar.MONTH))
+                        + " na lista de dias ocupados");
+            }
+        }
+        return occupedDailyScheduleCalList;
+    }
+
+    private boolean isOccupedDate(Calendar toVerifyCal){
+        //verifica se a data do dailySchedule esta ocupada, e nao permite usuario desmarca-la
+        boolean isOccupedDay = false;
+        if(ocuppedCalList != null) {
+            for (Calendar ocuppedCal : ocuppedCalList)
+                if (DateUtilMoti.isSameDay(toVerifyCal, ocuppedCal)) {
+                    //screenCalendar.selectDate(ocuppedCal.getTime());
+                    isOccupedDay = true;
+                }
+        }
+        return isOccupedDay;
+    }
+
+    private void initCalendar(){
+        //metodo q inicializa calendario
+
+        //configura duas datas para limites, inicial e final
+        initDate = Calendar.getInstance();
+        endDate = Calendar.getInstance();
+        endDate.add(Calendar.MONTH, 2);
+
+        //inicializa calendario apontando datas finais, iniciais e modo de selecao
+        screenCalendar.init(initDate.getTime(), endDate.getTime())
+                .inMode(CalendarPickerView.SelectionMode.MULTIPLE);
+
+    }
+
+    public void initBreakTimeRadioListeners(){
+        breakTimeRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.breakTimeRadioYes:
+                        breakStartHourSP.setEnabled(true);
+                        breakStartHourSP.setClickable(true);
+                        breakStartMinutesSP.setEnabled(true);
+                        breakStartMinutesSP.setClickable(true);
+                        breakEndHourSP.setEnabled(true);
+                        breakEndHourSP.setClickable(true);
+                        breakEndMinutesSP.setEnabled(true);
+                        breakEndMinutesSP.setClickable(true);
+                        break;
+
+                    case R.id.breakTimeRadioNo:
+                        breakStartHourSP.setEnabled(false);
+                        breakStartHourSP.setClickable(false);
+                        breakStartMinutesSP.setEnabled(false);
+                        breakStartMinutesSP.setClickable(false);
+                        breakEndHourSP.setEnabled(false);
+                        breakEndHourSP.setClickable(false);
+                        breakEndMinutesSP.setEnabled(false);
+                        breakEndMinutesSP.setClickable(false);
+                        break;
+                }
+
+            }
+        });
+    }
+
+    public void initCheckBoxListeners(){
+        CompoundButton.OnCheckedChangeListener checkBoxListener = new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(buttonView==sunCB)
+                    selectWeekDays(isChecked, 1);
+                if(buttonView==monCB)
+                    selectWeekDays(isChecked, 2);
+                if(buttonView==tueCB)
+                    selectWeekDays(isChecked, 3);
+                if(buttonView==wedCB)
+                    selectWeekDays(isChecked, 4);
+                if(buttonView==thuCB)
+                    selectWeekDays(isChecked, 5);
+                if(buttonView==friCB)
+                    selectWeekDays(isChecked, 6);
+                if(buttonView==satCB)
+                    selectWeekDays(isChecked, 7);
+
+            }
+        };
+        sunCB.setOnCheckedChangeListener(checkBoxListener);
+        monCB.setOnCheckedChangeListener(checkBoxListener);
+        tueCB.setOnCheckedChangeListener(checkBoxListener);
+        wedCB.setOnCheckedChangeListener(checkBoxListener);
+        thuCB.setOnCheckedChangeListener(checkBoxListener);
+        friCB.setOnCheckedChangeListener(checkBoxListener);
+        satCB.setOnCheckedChangeListener(checkBoxListener);
+    }
+
+    public void selectWeekDays(boolean isChecked, int dayOfWeek){
+        //recebe qual semana deve ser adicionada/removida do calendario
+        ArrayList<Date> repeatDates = DateUtilMoti.repeatDaysOfWeek(initDate.getTime(), endDate.getTime(), dayOfWeek);
+        if(isChecked){
+            //Toast.makeText(this, "Clicado = " + dayOfWeek + " isChecked = 1", Toast.LENGTH_SHORT).show();
+            for (Date toCheckDate : repeatDates){
+                if(!screenCalendar.isDateSelected(toCheckDate)){
+                    screenCalendar.selectDate(toCheckDate);
+                }
+            }
+            //screenCalendar.selectDate(initDate.getTime());
+        } if (!isChecked){
+            boolean showErrorMsg = true;
+            for (Date toUncheckDate : repeatDates){
+                Calendar cal = Calendar.getInstance(TimeZone.getDefault());
+                cal.setTime(toUncheckDate);
+
+                if(!isOccupedDate(cal)){
+                    screenCalendar.unselectDate(toUncheckDate);
+                } else {
+                    if (showErrorMsg){
+                        //mostra mensagem de erro apenas uma vez
+                        Toast.makeText(ProScheduleConfig_8.this, "Existem dias que não foram removidos, pois estão ocupados.", Toast.LENGTH_SHORT).show();
+                        showErrorMsg = false;
+                    }
+                }
+            }
+        }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_confirm, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Admininstra cliques da ActionBar
+        switch (item.getItemId()) {
+            case R.id.confirmButton:
+                convertCalendars();
+                if(isValidFields()){
+                    executeJSON();
+                    Intent intentToDrawer = new Intent(ProScheduleConfig_8.this, ProDrawerMenu_15.class);
+                    intentToDrawer.putExtra(SessionAttributes.PROFESSIONAL, professionalDTO);
+                    startActivity(intentToDrawer);
+                    this.finish();
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void convertCalendars(){
+        //convertendo valores de spinners em Calendars
+        expedientStartCal = convertToCalendar(expedientStartHourSP.getSelectedItem().toString(), expedientStartMinutesSP.getSelectedItem().toString());
+        expedientEndCal = convertToCalendar(expedientEndHourSP.getSelectedItem().toString(), expedientEndMinutesSP.getSelectedItem().toString());
+        breakTimeStartCal = convertToCalendar(breakStartHourSP.getSelectedItem().toString(), breakStartMinutesSP.getSelectedItem().toString());
+        breakTimeEndCal = convertToCalendar(breakEndHourSP.getSelectedItem().toString(), breakEndMinutesSP.getSelectedItem().toString());
+        timeBetweenSession = convertToCalendar(intervalBetweenHourSP.getSelectedItem().toString(), intervalBetweenMinutesSP.getSelectedItem().toString());
+    }
+
+    private boolean isValidFields(){
+        boolean isAllValid = true;
+
+
+        selectedDates = screenCalendar.getSelectedDates();
+        if(selectedDates == null | selectedDates.isEmpty()){
+            isAllValid = false;
+            Toast.makeText(this, "Escolha os dias de atendimento.", Toast.LENGTH_LONG).show();
+        }
+        if(expedientStartCal.after(expedientEndCal)){
+            isAllValid = false;
+            Toast.makeText(this, "Início de expediente deve ser menor que o final do expediente.", Toast.LENGTH_LONG).show();
+        }
+        if(breakTimeStartCal.after(breakTimeEndCal) && breakTimeRadioGroup.getCheckedRadioButtonId() == R.id.breakTimeRadioYes){
+            isAllValid = false;
+            Toast.makeText(this, "Início de intervalo deve ser menor que o final do intervalo.", Toast.LENGTH_LONG).show();
+        }
+        return isAllValid;
+    }
+
+    private void executeJSON(){
+        ProfessionalService professionalService = new ProfessionalService();
+        DailyScheduleService dailyScheduleService = new DailyScheduleService();
+
+
+        //iniciando Set de BreakTimes
+        Set<BreakDTO> breakDTOs = new LinkedHashSet<>();
+        //incluindo breaktime de intervalo
+        if(breakTimeRadioGroup.getCheckedRadioButtonId() == R.id.breakTimeRadioYes){
+            //verifica se o radio esta selecionado como SIM para armazenar o BreakTime
+            System.out.println("Intervalo selecionado como sim");
+            BreakDTO breakDTO = new BreakDTO();
+            breakDTO.setStartTime(breakTimeStartCal);
+            breakDTO.setEndTime(breakTimeEndCal);
+            System.out.println(breakTimeStartCal.get(Calendar.HOUR_OF_DAY) + ":" + breakTimeStartCal.get(Calendar.MINUTE));
+            System.out.println(breakTimeEndCal.get(Calendar.HOUR_OF_DAY) + ":" + breakTimeEndCal.get(Calendar.MINUTE));
+            breakDTOs.add(breakDTO);
+        } else {
+            System.out.println("Intervalo selecionado como nao");
+        }
+
+        //incluindo timeBetweenSession no profissional
+        professionalDTO.setSessionInterval(timeBetweenSession);
+        try {
+            professionalService.save(professionalDTO);
+        } catch (ServiceException ex){
+            ex.printStackTrace();
+            System.out.println("Erro ao gravar intervalo entre secoes no usuario de id " + professionalDTO.getId());
+        }
+
+
+        //incluindo dias de agendamento e seus respectivos horarios
+        if(isEditing()){
+            //caso estiver em modo de edicao, gravar dias q nao foram gravados e substituir dias q jah existem
+            for (int i = 0; dailyScheduleDTOList.size() > i; i++){
+                dailyScheduleDTOList.get(i).setWorkDay(Status.FALSE);
+            }
+
+            for (Date selectedDate : selectedDates){
+                Calendar selectedCal = Calendar.getInstance(TimeZone.getDefault());
+                selectedCal.setTime(selectedDate);
+                boolean isNewDaily = true;
+
+                for (int i = 0; dailyScheduleDTOList.size() > i; i++){
+                    if(DateUtilMoti.isSameDay(dailyScheduleDTOList.get(i).getDate(), selectedCal)){
+                        //aqui altera os dados do DailySchedule q JA EXISTE no banco
+                        dailyScheduleDTOList.get(i).setWorkDay(Status.TRUE);
+                        System.out.println("Alterando dia " + dailyScheduleDTOList.get(i).getDate().get(Calendar.DAY_OF_MONTH) + " de " + DateUtilMoti.getMonthString(dailyScheduleDTOList.get(i).getDate().get(Calendar.MONTH))
+                                + " como Status = TRUE");
+                        isNewDaily = false;
+                    }
+                }
+                if(isNewDaily){
+                    //aqui grava os DailySchedules q NAO EXISTEM no banco
+                    DailyScheduleDTO dailyScheduleDTO = new DailyScheduleDTO();
+                    dailyScheduleDTO.setProfessional(professionalDTO);
+                    dailyScheduleDTO.setDate(selectedCal);
+                    dailyScheduleDTO.setStartTime(expedientStartCal);
+                    dailyScheduleDTO.setEndTime(expedientEndCal);
+                    dailyScheduleDTO.setBreaks(breakDTOs);
+                    dailyScheduleDTO.setWorkDay(Status.TRUE);
+                    dailyScheduleDTOList.add(dailyScheduleDTO);
+                    System.out.println("Incluindo na lista dia " + dailyScheduleDTO.getDate().get(Calendar.DAY_OF_MONTH) + " de " + DateUtilMoti.getMonthString(dailyScheduleDTO.getDate().get(Calendar.MONTH))
+                            + " como Status = " + dailyScheduleDTO.getWorkDay().getValue());
+                }
+            }
+
+            try {
+                dailyScheduleService.saveAll(dailyScheduleDTOList);
+            } catch (ServiceException e){
+                e.printStackTrace();
+                System.out.println("Erro ao gravar dados em dailySchedule");
+            }
+        } else {
+            //caso nao esteja em modo de edicao, gravar todos dias selecionados no banco e intervalo
+            Calendar selectedDayCal = Calendar.getInstance();
+
+
+            //todo-vitor mudar para saveAll com vetor de dailySchedule
+            DailyScheduleDTO dailyScheduleDTO = new DailyScheduleDTO();
+            for(int i = 0; i < selectedDates.size(); i++){
+                //adiciona na dailySchedule como workDay = TRUE os dias selecionados
+                selectedDayCal.setTime(selectedDates.get(i));
+                dailyScheduleDTO.setProfessional(professionalDTO);
+                dailyScheduleDTO.setDate(selectedDayCal);
+                dailyScheduleDTO.setStartTime(expedientStartCal);
+                dailyScheduleDTO.setEndTime(expedientEndCal);
+                dailyScheduleDTO.setBreaks(breakDTOs);
+                dailyScheduleDTO.setWorkDay(Status.TRUE);
+                try {
+                    dailyScheduleService.save(dailyScheduleDTO);
+                } catch (Exception e){
+                    e.printStackTrace();
+                    System.out.println("Erro ao gravar dados em dailySchedule");
+                }
+                System.out.println("Gravando dia " + dailyScheduleDTO.getDate().get(Calendar.DAY_OF_MONTH) + " de " + DateUtilMoti.getMonthString(dailyScheduleDTO.getDate().get(Calendar.MONTH))
+                        + " como Status = True");
+            }
+        }
+    }
+
+    private Calendar convertToCalendar(String hour, String minutes){
+
+        SimpleDateFormat sdf = new SimpleDateFormat("HHmm");
+        Calendar convertedCal = Calendar.getInstance();
+
+        try{
+            convertedCal.setTime(sdf.parse(hour + minutes));
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return convertedCal;
+    }
+
+    private void configSelectScreenCalendarDate(){
+        //configura listener do calendario para nao poder remover dias ja ocupados
+        if(isEditing()){
+            screenCalendar.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
+                @Override
+                public void onDateSelected(Date date) {
+
+                }
+
+                @Override
+                public void onDateUnselected(Date date) {
+                    Calendar selectedCal = Calendar.getInstance(TimeZone.getDefault());
+                    selectedCal.setTime(date);
+                    if(!isOccupedDate(selectedCal)){
+                        screenCalendar.unselectDate(date);
+                    } else {
+                        screenCalendar.selectDate(date);
+                        Toast.makeText(ProScheduleConfig_8.this, "Este dia não pode ser removido, pois esta ocupado.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+    }
+
+    private boolean isEditing() {
+        return extras.getBoolean("isEditing", true);
+    }
+}

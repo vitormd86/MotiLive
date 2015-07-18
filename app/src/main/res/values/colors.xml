@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="transparent">#00000000</color>
+    <color name="white">#ffffff</color>
+    <color name="Gray">#808080</color>
+    <color name="lightGray">#bdc3c7</color>
+    <color name="themeGray">#eeeeee</color>
+    <color name="black">#212121</color>
+    <color name="lightBlack">#424242</color>
+    <color name="pink">#E91E63</color>
+    <color name="lightPink">#EC407A</color>
+    <color name="transparentPink">#4DE91E63</color>
+    <color name="midNightBlue">#2c3e50</color>
+    <color name="lightMidNightBlue">#34495e</color>
+    <color name="transparentMidNightBlue">#AA34495e</color>
+    <color name="Blue">#2980b9</color>
+    <color name="lightBlue">#3498db</color>
+    <color name="transparentBlue">#AA2980b9</color>
+    <color name="green">#27ae60</color>
+    <color name="lightGreen">#2ecc71</color>
+
+
+    <!--cores do calendario-->
+    <color name="calendar_active_month_bg">@color/themeGray</color>
+    <color name="calendar_bg">@color/Gray</color>
+    <color name="calendar_divider">@color/themeGray</color>
+    <color name="calendar_today">@color/Gray</color>
+    <color name="calendar_inactive_month_bg">@color/themeGray</color>
+    <color name="calendar_selected_day_bg">@color/lightPink</color>
+    <color name="calendar_highlighted_day_bg">@color/white</color> <!--????-->
+    <color name="calendar_selected_range_bg">@color/lightPink</color>
+    <color name="calendar_text_month">@color/white</color>
+    <color name="calendar_text_weekDays">@color/white</color>
+    <color name="calendar_text_today">@color/Gray</color>
+    <color name="calendar_text_inactive">@color/lightGray</color>
+    <color name="calendar_text_active">@color/Gray</color>
+    <color name="calendar_text_selected">@color/white</color>
+    <color name="calendar_text_unselectable">@color/lightGray</color> <!--????-->
+
+    <!-- Cores de Fontes -->
+    <color name="text_black">@color/black</color>
+</resources>

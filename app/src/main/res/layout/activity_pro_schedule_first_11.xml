@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--este primeiro linearlayout serve para alinhar o scrollbar da scroolview-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_app">
+
+        <LinearLayout
+            android:id="@+id/linear1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_betweenElements_small"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/ImageButtonPro_11"
+                style="@style/ImagePhoto"
+                android:contentDescription="@string/description_photo" />
+
+            <EditText
+                android:id="@+id/NomeET_Pro_11"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hintName"
+                android:inputType="text"
+                android:maxLength="@integer/textMaxSize_fullname" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ic_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linear1"
+            android:contentDescription="@string/description_icDate"
+            android:src="@drawable/ic_form_date" />
+
+        <EditText
+            android:id="@+id/dataEscolhidaProTV_11"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_betweenElements_small"
+            android:layout_below="@id/linear1"
+            android:layout_toRightOf="@id/ic_date"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:hint="@string/hintBirthDate" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/dataEscolhidaProTV_11"
+            android:layout_below="@id/dataEscolhidaProTV_11"
+            android:layout_marginBottom="@dimen/margin_betweenElements_small"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <RadioButton
+                android:id="@+id/masculinoProRB_11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/genderMale"
+                />
+
+            <RadioButton
+                android:id="@+id/femininoProRB_11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/genderFemale" />
+        </RadioGroup>
+
+        <ImageView
+            android:id="@+id/ic_phoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/radioGroup"
+            android:contentDescription="@string/description_icCellPhoneNumber"
+            android:src="@drawable/ic_form_phone" />
+
+        <TextView
+            android:id="@+id/prefixStartProTV_11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/radioGroup"
+            android:layout_below="@id/radioGroup"
+            android:text="@string/hintCellPhonePrefixStart"
+            android:textSize="@dimen/textSize_big"/>
+        <EditText
+            android:id="@+id/prefixProET_11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/radioGroup"
+            android:layout_toRightOf="@id/prefixStartProTV_11"
+            android:hint="@string/hintCellPhonePrefixNumber"
+            android:inputType="phone"
+            android:maxLength="@integer/textMaxSize_cellphonePrefix" />
+        <TextView
+            android:id="@+id/prefixEndProTV_11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/radioGroup"
+            android:layout_toRightOf="@id/prefixProET_11"
+            android:text="@string/hintCellPhonePrefixEnd"
+            android:textSize="@dimen/textSize_big"/>
+        <EditText
+            android:id="@+id/celularProET_11"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/prefixEndProTV_11"
+            android:layout_below="@id/radioGroup"
+            android:layout_marginBottom="@dimen/margin_betweenElements_small"
+            android:hint="@string/hintCellPhoneNumber"
+            android:inputType="phone"
+            android:maxLength="@integer/textMaxSize_cellphone" />
+
+        <ImageView
+            android:id="@+id/ic_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/celularProET_11"
+            android:contentDescription="@string/description_icEmail"
+            android:src="@drawable/ic_form_email" />
+
+        <EditText
+            android:id="@+id/emailProET_11"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/prefixStartProTV_11"
+            android:layout_below="@id/celularProET_11"
+            android:layout_marginBottom="@dimen/margin_betweenElements_medium"
+            android:hint="@string/hintEmail"
+            android:inputType="textWebEmailAddress"
+            android:maxLength="@integer/textMaxSize_email" />
+
+
+        <ImageView
+            android:id="@+id/ic_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/emailProET_11"
+            android:contentDescription="@string/description_icLocation"
+            android:src="@drawable/ic_form_location" />
+
+        <EditText
+            android:id="@+id/CEPProET_11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/emailProET_11"
+            android:layout_below="@id/emailProET_11"
+            android:hint="@string/hintCEP"
+            android:inputType="number"
+            android:maxLength="@integer/textMaxSize_CEP"/>
+
+        <EditText
+            android:id="@+id/AddressProET_11"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/CEPProET_11"
+            android:layout_below="@id/CEPProET_11"
+            android:hint="@string/hintAddress"
+            android:inputType="text"
+            android:maxLength="@integer/textMaxSize_Address" />
+
+        <EditText
+            android:id="@+id/numeroProET_11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/AddressProET_11"
+            android:layout_below="@+id/AddressProET_11"
+            android:hint="@string/hintAddressNumber"
+            android:inputType="number"
+            android:maxLength="@integer/textMaxSize_AddressNumber" />
+
+        <EditText
+            android:id="@+id/complementoProET_11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/AddressProET_11"
+            android:layout_toRightOf="@id/numeroProET_11"
+            android:hint="@string/hintAddressComplement"
+            android:inputType="text"
+            android:maxLength="@integer/textMaxSize_AddressComplement" />
+
+        <EditText
+            android:id="@+id/bairroProET_11"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/AddressProET_11"
+            android:layout_toRightOf="@id/complementoProET_11"
+            android:hint="@string/hintAddressDistrict"
+            android:inputType="text"
+            android:maxLength="@integer/textMaxSize_AddresDistrict" />
+
+        <Spinner
+            android:id="@+id/estadoProSP_11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="@dimen/minWidthUF"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/numeroProET_11" />
+
+        <EditText
+            android:id="@+id/cidadeProSP_11"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/numeroProET_11"
+            android:layout_below="@id/numeroProET_11"
+            android:layout_toLeftOf="@id/estadoProSP_11"
+            android:hint="@string/hintAddressCity"
+            android:inputType="text"
+            android:maxLength="@integer/textMaxSize_AddreCity" />
+
+
+    </RelativeLayout>
+</ScrollView>
